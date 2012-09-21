@@ -2,15 +2,13 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>VSPLogin</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>/axis2-web/index.jsp</welcome-file>
+    <welcome-file>LoginSuccess.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
+  <servlet-mapping>  
+        <servlet-name>default</servlet-name>  
+        <url-pattern>/j_security_check</url-pattern>  
+    </servlet-mapping>  
+  <!-- <servlet>
     <display-name>Apache-Axis Servlet</display-name>
     <servlet-name>AxisServlet</servlet-name>
     <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
@@ -46,5 +44,39 @@
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>-->
+  
+  <session-config>
+      <session-timeout>300</session-timeout>
+  </session-config> 
+  
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>VSP System</web-resource-name>
+    <url-pattern>/*</url-pattern>
+    <http-method>GET</http-method>
+    <http-method>POST</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>trader</role-name>
+  </auth-constraint>
+</security-constraint>
+
+
+<login-config>
+  <auth-method>FORM</auth-method>
+  <realm-name>VSP System</realm-name>
+  <form-login-config>
+    <form-login-page>/LoginPage.jsp</form-login-page>
+    <form-error-page>/LoginFailed.jsp</form-error-page>
+  </form-login-config>
+</login-config>
+
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
+	<security-role>
+		<role-name>trader</role-name>
+	</security-role>
+  
 </web-app>
