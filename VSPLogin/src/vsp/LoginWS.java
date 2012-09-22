@@ -5,8 +5,7 @@ public class LoginWS
 {
 	public static LoginBean login(LoginBean bean)
 	{
-		String username = bean.getUsername();
-		String password = bean.getPassword();
+		//String username = bean.getUserName();
 		
 		
 		//Make Web Service Call
