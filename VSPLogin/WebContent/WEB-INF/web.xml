@@ -8,7 +8,7 @@
         <servlet-name>default</servlet-name>  
         <url-pattern>/j_security_check</url-pattern>  
     </servlet-mapping>  
-  <!-- <servlet>
+  <servlet>
     <display-name>Apache-Axis Servlet</display-name>
     <servlet-name>AxisServlet</servlet-name>
     <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
@@ -35,7 +35,7 @@
     <servlet-name>AxisAdminServlet</servlet-name>
     <url-pattern>/axis2-admin/*</url-pattern>
   </servlet-mapping>
-  <servlet>
+  <!-- <servlet>
     <description></description>
     <display-name>LoginServlet</display-name>
     <servlet-name>LoginServlet</servlet-name>
