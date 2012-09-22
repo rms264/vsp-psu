@@ -32,8 +32,8 @@
 	}
 	catch(Exception ex)
 	{
-		out.println("<tr><td>Email Address: &nbsp;&nbsp;</td><td>fake@fake.com</td></tr>");
-		out.println("<tr><td>Sign-up Date: </td><td>2012-09-20</td></tr>");
+		out.println("<tr><td>Email Address: &nbsp;&nbsp;</td><td>[Unable to connect]</td></tr>");
+		out.println("<tr><td>Sign-up Date: </td><td>[Unable to connect]</td></tr>");
 	}
 %>
   </table>
