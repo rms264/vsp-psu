@@ -5,5 +5,5 @@
    		connectionURL="jdbc:mysql://localhost:3306/vsp"
 		connectionName="tomcat" connectionPassword="tomcat" 
        		userTable="users" userNameCol="user_name" userCredCol="user_pass"
-   		userRoleTable="user_roles" roleNameCol="role_name" digest="sha-256" debug="99" />
+   		userRoleTable="user_roles" roleNameCol="role_name" digest="sha-256" />
 </Context>
