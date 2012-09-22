@@ -60,6 +60,22 @@
             public void receiveErrorgetAccountInfo(java.lang.Exception e) {
             }
                 
+           /**
+            * auto generated Axis2 call back method for createAccount method
+            * override this method for handling normal response from createAccount operation
+            */
+           public void receiveResultcreateAccount(
+                    vsp.VspWebServiceImplStub.CreateAccountResponse result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from createAccount operation
+           */
+            public void receiveErrorcreateAccount(java.lang.Exception e) {
+            }
+                
 
 
     }
