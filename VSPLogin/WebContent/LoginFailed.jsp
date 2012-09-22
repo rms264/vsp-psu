@@ -5,5 +5,15 @@
   <head>
     <title>Invalid Login </title>
   </head>
-  <body>Authentication Failed!!!!!?</body>
+  <body><h3>Authentication Failed</h3>
+  
+<form name="actionForm" action="j_security_check" method ="POST">
+<table>
+<tr><td>Enter your User Name: </td><td><input type="text" name="j_username"/></td></tr>
+<tr><td>Enter your Password: </td><td><input type="password" name="j_password"/></td></tr>
+<tr><td colspan="2" align="center"><input type="submit" value="submit"> </td></tr>
+</table>
+</form>
+  
+  </body>
 </html>
