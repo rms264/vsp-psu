@@ -20,7 +20,7 @@
 <%
 	try
 	{
-		VspWebServiceImplStub stub = new VspWebServiceImplStub();
+		VspWebServiceImplStub stub = new VspWebServiceImplStub("http://localhost:8080/VSPLogin/services/VspWebServiceImpl.VspWebServiceImplHttpSoap11Endpoint/"); 
 		GetAccountInfo getAccountInfo0 = new GetAccountInfo();
 		getAccountInfo0.setUserName(request.getRemoteUser());
 		GetAccountInfoResponse resp = stub.getAccountInfo(getAccountInfo0);
