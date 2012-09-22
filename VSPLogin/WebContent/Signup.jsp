@@ -27,15 +27,11 @@
     {
     	try
     	{
-    		VspWebServiceImplStub stub = new VspWebServiceImplStub("http://localhost:8080/VSPLogin/services/VspWebServiceImpl.VspWebServiceImplHttpSoap11Endpoint/"); 
-    		CreateAccount createAccountInfo = new CreateAccount();
-    		createAccountInfo.setEmail(request.getParameter("email"));
-    		createAccountInfo.setUserName(request.getParameter("username"));
-    		createAccountInfo.setPassword1(request.getParameter("password1"));
-    		createAccountInfo.setPassword2(request.getParameter("password2"));		
-   		
-    		CreateAccountResponse resp = stub.createAccount(createAccountInfo);
-    		String result = resp.get_return();
+    		VspWebServiceImpl vsp = new VspWebServiceImpl(); 
+    		String result = vsp.createAccount(request.getParameter("username"), 
+    				request.getParameter("password1"), 
+    				request.getParameter("password2"), 
+    				request.getParameter("email"));
     		if (!result.isEmpty())
     		{ // error
     			out.println(result);

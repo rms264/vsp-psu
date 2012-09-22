@@ -4,8 +4,7 @@
 <%@ page session="true"%>
 
 <%@ page import="vsp.*"%>
-<%@ page import="vsp.VspWebServiceImplStub.*" %>
-<%@ page import="org.apache.axis2.*" %>
+<%@ page import="java.text.*" %>
 
 <html>
   <head>
@@ -20,15 +19,13 @@
 <%
 	try
 	{
-		VspWebServiceImplStub stub = new VspWebServiceImplStub("http://localhost:8080/VSPLogin/services/VspWebServiceImpl.VspWebServiceImplHttpSoap11Endpoint/"); 
-		GetAccountInfo getAccountInfo0 = new GetAccountInfo();
-		getAccountInfo0.setUserName(request.getRemoteUser());
-		GetAccountInfoResponse resp = stub.getAccountInfo(getAccountInfo0);
-		vsp.VspWebServiceImplStub.AccountData data = resp.get_return();
+		String userName = request.getRemoteUser();
+		VspWebServiceImpl vsp = new VspWebServiceImpl();
+		AccountData data = vsp.getAccountInfo(userName);
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 		
 		out.println("<tr><td>Email Address: &nbsp;&nbsp;</td><td>" + data.getEmail() + "</td></tr>");
-		out.println("<tr><td>Sign-up Date: </td><td>" + data.getSignup() + "</td></tr>");
-		
+		out.println("<tr><td>Sign-up Date: </td><td>" + sd.format(data.getSignup()) + "</td></tr>");
 	}
 	catch(Exception ex)
 	{
