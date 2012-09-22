@@ -2,49 +2,12 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>VSPLogin</display-name>
   <welcome-file-list>
-    <welcome-file>LoginSuccess.jsp</welcome-file>
+  <welcome-file>Portfolio.jsp</welcome-file>
   </welcome-file-list>
-  <servlet-mapping>  
+  <!-- <servlet-mapping>  
         <servlet-name>default</servlet-name>  
         <url-pattern>/j_security_check</url-pattern>  
-    </servlet-mapping>  
-  <servlet>
-    <display-name>Apache-Axis Servlet</display-name>
-    <servlet-name>AxisServlet</servlet-name>
-    <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AxisServlet</servlet-name>
-    <url-pattern>/servlet/AxisServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>AxisServlet</servlet-name>
-    <url-pattern>*.jws</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>AxisServlet</servlet-name>
-    <url-pattern>/services/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <display-name>Apache-Axis Admin Servlet Web Admin</display-name>
-    <servlet-name>AxisAdminServlet</servlet-name>
-    <servlet-class>org.apache.axis2.transport.http.AxisAdminServlet</servlet-class>
-    <load-on-startup>100</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AxisAdminServlet</servlet-name>
-    <url-pattern>/axis2-admin/*</url-pattern>
-  </servlet-mapping>
-  <!-- <servlet>
-    <description></description>
-    <display-name>LoginServlet</display-name>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>vsp.LoginServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
-  </servlet-mapping>-->
+    </servlet-mapping>  -->
   
   <session-config>
       <session-timeout>5</session-timeout>
@@ -62,6 +25,14 @@
   </auth-constraint>
 </security-constraint>
 
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>VSP System</web-resource-name>
+    <url-pattern>/Signup.jsp</url-pattern>
+    <http-method>GET</http-method>
+    <http-method>POST</http-method>
+  </web-resource-collection>
+</security-constraint>
 
 <login-config>
   <auth-method>FORM</auth-method>
