@@ -20,12 +20,14 @@
   <head>
     <title>Login Success</title>
   </head>
-  <body><h2>User Logged In Successfully</h2>
+  <body>
   
-  <p><b>User Info:</b>
+    <h2>Virtual Stock Portfolio (VSP) System</h2>
+
   <table>
-  <tr><td><b>Email Address:</b></td><td><%  %></td></tr>
-  <tr><td><b>Sign-up Date:</b></td><td><%  %></td></tr>
+  <tr><td align=center colspan=2><b>User Info:</b></td></tr>
+  <tr><td>Email Address: &nbsp;&nbsp;</td><td>fake@fake.com</td></tr>
+  <tr><td>Sign-up Date: </td><td>2012-09-20</td></tr>
   </table>
   
   <p><a href="Logout.jsp">Logout</a></body>

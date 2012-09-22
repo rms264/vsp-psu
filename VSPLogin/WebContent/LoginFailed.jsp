@@ -4,14 +4,21 @@
 <html>
   <head>
     <title>Invalid Login </title>
+    <style type="text/css">
+	  input {
+	      font-family: sans-serif;                
+	  }
+	</style>
   </head>
-  <body><h3>Authentication Failed</h3>
+  <body>
+  <h2>Virtual Stock Portfolio (VSP) System</h2>
   
 <form name="actionForm" action="j_security_check" method ="POST">
 <table>
-<tr><td>Enter your User Name: </td><td><input type="text" name="j_username"/></td></tr>
-<tr><td>Enter your Password: </td><td><input type="password" name="j_password"/></td></tr>
-<tr><td colspan="2" align="center"><input type="submit" value="submit"> </td></tr>
+<tr><td align=center colspan=2><b><i><font color="red">Authentication Failed<br>&nbsp;</font></i></b></td></tr>
+<tr><td>Enter your User Name: &nbsp;</td><td><input type="text" name="j_username" /></td></tr>
+<tr><td>Enter your Password: </td><td><input type="password" name="j_password" /></td></tr>
+<tr><td>&nbsp;</td><td><input type="submit" value="Login"></td></tr>
 </table>
 </form>
   
