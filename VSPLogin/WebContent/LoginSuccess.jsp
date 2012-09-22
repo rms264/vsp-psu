@@ -18,7 +18,7 @@
 	try
 	{
 		String userName = request.getRemoteUser();
-		VspWebServiceImpl vsp = new VspWebServiceImpl();
+		VspServiceProvider vsp = new VspServiceProvider();
 		// throws on error
 		AccountData data = vsp.getAccountInfo(userName);
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");

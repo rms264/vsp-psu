@@ -7,7 +7,7 @@ import java.sql.*;
 import javax.sql.*;
 import javax.jws.*;
 
-public class VspWebServiceImpl
+public class VspServiceProvider
 {
 	public AccountData getAccountInfo(String userName)
 	{

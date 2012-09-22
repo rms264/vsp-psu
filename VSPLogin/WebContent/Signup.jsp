@@ -24,7 +24,7 @@
     {
     	try
     	{
-    		VspWebServiceImpl vsp = new VspWebServiceImpl();
+    		VspServiceProvider vsp = new VspServiceProvider();
     		// throws on error
     		vsp.createAccount(request.getParameter("username"), request.getParameter("password1"), 
     				request.getParameter("password2"), request.getParameter("email"));
