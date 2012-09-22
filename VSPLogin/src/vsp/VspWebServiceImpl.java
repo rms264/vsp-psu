@@ -87,6 +87,15 @@ public class VspWebServiceImpl
 								{
 									status = "Error:  Unable to create account.";
 								}
+								
+								pStmt = con.prepareStatement("insert into user_roles values(?,?)");
+								pStmt.setString(1, userName);  
+							    pStmt.setString(2, "trader");
+							    result = pStmt.executeUpdate(); 						    
+								if (result != 1)
+								{
+									status = "Error:  Unable to create account permissions.";
+								}
 							}
 							catch(Exception e)
 							{

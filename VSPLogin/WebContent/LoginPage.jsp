@@ -15,6 +15,18 @@
 
 <h2>Virtual Stock Portfolio (VSP) System</h2>
 
+<%
+	Object signupObj = session.getAttribute("signup");
+	if (signupObj != null)
+	{
+		String signup = signupObj.toString();
+		if (!signup.isEmpty())
+		{
+			out.println("<p>Account created successfully!  Please login.");
+		}
+	}
+%>
+
 <table>
 <tr><td>Enter your User Name: &nbsp;</td><td><input type="text" name="j_username" /></td></tr>
 <tr><td>Enter your Password: </td><td><input type="password" name="j_password" /></td></tr>

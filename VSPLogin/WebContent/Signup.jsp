@@ -36,6 +36,7 @@
     		else
     		{ // success -> user needs to login now
     			response.sendRedirect("Portfolio.jsp");
+    			session.setAttribute("signup","true");
     			showForm = false;
     			return;
     		}	
