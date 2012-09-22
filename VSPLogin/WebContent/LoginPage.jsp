@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-<title>Login Page</title>
+<title>VSP - Login Page</title>
 <style type="text/css">
   input {
       font-family: sans-serif;                

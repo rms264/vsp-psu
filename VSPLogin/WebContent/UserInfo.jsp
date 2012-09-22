@@ -8,7 +8,7 @@
 
 <html>
   <head>
-    <title>Login Success</title>
+    <title>VSP - User Information</title>
   </head>
   <body>
   
@@ -40,5 +40,10 @@
 	}
 %>
     
-  <p><a href="Logout.jsp">Logout</a></body>
+  <ul>
+<li><a href="Portfolio.jsp">Portfolio</a></li>
+<li><a href="Logout.jsp">Logout</a></li>
+</ul>
+  
+  </body>
 </html>

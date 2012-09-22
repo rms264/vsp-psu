@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Signup</title>
+<title>VSP - Signup for an Account</title>
 </head>
 <body>
 

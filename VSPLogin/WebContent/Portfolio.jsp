@@ -10,6 +10,9 @@
 <body>
  <h2>Virtual Stock Portfolio (VSP) System</h2>
  
- <p><a href="Logout.jsp">Logout</a>
+<ul>
+<li><a href="UserInfo.jsp">User Info</a></li>
+<li><a href="Logout.jsp">Logout</a></li>
+</ul>
 </body>
 </html>
