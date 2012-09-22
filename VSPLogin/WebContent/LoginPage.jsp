@@ -19,6 +19,7 @@
 	Object signupObj = session.getAttribute("signup");
 	if (signupObj != null)
 	{
+		session.removeAttribute("signup");
 		String signup = signupObj.toString();
 		if (!signup.isEmpty())
 		{
