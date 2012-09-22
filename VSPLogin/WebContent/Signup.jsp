@@ -24,26 +24,19 @@
     {
     	try
     	{
-    		VspWebServiceImpl vsp = new VspWebServiceImpl(); 
-    		String result = vsp.createAccount(request.getParameter("username"), 
-    				request.getParameter("password1"), 
-    				request.getParameter("password2"), 
-    				request.getParameter("email"));
-    		if (!result.isEmpty())
-    		{ // error
-    			out.println(result);
-    		}
-    		else
-    		{ // success -> user needs to login now
-    			response.sendRedirect("Portfolio.jsp");
-    			session.setAttribute("signup","true");
-    			showForm = false;
-    			return;
-    		}	
+    		VspWebServiceImpl vsp = new VspWebServiceImpl();
+    		// throws on error
+    		vsp.createAccount(request.getParameter("username"), request.getParameter("password1"), 
+    				request.getParameter("password2"), request.getParameter("email"));
+
+    		session.setAttribute("signup","true");
+    		response.sendRedirect("Portfolio.jsp");
+   			showForm = false;
+   			return;
     	}
     	catch(Exception ex)
     	{
-    		out.println("ERROR");
+    		out.println("<p><font color=red>" + ex.toString() + "</font>");
     	}
     }
 
