@@ -60,7 +60,7 @@ CREATE TABLE `user_roles` (
 
 LOCK TABLES `user_roles` WRITE;
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
-INSERT INTO `user_roles` VALUES ('test','trader'),('test1','trader');
+INSERT INTO `user_roles` VALUES ('admin','admin'),('asdf','trader'),('fda','trader'),('qwer','trader'),('test','trader'),('test1','trader');
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,9 +74,12 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_name` varchar(15) NOT NULL,
   `user_pass` varchar(65) NOT NULL,
-  `email` varchar(64) DEFAULT NULL,
-  `signup` date DEFAULT NULL,
-  PRIMARY KEY (`user_name`)
+  `email` varchar(64) NOT NULL,
+  `signup` date NOT NULL,
+  `securityQuestion` int(11) NOT NULL,
+  `securityAnswer` varchar(64) NOT NULL,
+  PRIMARY KEY (`user_name`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,7 +89,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20'),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20');
+INSERT INTO `users` VALUES ('admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','admin@admin.com','2012-09-20',0,'c7941b6920e2ed43e6bb1a2b450a801a9e3e4e7ab3c018b128b104c9ce24df6a'),('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548'),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,4 +106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-09-21 23:54:09
+-- Dump completed on 2012-09-22 22:25:44
