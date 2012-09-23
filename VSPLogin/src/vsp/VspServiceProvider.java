@@ -28,7 +28,7 @@ public class VspServiceProvider
 		return DriverManager.getConnection (DB_URL, "tomcat", "tomcat");
 	}
 	
-	public void createAccount(String userName, String password1, String password2, String email, int question, String answer) throws Exception
+	public void createAccount(String userName, String password1, String password2, String email, String question, String answer) throws Exception
 	{
 		try
 		{
@@ -39,7 +39,7 @@ public class VspServiceProvider
 				validateUserName(userName, connection);
 				validateEmail(email, connection);
 				validatePassword(userName, password1, password2);
-				validateSecurityQuestion(question);
+				int questionNum = validateSecurityQuestion(question);
 				validateSecurityAnswer(answer);
 	
 				// hash password & security answer
@@ -59,7 +59,7 @@ public class VspServiceProvider
 				    pStmt.setString(2, passwordHash);   
 				    pStmt.setString(3, email);
 				    pStmt.setDate(4, new java.sql.Date(today.getTime()));
-				    pStmt.setInt(5, question);
+				    pStmt.setInt(5, questionNum);
 				    pStmt.setString(6, answerHash);
 				    result = pStmt.executeUpdate();
 			    }
@@ -307,13 +307,25 @@ public class VspServiceProvider
 		}
 	}
 	
-	private void validateSecurityQuestion(int questionNum) throws Exception
+	private int validateSecurityQuestion(String questionNum) throws Exception
 	{
-		String securityQuestionText = SecurityQuestions.getQuestionText(questionNum);
+		int question = -1;
+		try
+		{
+			question = Integer.parseInt(questionNum);
+		}
+		catch (NumberFormatException nfe)
+		{
+			throw (new Exception("Error:  Please select a security question."));
+		}
+		
+		String securityQuestionText = SecurityQuestions.getQuestionText(question);
 		if (securityQuestionText.isEmpty())
 		{
 			throw (new Exception("Error:  Please select a security question."));
 		}
+		
+		return question;
 	}
 	
 	private void validateSecurityAnswer(String answer) throws Exception

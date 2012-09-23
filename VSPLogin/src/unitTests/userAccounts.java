@@ -14,7 +14,7 @@ public class userAccounts
 	private final String password = "User1234";
 	private final String email = "unitTestUser@unitTestUser.com";
 	private final String secondaryEmail = "unitTestUser2@unitTestUser2.com";
-	private final int securityQuestion = 0; // favorite color
+	private final String securityQuestion = "0"; // favorite color
 	private final String securityAnswer = "blue";
 
 	@Test
@@ -199,7 +199,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, -1, securityAnswer);
+			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, "-1", securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -214,7 +214,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, 0, "");
+			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, securityQuestion, "");
 			Assert.fail();
 		}
 		catch (Exception e)
