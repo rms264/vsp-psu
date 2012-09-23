@@ -7,9 +7,9 @@ public final class AccountData
 	private String userName;
 	private String email;
 	private Date signup;
-	private int securityQuestion;
+	private String securityQuestion;
 	
-	public AccountData(String userName, String email, Date signup, int securityQuestion)
+	public AccountData(String userName, String email, Date signup, String securityQuestion)
 	{
 		this.userName = userName;
 		this.email = email;
@@ -27,7 +27,7 @@ public final class AccountData
 		return this.signup;
 	}
 	
-	public int getSecurityQuestion()
+	public String getSecurityQuestion()
 	{
 		return this.securityQuestion;
 	}

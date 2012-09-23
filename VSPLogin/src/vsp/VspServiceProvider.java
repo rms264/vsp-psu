@@ -19,7 +19,7 @@ public class VspServiceProvider
 	
 	public VspServiceProvider()
 	{
-		
+		// no implementation required (for now)
 	}
 	
 	private Connection CreateConnection() throws SQLException, ClassNotFoundException
@@ -185,7 +185,7 @@ public class VspServiceProvider
 			Date signup = rs.getDate("signup");
 			int securityQuestion = rs.getInt("securityQuestion");
 			
-			data = new AccountData(userName, email, signup, securityQuestion);
+			data = new AccountData(userName, email, signup, Integer.toString(securityQuestion));
 
 			con.close();
 		} //end try
@@ -198,7 +198,7 @@ public class VspServiceProvider
 		return data;
 	}
 	
-	private String hashString(String password)
+	private static String hashString(String password)
 	{
 		StringBuffer sbHash = new StringBuffer();
 		try
@@ -218,7 +218,7 @@ public class VspServiceProvider
 	    return sbHash.toString();
 	}
 	
-	private void validateEmail(String email, Connection connection) throws Exception
+	private static void validateEmail(String email, Connection connection) throws Exception
 	{
 		// empty email addresses are not valid
 		if (email == null || email.isEmpty())
@@ -243,7 +243,7 @@ public class VspServiceProvider
 		}
 	}
 	
-	private void validateUserName(String userName, Connection connection) throws Exception
+	private static void validateUserName(String userName, Connection connection) throws Exception
 	{
 		// empty user names are not valid
 		if (userName == null || userName.isEmpty())
@@ -263,7 +263,7 @@ public class VspServiceProvider
 		// TODO: username validation
 	}
 	
-	private void validatePassword(String userName, String password1, String password2)  throws Exception
+	private static void validatePassword(String userName, String password1, String password2)  throws Exception
 	{
 		if (password1.isEmpty())
 		{
@@ -307,7 +307,7 @@ public class VspServiceProvider
 		}
 	}
 	
-	private int validateSecurityQuestion(String questionNum) throws Exception
+	private static int validateSecurityQuestion(String questionNum) throws Exception
 	{
 		int question = -1;
 		try
@@ -328,7 +328,7 @@ public class VspServiceProvider
 		return question;
 	}
 	
-	private void validateSecurityAnswer(String answer) throws Exception
+	private static void validateSecurityAnswer(String answer) throws Exception
 	{
 		if (answer == null || answer.isEmpty())
 		{
