@@ -4,3 +4,5 @@ You will need to create/modify a MySQL user to match what the Tomcat configurati
 UserName:		tomcat
 Password:		tomcat
 Permissions:	SELECT, DELETE, INSERT (this is the minimum set of permissions... more permissions are OK).
+
+Most likely, you will need to download and install the MySQL Connector/J.  Install the JAR file in the /lib/ext folder of your JRE installation.
