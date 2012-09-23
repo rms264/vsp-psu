@@ -20,7 +20,9 @@
     		&& !request.getParameter("email").isEmpty()
     		&& !request.getParameter("username").isEmpty()
     		&& !request.getParameter("password1").isEmpty()
-    		&& !request.getParameter("password2").isEmpty())
+    		&& !request.getParameter("password2").isEmpty()
+    		&& !request.getParameter("question").isEmpty()
+    		&& !request.getParameter("answer").isEmpty())
     {
     	try
     	{
@@ -45,8 +47,19 @@
     	out.println("<form name='actionForm' action='" + request.getRequestURI() + "' method='POST'>");
     	out.println("<input type='hidden' name='process' value='true' />");
     	out.println("<table>");
+    	out.println("<tr><td>Enter your User Name: </td><td><input type='text' name='username' /></td></tr>");
     	out.println("<tr><td>Enter your Email: </td><td><input type='text' name='email' /></td></tr>");
-    	out.println("<tr><td>Enter your User Name: &nbsp;</td><td><input type='text' name='username' /></td></tr>");
+    	out.println("<tr><td>Select your Security Question: &nbsp;</td><td></td></tr>");
+    	out.println("<tr><td>Enter your Security Answer: </td><td><select name='question'>");
+    	
+    	String[] securityQuestions = SecurityQuestions.getAllQuestions();
+    	out.println("<option value='-1' selected>(Please select one:)</option>");
+    	for (int i = 0; i < securityQuestions.length; ++i)
+    	{
+    		out.println("<option value='" + securityQuestions[i] + "'");
+    	}
+    	
+    	out.println("</select></td></tr>");
     	out.println("<tr><td>Enter your Password: </td><td><input type='password' name='password1' /></td></tr>");
     	out.println("<tr><td>Confirm your Password: </td><td><input type='password' name='password2' /></td></tr>");
     	out.println("<tr><td>&nbsp;</td><td><input type='submit' value='Login'></td></tr>");
