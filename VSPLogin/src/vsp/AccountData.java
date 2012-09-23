@@ -1,21 +1,20 @@
 package vsp;
 
-import java.io.Serializable;
 import java.util.*;
 
-public final class AccountData implements Serializable
+public final class AccountData
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7335917300787737210L;
+	private String userName;
 	private String email;
 	private Date signup;
+	private int securityQuestion;
 	
-	public AccountData(String email, Date signup)
+	public AccountData(String userName, String email, Date signup, int securityQuestion)
 	{
+		this.userName = userName;
 		this.email = email;
 		this.signup = signup;
+		this.securityQuestion = securityQuestion;
 	}
 	
 	public String getEmail()
@@ -26,5 +25,15 @@ public final class AccountData implements Serializable
 	public Date getSignup()
 	{
 		return this.signup;
+	}
+	
+	public int getSecurityQuestion()
+	{
+		return this.securityQuestion;
+	}
+	
+	public String getUserName()
+	{
+		return this.userName;
 	}
 }

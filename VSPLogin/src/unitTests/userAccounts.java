@@ -1,102 +1,239 @@
 package unitTests;
 
 import org.junit.*;
+import org.junit.runner.*;
 
+import vsp.*;
+
+@RunWith(OrderedRunner.class)
 public class userAccounts
 {
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception
-	{
-		
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	{
-		
-	}
+	private final VspServiceProvider vsp = new VspServiceProvider();
+	private final String userName = "unitTestUser";
+	private final String secondaryUserName = "unitTestUser2";
+	private final String password = "User1234";
+	private final String email = "unitTestUser@unitTestUser.com";
+	private final String secondaryEmail = "unitTestUser2@unitTestUser2.com";
+	private final int securityQuestion = 0; // favorite color
+	private final String securityAnswer = "blue";
 
 	@Test
-	public void authenticationTest()
-	{
-		Assert.fail();
-	}
-	
-	@Test
+	@Order(order=1)
 	public void createAccount()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(userName, password, password, email, securityQuestion, securityAnswer);
+		}
+		catch (Exception e)
+		{
+			Assert.fail();
+		}
 	}
 	
 	@Test
+	@Order(order=2)
 	public void denyNewAccountWithDuplicateUserName()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(userName, password, password, email, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("in use"));
+		}
 	}
 	
 	@Test
+	@Order(order=3)
 	public void denyNewAccountWithBlankPassword()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, "", "", secondaryEmail, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("Blank"));
+		}
 	}
 	
 	@Test
+	@Order(order=4)
 	public void denyNewAccountWithInvalidEmail()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, password, password, password, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("invalid"));
+		}
 	}
 	
 	@Test
+	@Order(order=5)
 	public void denyNewAccountWithDuplicateEmail()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, password, password, email, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("in use"));
+		}
 	}
 	
 	@Test
+	@Order(order=6)
 	public void denyNewAccountWithPasswordLessThan8Characters()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, "asdf", "asdf", secondaryEmail, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("8"));
+		}
 	}
 	
 	@Test
+	@Order(order=7)
 	public void denyNewAccountWithPasswordMoreThan64Characters()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, 
+					"asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf", 
+					"asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf", 
+					secondaryEmail, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("64"));
+		}
 	}
 	
 	@Test
+	@Order(order=8)
 	public void denyNewAccountWithPasswordMissingUppercaseCharacter()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, 
+					"asdfasd1", 
+					"asdfasd1", 
+					secondaryEmail, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("uppercase"));
+		}
 	}
 	
 	@Test
+	@Order(order=9)
 	public void denyNewAccountWithPasswordMissingLowercaseCharacter()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, 
+					"ASDFASD1", 
+					"ASDFASD1", 
+					secondaryEmail, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("lowercase"));
+		}
 	}
 	
 	@Test
+	@Order(order=10)
 	public void denyNewAccountWithPasswordMissingNumericCharacter()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, 
+					"ASDFASDF", 
+					"ASDFASDF", 
+					secondaryEmail, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("numeric digit"));
+		}
 	}
 	
 	@Test
+	@Order(order=11)
 	public void denyNewAccountWithPasswordMatchingUserName()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, secondaryUserName, secondaryUserName, secondaryEmail, securityQuestion, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("user name"));
+		}
 	}
 	
 	@Test
+	@Order(order=12)
 	public void denyNewAccountWithoutSecurityQuestion()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, -1, securityAnswer);
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("security question"));
+		}
 	}
 	
 	@Test
+	@Order(order=13)
 	public void denyNewAccountWithoutSecurityAnswer()
 	{
-		Assert.fail();
+		try
+		{
+			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, 0, "");
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("answer"));
+		}
+	}
+	
+	@Test
+	@Order(order=14)
+	public void deleteAccount()
+	{
+		try
+		{
+			vsp.deleteAccount(userName);
+		}
+		catch (Exception e)
+		{
+			Assert.fail();
+		}
 	}
 }
