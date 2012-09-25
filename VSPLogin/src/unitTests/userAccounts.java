@@ -5,6 +5,7 @@ import org.junit.runner.*;
 
 import vsp.*;
 
+// these are ordered because "create account" will always fail after the initial run unless "delete account" is also run
 @RunWith(OrderedRunner.class)
 public class userAccounts
 {
