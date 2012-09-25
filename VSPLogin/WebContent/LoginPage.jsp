@@ -32,7 +32,7 @@
 <tr><td>Enter your User Name: &nbsp;</td><td><input type="text" name="j_username" /></td></tr>
 <tr><td>Enter your Password: </td><td><input type="password" name="j_password" /></td></tr>
 <tr><td>&nbsp;</td><td><input type="submit" value="Login">&nbsp;&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td><a href="Signup.jsp">Create Account</a></td></tr>
+<tr><td><a href="Signup.jsp"><font size=2>Create Account</font></a></td><td>&nbsp;</td></tr>
 </table>
 </form>
 </body>
