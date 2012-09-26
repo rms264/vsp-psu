@@ -5,7 +5,8 @@ import org.junit.runner.*;
 
 import vsp.*;
 
-// these are ordered because "create account" will always fail after the initial run unless "delete account" is also run
+// These are ordered because "create account" will fail after the initial run unless "delete account" is run.
+// In addition, the checks for duplicate user names and email addresses also require the initial account. 
 @RunWith(OrderedRunner.class)
 public class userAccounts
 {
