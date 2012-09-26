@@ -1,12 +1,9 @@
 package vsp;
 
-import java.text.*;
 import java.util.Date;
 import java.util.regex.*;
 import java.security.*;
 import java.sql.*;
-import javax.sql.*;
-import javax.jws.*;
 
 public class VspServiceProvider
 {
@@ -85,7 +82,7 @@ public class VspServiceProvider
 				catch(Exception e)
 				{
 					e.printStackTrace();
-					throw (new Exception("Error:  Unable to create account."));
+					throw (new Exception("Error:  Unable to create account permissions."));
 				}
 			    
 				if (result != 1)
