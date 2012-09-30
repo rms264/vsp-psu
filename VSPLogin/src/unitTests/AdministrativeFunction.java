@@ -7,9 +7,11 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import vsp.VspServiceProvider;
 
+@RunWith(OrderedRunner.class)
 public class AdministrativeFunction
 {
 	private final VspServiceProvider vsp = new VspServiceProvider();

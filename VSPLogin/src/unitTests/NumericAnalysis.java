@@ -3,7 +3,9 @@ package unitTests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(OrderedRunner.class)
 public class NumericAnalysis {
 
 	@Test
