@@ -1,6 +1,8 @@
 package vsp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.*;
 import java.security.*;
 import java.sql.*;
@@ -193,6 +195,39 @@ public class VspServiceProvider
 		}
 		
 		return data;
+	}
+	
+	public List<String> getTraders() throws Exception
+	{
+		ArrayList<String> traders = new ArrayList<String>();
+		try
+		{
+			Connection connection = CreateConnection();
+			String query = "SELECT u.user_name from users u, user_roles r WHERE u.user_name = r.user_name AND r.role_name = 'trader'";
+			try
+			{
+				Statement stmt = connection.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+			    
+				while(rs.next())
+				{
+					traders.add(rs.getString("user_name"));
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				throw (new Exception("Error:  Unable to get trader list."));
+			}
+		    			
+			connection.close();
+		}
+		catch (Exception e)
+		{
+			throw (new Exception("Error:  Unable to get trader list."));
+		}
+		
+		return traders;
 	}
 	
 	private static String hashString(String password)
