@@ -13,6 +13,22 @@
 <h2>Virtual Stock Portfolio (VSP) System</h2>
 
 <%
+	String delete = request.getParameter("delete");
+	if (delete != null && !delete.isEmpty())
+	{
+		try
+		{
+			VspServiceProvider vsp = new VspServiceProvider();
+			// throws on error
+			vsp.deleteAccount(delete);
+			out.println("<p><i>User deleted.</i>");
+		}
+		catch (Exception ex)
+		{
+			out.println("<p><i>Unable to delete user.</i>");
+		}
+	}
+
 	try
 	{
 		VspServiceProvider vsp = new VspServiceProvider();
@@ -24,7 +40,7 @@
 			out.println("<tr><td align=center><b>Trader Accounts:</b></td></tr>");
 			for (int i = 0; i < traders.size(); ++i)
 			{
-				out.println("<tr><td align=center>" + traders.get(i) + "</td></tr>");
+				out.println("<tr><td align=center>" + traders.get(i) + "</td><td><font size=2><a href='Admin.jsp?delete=" + traders.get(i) + "'>Delete</a></font></td></tr>");
 			}
 			
 			out.println("</table>");
