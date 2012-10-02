@@ -6,12 +6,25 @@
 <head><title>VSP - Logout</title></head>
 <body>
 
+<%
+	Boolean admin = request.isUserInRole("admin");
+%>
+
 <h2>Virtual Stock Portfolio (VSP) System</h2>
 
 <p><i>User '<%=request.getRemoteUser()%>' has been logged out.</i>
 <% session.invalidate(); %>
 
 <br/><br/>
-<p><a href="Portfolio.jsp">Login</a>
+<%
+	if (admin)
+	{
+		out.println("<p><a href='admin/Admin.jsp'>Login</a>");	
+	}
+	else
+	{
+		out.println("<p><a href='Portfolio.jsp'>Login</a>");
+	}
+%>
 </body>
 </html>
