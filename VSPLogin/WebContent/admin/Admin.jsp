@@ -36,11 +36,11 @@
 		List<String> traders = vsp.getTraders();
 		if (traders.size() > 0)
 		{
-			out.println("<table>");
-			out.println("<tr><td align=center><b>Trader Accounts:</b></td></tr>");
+			out.println("<table border=1 cellpadding=4 cellspacing=0 width=500>");
+			out.println("<tr><td colspan=4 align=center><b>Trader Accounts:</b></td></tr>");
 			for (int i = 0; i < traders.size(); ++i)
 			{
-				out.println("<tr><td align=center>" + traders.get(i) + "</td><td><font size=2><a href='Admin.jsp?delete=" + traders.get(i) + "'>Delete</a></font></td></tr>");
+				out.println("<tr><td width=225>" + traders.get(i) + "</td><td><font size=2>Set Email</a></font></td><td><font size=2>Set Password</font></td><td colspan=2 align=right><font size=2>&nbsp;&nbsp;<a href='Admin.jsp?delete=" + traders.get(i) + "'>Delete</a></font></td></tr>");
 			}
 			
 			out.println("</table>");

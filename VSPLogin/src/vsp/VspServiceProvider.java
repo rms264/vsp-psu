@@ -203,7 +203,7 @@ public class VspServiceProvider
 		try
 		{
 			Connection connection = CreateConnection();
-			String query = "SELECT u.user_name from users u, user_roles r WHERE u.user_name = r.user_name AND r.role_name = 'trader'";
+			String query = "SELECT u.user_name from users u, user_roles r WHERE u.user_name = r.user_name AND r.role_name = 'trader' ORDER BY u.user_name";
 			try
 			{
 				Statement stmt = connection.createStatement();
