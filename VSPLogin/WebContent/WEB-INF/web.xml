@@ -76,4 +76,8 @@
 		<role-name>trader</role-name>
 	</security-role>
   
+  <listener>
+    <listener-class>vsp.dal.DatasourceListener</listener-class>
+  </listener>
+  
 </web-app>

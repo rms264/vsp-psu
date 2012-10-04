@@ -7,10 +7,15 @@ import java.util.regex.*;
 import java.security.*;
 import java.sql.*;
 
+import vsp.dal.DatasourceConnection;
+import vsp.dal.requests.CreateAccount;
+import vsp.exception.SqlRequestException;
+import vsp.exception.ValidationException;
+import vsp.utils.Validate;
+
+
 public class VspServiceProvider
 {
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/vsp";
-	private static final String DB_CLASS = "com.mysql.jdbc.Driver";
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String LOWER_PATTERN = "[a-z]";
 	private static final String UPPER_PATTERN = "[A-Z]";
@@ -21,98 +26,23 @@ public class VspServiceProvider
 		// no implementation required (for now)
 	}
 	
-	private Connection CreateConnection() throws SQLException, ClassNotFoundException
+	public void createAccount(String userName, String password1, 
+			String password2, String email, String question, String answer) 
+			throws ValidationException, SQLException, SqlRequestException 
 	{
-		Class.forName(DB_CLASS);
-		return DriverManager.getConnection (DB_URL, "tomcat", "tomcat");
-	}
-	
-	public void createAccount(String userName, String password1, String password2, String email, String question, String answer) throws Exception
-	{
-		try
-		{
-			Connection connection = CreateConnection();
-			try
-			{
-				// all of these throw
-				validateUserName(userName, connection);
-				validateEmail(email, connection);
-				validatePassword(userName, password1, password2);
-				int questionNum = validateSecurityQuestion(question);
-				validateSecurityAnswer(answer);
-	
-				// hash password & security answer
-				String passwordHash = hashString(password1);
-				String answerHash = hashString(answer);
-	
-			    // get today's date
-			    java.util.Date today = new java.util.Date();
-	
-			    // insert user into database
-			    int result = 0;
-			    try
-			    {
-			    	// insert into users table
-				    PreparedStatement pStmt = connection.prepareStatement("insert into users values(?,?,?,?,?,?)");  
-				    pStmt.setString(1, userName);  
-				    pStmt.setString(2, passwordHash);   
-				    pStmt.setString(3, email);
-				    pStmt.setDate(4, new java.sql.Date(today.getTime()));
-				    pStmt.setInt(5, questionNum);
-				    pStmt.setString(6, answerHash);
-				    result = pStmt.executeUpdate();
-			    }
-			    catch (Exception e)
-			    {
-					e.printStackTrace();
-					throw (new Exception("Error:  Unable to create account."));
-			    }
-			    
-				if (result != 1)
-				{
-					throw (new Exception("Error:  Unable to create account."));
-				}
-					
-				try
-				{
-					// insert user role into user_roles table
-					PreparedStatement pStmt = connection.prepareStatement("insert into user_roles values(?,?)");
-					pStmt.setString(1, userName);  
-				    pStmt.setString(2, "trader");
-				    result = pStmt.executeUpdate(); 						    
-				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
-					throw (new Exception("Error:  Unable to create account permissions."));
-				}
-			    
-				if (result != 1)
-				{
-					throw (new Exception("Error:  Unable to create account permissions."));
-				}
-			}
-			finally
-			{
-				connection.close();
-				connection = null;
-			}
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			throw (new Exception("Error:  Unable to create account."));
-		}
+		CreateAccount.submit(userName, email, password1, password2, question, 
+				answer);
+		
 	}
 	
 	public void deleteAccount(String userName) throws Exception
 	{
 		try
 		{
-			Connection connection = CreateConnection();
+			Connection connection = DatasourceConnection.getConnection();
 			try
 			{
-				validateUserName(userName, connection);
+				Validate.validateUserName(userName);
 				throw (new Exception("Error:  Account does not exist or is invalid."));
 			}
 			catch (Exception e)
@@ -172,11 +102,11 @@ public class VspServiceProvider
 		AccountData data = null;
 		
 		String query = "SELECT email, signup, securityQuestion FROM users WHERE user_name='" + userName + "'";
-
+		Connection connection = null;
 		try
 		{
-			Connection con = CreateConnection();
-			Statement stmt = con.createStatement();
+			connection = DatasourceConnection.getConnection();
+			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
 			rs.first();
@@ -186,12 +116,17 @@ public class VspServiceProvider
 			
 			data = new AccountData(userName, email, signup, Integer.toString(securityQuestion));
 
-			con.close();
 		} //end try
 		catch(Exception e)
 		{
 			e.printStackTrace();
 			throw (new Exception("Error:  Unable to get account information."));
+		}
+		finally{
+			if(connection != null){
+				connection.close();
+				connection = null;
+			}
 		}
 		
 		return data;
@@ -200,9 +135,11 @@ public class VspServiceProvider
 	public List<String> getTraders() throws Exception
 	{
 		ArrayList<String> traders = new ArrayList<String>();
+		Connection connection = null;
 		try
 		{
-			Connection connection = CreateConnection();
+			connection = DatasourceConnection.getConnection();
+
 			String query = "SELECT u.user_name from users u, user_roles r WHERE u.user_name = r.user_name AND r.role_name = 'trader' ORDER BY u.user_name";
 			try
 			{
@@ -220,17 +157,22 @@ public class VspServiceProvider
 				throw (new Exception("Error:  Unable to get trader list."));
 			}
 		    			
-			connection.close();
 		}
 		catch (Exception e)
 		{
 			throw (new Exception("Error:  Unable to get trader list."));
 		}
+		finally{
+			if(connection != null){
+				connection.close();
+				connection = null;
+			}
+		}
 		
 		return traders;
 	}
 	
-	private static String hashString(String password)
+	/*private static String hashString(String password)
 	{
 		StringBuffer sbHash = new StringBuffer();
 		try
@@ -366,5 +308,5 @@ public class VspServiceProvider
 		{
 			throw (new Exception("Error:  Please enter an answer for your security question."));
 		}
-	}
+	}*/
 }
