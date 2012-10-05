@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import vsp.dal.requests.UserInfo;
+import vsp.dal.requests.Stocks;
+import vsp.dal.requests.Users;
+import vsp.dataObject.Stock;
 import vsp.exception.FormatException;
 import vsp.exception.ValidationException;
 import vsp.utils.Enumeration.SecurityQuestion;
@@ -30,7 +32,7 @@ public class Validate {
 		ValidationException, SQLException
 	{
 		boolean found = true;
-		List<String> results = UserInfo.queryUserNames(userName);
+		List<String> results = Users.queryUserNames(userName);
 		if(results.isEmpty()){
 			found = false;
 		}
@@ -49,13 +51,28 @@ public class Validate {
 			throws SQLException, ValidationException
 	{
 		boolean found = true;
-		List<String>results = UserInfo.queryEmailAddresses(email);
+		List<String>results = Users.queryEmailAddresses(email);
 		if(results.isEmpty())
 		{ 
 			found = false;
 		}
 		return found;
 		
+	}
+	
+	/**
+	 * @param symbol
+	 * @return true if the stock symbol is found in the database
+	 * @throws SQLException
+	 */
+	public static boolean stockExistsInDb(String symbol) throws SQLException{
+		boolean found = true;
+		List<Stock>results = Stocks.getStock(symbol);
+		if(results.isEmpty())
+		{ 
+			found = false;
+		}
+		return found;
 	}
 	
 	/**

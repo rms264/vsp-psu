@@ -11,7 +11,7 @@ import vsp.dal.DatasourceConnection;
 import vsp.dataObject.PortfolioData;
 import vsp.dataObject.Stock;
 
-public class PortfolioRequest {
+public class PortfolioEntries {
 
 	/**
 	 * @param userName
@@ -21,12 +21,28 @@ public class PortfolioRequest {
 	 */
 	public List<PortfolioData> requestAllUserStocks(String userName) throws SQLException{
 		List<PortfolioData> results = new ArrayList<PortfolioData>();
-		PortfolioRequest request = new PortfolioRequest();
+		PortfolioEntries request = new PortfolioEntries();
 		request.submitUserStockRequest(userName);
 		return results;
 	}
 	
-	private PortfolioRequest(){
+	public static boolean addEntry(String userName, PortfolioData data){
+		//TODO: Implement adding a new portfolio entry
+		
+		return true;
+	}
+	
+	public static boolean deleteEntry(){
+		//TODO: Implement deleting a portfolio entry
+		return true;
+	}
+	
+	public static boolean deleteAllEntriesFor(String userName){
+		//TODO: Implement deleting all portfolio entries for a user
+		return true;
+	}
+	
+	private PortfolioEntries(){
 	}
 	
 	private List<PortfolioData> submitUserStockRequest(String userName) throws SQLException{
@@ -44,7 +60,7 @@ public class PortfolioRequest {
 			
 			while(rs.next()){
 				String stock = rs.getString("stock_symbol");
-				List<Stock> stockInfo = StockRequest.getStock(stock);
+				List<Stock> stockInfo = Stocks.getStock(stock);
 				if(!stockInfo.isEmpty()){
 					results.add(new PortfolioData(stockInfo.get(0),
 							rs.getDate("purchase_date"),

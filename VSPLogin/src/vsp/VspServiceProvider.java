@@ -3,12 +3,12 @@ package vsp;
 import java.sql.SQLException;
 import java.util.List;
 
-import vsp.dal.requests.CreateAccount;
-import vsp.dal.requests.DeleteAccount;
-import vsp.dal.requests.UserInfo;
+import vsp.dal.requests.Roles;
+import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
+import vsp.utils.Enumeration.Role;
 
 
 public class VspServiceProvider
@@ -19,26 +19,29 @@ public class VspServiceProvider
 			String password2, String email, String question, String answer) 
 			throws ValidationException, SQLException, SqlRequestException 
 	{
-		CreateAccount.submit(userName, email, password1, password2, question, 
+		Users.addUserAccount(userName, email, password1, password2, question, 
 				answer);
+		Roles.addNewUserRole(userName, Role.TRADER);
 	}
 	
 	public void deleteAccount(String userName) throws ValidationException,
 		SQLException, SqlRequestException
 	{
-		DeleteAccount.submit(userName);
+		Users.deleteUserAccount(userName);
+		Roles.deleteUserRole(userName);
+		
 	}
 	
 	public AccountData getAccountInfo(String userName) throws SQLException
 	{
 		
-		AccountData data = UserInfo.requestAccountData(userName);
+		AccountData data = Users.requestAccountData(userName);
 		
 		return data;
 	}
 	
 	public List<String> getTraders() throws SQLException
 	{
-		return UserInfo.queryAllTraders();
+		return Users.queryAllTraders();
 	}
 }

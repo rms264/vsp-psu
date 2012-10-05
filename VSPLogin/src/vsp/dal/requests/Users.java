@@ -11,11 +11,31 @@ import java.util.List;
 
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.AccountData;
+import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
+import vsp.utils.VSPUtils;
 import vsp.utils.Validate;
 import vsp.utils.Enumeration.SecurityQuestion;
 
-public class UserInfo {
+public class Users {
+	
+	
+	public static boolean addUserAccount(String userName, String email, 
+			String password1, String password2, String questionNum, 
+			String answer) throws ValidationException, SQLException, 
+			SqlRequestException
+	{
+		Users request = new Users();
+		return request.insert(userName, email, password1, password2, 
+				questionNum, answer);
+	}
+	
+	public static boolean deleteUserAccount(String userName) throws 
+		SQLException, SqlRequestException
+	{
+		Users request = new Users();
+		return request.delete(userName);
+	}
 	
 	/**
 	 * @param userName
@@ -27,7 +47,7 @@ public class UserInfo {
 	public static List<String> queryUserNames(String userName) throws 
 		ValidationException, SQLException
 	{
-		UserInfo request = new UserInfo();
+		Users request = new Users();
 		return request.submitUserNameQuery(userName);
 	}
 	
@@ -41,7 +61,7 @@ public class UserInfo {
 	public static List<String> queryEmailAddresses(String email) throws 
 		SQLException, ValidationException
 	{
-		UserInfo request = new UserInfo();
+		Users request = new Users();
 		return request.submitEmailQuery(email);
 		
 	}
@@ -52,7 +72,7 @@ public class UserInfo {
 	 * @throws SQLException
 	 */
 	public static List<String> queryAllTraders() throws SQLException{
-		UserInfo request = new UserInfo();
+		Users request = new Users();
 		return request.submitTradersQuery();
 		
 	}
@@ -65,11 +85,11 @@ public class UserInfo {
 	 */
 	public static AccountData requestAccountData(String userName) throws SQLException 
 	{
-		UserInfo request = new UserInfo();
+		Users request = new Users();
 		return request.submitAccoutDataQuery(userName);
 	}
 	
-	private UserInfo(){}
+	private Users(){}
 	
 	private List<String> submitUserNameQuery(String userName) throws SQLException, 
 		ValidationException
@@ -188,5 +208,87 @@ public class UserInfo {
 			}
 		}
 		return data;
+	}
+	
+	private boolean insert(String userName, String email, 
+			String password1, String password2, String questionNum, 
+			String answer) throws SQLException, ValidationException
+	{
+		
+		Connection connection = null;
+		boolean success = false;
+		SecurityQuestion question = SecurityQuestion.DEFAULT;
+		try{
+			String sqlStatement = "insert into users values(?,?,?,?,?,?)";
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			question = SecurityQuestion.convert(
+					Integer.parseInt(questionNum));
+			
+			if(!Validate.userNameExistsInDb(userName) && 
+					   !Validate.emailExistsInDb(email) &&
+					   Validate.validatePassword(userName, password1, password2) &&
+					   Validate.validateSecurityQuestion(question) &&
+					   Validate.validateSecurityAnswer(answer))
+			{
+				connection = DatasourceConnection.getConnection();
+				// insert into users table
+				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+				pStmt.setString(1, userName);  
+				pStmt.setString(2, VSPUtils.hashString(password1));   
+				pStmt.setString(3, email);
+				pStmt.setDate(4, date);
+				pStmt.setInt(5, question.getVal());
+				pStmt.setString(6, VSPUtils.hashString(answer));
+			
+				int result = pStmt.executeUpdate();
+		   
+				//this should return 1 meaning that one row was added 
+				//to the users table
+				if (result == 1)
+				{
+					success = true;
+				}
+			}
+		}
+		catch(NumberFormatException e){
+			throw new ValidationException(
+					"Error:  Please select a security question.");
+		}
+		finally
+		{
+			connection.close();
+			connection = null;
+		}
+		return success;
+	}
+	
+	private boolean delete(String userName) throws SQLException, SqlRequestException{
+		Connection connection = null;
+		boolean success = false;
+		try
+		{
+			String sqlStatement = "DELETE from users WHERE user_name=?";
+			connection = DatasourceConnection.getConnection();
+			int result = 0;
+			// delete row from users table
+			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+			pStmt.setString(1, userName);  
+			result = pStmt.executeUpdate(); 
+			
+			//this should return 1 meaning that one row was removed 
+			//from the users table
+			if(result == 1){
+				success = true;
+			}
+			else{
+				throw (new SqlRequestException("Error:  Unable to delete account."));
+			}
+		}
+		finally{
+			if(connection != null){
+				connection.close();
+			}
+		}
+		return success;
 	}
 }
