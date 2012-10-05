@@ -1,12 +1,17 @@
-package vsp;
+package vsp.dataObject;
 
-import java.util.*;
+
+import java.util.Date;
+import java.util.List;
+
+import vsp.NameValuePair;
 
 public final class OrderCancellationTransaction extends StockTransaction
 {
-	private Order order;
+	private final Order order;
 	
-	public OrderCancellationTransaction(String id, String symbol, Date dateTime, double value, int quantity, Order order)
+	public OrderCancellationTransaction(String id, String symbol, 
+			Date dateTime, double value, int quantity, Order order)
 	{
 		super(id, symbol, dateTime, value, quantity);
 		this.order = order;

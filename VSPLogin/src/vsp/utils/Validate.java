@@ -1,11 +1,12 @@
 package vsp.utils;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import vsp.dal.requests.QueryEmailAddress;
-import vsp.dal.requests.QueryUserName;
+import vsp.dal.requests.UserInfo;
+import vsp.exception.FormatException;
 import vsp.exception.ValidationException;
 import vsp.utils.Enumeration.SecurityQuestion;
 
@@ -20,54 +21,40 @@ public class Validate {
 	
 	/**
 	 * @param userName
-	 * @return - returns true if the username is NOT already in the database
-	 * 			 otherwise it throws a validation exception
+	 * @return - returns true if the user name is valid and found in the 
+	 * 			 database
 	 * @throws ValidationException
 	 * @throws SQLException
 	 */
-	public static boolean validateUserName(String userName) throws 
+	public static boolean userNameExistsInDb(String userName) throws 
 		ValidationException, SQLException
 	{
-		String result = QueryUserName.submit(userName);
-		if(result != null){
-			//if the result is NOT null this means there is a user
-			//already registered with this user name making it an invalid 
-			//user name
-			throw (new ValidationException("[Error]  User name is already "+
-					"in use. Please enter another one."));
+		boolean found = true;
+		List<String> results = UserInfo.queryUserNames(userName);
+		if(results.isEmpty()){
+			found = false;
 		}
-		return true;
-		
+		return found;
 	}
 	
 	/**
 	 * @param email
 	 * @return returns true if the email address if formatted correctly and if
-	 * 		   the email address is not already in the database
+	 * 		   the email address is found in the database
 	 * @throws SQLException
 	 * @throws ValidationException
+	 * @throws FormatException 
 	 */
-	public static boolean validateEmail(String email) 
+	public static boolean emailExistsInDb(String email) 
 			throws SQLException, ValidationException
 	{
-		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-		Matcher matcher = pattern.matcher(email);
-		if(!matcher.matches())
-		{
-			throw (new ValidationException(
-					"Error:  The email address is invalid.  " + 
-					"Please enter a valid email address."));
+		boolean found = true;
+		List<String>results = UserInfo.queryEmailAddresses(email);
+		if(results.isEmpty())
+		{ 
+			found = false;
 		}
-		
-		String result = QueryEmailAddress.submit(email);
-		if(result != null)
-		{ //if the result is NOT null it means there are users
-		  //already registered with this email address making it invalid 
-			throw (new ValidationException(
-					"Error:  The email address is already in use.  " +
-					"Please enter another one."));
-		}
-		return true;
+		return found;
 		
 	}
 	
@@ -159,5 +146,28 @@ public class Validate {
 					"question."));
 		}
 		return true;
+	}
+	
+	public static boolean email(String email){
+		boolean isValid = false;
+		if (email != null && !email.isEmpty()){
+			Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+			Matcher matcher = pattern.matcher(email);
+			if(matcher.matches())
+			{
+				isValid = true;
+			}
+		}
+		return isValid;
+	}
+	
+	public static boolean userName(String userName){
+		boolean isValid = false;
+		// empty user names are not valid
+		if (userName != null && !userName.isEmpty())
+		{
+			isValid = true;
+		}
+		return isValid;
 	}
 }

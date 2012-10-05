@@ -24,17 +24,21 @@ public class CreateAccount {
 	private final Date date;
 	
 	
-	public static void submit(String userName, String email, String password1, 
+	public static boolean submit(String userName, String email, String password1, 
 			String password2, String questionNum, String answer) 
 			throws	ValidationException, SQLException, SqlRequestException
 	{
+		boolean success = false;
 		CreateAccount request = new CreateAccount(userName, email, password1, 
 				password2, questionNum, answer);
 		
 		if(request.isValid()){
-			request.createAccount();
+			
+			success = request.createAccount();
 		}
+		return success;
 	}
+	
 	private CreateAccount(String userName, String email, String password1, 
 			String password2, String questionNum, String answer) throws ValidationException{
 		this.userName = userName;
@@ -53,17 +57,25 @@ public class CreateAccount {
 		}
 	}
 	
-	private void createAccount() throws SQLException, SqlRequestException, 
+	private boolean createAccount() throws SQLException, SqlRequestException, 
 		ValidationException 
 	{
-		submitAccountCreationRequest();
-		InsertUserRole.submit(userName, Role.TRADER.toString());
+		boolean success = false;
+		if(submitAccountCreationRequest()){
+			success = InsertUserRole.submit(userName, Role.TRADER.toString());
+		}
+		else{
+		   throw (new SqlRequestException("Error:  Failed to create a " + 
+				   "user account for: " + userName));
+		}
+		return success;
 		
 	}
-	private void submitAccountCreationRequest() throws SQLException, 
+	private boolean submitAccountCreationRequest() throws SQLException, 
 		SqlRequestException
 	{
 		Connection connection = null;
+		boolean success = false;
 		try{
 			connection = DatasourceConnection.getConnection();
 		    // insert into users table
@@ -77,10 +89,11 @@ public class CreateAccount {
 			
 			int result = pStmt.executeUpdate();
 		   
-		    
-			if (result != 1)
+			//this should return 1 meaning that one row was added 
+			//to the users table
+			if (result == 1)
 			{
-				throw (new SqlRequestException("Error:  Unable to create account."));
+				success = true;
 			}
 			
 		}
@@ -89,12 +102,13 @@ public class CreateAccount {
 			connection.close();
 			connection = null;
 		}
+		return success;
 	}
 	
 	private boolean isValid() throws ValidationException, SQLException{
 		boolean valid = false;
-		if(Validate.validateUserName(userName) && 
-		   Validate.validateEmail(email) &&
+		if(!Validate.userNameExistsInDb(userName) && 
+		   !Validate.emailExistsInDb(email) &&
 		   Validate.validatePassword(userName, password1, password2) &&
 		   Validate.validateSecurityQuestion(question) &&
 		   Validate.validateSecurityAnswer(answer))

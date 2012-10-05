@@ -1,16 +1,19 @@
-package vsp;
+package vsp.dataObject;
 
 import java.util.*;
 
+import vsp.NameValuePair;
+
 public abstract class StockTransaction
 {
-	protected String id;
-	protected String symbol;
-	protected Date dateTime;
-	protected double value;
-	protected int quantity;
+	private final String id;
+	private final String symbol;
+	private final Date dateTime;
+	private final double value;
+	private final int quantity;
 	
-	public StockTransaction(String id, String symbol, Date dateTime, double value, int quantity)
+	public StockTransaction(String id, String symbol, Date dateTime, 
+			double value, int quantity)
 	{
 		this.id = id;
 		this.symbol = symbol;

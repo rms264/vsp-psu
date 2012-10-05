@@ -3,23 +3,20 @@ package vsp.dal.requests;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 
 import vsp.dal.DatasourceConnection;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
-import vsp.utils.Enumeration.Role;
 import vsp.utils.Validate;
 
-public class InsertUserRole {
-	private final String sqlStatement = "insert into user_roles values(?,?)";
+public class DeleteUserRole {
+	private final String sqlStatement = "DELETE from user_roles WHERE user_name=?";
 	private final String userName;
-	private final Role role;
-	public static boolean submit(String userName, String role) 
+	public static boolean submit(String userName) 
 			throws ValidationException, SQLException, SqlRequestException
 	{
 		boolean success = false;
-		InsertUserRole request = new InsertUserRole(userName,role);
+		DeleteUserRole request = new DeleteUserRole(userName);
 		if(request.isValid()){
 			success = request.submitRequest();
 		}
@@ -27,9 +24,8 @@ public class InsertUserRole {
 		return success;
 	}
 	
-	private InsertUserRole(String userName, String role){
+	private DeleteUserRole(String userName){
 		this.userName = userName;
-		this.role = Role.get(role);
 	}
 
 	private boolean submitRequest() throws SQLException, SqlRequestException{
@@ -39,16 +35,13 @@ public class InsertUserRole {
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);  
-			pStmt.setString(2, role.toString());
-			int result = pStmt.executeUpdate();
-			
-			//Should return 1 to indicate one row was added to the role table
+			int result = pStmt.executeUpdate(); 
 			if(result == 1){
 				success = true;
 			}
 			else{
-				throw new SqlRequestException("Error: Failed to insert " +
-						role.toString() + " for user: " + userName);
+				throw new SqlRequestException("Error: Failed to delete role " +
+						"for user: " + userName);
 			}
 			return success;
 		}
@@ -60,10 +53,6 @@ public class InsertUserRole {
 	}
 	private boolean isValid() throws ValidationException, SQLException{
 		boolean valid = false;
-		if(role == Role.DEFAULT){
-			throw new ValidationException(
-					"Error: Please select a valid Role to insert");
-		}
 		if(!Validate.userNameExistsInDb(userName)){
 			throw new ValidationException(
 				"Error: Cannot insert Role. User name not found in database");
@@ -71,6 +60,7 @@ public class InsertUserRole {
 		else{
 			valid = true;
 		}
+		
 		return valid;
 	}
 }

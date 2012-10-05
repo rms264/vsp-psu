@@ -1,4 +1,4 @@
-package vsp;
+package vsp.dataObject;
 
 public final class Portfolio
 {

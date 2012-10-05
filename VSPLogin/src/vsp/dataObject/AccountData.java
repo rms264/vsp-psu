@@ -1,15 +1,18 @@
-package vsp;
+package vsp.dataObject;
 
 import java.util.*;
 
+import vsp.utils.Enumeration.SecurityQuestion;
+
 public final class AccountData
 {
-	private String userName;
-	private String email;
-	private Date signup;
-	private String securityQuestion;
+	private final String userName;
+	private final String email;
+	private final Date signup;
+	private final SecurityQuestion securityQuestion;
 	
-	public AccountData(String userName, String email, Date signup, String securityQuestion)
+	public AccountData(String userName, String email, Date signup, 
+			SecurityQuestion securityQuestion)
 	{
 		this.userName = userName;
 		this.email = email;
@@ -27,7 +30,7 @@ public final class AccountData
 		return this.signup;
 	}
 	
-	public String getSecurityQuestion()
+	public SecurityQuestion getSecurityQuestion()
 	{
 		return this.securityQuestion;
 	}
