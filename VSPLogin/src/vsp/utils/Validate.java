@@ -8,17 +8,19 @@ import java.util.regex.Pattern;
 import vsp.dal.requests.Stocks;
 import vsp.dal.requests.Users;
 import vsp.dataObject.Stock;
-import vsp.exception.FormatException;
 import vsp.exception.ValidationException;
 import vsp.utils.Enumeration.SecurityQuestion;
 
-public class Validate {
-
+public class Validate
+{
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String LOWER_PATTERN = "[a-z]";
 	private static final String UPPER_PATTERN = "[A-Z]";
 	private static final String NUM_PATTERN = "[0-9]";
-	private Validate(){}
+	private Validate()
+	{
+		// no implementation required
+	}
 	
 	
 	/**
@@ -33,9 +35,11 @@ public class Validate {
 	{
 		boolean found = true;
 		List<String> results = Users.queryUserNames(userName);
-		if(results.isEmpty()){
+		if(results.isEmpty())
+		{
 			found = false;
 		}
+		
 		return found;
 	}
 	
@@ -56,8 +60,8 @@ public class Validate {
 		{ 
 			found = false;
 		}
-		return found;
 		
+		return found;
 	}
 	
 	/**
@@ -65,13 +69,15 @@ public class Validate {
 	 * @return true if the stock symbol is found in the database
 	 * @throws SQLException
 	 */
-	public static boolean stockExistsInDb(String symbol) throws SQLException{
+	public static boolean stockExistsInDb(String symbol) throws SQLException
+	{
 		boolean found = true;
 		List<Stock>results = Stocks.getStock(symbol);
 		if(results.isEmpty())
 		{ 
 			found = false;
 		}
+		
 		return found;
 	}
 	
@@ -162,12 +168,15 @@ public class Validate {
 					"Error:  Please enter an answer for your security " + 
 					"question."));
 		}
+		
 		return true;
 	}
 	
-	public static boolean email(String email){
+	public static boolean email(String email)
+	{
 		boolean isValid = false;
-		if (email != null && !email.isEmpty()){
+		if (email != null && !email.isEmpty())
+		{
 			Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 			Matcher matcher = pattern.matcher(email);
 			if(matcher.matches())
@@ -175,16 +184,19 @@ public class Validate {
 				isValid = true;
 			}
 		}
+		
 		return isValid;
 	}
 	
-	public static boolean userName(String userName){
+	public static boolean userName(String userName)
+	{
 		boolean isValid = false;
 		// empty user names are not valid
 		if (userName != null && !userName.isEmpty())
 		{
 			isValid = true;
 		}
+		
 		return isValid;
 	}
 }
