@@ -1,109 +1,146 @@
 CREATE DATABASE  IF NOT EXISTS `vsp` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `vsp`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
---
--- Host: localhost    Database: vsp
--- ------------------------------------------------------
--- Server version	5.5.27
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE SCHEMA IF NOT EXISTS `vsp` ;
+USE `vsp` ;
 
---
--- Table structure for table `roles`
---
+-- -----------------------------------------------------
+-- Table `vsp`.`Roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `vsp`.`Roles` ;
 
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `role_name` varchar(15) NOT NULL,
-  PRIMARY KEY (`role_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE  TABLE IF NOT EXISTS `vsp`.`Roles` (
+  `user_name` VARCHAR(45) NOT NULL ,
+  `role_name` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`user_name`, `role_name`) )
+ENGINE = InnoDB;
 
---
--- Dumping data for table `roles`
---
 
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES ('admin'),('trader');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+-- -----------------------------------------------------
+-- Table `vsp`.`Users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `vsp`.`Users` ;
+
+CREATE  TABLE IF NOT EXISTS `vsp`.`Users` (
+  `user_name` VARCHAR(45) NOT NULL UNIQUE,
+  `user_pass` VARCHAR(65) NOT NULL ,
+  `email` VARCHAR(65) NOT NULL UNIQUE,
+  `signup` DATE NOT NULL ,
+  `security_question_id` INT NOT NULL ,
+  `security_answer` VARCHAR(65) NOT NULL ,
+  `current_balance` DOUBLE NOT NULL ,
+  PRIMARY KEY (`user_name`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `vsp`.`Stock`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `vsp`.`Stock` ;
+
+CREATE  TABLE IF NOT EXISTS `vsp`.`Stock` (
+  `stock_symbol` VARCHAR(45) NOT NULL ,
+  `stock_description` VARCHAR(250) NOT NULL ,
+  PRIMARY KEY (`stock_symbol`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `vsp`.`Order`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `vsp`.`Order` ;
+
+CREATE  TABLE IF NOT EXISTS `vsp`.`Order` (
+  `order_id` VARCHAR(40) NOT NULL UNIQUE,
+  `user_name` VARCHAR(45) NOT NULL ,
+  `stock_symbol` VARCHAR(45) NOT NULL ,
+  `date_submitted` DATE NOT NULL ,
+  `price` DOUBLE NOT NULL ,
+  `state` INT NOT NULL ,
+  `quantity` FLOAT NOT NULL ,
+  `action` INT NOT NULL ,
+  `limit_price` DOUBLE NULL DEFAULT NULL ,
+  `stop_price` DOUBLE NULL DEFAULT NULL ,
+  `time_in_force` INT NOT NULL ,
+  PRIMARY KEY (`order_id`) ,
+  CONSTRAINT FOREIGN KEY (`stock_symbol`)
+    REFERENCES `vsp`.`Stock` (`stock_symbol`)
+    ON DELETE CASCADE 
+    ON UPDATE NO ACTION,
+  CONSTRAINT FOREIGN KEY (`user_name` )
+    REFERENCES `vsp`.`Users` (`user_name` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `vsp`.`Transaction`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `vsp`.`Transaction` ;
+
+CREATE  TABLE IF NOT EXISTS `vsp`.`Transaction` (
+  `transaction_id` VARCHAR(40) NOT NULL UNIQUE,
+  `type` INT NOT NULL ,
+  `order_id` INT NULL DEFAULT NULL ,
+  `stock_symbol` VARCHAR(45) NOT NULL ,
+  `date` DATE NOT NULL ,
+  `quantity` FLOAT NULL DEFAULT NULL ,
+  `price_per_share` DOUBLE NULL DEFAULT NULL ,
+  `total_value` DOUBLE NULL DEFAULT NULL ,
+  `user_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`transaction_id`) , 
+  CONSTRAINT FOREIGN KEY (`stock_symbol` )
+    REFERENCES `vsp`.`Stock` (`stock_symbol` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT FOREIGN KEY (`user_name` )
+    REFERENCES `vsp`.`Users` (`user_name` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `vsp`.`PortfolioEntry`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `vsp`.`PortfolioEntry` ;
+
+CREATE  TABLE IF NOT EXISTS `vsp`.`PortfolioEntry` (
+  `user_name` VARCHAR(45) NOT NULL,
+  `stock_symbol` VARCHAR(45) NOT NULL ,
+  `purchase_price` DOUBLE NOT NULL ,
+  `quantity` FLOAT NOT NULL ,
+  `cost_basis_per_share` DOUBLE NOT NULL ,
+  `order_id` VARCHAR(40) NULL DEFAULT NULL ,
+  `transaction_id` VARCHAR(40) NULL DEFAULT NULL ,
+  PRIMARY KEY (`user_name`, `stock_symbol`) ,
+  CONSTRAINT FOREIGN KEY (`stock_symbol` )
+    REFERENCES `vsp`.`Stock` (`stock_symbol` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT FOREIGN KEY (`user_name` )
+    REFERENCES `vsp`.`Users` (`user_name` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT FOREIGN KEY (`order_id` )
+    REFERENCES `vsp`.`Order` (`order_id` )
+    ON DELETE SET NULL
+    ON UPDATE NO ACTION,
+  CONSTRAINT FOREIGN KEY (`transaction_id` )
+    REFERENCES `vsp`.`Transaction` (`transaction_id` )
+    ON DELETE SET NULL
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+LOCK TABLES `Users` WRITE, `Roles` WRITE;
+/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+INSERT INTO `Users` VALUES ('admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','admin@admin.com','2012-09-20',0,'c7941b6920e2ed43e6bb1a2b450a801a9e3e4e7ab3c018b128b104c9ce24df6a', 0.0),('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0);
+INSERT INTO `Roles` VALUES ('admin','admin'),('test','trader'),('test1','trader');
+/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `user_roles`
---
-
-DROP TABLE IF EXISTS `user_roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_roles` (
-  `user_name` varchar(15) NOT NULL,
-  `role_name` varchar(15) NOT NULL,
-  PRIMARY KEY (`user_name`,`role_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_roles`
---
-
-LOCK TABLES `user_roles` WRITE;
-/*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
-INSERT INTO `user_roles` VALUES ('admin','admin'),('asdf','trader'),('fda','trader'),('qwer','trader'),('test','trader'),('test1','trader');
-/*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `user_name` varchar(15) NOT NULL,
-  `user_pass` varchar(65) NOT NULL,
-  `email` varchar(64) NOT NULL,
-  `signup` date NOT NULL,
-  `securityQuestion` int(11) NOT NULL,
-  `securityAnswer` varchar(64) NOT NULL,
-  PRIMARY KEY (`user_name`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','admin@admin.com','2012-09-20',0,'c7941b6920e2ed43e6bb1a2b450a801a9e3e4e7ab3c018b128b104c9ce24df6a'),('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548'),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'vsp'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2012-09-22 22:25:44
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
