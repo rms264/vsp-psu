@@ -18,13 +18,6 @@ public class AdministrativeFunction
 	
 	@Test
 	@Order(order=1)
-	public void getAdminAccess()
-	{
-		fail("Not yet implemented");		
-	}
-
-	@Test
-	@Order(order=2)
 	public void getUserList()
 	{
 		try
@@ -42,21 +35,14 @@ public class AdministrativeFunction
 	}
 	
 	@Test
-	@Order(order=3)
-	public void removeUser()
-	{
-		fail("Not yet implemented");		
-	}
-	
-	@Test
-	@Order(order=4)
+	@Order(order=2)
 	public void changeEmail()
 	{
 		fail("Not yet implemented");		
 	}
 	
 	@Test
-	@Order(order=5)
+	@Order(order=3)
 	public void changePassword()
 	{
 		fail("Not yet implemented");		
