@@ -8,7 +8,7 @@ import vsp.*;
 // These are ordered because "create account" will fail after the initial run unless "delete account" is run.
 // In addition, the checks for duplicate user names and email addresses also require the initial account. 
 @RunWith(OrderedRunner.class)
-public class userAccounts
+public class UserAccounts
 {
 	private final VspServiceProvider vsp = new VspServiceProvider();
 	private final String userName = "unitTestUser";
