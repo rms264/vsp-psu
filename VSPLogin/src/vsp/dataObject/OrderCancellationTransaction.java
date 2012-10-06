@@ -10,9 +10,9 @@ public final class OrderCancellationTransaction extends StockTransaction
 {
 	private final Order order;
 	
-	public OrderCancellationTransaction(String id, String symbol, Date dateTime, Order order)
+	public OrderCancellationTransaction(String id, Stock stock, Date dateTime, Order order)
 	{
-		super(id, symbol, dateTime, 0.0, 0.0, 0.0f);
+		super(id, stock, dateTime, 0.0, 0.0, 0.0f);
 		this.order = order;
 	}
 	

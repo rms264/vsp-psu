@@ -1,10 +1,12 @@
 package vsp.dal.requests;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
-import vsp.dataObject.StockTransaction;
-import vsp.exception.SqlRequestException;
-import vsp.exception.ValidationException;
+import vsp.dataObject.*;
+import vsp.exception.*;
+import vsp.utils.Enumeration.TransactionType;
 
 public class Transactions
 {
@@ -44,5 +46,44 @@ public class Transactions
 		SqlRequestException, SQLException, ValidationException
 	{
 		return true;
+	}
+	
+	private StockTransaction getTransaction(ResultSet rs) throws
+		SQLException, SqlRequestException
+	{
+		StockTransaction transaction = null;
+		
+		String id = rs.getString("transaction_id");
+		Stock stock = Stocks.getStock(rs.getString("stock_symbol"));
+		Date date = rs.getDate("date");
+		float quantity = rs.getFloat("quantity");
+		double pricePerShare = rs.getDouble("price_per_share");
+		double totalValue = rs.getDouble("total_value");
+		String orderId = rs.getString("order_id");
+		
+		Order order = null;
+		if (orderId != null)
+		{
+			order = Orders.getOrder(orderId);	
+		}
+		
+		TransactionType type = TransactionType.convert(rs.getInt("type"));
+		switch (type)
+		{
+			case DIVIDEND:
+				transaction = new DividendTransaction(id, stock, date, totalValue, pricePerShare, quantity);
+				break;
+			case CANCELLATION:			
+				transaction = new OrderCancellationTransaction(id, stock, date, order);
+				break;
+			case EXECUTION:
+				transaction = new OrderExecutionTransaction(id, stock, date, totalValue, pricePerShare, quantity, order);
+				break;
+			case DEFAULT:
+				default:
+				throw (new SqlRequestException("Error:  Unrecognized transaction type."));
+		}
+		
+		return transaction;
 	}
 }

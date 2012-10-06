@@ -7,17 +7,17 @@ import vsp.NameValuePair;
 public abstract class StockTransaction
 {
 	private final String id;
-	private final String symbol;
+	private final Stock stock;
 	private final Date dateTime;
 	private final double value;
 	private final double pricePerShare;
 	private final float quantity;
 	
-	public StockTransaction(String id, String symbol, Date dateTime, 
+	public StockTransaction(String id, Stock stock, Date dateTime, 
 			double value, double pricePerShare, float quantity)
 	{
 		this.id = id;
-		this.symbol = symbol;
+		this.stock = stock;
 		this.dateTime = dateTime;
 		this.value = value;
 		this.pricePerShare = pricePerShare;
@@ -46,9 +46,9 @@ public abstract class StockTransaction
 		return this.quantity;
 	}
 	
-	public String getSymbol()
+	public Stock getStock()
 	{
-		return this.symbol;
+		return this.stock;
 	}
 	
 	public double getValue()

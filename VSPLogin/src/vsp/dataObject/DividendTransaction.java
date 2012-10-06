@@ -8,10 +8,10 @@ import vsp.NameValuePair;
 
 public final class DividendTransaction extends StockTransaction
 {
-	public DividendTransaction(String id, String symbol, Date dateTime, 
-			double value, double pricePerShare, int quantity, double perShare)
+	public DividendTransaction(String id, Stock stock, Date dateTime, 
+			double value, double pricePerShare, float quantity)
 	{
-		super(id, symbol, dateTime, value, pricePerShare, quantity);
+		super(id, stock, dateTime, value, pricePerShare, quantity);
 	}
 	
 	@Override
