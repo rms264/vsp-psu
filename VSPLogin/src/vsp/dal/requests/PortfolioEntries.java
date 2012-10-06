@@ -40,18 +40,18 @@ public class PortfolioEntries {
 		return request.insert(userName, data, orderId, transactionId);
 	}
 	
-	public static boolean updateEntry(String id, String userName, PortfolioData data, String orderId, String transactionId) throws 
+	public static boolean updateEntry(String userName, PortfolioData data, String orderId, String transactionId) throws 
 		SqlRequestException, SQLException
 	{
 		PortfolioEntries request = new PortfolioEntries();
-		return request.update(id, userName, data, orderId, transactionId);
+		return request.update(userName, data, orderId, transactionId);
 	}
 	
-	public static boolean deleteEntry(String id) throws 
+	public static boolean deleteEntry(String userName, String stockSymbol) throws 
 		SqlRequestException, SQLException
 	{
 		PortfolioEntries request = new PortfolioEntries();
-		return request.delete(id);
+		return request.delete(userName, stockSymbol);
 	}
 	
 	public static boolean deleteAllEntriesFor(String userName) throws 
@@ -61,11 +61,11 @@ public class PortfolioEntries {
 		return request.deleteAllFor(userName);
 	}
 	 
-	public static PortfolioData getEntry(String id) throws 
+	public static PortfolioData getEntry(String userName, String stockSymbol) throws 
 		SqlRequestException, SQLException
 	{
 		PortfolioEntries request = new PortfolioEntries();
-		return request.submitUserPortfolioEntryRequest(id);
+		return request.submitUserPortfolioEntryRequest(userName, stockSymbol);
 	}
 	
 	private PortfolioEntries(){}
@@ -77,7 +77,7 @@ public class PortfolioEntries {
 		boolean success = false;
 		try
 		{
-			String sqlStatement = "INSERT into PortfolioEntry values(?,?,?,?,?,?,?,?,?)";
+			String sqlStatement = "INSERT into PortfolioEntry values(?,?,?,?,?,?,?)";
 			if(Validate.userNameExistsInDb(userName))
 			{
 				if (!Validate.stockExistsInDb(data.getStock().getStockSymbol()))
@@ -88,16 +88,14 @@ public class PortfolioEntries {
 				
 				connection = DatasourceConnection.getConnection();
 				
-				String id = UUID.randomUUID().toString();
 				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-				pStmt.setString(1, id);   
-				pStmt.setDouble(2, data.getPurchasePrice());
-				pStmt.setFloat(3, data.getQuantity());
-				pStmt.setDouble(4, data.getCostBasisPerShare());
-				pStmt.setString(5, data.getStock().getStockSymbol());
+				pStmt.setString(1, userName);   
+				pStmt.setString(2, data.getStock().getStockSymbol());
+				pStmt.setDouble(3, data.getPurchasePrice());
+				pStmt.setFloat(4, data.getQuantity());
+				pStmt.setDouble(5, data.getCostBasisPerShare());
 				pStmt.setString(6, orderId);
-				pStmt.setString(7, userName);
-				pStmt.setString(8, transactionId);
+				pStmt.setString(7, transactionId);
 			
 				int result = pStmt.executeUpdate();
 				if (result == 1)
@@ -121,7 +119,7 @@ public class PortfolioEntries {
 		return success;
 	}
 	
-	private boolean update(String id, String userName, PortfolioData data, String orderId, String transactionId) throws 
+	private boolean update(String userName, PortfolioData data, String orderId, String transactionId) throws 
 		SqlRequestException, SQLException
 	{
 		boolean success = false;
@@ -129,7 +127,7 @@ public class PortfolioEntries {
 		try
 		{
 			String sqlStatement = 
-					"UPDATE PortfolioEntry SET purchase_price=?, cost_basis_per_share=?, quantity=?, order_id=?, transaction_id=?, WHERE entry_id=?";
+					"UPDATE PortfolioEntry SET purchase_price=?, cost_basis_per_share=?, quantity=?, order_id=?, transaction_id=? WHERE user_id=? AND stock_symbol=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setDouble(1, data.getPurchasePrice());
@@ -137,7 +135,8 @@ public class PortfolioEntries {
 			pStmt.setFloat(3, data.getQuantity());
 			pStmt.setString(4, orderId);
 			pStmt.setString(5, transactionId);
-			pStmt.setString(6, id);
+			pStmt.setString(6, userName);
+			pStmt.setString(6, data.getStock().getStockSymbol());
 			int result = pStmt.executeUpdate(); 
 			if(result == 1)
 			{
@@ -145,7 +144,7 @@ public class PortfolioEntries {
 			}
 			else
 			{
-				throw new SqlRequestException("Error: Failed to update entry with id: " + id);
+				throw new SqlRequestException("Error: Failed to update entry for user id '" + userName + "' and symbol '" + data.getStock().getStockSymbol() + "'");
 			}
 		}
 		finally
@@ -160,17 +159,18 @@ public class PortfolioEntries {
 	}
 
 	
-	private boolean delete(String id) throws 
+	private boolean delete(String userName, String stockSymbol) throws 
 		SqlRequestException, SQLException
 	{
 		boolean success = false;
 		Connection connection = null;		
 		try
 		{
-			String sqlStatement = "DELETE from PortfolioEntry WHERE entry_id=?";
+			String sqlStatement = "DELETE from PortfolioEntry WHERE user_id=? AND stock_symbol=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-			pStmt.setString(1, id);  
+			pStmt.setString(1, userName);
+			pStmt.setString(2, stockSymbol); 
 			int result = pStmt.executeUpdate(); 
 			if(result == 1)
 			{
@@ -178,8 +178,7 @@ public class PortfolioEntries {
 			}
 			else
 			{
-				throw new SqlRequestException("Error: Failed to delete entry " +
-						"with id: " + id);
+				throw new SqlRequestException("Error: Failed to update entry for user id '" + userName + "' and symbol '" + stockSymbol + "'");
 			}
 			
 			return success;
@@ -233,23 +232,23 @@ public class PortfolioEntries {
 		}
 	}
 	
-	private PortfolioData submitUserPortfolioEntryRequest(String id) throws SQLException
+	private PortfolioData submitUserPortfolioEntryRequest(String userName, String stockSymbol) throws SQLException
 	{
 		PortfolioData results = null;
 		Connection connection = null;
 		try
 		{
 			String sqlStatement = 
-					"SELECT * FROM PortfolioEntry WHERE entry_id=?";
+					"SELECT * FROM PortfolioEntry WHERE user_id=? AND stock_symbol=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-			pStmt.setString(1, id);  
+			pStmt.setString(1, userName);
+			pStmt.setString(2, stockSymbol);  
 			ResultSet rs = pStmt.executeQuery();
 			
 			if(rs.first())
 			{
-				String stock = rs.getString("stock_symbol");
-				Stock stockInfo = Stocks.getStock(stock);
+				Stock stockInfo = Stocks.getStock(stockSymbol);
 				if(stockInfo != null)
 				{
 					results = new PortfolioData(stockInfo,
