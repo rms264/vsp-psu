@@ -172,7 +172,7 @@ public class Validate
 		return true;
 	}
 	
-	public static boolean email(String email)
+	public static boolean validateEmail(String email)
 	{
 		boolean isValid = false;
 		if (email != null && !email.isEmpty())
@@ -188,7 +188,7 @@ public class Validate
 		return isValid;
 	}
 	
-	public static boolean userName(String userName)
+	public static boolean validateUserName(String userName)
 	{
 		boolean isValid = false;
 		// empty user names are not valid

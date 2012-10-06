@@ -10,14 +10,21 @@ public final class AccountData
 	private final String email;
 	private final Date signup;
 	private final SecurityQuestion securityQuestion;
+	private final double balance;
 	
 	public AccountData(String userName, String email, Date signup, 
-			SecurityQuestion securityQuestion)
+			SecurityQuestion securityQuestion, double balance)
 	{
 		this.userName = userName;
 		this.email = email;
 		this.signup = signup;
 		this.securityQuestion = securityQuestion;
+		this.balance = balance;
+	}
+	
+	public double getBalance()
+	{
+		return this.balance;
 	}
 	
 	public String getEmail()

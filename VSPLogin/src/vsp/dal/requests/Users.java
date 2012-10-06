@@ -11,14 +11,16 @@ import java.util.List;
 
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.AccountData;
+import vsp.dataObject.PortfolioData;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.utils.VSPUtils;
 import vsp.utils.Validate;
 import vsp.utils.Enumeration.SecurityQuestion;
 
-public class Users {
-	
+public class Users
+{
+	private static final double DEFAULT_BALANCE = 20000.0; // $20,000 USD
 	
 	public static boolean addUserAccount(String userName, String email, 
 			String password1, String password2, String questionNum, 
@@ -35,6 +37,30 @@ public class Users {
 	{
 		Users request = new Users();
 		return request.delete(userName);
+	}
+	
+	public static boolean updateBalance(String userName, double balance)
+	{
+		// TODO: implement
+		return false;
+	}
+	
+	public static boolean updatePassword(String userName, String password1, String password2)
+	{
+		// TODO: implement
+		return false;
+	}
+	
+	public static boolean updateEmail(String userName, String email)
+	{
+		// TODO: implement
+		return false;
+	}
+	
+	public static boolean updateSecurity(String userName, String questionNum, String answer)
+	{
+		// TODO: implement
+		return false;
 	}
 	
 	/**
@@ -96,7 +122,7 @@ public class Users {
 	{
 		String sqlStatement = "SELECT * FROM users WHERE user_name=?";
 		// check for existence of user name in database
-		if(Validate.userName(userName))
+		if(Validate.validateUserName(userName))
 		{
 			Connection connection = null;
 			List<String> results = new ArrayList<String>();
@@ -133,7 +159,7 @@ public class Users {
 	private List<String> submitEmailQuery(String email) throws SQLException, 
 		ValidationException
 	{
-		if(Validate.email(email)){
+		if(Validate.validateEmail(email)){
 			String sqlStatement = "SELECT * FROM users WHERE email=?";
 			// check for existence of user name in database
 			Connection connection = null;
@@ -172,7 +198,7 @@ public class Users {
 		Connection connection = null;
 		try
 		{
-			String sqlStatement = "SELECT u.user_name from users u, " + 
+			String sqlStatement = "SELECT u.user_name from Users u, " + 
 					"user_roles r WHERE u.user_name = r.user_name AND " + 
 					"r.role_name = 'trader' ORDER BY u.user_name";
 			connection = DatasourceConnection.getConnection();
@@ -201,8 +227,8 @@ public class Users {
 		AccountData data = null;
 		try
 		{
-			String sqlStatement = "SELECT email, signup, securityQuestion " + 
-					"FROM users WHERE user_name='" + userName + "'";
+			String sqlStatement = "SELECT email, signup, security_question_id " + 
+					"FROM Users WHERE user_name='" + userName + "'";
 			connection = DatasourceConnection.getConnection();
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sqlStatement);
@@ -211,10 +237,11 @@ public class Users {
 			{
 				String email = rs.getString("email");
 				Date signup = rs.getDate("signup");
-				int securityQuestion = rs.getInt("securityQuestion");
+				int securityQuestion = rs.getInt("security_question_id");
+				double balance = rs.getDouble("current_balance");
 			
 				data =  new AccountData(userName, email, signup, 
-					SecurityQuestion.convert(securityQuestion));
+					SecurityQuestion.convert(securityQuestion), balance);
 			}
 		}
 		finally
@@ -236,7 +263,7 @@ public class Users {
 		SecurityQuestion question = SecurityQuestion.DEFAULT;
 		try
 		{
-			String sqlStatement = "insert into users values(?,?,?,?,?,?)";
+			String sqlStatement = "INSERT into Users values(?,?,?,?,?,?,?)";
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			question = SecurityQuestion.convert(
 					Integer.parseInt(questionNum));
@@ -256,6 +283,7 @@ public class Users {
 				pStmt.setDate(4, date);
 				pStmt.setInt(5, question.getVal());
 				pStmt.setString(6, VSPUtils.hashString(answer));
+				pStmt.setDouble(7, DEFAULT_BALANCE);
 			
 				int result = pStmt.executeUpdate();
 		   
