@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 
-import vsp.NameValuePair;
 import vsp.dataObject.Stock;
 
 public abstract class StockTransaction

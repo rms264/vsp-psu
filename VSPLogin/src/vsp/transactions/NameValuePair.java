@@ -1,11 +1,11 @@
-package vsp;
+package vsp.transactions;
 
 public final class NameValuePair
 {
 	private final String name;
 	private final String value;
 	
-	public NameValuePair(String name, String value)
+	NameValuePair(String name, String value)
 	{
 		this.name = name;
 		this.value = value;
