@@ -39,28 +39,32 @@ public class Users
 		return request.delete(userName);
 	}
 	
-	public static boolean updateBalance(String userName, double balance)
+	public static boolean updateBalance(String userName, double balance) throws 
+		SQLException, SqlRequestException
 	{
-		// TODO: implement
-		return false;
+		Users request = new Users();
+		return request.submitBalanceUpdate(userName, balance);
 	}
 	
-	public static boolean updatePassword(String userName, String password1, String password2)
+	public static boolean updateEmail(String userName, String email) throws 
+		SQLException, SqlRequestException
 	{
-		// TODO: implement
-		return false;
+		Users request = new Users();
+		return request.submitEmailUpdate(userName, email);
 	}
 	
-	public static boolean updateEmail(String userName, String email)
+	public static boolean updatePassword(String userName, String password1, String password2) throws 
+		SQLException, SqlRequestException, ValidationException
 	{
-		// TODO: implement
-		return false;
+		Users request = new Users();
+		return request.submitPasswordUpdate(userName, password1, password2);
 	}
 	
-	public static boolean updateSecurity(String userName, String questionNum, String answer)
+	public static boolean updateSecurity(String userName, String questionNum, String answer) throws 
+		SQLException, SqlRequestException, ValidationException
 	{
-		// TODO: implement
-		return false;
+		Users request = new Users();
+		return request.submitSecurityUpdate(userName, questionNum, answer);
 	}
 	
 	/**
@@ -117,11 +121,156 @@ public class Users
 	
 	private Users(){}
 	
+	private boolean submitBalanceUpdate(String userName, double balance) throws 
+		SQLException, SqlRequestException
+	{
+		boolean success = false;
+		Connection connection = null;
+		try
+		{
+			String sqlStatement = 
+					"UPDATE Users SET current_balance=? WHERE user_name=?";
+			connection = DatasourceConnection.getConnection();
+			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+			pStmt.setDouble(1, balance);
+			pStmt.setString(2, userName);
+			int result = pStmt.executeUpdate(); 
+			if(result == 1)
+			{
+				success = true;
+			}
+			else
+			{
+				throw new SqlRequestException("Error: Failed to update balance for user name: " + userName);
+			}
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
+		
+		return success;
+	}
+	
+	private boolean submitEmailUpdate(String userName, String email) throws 
+		SQLException, SqlRequestException
+	{
+		boolean success = false;
+		Connection connection = null;
+		try
+		{
+			String sqlStatement = 
+					"UPDATE Users SET email=? WHERE user_name=?";
+			connection = DatasourceConnection.getConnection();
+			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+			pStmt.setString(1, email);
+			pStmt.setString(2, userName);
+			int result = pStmt.executeUpdate(); 
+			if(result == 1)
+			{
+				success = true;
+			}
+			else
+			{
+				throw new SqlRequestException("Error: Failed to update email for user name: " + userName);
+			}
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
+		
+		return success;
+	}
+	
+	private boolean submitPasswordUpdate(String userName, String password1, String password2) throws 
+		SQLException, SqlRequestException, ValidationException
+	{
+		Connection connection = null;
+		boolean success = false;
+		try
+		{
+			String sqlStatement = "Update Users SET user_pass=? WHERE user_name=?";			
+			if(Validate.validatePassword(userName, password1, password2))
+			{
+				connection = DatasourceConnection.getConnection();
+				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+				pStmt.setString(1, VSPUtils.hashString(password1));
+				pStmt.setString(2, userName);
+			
+				int result = pStmt.executeUpdate();
+				if (result == 1)
+				{
+					success = true;
+				}
+				else
+				{
+					throw new SqlRequestException("Error: Failed to update password for user name: " + userName);
+				}
+			}
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
+		
+		return success;
+	}
+	
+	private boolean submitSecurityUpdate(String userName, String questionNum, String answer) throws 
+		SQLException, SqlRequestException, ValidationException
+	{
+		Connection connection = null;
+		boolean success = false;
+		SecurityQuestion question = SecurityQuestion.DEFAULT;
+		try
+		{
+			String sqlStatement = "Update Users SET security_question_id=?, security_answer=? WHERE user_name=?";
+			question = SecurityQuestion.convert(Integer.parseInt(questionNum));
+			
+			if(Validate.validateSecurityQuestion(question) && Validate.validateSecurityAnswer(answer))
+			{
+				connection = DatasourceConnection.getConnection();
+				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+				pStmt.setInt(1, question.getVal());
+				pStmt.setString(2, VSPUtils.hashString(answer));
+				pStmt.setString(3, userName);
+			
+				int result = pStmt.executeUpdate();
+				if (result == 1)
+				{
+					success = true;
+				}
+				else
+				{
+					throw new SqlRequestException("Error: Failed to update security question/answer for user name: " + userName);
+				}
+			}
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
+		
+		return success;
+	}
+	
 	private List<String> submitUserNameQuery(String userName) throws SQLException, 
 		ValidationException
 	{
 		String sqlStatement = "SELECT * FROM users WHERE user_name=?";
-		// check for existence of user name in database
 		if(Validate.validateUserName(userName))
 		{
 			Connection connection = null;
@@ -159,9 +308,9 @@ public class Users
 	private List<String> submitEmailQuery(String email) throws SQLException, 
 		ValidationException
 	{
-		if(Validate.validateEmail(email)){
+		if(Validate.validateEmail(email))
+		{
 			String sqlStatement = "SELECT * FROM users WHERE email=?";
-			// check for existence of user name in database
 			Connection connection = null;
 			List<String> result = new ArrayList<String>();
 			try
@@ -275,7 +424,6 @@ public class Users
 					   Validate.validateSecurityAnswer(answer))
 			{
 				connection = DatasourceConnection.getConnection();
-				// insert into users table
 				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 				pStmt.setString(1, userName);  
 				pStmt.setString(2, VSPUtils.hashString(password1));   
@@ -286,9 +434,6 @@ public class Users
 				pStmt.setDouble(7, DEFAULT_BALANCE);
 			
 				int result = pStmt.executeUpdate();
-		   
-				//this should return 1 meaning that one row was added 
-				//to the users table
 				if (result == 1)
 				{
 					success = true;
@@ -318,14 +463,9 @@ public class Users
 		{
 			String sqlStatement = "DELETE from users WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
-			int result = 0;
-			// delete row from users table
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);  
-			result = pStmt.executeUpdate(); 
-			
-			//this should return 1 meaning that one row was removed 
-			//from the users table
+			int result = pStmt.executeUpdate(); 
 			if(result == 1)
 			{
 				success = true;

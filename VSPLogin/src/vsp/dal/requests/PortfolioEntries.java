@@ -127,7 +127,7 @@ public class PortfolioEntries {
 		try
 		{
 			String sqlStatement = 
-					"UPDATE PortfolioEntry SET purchase_price=?, cost_basis_per_share=?, quantity=?, order_id=?, transaction_id=? WHERE user_id=? AND stock_symbol=?";
+					"UPDATE PortfolioEntry SET purchase_price=?, cost_basis_per_share=?, quantity=?, order_id=?, transaction_id=? WHERE user_name=? AND stock_symbol=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setDouble(1, data.getPurchasePrice());
@@ -144,7 +144,7 @@ public class PortfolioEntries {
 			}
 			else
 			{
-				throw new SqlRequestException("Error: Failed to update entry for user id '" + userName + "' and symbol '" + data.getStock().getStockSymbol() + "'");
+				throw new SqlRequestException("Error: Failed to update entry for user name '" + userName + "' and symbol '" + data.getStock().getStockSymbol() + "'");
 			}
 		}
 		finally
@@ -166,7 +166,7 @@ public class PortfolioEntries {
 		Connection connection = null;		
 		try
 		{
-			String sqlStatement = "DELETE from PortfolioEntry WHERE user_id=? AND stock_symbol=?";
+			String sqlStatement = "DELETE from PortfolioEntry WHERE user_name=? AND stock_symbol=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);
@@ -178,7 +178,7 @@ public class PortfolioEntries {
 			}
 			else
 			{
-				throw new SqlRequestException("Error: Failed to update entry for user id '" + userName + "' and symbol '" + stockSymbol + "'");
+				throw new SqlRequestException("Error: Failed to update entry for user name '" + userName + "' and symbol '" + stockSymbol + "'");
 			}
 			
 			return success;
@@ -239,7 +239,7 @@ public class PortfolioEntries {
 		try
 		{
 			String sqlStatement = 
-					"SELECT * FROM PortfolioEntry WHERE user_id=? AND stock_symbol=?";
+					"SELECT * FROM PortfolioEntry WHERE user_name=? AND stock_symbol=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);
