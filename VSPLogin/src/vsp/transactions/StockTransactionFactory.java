@@ -1,6 +1,9 @@
-package vsp.dataObject;
+package vsp.transactions;
 
 import java.util.Date;
+
+import vsp.dataObject.Stock;
+import vsp.orders.Order;
 import vsp.utils.Enumeration.*;
 
 public final class StockTransactionFactory

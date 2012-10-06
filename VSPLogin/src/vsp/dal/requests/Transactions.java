@@ -6,6 +6,9 @@ import java.util.Date;
 
 import vsp.dataObject.*;
 import vsp.exception.*;
+import vsp.orders.Order;
+import vsp.transactions.StockTransaction;
+import vsp.transactions.StockTransactionFactory;
 import vsp.utils.Enumeration.TransactionType;
 
 public class Transactions

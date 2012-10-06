@@ -1,8 +1,8 @@
 package vsp.dal.requests;
 
-import vsp.dataObject.Order;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
+import vsp.orders.Order;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package vsp.dataObject;
+package vsp.orders;
 
 public final class OrderResult
 {

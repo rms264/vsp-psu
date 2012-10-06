@@ -1,10 +1,12 @@
-package vsp.dataObject;
+package vsp.transactions;
 
 
 import java.util.Date;
 import java.util.List;
 
 import vsp.NameValuePair;
+import vsp.dataObject.Stock;
+import vsp.orders.Order;
 
 public final class OrderExecutionTransaction extends StockTransaction
 {

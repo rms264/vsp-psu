@@ -1,8 +1,9 @@
-package vsp.dataObject;
+package vsp.transactions;
 
 import java.util.*;
 
 import vsp.NameValuePair;
+import vsp.dataObject.Stock;
 
 public abstract class StockTransaction
 {
