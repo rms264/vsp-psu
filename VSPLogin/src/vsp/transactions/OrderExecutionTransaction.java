@@ -8,11 +8,11 @@ import vsp.NameValuePair;
 import vsp.dataObject.Stock;
 import vsp.orders.Order;
 
-public final class OrderExecutionTransaction extends StockTransaction
+final class OrderExecutionTransaction extends StockTransaction
 {
 	private final Order order;
 	
-	public OrderExecutionTransaction(String id, Stock stock, Date dateTime, 
+	OrderExecutionTransaction(String id, Stock stock, Date dateTime, 
 			double value, double pricePerShare, float quantity, Order order)
 	{
 		super(id, stock, dateTime, value, pricePerShare, quantity);

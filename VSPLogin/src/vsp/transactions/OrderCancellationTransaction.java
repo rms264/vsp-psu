@@ -8,11 +8,11 @@ import vsp.NameValuePair;
 import vsp.dataObject.Stock;
 import vsp.orders.Order;
 
-public final class OrderCancellationTransaction extends StockTransaction
+final class OrderCancellationTransaction extends StockTransaction
 {
 	private final Order order;
 	
-	public OrderCancellationTransaction(String id, Stock stock, Date dateTime, Order order)
+	OrderCancellationTransaction(String id, Stock stock, Date dateTime, Order order)
 	{
 		super(id, stock, dateTime, 0.0, 0.0, 0.0f);
 		this.order = order;

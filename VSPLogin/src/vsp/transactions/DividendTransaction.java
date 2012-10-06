@@ -7,9 +7,9 @@ import vsp.NameValuePair;
 import vsp.dataObject.Stock;
 
 
-public final class DividendTransaction extends StockTransaction
+final class DividendTransaction extends StockTransaction
 {
-	public DividendTransaction(String id, Stock stock, Date dateTime, 
+	DividendTransaction(String id, Stock stock, Date dateTime, 
 			double value, double pricePerShare, float quantity)
 	{
 		super(id, stock, dateTime, value, pricePerShare, quantity);
