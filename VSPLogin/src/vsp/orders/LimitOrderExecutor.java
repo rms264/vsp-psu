@@ -2,5 +2,15 @@ package vsp.orders;
 
 public final class LimitOrderExecutor extends OrderExecutor
 {
-	// TODO: implement
+	LimitOrderExecutor()
+	{
+		// no implementation required
+	}
+	
+	@Override
+	public OrderResult Execute(Order order)
+	{
+		// TODO: implement
+		return null;
+	}
 }

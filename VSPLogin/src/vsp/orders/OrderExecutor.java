@@ -2,5 +2,10 @@ package vsp.orders;
 
 public abstract class OrderExecutor
 {
-	// TODO: implement
+	OrderExecutor()
+	{
+		// no implementation required
+	}
+	
+	public abstract OrderResult Execute(Order order);
 }
