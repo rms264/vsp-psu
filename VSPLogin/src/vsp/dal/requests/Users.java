@@ -376,8 +376,7 @@ public class Users
 		AccountData data = null;
 		try
 		{
-			String sqlStatement = "SELECT email, signup, security_question_id " + 
-					"FROM Users WHERE user_name='" + userName + "'";
+			String sqlStatement = "SELECT * FROM Users WHERE user_name='" + userName + "'";
 			connection = DatasourceConnection.getConnection();
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sqlStatement);
