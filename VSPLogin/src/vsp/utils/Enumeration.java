@@ -43,6 +43,30 @@ public class Enumeration
 		{
 			return this.value;
 		}
+		
+		public String toString()
+		{
+			String result;
+			switch(this)
+			{
+				case DAY:
+					result = "Day";
+					break;
+				case GOODUNTILCANCELED:
+					result = "Good Until Canceled";
+					break;
+				case FILLORKILL:
+					result = "Fill or Kill";
+					break;
+				case IMMEDIATEORCANCEL:
+					result = "Immediate or Cancel";
+					break;
+				default:
+					result = "UNKNOWN";
+			}
+			
+			return result;
+		}
 	}
 	
 	public enum OrderType
@@ -86,6 +110,30 @@ public class Enumeration
 		{
 			return this.value;
 		}
+		
+		public String toString()
+		{
+			String result;
+			switch(this)
+			{
+				case MARKET:
+					result = "Market";
+					break;
+				case LIMIT:
+					result = "Limit";
+					break;
+				case STOP:
+					result = "Stop";
+					break;
+				case STOPLIMIT:
+					result = "Stop Limit";
+					break;
+				default:
+					result = "UNKNOWN";
+			}
+			
+			return result;
+		}
 	}
 	
 	public enum StockAction
@@ -118,6 +166,24 @@ public class Enumeration
 		public int getValue()
 		{
 			return this.value;
+		}
+		
+		public String toString()
+		{
+			String result;
+			switch(this)
+			{
+				case BUY:
+					result = "Buy";
+					break;
+				case SELL:
+					result = "Sell";
+					break;
+				default:
+					result = "UNKNOWN";
+			}
+			
+			return result;
 		}
 	}
 	
@@ -156,6 +222,27 @@ public class Enumeration
 		public int getValue()
 		{
 			return this.value;
+		}
+		
+		public String toString()
+		{
+			String result;
+			switch(this)
+			{
+				case DIVIDEND:
+					result = "Dividend";
+					break;
+				case CANCELLATION:
+					result = "Cancellation";
+					break;
+				case EXECUTION:
+					result = "Execution";
+					break;
+				default:
+					result = "UNKNOWN";
+			}
+			
+			return result;
 		}
 	}
 	
