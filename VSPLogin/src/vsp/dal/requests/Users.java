@@ -241,7 +241,7 @@ public class Users
 			{
 				connection = DatasourceConnection.getConnection();
 				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-				pStmt.setInt(1, question.getVal());
+				pStmt.setInt(1, question.getValue());
 				pStmt.setString(2, VSPUtils.hashString(answer));
 				pStmt.setString(3, userName);
 			
@@ -428,7 +428,7 @@ public class Users
 				pStmt.setString(2, VSPUtils.hashString(password1));   
 				pStmt.setString(3, email);
 				pStmt.setDate(4, date);
-				pStmt.setInt(5, question.getVal());
+				pStmt.setInt(5, question.getValue());
 				pStmt.setString(6, VSPUtils.hashString(answer));
 				pStmt.setDouble(7, DEFAULT_BALANCE);
 			
