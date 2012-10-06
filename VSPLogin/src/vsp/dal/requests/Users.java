@@ -380,7 +380,7 @@ public class Users
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);
-			ResultSet rs = pStmt.executeQuery(sqlStatement);
+			ResultSet rs = pStmt.executeQuery();
 			
 			if(rs.first())
 			{
