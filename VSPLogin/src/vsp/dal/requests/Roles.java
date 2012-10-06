@@ -45,7 +45,7 @@ public class Roles {
 		
 		try
 		{
-			String sqlStatement = "INSERT INTO user_roles VALUES(?,?)";
+			String sqlStatement = "INSERT INTO Roles VALUES(?,?)";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);  
@@ -87,7 +87,7 @@ public class Roles {
 		
 		try
 		{
-			String sqlStatement = "DELETE from user_roles WHERE user_name=?";
+			String sqlStatement = "DELETE from Roles WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);  
