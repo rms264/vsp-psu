@@ -10,15 +10,17 @@ public abstract class StockTransaction
 	private final String symbol;
 	private final Date dateTime;
 	private final double value;
-	private final int quantity;
+	private final double pricePerShare;
+	private final float quantity;
 	
 	public StockTransaction(String id, String symbol, Date dateTime, 
-			double value, int quantity)
+			double value, double pricePerShare, float quantity)
 	{
 		this.id = id;
 		this.symbol = symbol;
 		this.dateTime = dateTime;
 		this.value = value;
+		this.pricePerShare = pricePerShare;
 		this.quantity = quantity;
 	}
 	
@@ -34,7 +36,12 @@ public abstract class StockTransaction
 	
 	public abstract List<NameValuePair> getNameValuePairs();
 	
-	public int getQuantity()
+	public double getPricePerShare()
+	{
+		return this.pricePerShare;
+	}
+	
+	public float getQuantity()
 	{
 		return this.quantity;
 	}

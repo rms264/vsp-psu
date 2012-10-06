@@ -11,9 +11,9 @@ public final class OrderExecutionTransaction extends StockTransaction
 	private final Order order;
 	
 	public OrderExecutionTransaction(String id, String symbol, Date dateTime, 
-			double value, int quantity, Order order)
+			double value, double pricePerShare, int quantity, Order order)
 	{
-		super(id, symbol, dateTime, value, quantity);
+		super(id, symbol, dateTime, value, pricePerShare, quantity);
 		this.order = order;
 	}
 	
