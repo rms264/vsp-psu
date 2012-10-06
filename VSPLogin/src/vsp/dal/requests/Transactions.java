@@ -13,25 +13,31 @@ import vsp.utils.Enumeration.TransactionType;
 
 public class Transactions
 {
-	public static boolean addTransaction()
+	public static boolean addTransaction(String userName, StockTransaction transaction)
 	{
 		//TODO: Implement Adding a transaction to the database
 		return true;
 	}
 	
-	public static boolean deleteTransaction()
+	public static boolean deleteTransactionById(String id)
 	{
 		//TODO: Implement Deleting a transaction from the database
 		return true;
 	}
 	
-	public static boolean deleteAllTransactionsFor(String userName)
+	public static StockTransaction getTransactionById(String id)
 	{
-		//TODO: Implement Deleting all transaction from the database or a user
-		return true;
+		//TODO: Implement getting the specific transaction from the database
+		return null;
 	}
 	
-	public static StockTransaction getTransaction(String id)
+	public static StockTransaction getTransactionsForUser(String userName)
+	{
+		//TODO: Implement getting the user's transactions from the database
+		return null;
+	}
+	
+	public static StockTransaction getTransactionForOrderId(String orderId)
 	{
 		//TODO: Implement getting the specific transaction from the database
 		return null;
@@ -67,7 +73,7 @@ public class Transactions
 		Order order = null;
 		if (orderId != null)
 		{
-			order = Orders.getOrder(orderId);	
+			order = Orders.getOrderById(orderId);	
 		}
 		
 		TransactionType type = TransactionType.convert(rs.getInt("type"));
