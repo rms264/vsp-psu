@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `vsp`.`Transaction` ;
 CREATE  TABLE IF NOT EXISTS `vsp`.`Transactions` (
   `transaction_id` VARCHAR(40) NOT NULL UNIQUE,
   `type` INT NOT NULL ,
-  `order_id` INT NULL DEFAULT NULL ,
+  `order_id` VARCHAR(40) NULL DEFAULT NULL ,
   `stock_symbol` VARCHAR(45) NOT NULL ,
   `date` DATE NOT NULL ,
   `quantity` FLOAT NULL DEFAULT NULL ,
@@ -101,7 +101,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Transactions` (
   CONSTRAINT FOREIGN KEY (`user_name` )
     REFERENCES `vsp`.`User` (`user_name` )
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
   CONSTRAINT FOREIGN KEY (`order_id` )
     REFERENCES `vsp`.`Order` (`order_id` )
     ON DELETE CASCADE
@@ -120,8 +120,6 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`PortfolioEntry` (
   `purchase_price` DOUBLE NOT NULL ,
   `quantity` FLOAT NOT NULL ,
   `cost_basis_per_share` DOUBLE NOT NULL ,
-  `order_id` VARCHAR(40) NULL DEFAULT NULL ,
-  `transaction_id` VARCHAR(40) NULL DEFAULT NULL ,
   PRIMARY KEY (`user_name`, `stock_symbol`) ,
   CONSTRAINT FOREIGN KEY (`stock_symbol` )
     REFERENCES `vsp`.`Stock` (`stock_symbol` )
@@ -130,14 +128,6 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`PortfolioEntry` (
   CONSTRAINT FOREIGN KEY (`user_name` )
     REFERENCES `vsp`.`User` (`user_name` )
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT FOREIGN KEY (`order_id` )
-    REFERENCES `vsp`.`Order` (`order_id` )
-    ON DELETE SET NULL
-    ON UPDATE NO ACTION,
-  CONSTRAINT FOREIGN KEY (`transaction_id` )
-    REFERENCES `vsp`.`Transaction` (`transaction_id` )
-    ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
