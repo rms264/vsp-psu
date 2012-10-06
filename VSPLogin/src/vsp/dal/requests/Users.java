@@ -22,7 +22,7 @@ public class Users
 {
 	private static final double DEFAULT_BALANCE = 20000.0; // $20,000 USD
 	
-	public static boolean addUserAccount(String userName, String email, 
+	public static boolean addTraderAccount(String userName, String email, 
 			String password1, String password2, String questionNum, 
 			String answer) throws ValidationException, SQLException, 
 			SqlRequestException
@@ -32,7 +32,7 @@ public class Users
 				questionNum, answer);
 	}
 	
-	public static boolean deleteUserAccount(String userName) throws 
+	public static boolean deleteTraderAccount(String userName) throws 
 		SQLException, SqlRequestException
 	{
 		Users request = new Users();
@@ -376,10 +376,11 @@ public class Users
 		AccountData data = null;
 		try
 		{
-			String sqlStatement = "SELECT * FROM Users WHERE user_name='" + userName + "'";
+			String sqlStatement = "SELECT * FROM Users WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlStatement);
+			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+			pStmt.setString(1, userName);
+			ResultSet rs = pStmt.executeQuery(sqlStatement);
 			
 			if(rs.first())
 			{
@@ -451,6 +452,7 @@ public class Users
 				connection.close();
 			}
 		}
+		
 		return success;
 	}
 	

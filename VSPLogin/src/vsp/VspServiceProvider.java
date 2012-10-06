@@ -19,19 +19,19 @@ public class VspServiceProvider
 		// no implementation required
 	}
 	
-	public void createAccount(String userName, String password1, 
+	public void createTraderAccount(String userName, String password1, 
 			String password2, String email, String question, String answer) 
 			throws ValidationException, SQLException, SqlRequestException 
 	{
-		Users.addUserAccount(userName, email, password1, password2, question, 
+		Users.addTraderAccount(userName, email, password1, password2, question, 
 				answer);
 		Roles.addNewUserRole(userName, Role.TRADER);
 	}
 	
-	public void deleteAccount(String userName) throws ValidationException,
+	public void deleteTraderAccount(String userName) throws ValidationException,
 		SQLException, SqlRequestException
 	{
-		Users.deleteUserAccount(userName);
+		Users.deleteTraderAccount(userName);
 		Roles.deleteUserRole(userName);
 	}
 	

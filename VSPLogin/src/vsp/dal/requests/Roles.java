@@ -18,12 +18,14 @@ public class Roles {
 		Roles request = new Roles();
 		return request.insert(userName, role);
 	}
+	
 	public static boolean deleteUserRole(String userName) throws SQLException, 
 		SqlRequestException, ValidationException
 	{
 		Roles request = new Roles();
 		return request.delete(userName);
 	}
+	
 	private Roles(){}
 	
 	private boolean insert(String userName, Role role) throws SQLException, 

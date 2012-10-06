@@ -20,7 +20,7 @@
 		{
 			VspServiceProvider vsp = new VspServiceProvider();
 			// throws on error
-			vsp.deleteAccount(delete);
+			vsp.deleteTraderAccount(delete);
 			out.println("<p><i>User deleted.</i>");
 		}
 		catch (Exception ex)

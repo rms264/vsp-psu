@@ -1,5 +1,8 @@
 package vsp.transactions;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 
 import vsp.NameValuePair;
@@ -7,6 +10,7 @@ import vsp.dataObject.Stock;
 
 public abstract class StockTransaction
 {
+	private final String userName;
 	private final String id;
 	private final Stock stock;
 	private final Date dateTime;
@@ -14,9 +18,10 @@ public abstract class StockTransaction
 	private final double pricePerShare;
 	private final float quantity;
 	
-	public StockTransaction(String id, Stock stock, Date dateTime, 
+	public StockTransaction(String userName, String id, Stock stock, Date dateTime, 
 			double value, double pricePerShare, float quantity)
 	{
+		this.userName = userName;
 		this.id = id;
 		this.stock = stock;
 		this.dateTime = dateTime;
@@ -34,9 +39,14 @@ public abstract class StockTransaction
 	{
 		return this.id;
 	}
+		
+	public static String getInsertStatement()
+	{
+		return "INSERT into Orders VALUES(?,?,?,?,?,?,?,?,?)";
+	}
 	
 	public abstract List<NameValuePair> getNameValuePairs();
-	
+		
 	public double getPricePerShare()
 	{
 		return this.pricePerShare;
@@ -52,8 +62,15 @@ public abstract class StockTransaction
 		return this.stock;
 	}
 	
+	public String getUserName()
+	{
+		return this.userName;
+	}
+	
 	public double getValue()
 	{
 		return this.value;
 	}
+	
+	public abstract void prepareInsertStatement(PreparedStatement statement) throws SQLException;
 }

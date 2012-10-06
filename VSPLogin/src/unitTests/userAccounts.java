@@ -25,7 +25,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(userName, password, password, email, securityQuestion, securityAnswer);
+			vsp.createTraderAccount(userName, password, password, email, securityQuestion, securityAnswer);
 		}
 		catch (Exception e)
 		{
@@ -39,7 +39,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(userName, password, password, email, securityQuestion, securityAnswer);
+			vsp.createTraderAccount(userName, password, password, email, securityQuestion, securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -54,7 +54,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, "", "", secondaryEmail, securityQuestion, securityAnswer);
+			vsp.createTraderAccount(secondaryUserName, "", "", secondaryEmail, securityQuestion, securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -69,7 +69,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, password, password, password, securityQuestion, securityAnswer);
+			vsp.createTraderAccount(secondaryUserName, password, password, password, securityQuestion, securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -84,7 +84,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, password, password, email, securityQuestion, securityAnswer);
+			vsp.createTraderAccount(secondaryUserName, password, password, email, securityQuestion, securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -99,7 +99,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, "asdf", "asdf", secondaryEmail, securityQuestion, securityAnswer);
+			vsp.createTraderAccount(secondaryUserName, "asdf", "asdf", secondaryEmail, securityQuestion, securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -114,7 +114,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, 
+			vsp.createTraderAccount(secondaryUserName, 
 					"asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf", 
 					"asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf", 
 					secondaryEmail, securityQuestion, securityAnswer);
@@ -132,7 +132,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, 
+			vsp.createTraderAccount(secondaryUserName, 
 					"asdfasd1", 
 					"asdfasd1", 
 					secondaryEmail, securityQuestion, securityAnswer);
@@ -150,7 +150,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, 
+			vsp.createTraderAccount(secondaryUserName, 
 					"ASDFASD1", 
 					"ASDFASD1", 
 					secondaryEmail, securityQuestion, securityAnswer);
@@ -168,7 +168,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, 
+			vsp.createTraderAccount(secondaryUserName, 
 					"ASDFASDF", 
 					"ASDFASDF", 
 					secondaryEmail, securityQuestion, securityAnswer);
@@ -186,7 +186,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, secondaryUserName, secondaryUserName, secondaryEmail, securityQuestion, securityAnswer);
+			vsp.createTraderAccount(secondaryUserName, secondaryUserName, secondaryUserName, secondaryEmail, securityQuestion, securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -201,7 +201,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, "-1", securityAnswer);
+			vsp.createTraderAccount(secondaryUserName, password, password, secondaryEmail, "-1", securityAnswer);
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -216,7 +216,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.createAccount(secondaryUserName, password, password, secondaryEmail, securityQuestion, "");
+			vsp.createTraderAccount(secondaryUserName, password, password, secondaryEmail, securityQuestion, "");
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -231,7 +231,7 @@ public class userAccounts
 	{
 		try
 		{
-			vsp.deleteAccount(userName);
+			vsp.deleteTraderAccount(userName);
 		}
 		catch (Exception e)
 		{
