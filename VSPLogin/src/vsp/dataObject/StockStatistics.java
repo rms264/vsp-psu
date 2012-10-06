@@ -2,20 +2,27 @@ package vsp.dataObject;
 
 public final class StockStatistics
 {
-	private double returnOnInvestment;
-	private double compoundRateOfReturn;
-	private double compoundAnnualGrowthRate;
-	private double averageRateOfReturn;
-	private double standardDeviation;
+	private final double returnOnInvestment;
+	private final double compoundRateOfReturn;
+	private final double compoundAnnualGrowthRate;
+	private final double averageRateOfReturn;
+	private final double standardDeviation;
 	
-	public StockStatistics()
+	private StockStatistics(double returnOnInvestment, double compoundRateOfReturn,
+			double compoundAnnualGrowthRate, double averageRateOfReturn,
+			double standardDeviation)
 	{
-		// no implementation required
+		this.returnOnInvestment = returnOnInvestment;
+		this.compoundRateOfReturn = compoundRateOfReturn;
+		this.compoundAnnualGrowthRate = compoundAnnualGrowthRate;
+		this.averageRateOfReturn = averageRateOfReturn;
+		this.standardDeviation = standardDeviation;
 	}
 	
-	public void calculate(HistoricalStockInfo data)
+	public static StockStatistics Calculate(HistoricalStockInfo data)
 	{
 		// TODO: implement
+		return null;
 	}
 
 	public double getAverageRateOfReturn()
