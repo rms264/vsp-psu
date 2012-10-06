@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS `vsp`.`Transaction` ;
 CREATE  TABLE IF NOT EXISTS `vsp`.`Transaction` (
   `transaction_id` VARCHAR(40) NOT NULL UNIQUE,
   `type` INT NOT NULL ,
-  `order_id` INT NULL DEFAULT NULL ,
+  `order_id` INT NOT NULL UNIQUE ,
   `stock_symbol` VARCHAR(45) NOT NULL ,
   `date` DATE NOT NULL ,
   `quantity` FLOAT NULL DEFAULT NULL ,
