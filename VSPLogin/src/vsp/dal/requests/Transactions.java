@@ -48,7 +48,7 @@ public class Transactions
 		return true;
 	}
 	
-	private StockTransaction getTransaction(ResultSet rs) throws
+	private StockTransaction getTransactionFromResultSet(ResultSet rs) throws
 		SQLException, SqlRequestException
 	{
 		StockTransaction transaction = null;
