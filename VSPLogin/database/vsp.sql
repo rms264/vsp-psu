@@ -61,6 +61,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Order` (
   `state` INT NOT NULL ,
   `quantity` FLOAT NOT NULL ,
   `action` INT NOT NULL ,
+  `type` INT NOT NULL ,
   `limit_price` DOUBLE NULL DEFAULT NULL ,
   `stop_price` DOUBLE NULL DEFAULT NULL ,
   `time_in_force` INT NOT NULL ,
