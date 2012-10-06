@@ -2,42 +2,176 @@ package vsp.utils;
 
 public class Enumeration
 {
-
-	public enum TransactionType
+	public enum TimeInForce
 	{
-		DIVIDEND("dividend"),
-		CANCELLATION("cancellation"),
-		EXECUTION("execution"),
-		DEFAULT("UNKNOWN");
+		DAY(0),
+		GOODUNTILCANCELED(1),
+		FILLORKILL(2),
+		IMMEDIATEORCANCEL(3),
+		DEFAULT(99);
 		
-		private final String transactionType;
-		private TransactionType(String transactionType)
+		private final int value;
+		private TimeInForce(int value)
 		{
-			this.transactionType = transactionType;
+			this.value = value;
 		}
 		
-		public static TransactionType get(String transactionTypeName)
+		public static TimeInForce convert(int value)
 		{
-			TransactionType transactionType = TransactionType.DEFAULT;
-			if(transactionTypeName.toLowerCase().equals(DIVIDEND.toString()))
+			TimeInForce tif;
+			if(value == DAY.value)
 			{
-				transactionType = TransactionType.DIVIDEND;
+				tif = DAY;
 			}
-			else if(transactionTypeName.toLowerCase().equals(CANCELLATION.toString()))
+			else if(value == GOODUNTILCANCELED.value)
 			{
-				transactionType = TransactionType.CANCELLATION;
+				tif = GOODUNTILCANCELED;
 			}
-			else if(transactionTypeName.toLowerCase().equals(EXECUTION.toString()))
+			else if(value == FILLORKILL.value)
 			{
-				transactionType = TransactionType.EXECUTION;
+				tif = FILLORKILL;
+			}
+			else if(value == IMMEDIATEORCANCEL.value)
+			{
+				tif = IMMEDIATEORCANCEL;
+			}
+			else
+			{
+				tif = DEFAULT;
 			}
 			
-			return transactionType;
+			return tif;
 		}
 		
-		public String toString()
+		public int getValue()
 		{
-			return transactionType;
+			return this.value;
+		}
+	}
+	
+	public enum OrderType
+	{
+		MARKET(0),
+		LIMIT(1),
+		STOP(2),
+		STOPLIMIT(3),
+		DEFAULT(99);
+		
+		private final int value;
+		private OrderType(int value)
+		{
+			this.value = value;
+		}
+		
+		public static OrderType convert(int value)
+		{
+			OrderType ot;
+			if(value == MARKET.value)
+			{
+				ot = MARKET;
+			}
+			else if(value == LIMIT.value)
+			{
+				ot = LIMIT;
+			}
+			else if(value == STOP.value)
+			{
+				ot = STOP;
+			}
+			else if(value == STOPLIMIT.value)
+			{
+				ot = STOPLIMIT;
+			}
+			else
+			{
+				ot = DEFAULT;
+			}
+			
+			return ot;
+		}
+		
+		public int getValue()
+		{
+			return this.value;
+		}
+	}
+	
+	public enum StockAction
+	{
+		BUY(0),
+		SELL(1),
+		DEFAULT(99);
+		
+		private final int value;
+		private StockAction(int value)
+		{
+			this.value = value;
+		}
+		
+		public static StockAction convert(int value)
+		{
+			StockAction sa;
+			if(value == BUY.value)
+			{
+				sa = BUY;
+			}
+			else if(value == SELL.value)
+			{
+				sa = SELL;
+			}
+			else
+			{
+				sa = DEFAULT;
+			}
+			
+			return sa;
+		}
+		
+		public int getValue()
+		{
+			return this.value;
+		}
+	}
+	
+	public enum TransactionType
+	{
+		DIVIDEND(0),
+		CANCELLATION(1),
+		EXECUTION(2),
+		DEFAULT(99);
+		
+		private final int value;
+		private TransactionType(int value)
+		{
+			this.value = value;
+		}
+		
+		public static TransactionType convert(int value)
+		{
+			TransactionType tt;
+			if(value == DIVIDEND.value)
+			{
+				tt = DIVIDEND;
+			}
+			else if(value == CANCELLATION.value)
+			{
+				tt = CANCELLATION;
+			}
+			else if(value == EXECUTION.value)
+			{
+				tt = EXECUTION;
+			}
+			else
+			{
+				tt = DEFAULT;
+			}
+			
+			return tt;
+		}
+		
+		public int getValue()
+		{
+			return this.value;
 		}
 	}
 	
@@ -57,30 +191,30 @@ public class Enumeration
 			this.value = value;
 		}
 		
-		public static SecurityQuestion convert(int val)
+		public static SecurityQuestion convert(int value)
 		{
 			SecurityQuestion sq;
-			if(val == FAVORITE_COLOR.value)
+			if(value == FAVORITE_COLOR.value)
 			{
 				sq = FAVORITE_COLOR;
 			}
-			else if(val == PET_NAME.value)
+			else if(value == PET_NAME.value)
 			{
 				sq = PET_NAME;
 			}
-			else if(val == MOTHER_MAIDEN_NAME.value)
+			else if(value == MOTHER_MAIDEN_NAME.value)
 			{
 				sq = MOTHER_MAIDEN_NAME;
 			}
-			else if(val == SPOUSE_FIRST_NAME.value)
+			else if(value == SPOUSE_FIRST_NAME.value)
 			{
 				sq = SPOUSE_FIRST_NAME;
 			}
-			else if(val == ELEMENTRY_SCHOOL_NAME.value)
+			else if(value == ELEMENTRY_SCHOOL_NAME.value)
 			{
 				sq = ELEMENTRY_SCHOOL_NAME;
 			}
-			else if(val == HIGH_SCHOOL_NAME.value)
+			else if(value == HIGH_SCHOOL_NAME.value)
 			{
 				sq = HIGH_SCHOOL_NAME;
 			}
@@ -92,7 +226,7 @@ public class Enumeration
 			return sq;
 		}
 		
-		public int getVal()
+		public int getValue()
 		{
 			return this.value;
 		}
