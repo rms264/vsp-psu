@@ -68,20 +68,10 @@ public class Transactions
 		}
 		
 		TransactionType type = TransactionType.convert(rs.getInt("type"));
-		switch (type)
+		transaction = StockTransactionFactory.Create(type, id, stock, date, totalValue, pricePerShare, quantity, order);
+		if (transaction == null)
 		{
-			case DIVIDEND:
-				transaction = new DividendTransaction(id, stock, date, totalValue, pricePerShare, quantity);
-				break;
-			case CANCELLATION:			
-				transaction = new OrderCancellationTransaction(id, stock, date, order);
-				break;
-			case EXECUTION:
-				transaction = new OrderExecutionTransaction(id, stock, date, totalValue, pricePerShare, quantity, order);
-				break;
-			case DEFAULT:
-				default:
-				throw (new SqlRequestException("Error:  Unrecognized transaction type."));
+			throw (new SqlRequestException("Error:  Unrecognized transaction type: " + type.toString()));
 		}
 		
 		return transaction;
