@@ -7,23 +7,11 @@ CREATE SCHEMA IF NOT EXISTS `vsp` ;
 USE `vsp` ;
 
 -- -----------------------------------------------------
--- Table `vsp`.`Roles`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `vsp`.`Roles` ;
-
-CREATE  TABLE IF NOT EXISTS `vsp`.`Roles` (
-  `user_name` VARCHAR(45) NOT NULL ,
-  `role_name` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`user_name`, `role_name`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `vsp`.`Users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `vsp`.`Users` ;
+DROP TABLE IF EXISTS `vsp`.`User` ;
 
-CREATE  TABLE IF NOT EXISTS `vsp`.`Users` (
+CREATE  TABLE IF NOT EXISTS `vsp`.`User` (
   `user_name` VARCHAR(45) NOT NULL UNIQUE,
   `user_pass` VARCHAR(65) NOT NULL ,
   `email` VARCHAR(65) NOT NULL UNIQUE,
@@ -34,6 +22,21 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Users` (
   PRIMARY KEY (`user_name`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `vsp`.`Role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `vsp`.`Role` ;
+
+CREATE  TABLE IF NOT EXISTS `vsp`.`Role` (
+  `user_name` VARCHAR(45) NOT NULL ,
+  `role_name` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`user_name`, `role_name`) ,
+  CONSTRAINT FOREIGN KEY (`user_name`)
+    REFERENCES `vsp`.`User` (`user_name`)
+    ON DELETE CASCADE 
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `vsp`.`Stock`
@@ -70,7 +73,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Order` (
     ON DELETE CASCADE 
     ON UPDATE NO ACTION,
   CONSTRAINT FOREIGN KEY (`user_name` )
-    REFERENCES `vsp`.`Users` (`user_name` )
+    REFERENCES `vsp`.`User` (`user_name` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -80,7 +83,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `vsp`.`Transaction` ;
 
-CREATE  TABLE IF NOT EXISTS `vsp`.`Transaction` (
+CREATE  TABLE IF NOT EXISTS `vsp`.`Transactions` (
   `transaction_id` VARCHAR(40) NOT NULL UNIQUE,
   `type` INT NOT NULL ,
   `order_id` INT NULL DEFAULT NULL ,
@@ -96,7 +99,11 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Transaction` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT FOREIGN KEY (`user_name` )
-    REFERENCES `vsp`.`Users` (`user_name` )
+    REFERENCES `vsp`.`User` (`user_name` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+  CONSTRAINT FOREIGN KEY (`order_id` )
+    REFERENCES `vsp`.`Order` (`order_id` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -121,7 +128,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`PortfolioEntry` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT FOREIGN KEY (`user_name` )
-    REFERENCES `vsp`.`Users` (`user_name` )
+    REFERENCES `vsp`.`User` (`user_name` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT FOREIGN KEY (`order_id` )
@@ -134,11 +141,9 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`PortfolioEntry` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-LOCK TABLES `Users` WRITE, `Roles` WRITE;
-/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES ('admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','admin@admin.com','2012-09-20',0,'c7941b6920e2ed43e6bb1a2b450a801a9e3e4e7ab3c018b128b104c9ce24df6a', 0.0),('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0);
-INSERT INTO `Roles` VALUES ('admin','admin'),('test','trader'),('test1','trader');
-/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+LOCK TABLES `User` WRITE, `Role` WRITE;
+INSERT INTO `User` VALUES ('admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','admin@admin.com','2012-09-20',0,'c7941b6920e2ed43e6bb1a2b450a801a9e3e4e7ab3c018b128b104c9ce24df6a', 0.0),('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0);
+INSERT INTO `Role` VALUES ('admin','admin'),('test','trader'),('test1','trader');
 UNLOCK TABLES;
 
 SET SQL_MODE=@OLD_SQL_MODE;
