@@ -18,7 +18,7 @@ public class Enumeration
 		
 		public static TimeInForce convert(int value)
 		{
-			TimeInForce tif;
+			TimeInForce tif = DEFAULT;
 			if(value == DAY.value)
 			{
 				tif = DAY;
@@ -34,10 +34,6 @@ public class Enumeration
 			else if(value == IMMEDIATEORCANCEL.value)
 			{
 				tif = IMMEDIATEORCANCEL;
-			}
-			else
-			{
-				tif = DEFAULT;
 			}
 			
 			return tif;
@@ -65,7 +61,7 @@ public class Enumeration
 		
 		public static OrderType convert(int value)
 		{
-			OrderType ot;
+			OrderType ot = DEFAULT;
 			if(value == MARKET.value)
 			{
 				ot = MARKET;
@@ -81,10 +77,6 @@ public class Enumeration
 			else if(value == STOPLIMIT.value)
 			{
 				ot = STOPLIMIT;
-			}
-			else
-			{
-				ot = DEFAULT;
 			}
 			
 			return ot;
@@ -110,7 +102,7 @@ public class Enumeration
 		
 		public static StockAction convert(int value)
 		{
-			StockAction sa;
+			StockAction sa = DEFAULT;
 			if(value == BUY.value)
 			{
 				sa = BUY;
@@ -118,10 +110,6 @@ public class Enumeration
 			else if(value == SELL.value)
 			{
 				sa = SELL;
-			}
-			else
-			{
-				sa = DEFAULT;
 			}
 			
 			return sa;
@@ -148,7 +136,7 @@ public class Enumeration
 		
 		public static TransactionType convert(int value)
 		{
-			TransactionType tt;
+			TransactionType tt = DEFAULT;
 			if(value == DIVIDEND.value)
 			{
 				tt = DIVIDEND;
@@ -160,10 +148,6 @@ public class Enumeration
 			else if(value == EXECUTION.value)
 			{
 				tt = EXECUTION;
-			}
-			else
-			{
-				tt = DEFAULT;
 			}
 			
 			return tt;
@@ -193,7 +177,7 @@ public class Enumeration
 		
 		public static SecurityQuestion convert(int value)
 		{
-			SecurityQuestion sq;
+			SecurityQuestion sq = DEFAULT;
 			if(value == FAVORITE_COLOR.value)
 			{
 				sq = FAVORITE_COLOR;
@@ -217,10 +201,6 @@ public class Enumeration
 			else if(value == HIGH_SCHOOL_NAME.value)
 			{
 				sq = HIGH_SCHOOL_NAME;
-			}
-			else
-			{
-				sq = DEFAULT;
 			}
 			
 			return sq;
