@@ -1,5 +1,7 @@
 package vsp.orders;
 
+import java.util.Date;
+
 import vsp.dataObject.Stock;
 import vsp.utils.Enumeration.*;
 
@@ -15,10 +17,11 @@ public final class Order
 	private final double stopPrice;
 	private final TimeInForce timeInForce;
 	private OrderState state;
+	private final Date dateSubmitted;
 	
 	public Order(String id, String userName, Stock stock, OrderAction action, 
 			float quantity, OrderType type, double limitPrice, double stopPrice,
-			TimeInForce timeInForce, OrderState state)
+			TimeInForce timeInForce, OrderState state, Date dateSubmitted)
 	{
 		this.id = id;
 		this.userName = userName;
@@ -30,11 +33,17 @@ public final class Order
 		this.stopPrice = stopPrice;
 		this.timeInForce = timeInForce;
 		this.state = state;
+		this.dateSubmitted = dateSubmitted;
 	}
 	
 	public OrderAction getAction()
 	{
 		return this.action;
+	}
+	
+	public Date getDateSubmitted()
+	{
+		return this.dateSubmitted;
 	}
 	
 	public String getId()

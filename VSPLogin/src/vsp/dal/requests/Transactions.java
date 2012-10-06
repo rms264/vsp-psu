@@ -95,7 +95,7 @@ public class Transactions
 		Connection connection = null;
 		try
 		{
-			String sqlStatement = "DELETE * FROM Transactions WHERE transaction_id=?";
+			String sqlStatement = "DELETE * FROM Transaction WHERE transaction_id=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, transactionId);
@@ -127,7 +127,7 @@ public class Transactions
 		StockTransaction transaction = null;
 		try
 		{
-			String sqlStatement = "SELECT * FROM Transactions WHERE transaction_id=?";
+			String sqlStatement = "SELECT * FROM Transaction WHERE transaction_id=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, transactionId);
@@ -156,7 +156,7 @@ public class Transactions
 		StockTransaction transaction = null;
 		try
 		{
-			String sqlStatement = "SELECT * FROM Transactions WHERE order_id=?";
+			String sqlStatement = "SELECT * FROM Transaction WHERE order_id=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, orderId);
@@ -185,7 +185,7 @@ public class Transactions
 		List<StockTransaction> transactions = new ArrayList<StockTransaction>();
 		try
 		{
-			String sqlStatement = "SELECT * FROM Transactions WHERE user_name=?";
+			String sqlStatement = "SELECT * FROM Transaction WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);

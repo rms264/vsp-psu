@@ -130,7 +130,7 @@ public class Stocks {
 	
 	private List<Stock> submitGetAllStocksRequest() throws SQLException
 	{
-		String sqlStatement = "SELECT * FROM stock";
+		String sqlStatement = "SELECT * FROM Stock";
 		// check for existence of user name in database
 		Connection connection = null;
 		List<Stock> results = new ArrayList<Stock>();
@@ -157,7 +157,7 @@ public class Stocks {
 	
 	private Stock submitStockRequest(String stockSymbol) throws SQLException
 	{
-		String sqlStatement = "SELECT * FROM stock WHERE stock_symbol=?";
+		String sqlStatement = "SELECT * FROM Stock WHERE stock_symbol=?";
 		// check for existence of user name in database
 		Connection connection = null;
 		Stock stock = null;

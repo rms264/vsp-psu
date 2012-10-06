@@ -129,7 +129,7 @@ public class Users
 		try
 		{
 			String sqlStatement = 
-					"UPDATE Users SET current_balance=? WHERE user_name=?";
+					"UPDATE User SET current_balance=? WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setDouble(1, balance);
@@ -163,7 +163,7 @@ public class Users
 		try
 		{
 			String sqlStatement = 
-					"UPDATE Users SET email=? WHERE user_name=?";
+					"UPDATE User SET email=? WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, email);
@@ -196,7 +196,7 @@ public class Users
 		boolean success = false;
 		try
 		{
-			String sqlStatement = "Update Users SET user_pass=? WHERE user_name=?";			
+			String sqlStatement = "Update User SET user_pass=? WHERE user_name=?";			
 			if(Validate.validatePassword(userName, password1, password2))
 			{
 				connection = DatasourceConnection.getConnection();
@@ -234,7 +234,7 @@ public class Users
 		SecurityQuestion question = SecurityQuestion.DEFAULT;
 		try
 		{
-			String sqlStatement = "Update Users SET security_question_id=?, security_answer=? WHERE user_name=?";
+			String sqlStatement = "Update User SET security_question_id=?, security_answer=? WHERE user_name=?";
 			question = SecurityQuestion.convert(Integer.parseInt(questionNum));
 			
 			if(Validate.validateSecurityQuestion(question) && Validate.validateSecurityAnswer(answer))
@@ -270,7 +270,7 @@ public class Users
 	private List<String> submitUserNameQuery(String userName) throws SQLException, 
 		ValidationException
 	{
-		String sqlStatement = "SELECT * FROM users WHERE user_name=?";
+		String sqlStatement = "SELECT * FROM User WHERE user_name=?";
 		if(Validate.validateUserName(userName))
 		{
 			Connection connection = null;
@@ -310,7 +310,7 @@ public class Users
 	{
 		if(Validate.validateEmail(email))
 		{
-			String sqlStatement = "SELECT * FROM users WHERE email=?";
+			String sqlStatement = "SELECT * FROM User WHERE email=?";
 			Connection connection = null;
 			List<String> result = new ArrayList<String>();
 			try
@@ -347,8 +347,8 @@ public class Users
 		Connection connection = null;
 		try
 		{
-			String sqlStatement = "SELECT u.user_name from Users u, " + 
-					"user_roles r WHERE u.user_name = r.user_name AND " + 
+			String sqlStatement = "SELECT u.user_name from User u, " + 
+					"Role r WHERE u.user_name = r.user_name AND " + 
 					"r.role_name = 'trader' ORDER BY u.user_name";
 			connection = DatasourceConnection.getConnection();
 			Statement stmt = connection.createStatement();
@@ -376,7 +376,7 @@ public class Users
 		AccountData data = null;
 		try
 		{
-			String sqlStatement = "SELECT * FROM Users WHERE user_name=?";
+			String sqlStatement = "SELECT * FROM User WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);
@@ -412,7 +412,7 @@ public class Users
 		SecurityQuestion question = SecurityQuestion.DEFAULT;
 		try
 		{
-			String sqlStatement = "INSERT into Users values(?,?,?,?,?,?,?)";
+			String sqlStatement = "INSERT into User values(?,?,?,?,?,?,?)";
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			question = SecurityQuestion.convert(
 					Integer.parseInt(questionNum));
@@ -462,7 +462,7 @@ public class Users
 		boolean success = false;
 		try
 		{
-			String sqlStatement = "DELETE from users WHERE user_name=?";
+			String sqlStatement = "DELETE from User WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);  

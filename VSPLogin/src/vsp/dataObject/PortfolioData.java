@@ -1,14 +1,11 @@
 package vsp.dataObject;
 
-import java.util.Currency;
-import java.util.Date;
-
 public final class PortfolioData
 {
 	private final Stock stock;
-	private final double purchasePrice;
-	private final double costBasisPerShare;
+	private double costBasisPerShare;
 	private float	quantity;
+	private final String userName;
 	/**
 	 * @param stock
 	 * @param purchaseDate
@@ -16,14 +13,14 @@ public final class PortfolioData
 	 * @param costBasisPerShare
 	 * @param quantitiy
 	 */
-	public PortfolioData(Stock stock, double purchasePrice, 
-			double costBasisPerShare, float quantity)
+	public PortfolioData(Stock stock, double costBasisPerShare, 
+			float quantity, String userName)
 	{
 		super();
 		this.stock = stock;
-		this.purchasePrice = purchasePrice;
 		this.costBasisPerShare = costBasisPerShare;
 		this.quantity = quantity;
+		this.userName = userName;
 	}
 	/**
 	 * @return the quantity
@@ -47,11 +44,11 @@ public final class PortfolioData
 		return stock;
 	}
 	/**
-	 * @return the purchasePrice
+	 * @return the costBasis
 	 */
-	public double getPurchasePrice()
+	public double getCostBasis()
 	{
-		return purchasePrice;
+		return this.quantity * this.costBasisPerShare;
 	}
 	/**
 	 * @return the costBasisPerShare
@@ -59,5 +56,12 @@ public final class PortfolioData
 	public double getCostBasisPerShare()
 	{
 		return costBasisPerShare;
+	}
+	/**
+	 * @return the userName
+	 */
+	public String getUserName()
+	{
+		return this.userName;
 	}
 }

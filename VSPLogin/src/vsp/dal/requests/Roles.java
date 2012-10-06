@@ -19,13 +19,6 @@ public class Roles {
 		return request.insert(userName, role);
 	}
 	
-	public static boolean deleteUserRole(String userName) throws SQLException, 
-		SqlRequestException, ValidationException
-	{
-		Roles request = new Roles();
-		return request.delete(userName);
-	}
-	
 	private Roles(){}
 	
 	private boolean insert(String userName, Role role) throws SQLException, 
@@ -47,7 +40,7 @@ public class Roles {
 		
 		try
 		{
-			String sqlStatement = "INSERT INTO Roles VALUES(?,?)";
+			String sqlStatement = "INSERT INTO Role VALUES(?,?)";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);  
@@ -63,45 +56,6 @@ public class Roles {
 			{
 				throw new SqlRequestException("Error: Failed to insert " +
 						role.toString() + " for user: " + userName);
-			}
-			return success;
-		}
-		finally
-		{
-			if(connection != null)
-			{
-				connection.close();
-			}
-		}
-	}
-	
-	private boolean delete(String userName) throws SQLException, 
-		SqlRequestException, ValidationException
-	{
-		boolean success = false;
-		Connection connection = null;
-		if(!Validate.userNameExistsInDb(userName))
-		{
-			throw new ValidationException(
-				"Error: Cannot remove Role for User: " + userName +
-				" not found in database");
-		}
-		
-		try
-		{
-			String sqlStatement = "DELETE from Roles WHERE user_name=?";
-			connection = DatasourceConnection.getConnection();
-			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-			pStmt.setString(1, userName);  
-			int result = pStmt.executeUpdate(); 
-			if(result == 1)
-			{
-				success = true;
-			}
-			else
-			{
-				throw new SqlRequestException("Error: Failed to delete role " +
-						"for user: " + userName);
 			}
 			return success;
 		}

@@ -117,7 +117,6 @@ DROP TABLE IF EXISTS `vsp`.`PortfolioEntry` ;
 CREATE  TABLE IF NOT EXISTS `vsp`.`PortfolioEntry` (
   `user_name` VARCHAR(45) NOT NULL,
   `stock_symbol` VARCHAR(45) NOT NULL ,
-  `purchase_price` DOUBLE NOT NULL ,
   `quantity` FLOAT NOT NULL ,
   `cost_basis_per_share` DOUBLE NOT NULL ,
   PRIMARY KEY (`user_name`, `stock_symbol`) ,

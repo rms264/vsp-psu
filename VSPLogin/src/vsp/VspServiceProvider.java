@@ -32,7 +32,6 @@ public class VspServiceProvider
 		SQLException, SqlRequestException
 	{
 		Users.deleteTraderAccount(userName);
-		Roles.deleteUserRole(userName);
 	}
 	
 	public AccountData getAccountInfo(String userName) throws SQLException
