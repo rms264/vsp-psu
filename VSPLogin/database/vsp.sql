@@ -57,7 +57,6 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Order` (
   `user_name` VARCHAR(45) NOT NULL ,
   `stock_symbol` VARCHAR(45) NOT NULL ,
   `date_submitted` DATE NOT NULL ,
-  `price` DOUBLE NOT NULL ,
   `state` INT NOT NULL ,
   `quantity` FLOAT NOT NULL ,
   `action` INT NOT NULL ,
