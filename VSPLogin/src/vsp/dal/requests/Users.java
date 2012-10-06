@@ -71,10 +71,10 @@ public class Users {
 	 * 		   that have the Trader Role
 	 * @throws SQLException
 	 */
-	public static List<String> queryAllTraders() throws SQLException{
+	public static List<String> queryAllTraders() throws SQLException
+	{
 		Users request = new Users();
 		return request.submitTradersQuery();
-		
 	}
 	
 	/**
@@ -96,26 +96,33 @@ public class Users {
 	{
 		String sqlStatement = "SELECT * FROM users WHERE user_name=?";
 		// check for existence of user name in database
-		if(Validate.userName(userName)){
+		if(Validate.userName(userName))
+		{
 			Connection connection = null;
 			List<String> results = new ArrayList<String>();
-			try{
+			try
+			{
 				connection = DatasourceConnection.getConnection();
 				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 				pStmt.setString(1, userName);  
 				ResultSet rs = pStmt.executeQuery();
-				while(rs.next()){
+				while(rs.next())
+				{
 					results.add(rs.getString("user_name"));
 				}
+				
 				return results;
 			}
-			finally{
-				if(connection != null){
+			finally
+			{
+				if(connection != null)
+				{
 					connection.close();
 				}
 			}
 		}
-		else{
+		else
+		{
 			throw new ValidationException(
 					"Error:  Username is Invalid " +
 					"Please enter a valid Username.");
@@ -131,23 +138,29 @@ public class Users {
 			// check for existence of user name in database
 			Connection connection = null;
 			List<String> result = new ArrayList<String>();
-			try{
+			try
+			{
 				connection = DatasourceConnection.getConnection();
 				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 				pStmt.setString(1, email);  
 				ResultSet rs = pStmt.executeQuery();
-				while(rs.next()){
+				while(rs.next())
+				{
 					result.add(rs.getString("email"));
 				}
+				
 				return result;
 			}
-			finally{
-				if(connection != null){
+			finally
+			{
+				if(connection != null)
+				{
 					connection.close();
 				}
 			}
 		}
-		else{
+		else
+		{
 			throw new ValidationException(
 					"Error:  The email address is invalid.  " + 
 					"Please enter a valid email address.");
@@ -171,10 +184,11 @@ public class Users {
 			}
 		    			
 		}
-		finally{
-			if(connection != null){
+		finally
+		{
+			if(connection != null)
+			{
 				connection.close();
-				connection = null;
 			}
 		}
 		
@@ -193,7 +207,8 @@ public class Users {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sqlStatement);
 			
-			if(rs.first()){
+			if(rs.first())
+			{
 				String email = rs.getString("email");
 				Date signup = rs.getDate("signup");
 				int securityQuestion = rs.getInt("securityQuestion");
@@ -202,8 +217,10 @@ public class Users {
 					SecurityQuestion.convert(securityQuestion));
 			}
 		}
-		finally{
-			if(connection != null){
+		finally
+		{
+			if(connection != null)
+			{
 				connection.close();
 			}
 		}
@@ -214,11 +231,11 @@ public class Users {
 			String password1, String password2, String questionNum, 
 			String answer) throws SQLException, ValidationException
 	{
-		
 		Connection connection = null;
 		boolean success = false;
 		SecurityQuestion question = SecurityQuestion.DEFAULT;
-		try{
+		try
+		{
 			String sqlStatement = "insert into users values(?,?,?,?,?,?)";
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			question = SecurityQuestion.convert(
@@ -250,19 +267,23 @@ public class Users {
 				}
 			}
 		}
-		catch(NumberFormatException e){
+		catch(NumberFormatException e)
+		{
 			throw new ValidationException(
 					"Error:  Please select a security question.");
 		}
 		finally
 		{
-			connection.close();
-			connection = null;
+			if(connection != null)
+			{
+				connection.close();
+			}
 		}
 		return success;
 	}
 	
-	private boolean delete(String userName) throws SQLException, SqlRequestException{
+	private boolean delete(String userName) throws SQLException, SqlRequestException
+	{
 		Connection connection = null;
 		boolean success = false;
 		try
@@ -277,18 +298,23 @@ public class Users {
 			
 			//this should return 1 meaning that one row was removed 
 			//from the users table
-			if(result == 1){
+			if(result == 1)
+			{
 				success = true;
 			}
-			else{
+			else
+			{
 				throw (new SqlRequestException("Error:  Unable to delete account."));
 			}
 		}
-		finally{
-			if(connection != null){
+		finally
+		{
+			if(connection != null)
+			{
 				connection.close();
 			}
 		}
+		
 		return success;
 	}
 }

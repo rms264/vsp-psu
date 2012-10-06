@@ -72,8 +72,8 @@ public class Validate
 	public static boolean stockExistsInDb(String symbol) throws SQLException
 	{
 		boolean found = true;
-		List<Stock>results = Stocks.getStock(symbol);
-		if(results.isEmpty())
+		Stock results = Stocks.getStock(symbol);
+		if(results == null)
 		{ 
 			found = false;
 		}

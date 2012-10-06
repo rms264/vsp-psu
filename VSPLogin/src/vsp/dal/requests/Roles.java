@@ -31,15 +31,20 @@ public class Roles {
 	{
 		boolean success = false;
 		Connection connection = null;
-		if(role == Role.DEFAULT){
+		if(role == Role.DEFAULT)
+		{
 			throw new ValidationException(
 					"Error: Please select a valid Role to insert");
 		}
-		if(!Validate.userNameExistsInDb(userName)){
+		
+		if(!Validate.userNameExistsInDb(userName))
+		{
 			throw new ValidationException(
 				"Error: Cannot insert Role. User name not found in database");
 		}
-		try{
+		
+		try
+		{
 			String sqlStatement = "INSERT INTO user_roles VALUES(?,?)";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
@@ -48,17 +53,21 @@ public class Roles {
 			int result = pStmt.executeUpdate();
 			
 			//Should return 1 to indicate one row was added to the role table
-			if(result == 1){
+			if(result == 1)
+			{
 				success = true;
 			}
-			else{
+			else
+			{
 				throw new SqlRequestException("Error: Failed to insert " +
 						role.toString() + " for user: " + userName);
 			}
 			return success;
 		}
-		finally{
-			if(connection != null){
+		finally
+		{
+			if(connection != null)
+			{
 				connection.close();
 			}
 		}
@@ -69,28 +78,35 @@ public class Roles {
 	{
 		boolean success = false;
 		Connection connection = null;
-		if(!Validate.userNameExistsInDb(userName)){
+		if(!Validate.userNameExistsInDb(userName))
+		{
 			throw new ValidationException(
 				"Error: Cannot remove Role for User: " + userName +
 				" not found in database");
 		}
-		try{
+		
+		try
+		{
 			String sqlStatement = "DELETE from user_roles WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);  
 			int result = pStmt.executeUpdate(); 
-			if(result == 1){
+			if(result == 1)
+			{
 				success = true;
 			}
-			else{
+			else
+			{
 				throw new SqlRequestException("Error: Failed to delete role " +
 						"for user: " + userName);
 			}
 			return success;
 		}
-		finally{
-			if(connection != null){
+		finally
+		{
+			if(connection != null)
+			{
 				connection.close();
 			}
 		}

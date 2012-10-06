@@ -2,6 +2,7 @@ package vsp;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 import vsp.dal.requests.Roles;
 import vsp.dal.requests.Users;
@@ -13,7 +14,10 @@ import vsp.utils.Enumeration.Role;
 
 public class VspServiceProvider
 {
-	public VspServiceProvider(){}// no implementation required (for now)
+	public VspServiceProvider()
+	{
+		// no implementation required
+	}
 	
 	public void createAccount(String userName, String password1, 
 			String password2, String email, String question, String answer) 
@@ -29,14 +33,11 @@ public class VspServiceProvider
 	{
 		Users.deleteUserAccount(userName);
 		Roles.deleteUserRole(userName);
-		
 	}
 	
 	public AccountData getAccountInfo(String userName) throws SQLException
 	{
-		
-		AccountData data = Users.requestAccountData(userName);
-		
+		AccountData data = Users.requestAccountData(userName);	
 		return data;
 	}
 	

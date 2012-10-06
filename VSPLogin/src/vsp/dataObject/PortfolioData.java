@@ -6,51 +6,58 @@ import java.util.Date;
 public final class PortfolioData
 {
 	private final Stock stock;
-	private final Date purchaseDate;
 	private final double purchasePrice;
-	private float	quantitiy;
+	private final double costBasisPerShare;
+	private float	quantity;
 	/**
 	 * @param stock
 	 * @param purchaseDate
 	 * @param purchasePrice
+	 * @param costBasisPerShare
 	 * @param quantitiy
 	 */
-	public PortfolioData(Stock stock, Date purchaseDate,
-			double purchasePrice, float quantitiy) {
+	public PortfolioData(Stock stock, double purchasePrice, 
+			double costBasisPerShare, float quantity)
+	{
 		super();
 		this.stock = stock;
-		this.purchaseDate = purchaseDate;
 		this.purchasePrice = purchasePrice;
-		this.quantitiy = quantitiy;
+		this.costBasisPerShare = costBasisPerShare;
+		this.quantity = quantity;
 	}
 	/**
-	 * @return the quantitiy
+	 * @return the quantity
 	 */
-	public float getQuantitiy() {
-		return quantitiy;
+	public float getQuantity()
+	{
+		return quantity;
 	}
 	/**
-	 * @param quantitiy the quantitiy to set
+	 * @param quantity the quantity to set
 	 */
-	public void setQuantitiy(int quantitiy) {
-		this.quantitiy = quantitiy;
+	public void setQuantity(int quantity)
+	{
+		this.quantity = quantity;
 	}
 	/**
 	 * @return the stock
 	 */
-	public Stock getStock() {
+	public Stock getStock()
+	{
 		return stock;
-	}
-	/**
-	 * @return the purchaseDate
-	 */
-	public Date getPurchaseDate() {
-		return purchaseDate;
 	}
 	/**
 	 * @return the purchasePrice
 	 */
-	public double getPurchasePrice() {
+	public double getPurchasePrice()
+	{
 		return purchasePrice;
+	}
+	/**
+	 * @return the costBasisPerShare
+	 */
+	public double getCostBasisPerShare()
+	{
+		return costBasisPerShare;
 	}
 }
