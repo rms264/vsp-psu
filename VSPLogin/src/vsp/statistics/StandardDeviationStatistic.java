@@ -2,9 +2,9 @@ package vsp.statistics;
 
 import vsp.dataObject.HistoricalStockInfo;
 
-final class ReturnOnInvestmentStatistic extends StockStatistic
+final class StandardDeviationStatistic extends StockStatistic
 {
-	ReturnOnInvestmentStatistic()
+	StandardDeviationStatistic()
 	{
 		// no implementation required
 	}
