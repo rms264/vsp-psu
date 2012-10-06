@@ -67,8 +67,6 @@ public class Stocks {
 			pStmt.setString(1, stockSymbol);  
 			pStmt.setString(2, description);
 			int result = pStmt.executeUpdate();
-			
-			//Should return 1 to indicate one row was added to the role table
 			if(result == 1)
 			{
 				success = true;
@@ -130,12 +128,11 @@ public class Stocks {
 	
 	private List<Stock> submitGetAllStocksRequest() throws SQLException
 	{
-		String sqlStatement = "SELECT * FROM Stock";
-		// check for existence of user name in database
 		Connection connection = null;
 		List<Stock> results = new ArrayList<Stock>();
 		try
 		{
+			String sqlStatement = "SELECT * FROM Stock";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			ResultSet rs = pStmt.executeQuery();
@@ -157,20 +154,18 @@ public class Stocks {
 	
 	private Stock submitStockRequest(String stockSymbol) throws SQLException
 	{
-		String sqlStatement = "SELECT * FROM Stock WHERE stock_symbol=?";
-		// check for existence of user name in database
 		Connection connection = null;
 		Stock stock = null;
 		try
 		{
+			String sqlStatement = "SELECT * FROM Stock WHERE stock_symbol=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, stockSymbol);  
 			ResultSet rs = pStmt.executeQuery();
 			if(rs.first())
 			{
-				stock = new Stock(rs.getString("stock_symbol"), 
-						rs.getString("stock_description"));
+				stock = getStockFromResultSet(rs);
 			}
 			
 			return stock;
@@ -182,5 +177,17 @@ public class Stocks {
 				connection.close();
 			}
 		}
+	}
+	
+	private Stock getStockFromResultSet(ResultSet rs) throws 
+		SQLException
+	{
+		Stock stock = null;
+		String symbol = rs.getString("stock_symbol");
+		String description = rs.getString("stock_description");
+		
+		stock = new Stock(symbol, description);
+		
+		return stock;
 	}
 }

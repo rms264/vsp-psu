@@ -384,13 +384,7 @@ public class Users
 			
 			if(rs.first())
 			{
-				String email = rs.getString("email");
-				Date signup = rs.getDate("signup");
-				int securityQuestion = rs.getInt("security_question_id");
-				double balance = rs.getDouble("current_balance");
-			
-				data =  new AccountData(userName, email, signup, 
-					SecurityQuestion.convert(securityQuestion), balance);
+				data = getAccountDataFromResultSet(rs);
 			}
 		}
 		finally
@@ -485,5 +479,22 @@ public class Users
 		}
 		
 		return success;
+	}
+	
+	private AccountData getAccountDataFromResultSet(ResultSet rs) throws 
+		SQLException
+	{
+		AccountData data = null;
+		
+		String userName = rs.getString("user_name");
+		String email = rs.getString("email");
+		Date signup = rs.getDate("signup");
+		int securityQuestion = rs.getInt("security_question_id");
+		double balance = rs.getDouble("current_balance");
+	
+		data =  new AccountData(userName, email, signup, 
+			SecurityQuestion.convert(securityQuestion), balance);
+		
+		return data;
 	}
 }

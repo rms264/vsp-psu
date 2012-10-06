@@ -29,13 +29,13 @@ public class Roles {
 		if(role == Role.DEFAULT)
 		{
 			throw new ValidationException(
-					"Error: Please select a valid Role to insert");
+					"Error:  Please select a valid Role to insert");
 		}
 		
 		if(!Validate.userNameExistsInDb(userName))
 		{
 			throw new ValidationException(
-				"Error: Cannot insert Role. User name not found in database");
+				"Error:  Cannot insert Role. User name not found in database");
 		}
 		
 		try
@@ -46,8 +46,6 @@ public class Roles {
 			pStmt.setString(1, userName);  
 			pStmt.setString(2, role.toString());
 			int result = pStmt.executeUpdate();
-			
-			//Should return 1 to indicate one row was added to the role table
 			if(result == 1)
 			{
 				success = true;
@@ -57,6 +55,7 @@ public class Roles {
 				throw new SqlRequestException("Error: Failed to insert " +
 						role.toString() + " for user: " + userName);
 			}
+			
 			return success;
 		}
 		finally

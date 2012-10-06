@@ -177,7 +177,7 @@ public class PortfolioEntries {
 		
 	private PortfolioData submitUserPortfolioEntryRequest(String userName, String stockSymbol) throws SQLException
 	{
-		PortfolioData results = null;
+		PortfolioData data = null;
 		Connection connection = null;
 		try
 		{
@@ -191,14 +191,7 @@ public class PortfolioEntries {
 			
 			if(rs.first())
 			{
-				Stock stockInfo = Stocks.getStock(stockSymbol);
-				if(stockInfo != null)
-				{
-					results = new PortfolioData(stockInfo,
-							rs.getDouble("cost_basis_per_share"),
-							rs.getFloat("quantity"),
-							rs.getString("user_name"));
-				}
+				data = getPortfolioDataFromResultSet(rs);
 			}
 		}
 		finally
@@ -209,7 +202,7 @@ public class PortfolioEntries {
 			}
 		}
 		
-		return results;
+		return data;
 	}
 	
 	private List<PortfolioData> submitUserPortfolioRequest(String userName) throws SQLException
@@ -225,17 +218,11 @@ public class PortfolioEntries {
 			pStmt.setString(1, userName);  
 			ResultSet rs = pStmt.executeQuery();
 			
+			PortfolioData data = null;
 			while(rs.next())
 			{
-				String stock = rs.getString("stock_symbol");
-				Stock stockInfo = Stocks.getStock(stock);
-				if(stockInfo != null)
-				{
-					results.add(new PortfolioData(stockInfo,
-							rs.getDouble("cost_basis_per_share"),
-							rs.getFloat("quantity"),
-							rs.getString("user_name")));
-				}
+				data = getPortfolioDataFromResultSet(rs);
+				results.add(data);
 			}
 		}
 		finally
@@ -247,5 +234,22 @@ public class PortfolioEntries {
 		}
 		
 		return results;
+	}
+	
+	private PortfolioData getPortfolioDataFromResultSet(ResultSet rs) throws 
+		SQLException
+	{
+		PortfolioData data = null;
+		
+		String stockName = rs.getString("stock_symbol");
+		Stock stock = Stocks.getStock(stockName);
+		
+		double costBasisPerShare = rs.getDouble("cost_basis_per_share");
+		float quantity = rs.getFloat("quantity");
+		String userName = rs.getString("user_name");
+		
+		data = new PortfolioData(stock, costBasisPerShare, quantity, userName);
+		
+		return data;
 	}
 }
