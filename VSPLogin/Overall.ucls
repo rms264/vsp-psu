@@ -26,7 +26,7 @@
   </class>  
   <class id="4" corner="BOTTOM_RIGHT" language="java" name="vsp.VspServiceProvider" project="VSPLogin" 
     file="/VSPLogin/src/vsp/VspServiceProvider.java" binary="false">    
-    <position height="146" width="342" x="4805" y="834"/>    
+    <position height="146" width="342" x="4854" y="834"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -154,7 +154,7 @@
   </class>  
   <class id="20" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.StockStatistics" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/StockStatistics.java" binary="false">    
-    <position height="265" width="226" x="4539" y="834"/>    
+    <position height="265" width="275" x="4539" y="834"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -524,8 +524,8 @@
     <end type="TARGET" refId="14"/>  
   </dependency>  
   <dependency id="79">    
-    <bendpoint x="4521" y="1139"/>    
-    <bendpoint x="4521" y="1529"/>    
+    <bendpoint x="4546" y="1139"/>    
+    <bendpoint x="4546" y="1529"/>    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="50"/>  
   </dependency>  
@@ -857,9 +857,9 @@
     <end type="TARGET" refId="21"/>  
   </dependency>  
   <dependency id="155">    
-    <bendpoint x="4542" y="1139"/>    
-    <bendpoint x="4542" y="1529"/>    
-    <bendpoint x="4542" y="1851"/>    
+    <bendpoint x="4567" y="1139"/>    
+    <bendpoint x="4567" y="1529"/>    
+    <bendpoint x="4567" y="1851"/>    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="13"/>  
   </dependency>  
@@ -994,7 +994,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <dependency id="185">    
-    <bendpoint x="4015" y="529"/>    
+    <bendpoint x="4016" y="529"/>    
     <end type="SOURCE" refId="30"/>    
     <end type="TARGET" refId="33"/>  
   </dependency>  
@@ -1043,7 +1043,7 @@
     <end type="TARGET" refId="25"/>  
   </dependency>  
   <dependency id="195">    
-    <bendpoint x="2688" y="834"/>    
+    <bendpoint x="2687" y="834"/>    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="38"/>  
   </dependency>  
