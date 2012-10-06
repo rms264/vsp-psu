@@ -69,6 +69,65 @@ public class Enumeration
 		}
 	}
 	
+	public enum OrderState
+	{
+		PENDING(0),
+		COMPLETE(1),
+		CANCELLED(2),
+		DEFAULT(99);
+		
+		private final int value;
+		private OrderState(int value)
+		{
+			this.value = value;
+		}
+		
+		public static OrderState convert(int value)
+		{
+			OrderState os = DEFAULT;
+			if(value == PENDING.value)
+			{
+				os = PENDING;
+			}
+			else if(value == COMPLETE.value)
+			{
+				os = COMPLETE;
+			}
+			else if(value == CANCELLED.value)
+			{
+				os = CANCELLED;
+			}
+			
+			return os;
+		}
+		
+		public int getValue()
+		{
+			return this.value;
+		}
+		
+		public String toString()
+		{
+			String result;
+			switch(this)
+			{
+				case PENDING:
+					result = "Pending";
+					break;
+				case COMPLETE:
+					result = "Complete";
+					break;
+				case CANCELLED:
+					result = "Cancelled";
+					break;
+				default:
+					result = "UNKNOWN";
+			}
+			
+			return result;
+		}
+	}
+	
 	public enum OrderType
 	{
 		MARKET(0),
@@ -136,21 +195,21 @@ public class Enumeration
 		}
 	}
 	
-	public enum StockAction
+	public enum OrderAction
 	{
 		BUY(0),
 		SELL(1),
 		DEFAULT(99);
 		
 		private final int value;
-		private StockAction(int value)
+		private OrderAction(int value)
 		{
 			this.value = value;
 		}
 		
-		public static StockAction convert(int value)
+		public static OrderAction convert(int value)
 		{
-			StockAction sa = DEFAULT;
+			OrderAction sa = DEFAULT;
 			if(value == BUY.value)
 			{
 				sa = BUY;
