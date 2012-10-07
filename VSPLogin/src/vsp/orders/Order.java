@@ -1,6 +1,7 @@
 package vsp.orders;
 
 import java.util.Date;
+import java.util.UUID;
 
 import vsp.dataObject.Stock;
 import vsp.utils.Enumeration.*;
@@ -34,6 +35,12 @@ public final class Order
 		this.timeInForce = timeInForce;
 		this.state = state;
 		this.dateSubmitted = dateSubmitted;
+	}
+	
+	public static String CreateId()
+	{
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString();
 	}
 	
 	public OrderAction getAction()

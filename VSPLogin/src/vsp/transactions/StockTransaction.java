@@ -29,6 +29,12 @@ public abstract class StockTransaction
 		this.quantity = quantity;
 	}
 	
+	public static String CreateId()
+	{
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString();
+	}
+	
 	public Date getDateTime()
 	{
 		return this.dateTime;
