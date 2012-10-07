@@ -6,6 +6,7 @@ import java.text.*;
 import java.util.*;
 
 import vsp.dataObject.HistoricalStockInfo;
+import vsp.dataObject.Stock;
 import vsp.dataObject.StockInfo;
 
 public final class StockInfoServiceProvider
@@ -13,6 +14,29 @@ public final class StockInfoServiceProvider
 	public StockInfoServiceProvider()
 	{
 		// no implementation required
+	}
+	
+	public List<Stock> searchForStocks(String search)
+	{
+		String searchUrl = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + search + "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";		
+		
+		List<Stock> results = new ArrayList<Stock>();
+		List<String> data = null;
+		try
+		{
+			data = getDataFromUrl(searchUrl);
+		}
+		catch (Exception ex)
+		{
+			// ignore
+		}
+		
+		if (data.size() == 1)
+		{
+			results = parseStockSymbolsAndNames(data.get(0));
+		}
+		
+		return results;
 	}
 	
 	public StockInfo requestCurrentStockData(String symbol)
@@ -94,6 +118,88 @@ public final class StockInfoServiceProvider
 	{
 		// TODO: implement
 		return null;
+	}
+	
+	private static List<Stock> parseStockSymbolsAndNames(String json)
+	{
+		/*YAHOO.Finance.SymbolSuggest.ssCallback(
+		 * {
+		 * 	"ResultSet":
+		 * 	{
+		 * 		"Query":"mfs",
+		 * 		"Result":[
+		 * 			{"symbol":"MCR","name": "MFS Charter Income Trust Common","exch": "NYQ","type": "S","exchDisp":"NYSE","typeDisp":"Equity"},
+		 * 			{"symbol":"CMK","name": "MFS InterMarket Income Trust I","exch": "NYQ","type": "S","exchDisp":"NYSE","typeDisp":"Equity"},
+		 * 			{"symbol":"CMU","name": "MFS High Yield Municipal Trust","exch": "NYQ","type": "S","exchDisp":"NYSE","typeDisp":"Equity"},
+		 * 			{"symbol":"MIN","name": "MFS Intermediate Income Trust","exch": "NYQ","type": "S","exchDisp":"NYSE","typeDisp":"Equity"},
+		 * 			{"symbol":"MHOCX","name": "MFS High Yield Opportunities C","exch": "NAS","type": "M","exchDisp":"NASDAQ","typeDisp":"Fund"},
+		 * 			{"symbol":"CIF","name": "MFS Intermediate High Income Fu","exch": "NYQ","type": "S","exchDisp":"NYSE","typeDisp":"Equity"},
+		 * 			{"symbol":"MMUFX","name": "MFS Utilities A","exch": "NAS","type": "M","exchDisp":"NASDAQ","typeDisp":"Fund"},
+		 * 			{"symbol":"CCA","name": "MFS California Municipal Fund C","exch": "ASE","type": "S","exchDisp":"AMEX","typeDisp":"Equity"},
+		 * 			{"symbol":"MMT","name": "MFS Multimarket Income Trust","exch": "NYQ","type": "S","exchDisp":"NYSE","typeDisp":"Equity"},
+		 * 			{"symbol":"MIGFX","name": "MFS Massachusetts Investors Gr Stk A","exch": "NAS","type": "M","exchDisp":"NASDAQ","typeDisp":"Fund"}
+		 * 		]
+		 * 	}
+		 * })
+		 * */
+		
+		List<Stock> results = new ArrayList<Stock>();
+		if (json.startsWith("YAHOO.Finance.SymbolSuggest.ssCallback({\"ResultSet\":{\"Query\":\""))
+		{
+			// reduce string to result entries only
+			String beginString = "\"Result\":[";
+			int begin = json.indexOf(beginString);
+			int end = json.indexOf("]}})");
+			json = json.substring(begin + beginString.length(), end);
+			
+			// process result entries
+			String[] resultItems = json.split("}");
+			if (resultItems.length > 0)
+			{
+				// cleanup result entries
+				for (int i = 0; i < resultItems.length; ++i)
+				{
+					resultItems[i] = resultItems[i].replace(",{",  "");
+					resultItems[i] = resultItems[i].replace("{",  "");
+				}
+				
+				// extract pairs per entry
+				String name, symbol;
+				for (int i = 0; i < resultItems.length; ++i)
+				{
+					name = null;
+					symbol = null;
+					
+					String[] pairs = resultItems[i].split("\",\"");
+					if (pairs.length > 0)
+					{
+						// cleanup pairs & extract name/symbol data
+						for (int j = 0; j < pairs.length; ++j)
+						{
+							pairs[j] = pairs[j].replace("\"", "");
+							if (pairs[j].startsWith("symbol:"))
+							{
+								symbol = pairs[j];
+							}
+							else if (pairs[j].startsWith("name:"))
+							{
+								name = pairs[j];
+							}
+						}
+						
+						// extract symbol & name into a Stock instance
+						if (symbol != null && name != null)
+						{
+							symbol = symbol.replace("symbol:", "").trim();
+							name = name.replace("name:", "").trim();
+							results.add(new Stock(symbol, name));
+						}
+					}
+				}
+			}
+		}
+		
+		return results;
 	}
 	
 	private static StockInfo parseStockInfo(String symbol, String line)
