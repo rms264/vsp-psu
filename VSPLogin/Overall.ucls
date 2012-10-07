@@ -122,7 +122,7 @@
   </class>  
   <class id="16" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.PortfolioData" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/PortfolioData.java" binary="false">    
-    <position height="231" width="210" x="3388" y="1546"/>    
+    <position height="248" width="210" x="3388" y="1546"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
