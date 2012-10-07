@@ -164,9 +164,11 @@ public final class StockInfoServiceProvider
 				}
 				
 				// extract pairs per entry
+				boolean stock;
 				String name, symbol;
 				for (int i = 0; i < resultItems.length; ++i)
 				{
+					stock = false;
 					name = null;
 					symbol = null;
 					
@@ -185,10 +187,14 @@ public final class StockInfoServiceProvider
 							{
 								name = pairs[j];
 							}
+							else if (pairs[j].startsWith("type:") && pairs[j].endsWith("S"))
+							{
+								stock = true;
+							}
 						}
 						
 						// extract symbol & name into a Stock instance
-						if (symbol != null && name != null)
+						if (stock && symbol != null && name != null)
 						{
 							symbol = symbol.replace("symbol:", "").trim();
 							name = name.replace("name:", "").trim();
