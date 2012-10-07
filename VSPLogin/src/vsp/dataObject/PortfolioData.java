@@ -64,4 +64,11 @@ public final class PortfolioData
 	{
 		return this.userName;
 	}
+	
+	public void addQuantity(float quantity, double pricePerShare)
+	{
+		// TODO: implement
+		// calculate new cost basis per share given the existing quantity and cost basis
+		// update the quantity and costBasisPerShare fields
+	}
 }
