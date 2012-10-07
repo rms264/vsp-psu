@@ -212,13 +212,7 @@ public final class StockInfoServiceProvider
 		{
 			columns[i] = columns[i].replaceAll("\"", "").trim();
 		}
-		
-		// DEBUG only
-		for (int i = 0; i < columns.length; ++i)
-		{
-			System.out.println(columns[i]);
-		}
-		
+			
 		if (columns.length == 9)
 		{
 			// parse change & percent change from single column
