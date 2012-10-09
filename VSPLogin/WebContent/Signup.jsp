@@ -34,7 +34,7 @@
     	{
     		VspServiceProvider vsp = new VspServiceProvider();
     		// throws on error
-    		vsp.createAccount(request.getParameter("username"), request.getParameter("password1"), 
+    		vsp.createTraderAccount(request.getParameter("username"), request.getParameter("password1"), 
     				request.getParameter("password2"), request.getParameter("email"), request.getParameter("question"),
     				request.getParameter("answer"));
 
@@ -67,7 +67,7 @@
     	for(SecurityQuestion question : SecurityQuestion.values()){
     		if(question == SecurityQuestion.DEFAULT)
     			continue;
-    		out.println("<option value='" + Integer.toString(question.getVal()) + "'>" + question + "</option>");
+    		out.println("<option value='" + Integer.toString(question.getValue()) + "'>" + question + "</option>");
     	}
     	
     	out.println("</select></td></tr>");
