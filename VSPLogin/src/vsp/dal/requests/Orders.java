@@ -65,7 +65,7 @@ public class Orders
 		boolean success = false;
 		try
 		{
-			String sqlStatement = "INSERT into Order values(?,?,?,?,?,?,?,?,?,?,?)";
+			String sqlStatement = "INSERT into vsp.Order values(?,?,?,?,?,?,?,?,?,?,?)";
 
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
@@ -105,7 +105,7 @@ public class Orders
 		Connection connection = null;
 		try
 		{
-			String sqlStatement = "DELETE * FROM Order WHERE order_id=?";
+			String sqlStatement = "DELETE * FROM vsp.Order WHERE order_id=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, orderId);
@@ -137,7 +137,7 @@ public class Orders
 		Connection connection = null;
 		try
 		{
-			String sqlStatement = "SELECT * FROM Order WHERE order_id=?";
+			String sqlStatement = "SELECT * FROM vsp.Order WHERE order_id=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, orderId);
@@ -166,7 +166,7 @@ public class Orders
 		List<Order> orders = new ArrayList<Order>();
 		try
 		{
-			String sqlStatement = "SELECT * FROM Order WHERE user_name=?";
+			String sqlStatement = "SELECT * FROM vsp.Order WHERE user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);
@@ -197,11 +197,11 @@ public class Orders
 		List<Order> orders = new ArrayList<Order>();
 		try
 		{
-			String sqlStatement = "SELECT * FROM Order WHERE user_name=? AND state=?";
+			String sqlStatement = "SELECT * FROM vsp.Order WHERE state=? AND user_name=?";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-			pStmt.setString(1, userName);
-			pStmt.setInt(2, OrderState.PENDING.getValue());
+			pStmt.setInt(1, OrderState.PENDING.getValue());
+			pStmt.setString(2, userName);
 			ResultSet rs = pStmt.executeQuery();
 			
 			Order order = null;
