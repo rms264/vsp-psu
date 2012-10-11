@@ -83,7 +83,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `vsp`.`Transaction` ;
 
-CREATE  TABLE IF NOT EXISTS `vsp`.`Transactions` (
+CREATE  TABLE IF NOT EXISTS `vsp`.`Transaction` (
   `transaction_id` VARCHAR(40) NOT NULL UNIQUE,
   `type` INT NOT NULL ,
   `order_id` VARCHAR(40) NULL DEFAULT NULL ,
