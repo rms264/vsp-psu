@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import vsp.dataObject.Stock;
+import vsp.dataObject.StockInfo;
 import vsp.utils.Enumeration.*;
 
 public final class Order
@@ -46,6 +47,41 @@ public final class Order
 	public OrderAction getAction()
 	{
 		return this.action;
+	}
+	
+	// estimation leans toward a worst case scenario
+	public double getLatestEstimatedValue(StockInfo info)
+	{
+		double estimatedCost = 0.0;
+		if (this.state == OrderState.PENDING)
+		{
+			if (this.type == OrderType.LIMIT || this.type == OrderType.STOPLIMIT)
+			{
+				estimatedCost = this.quantity * this.limitPrice;
+			}
+			else if (this.type == OrderType.STOP)
+			{
+				estimatedCost = this.quantity * this.stopPrice;
+			}
+			else if (this.type == OrderType.MARKET)
+			{
+				if (this.action == OrderAction.BUY)
+				{
+					estimatedCost = this.quantity * info.getAsk();
+				}
+				else // SELL
+				{
+					estimatedCost = this.quantity * info.getBid();
+				}				
+			}
+			
+			if (this.action == OrderAction.BUY)
+			{
+				estimatedCost *= -1;
+			}
+		}
+		
+		return estimatedCost;
 	}
 	
 	public Date getDateSubmitted()
