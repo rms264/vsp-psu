@@ -13,8 +13,6 @@ import vsp.dal.DatasourceConnection;
 import vsp.dataObject.*;
 import vsp.exception.*;
 import vsp.orders.Order;
-import vsp.transactions.StockTransaction;
-import vsp.transactions.StockTransactionFactory;
 import vsp.utils.VSPUtils;
 import vsp.utils.Validate;
 import vsp.utils.Enumeration.SecurityQuestion;
@@ -230,7 +228,7 @@ public class Transactions
 		}
 		
 		TransactionType type = TransactionType.convert(rs.getInt("type"));
-		transaction = StockTransactionFactory.Create(type, userName, id, stock, date, totalValue, pricePerShare, quantity, order);
+		transaction = StockTransaction.CreateFromDb(type, userName, id, stock, date, totalValue, pricePerShare, quantity, order);
 		if (transaction == null)
 		{
 			throw (new SqlRequestException("Error:  Unrecognized transaction type: " + type.toString()));

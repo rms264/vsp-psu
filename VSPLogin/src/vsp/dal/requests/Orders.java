@@ -5,10 +5,6 @@ import vsp.dataObject.Stock;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.orders.Order;
-import vsp.transactions.StockTransaction;
-import vsp.transactions.StockTransactionFactory;
-import vsp.utils.VSPUtils;
-import vsp.utils.Validate;
 import vsp.utils.Enumeration.*;
 
 import java.sql.Connection;
