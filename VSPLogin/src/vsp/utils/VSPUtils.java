@@ -1,6 +1,7 @@
 package vsp.utils;
 
 import java.security.MessageDigest;
+import java.text.DecimalFormat;
 
 public class VSPUtils {
 
@@ -24,5 +25,20 @@ public class VSPUtils {
 		}
 	    
 	    return sbHash.toString();
+	}
+	
+	public static String formatColor(double value, DecimalFormat format)
+	{
+		String valueString = format.format(value);
+		if (value > 0)
+		{
+			return "<font color=green>" + valueString + "</font>";
+		}
+		else if (value < 0)
+		{
+			return "<font color=red>" + valueString + "</font>";
+		}
+		
+		return valueString;
 	}
 }
