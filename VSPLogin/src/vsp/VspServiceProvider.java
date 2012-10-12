@@ -9,6 +9,7 @@ import vsp.dal.requests.Roles;
 import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
+import vsp.dataObject.StockInfo;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
@@ -18,6 +19,8 @@ import vsp.utils.Enumeration.Role;
 
 public class VspServiceProvider
 {
+	private StockInfoServiceProvider sisp = new StockInfoServiceProvider();
+	
 	public VspServiceProvider()
 	{
 		// no implementation required
@@ -56,6 +59,11 @@ public class VspServiceProvider
 			throws SQLException, SqlRequestException
 	{
 		return Orders.getPendingOrdersForUser(userName);
+	}
+	
+	public List<StockInfo> getLatestStockInfo(List<String> symbols)
+	{
+		return sisp.requestCurrentStockData(symbols);
 	}
 	
 	public List<String> getTraders() 
