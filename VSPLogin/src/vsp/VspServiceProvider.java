@@ -4,11 +4,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
+import vsp.dal.requests.Orders;
 import vsp.dal.requests.Roles;
+import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
+import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
+import vsp.orders.Order;
 import vsp.utils.Enumeration.Role;
 
 
@@ -28,20 +32,35 @@ public class VspServiceProvider
 		Roles.addNewUserRole(userName, Role.TRADER);
 	}
 	
-	public void deleteTraderAccount(String userName) throws ValidationException,
+	public void deleteTraderAccount(String userName) 
+			throws ValidationException,
 		SQLException, SqlRequestException
 	{
 		Users.deleteTraderAccount(userName);
 	}
 	
-	public AccountData getAccountInfo(String userName) throws SQLException
+	public AccountData getAccountInfo(String userName) 
+			throws SQLException
 	{
 		AccountData data = Users.requestAccountData(userName);	
 		return data;
 	}
 	
-	public List<String> getTraders() throws SQLException
+	public List<Order> getPendingOrders(String userName) 
+			throws SQLException, SqlRequestException
+	{
+		return Orders.getPendingOrdersForUser(userName);
+	}
+	
+	public List<String> getTraders() 
+			throws SQLException
 	{
 		return Users.queryAllTraders();
+	}
+	
+	public List<StockTransaction> getTransactionHistory(String userName)
+			throws SQLException, SqlRequestException
+	{
+		return Transactions.getTransactionsForUser(userName);
 	}
 }
