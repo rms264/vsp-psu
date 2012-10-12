@@ -14,11 +14,12 @@ public final class StockInfo
 	private final double percentChangeSinceOpen;
 	private final int volume;
 	private final double bid;
+	private final double ask;
 	private final double open;
 	
 	public StockInfo(String symbol, String description, double dayHigh, double dayLow, 
 			Date exdividendDate, double exdividend, double priceChangeSinceOpen, 
-			double percentChangeSinceOpen, int volume, double bid, double open)
+			double percentChangeSinceOpen, int volume, double bid, double open, double ask)
 	{
 		this.symbol = symbol;
 		this.description = description;
@@ -30,7 +31,13 @@ public final class StockInfo
 		this.percentChangeSinceOpen = percentChangeSinceOpen;
 		this.volume = volume;
 		this.bid = bid;
+		this.ask = ask;
 		this.open = open;
+	}
+	
+	public double getAsk()
+	{
+		return this.ask;
 	}
 	
 	public double getBid()
