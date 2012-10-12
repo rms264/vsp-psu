@@ -40,7 +40,7 @@
 			out.println("<td><b>Price per Share</b></td>");
 			out.println("<td><b>Quantity</b></td>");
 			out.println("<td><b>Value</b></td>");
-			out.println("<td><b>Order Id</b></td>");
+			//out.println("<td><b>Order Id</b></td>");
 			out.println("<td><b>Id</b></td>");
 			out.println("</tr>");
 			
@@ -62,14 +62,14 @@
 				out.println("<td>" + transaction.getPricePerShare() + "</td>");
 				out.println("<td>" + transaction.getValue() + "</td>");
 				
-				if (order != null)
+				/*if (order != null)
 				{
 					out.println("<td>" + order.getId() + "</td>");
 				}
 				else
 				{
 					out.println("<td>N/A</td>");
-				}
+				}*/
 
 				out.println("<td>" + transaction.getId() + "</td>");
 				out.println("</tr>");
