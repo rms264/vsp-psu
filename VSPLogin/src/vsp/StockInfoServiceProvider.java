@@ -42,14 +42,16 @@ public final class StockInfoServiceProvider
 	public StockInfo requestCurrentStockData(String symbol)
 	{
 		StockInfo stockInfo = null;
-		String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=nb3ghvocqd";
+		String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=nb3b2ghvoc6p2qd";
 		// n, Name
 		// b3, Bid
+		// b2, Ask
 		// g, Day Low
 		// h, Day High
 		// v, Volume
 		// o, Open
-		// c, Change & Percent Change
+		// c6, Change real-time
+		// p2, Percent Change real-time
 		// q, Ex-dividend date
 		// d, Dividend/Share
 		
@@ -82,14 +84,16 @@ public final class StockInfoServiceProvider
 				url += "+" + symbols.get(i).trim();
 			}
 			
-			url += "&f=nb3ghvocqd";
+			url += "&f=nb3b2ghvoc6p2qd";
 			// n, Name
-			// b3, Bid
+			// b3, Bid real-time
+			// b2, Ask real-time
 			// g, Day Low
 			// h, Day High
 			// v, Volume
 			// o, Open
-			// c, Change & Percent Change
+			// c6, Change real-time
+			// p2, Percent Change real-time
 			// q, Ex-dividend date
 			// d, Dividend/Share
 			
@@ -107,7 +111,10 @@ public final class StockInfoServiceProvider
 			for (int i = 0; i < responseLines.size(); ++i)
 			{
 				stockInfo = parseStockInfo(symbols.get(i), responseLines.get(i));
-				results.add(stockInfo);
+				if (stockInfo != null)
+				{
+					results.add(stockInfo);
+				}
 			}
 		}
 		
@@ -219,22 +226,14 @@ public final class StockInfoServiceProvider
 			columns[i] = columns[i].replaceAll("\"", "").trim();
 		}
 			
-		if (columns.length == 9)
-		{
-			// parse change & percent change from single column
-			String changeAndPercentChange = columns[6];
-			String[] parts = changeAndPercentChange.split("-");
-			for (int i = 0; i < parts.length; ++i)
-			{
-				parts[i] = parts[i].replace("%", "").trim();
-			}
-			
+		if (columns.length == 11)
+		{		
 			// parse date
 			Date date = null;
 			try
 			{
 				SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.ENGLISH);	
-				date = sdf.parse(columns[7]);
+				date = sdf.parse(columns[9]);
 				// TODO: set year here if we need it
 			}
 			catch (ParseException pe)
@@ -242,19 +241,27 @@ public final class StockInfoServiceProvider
 				// ignore
 			}
 			
+			try
+			{
 			// create StockInfo instance
 			stockInfo = new StockInfo(symbol, 
-					columns[0], 					// description
-					Double.parseDouble(columns[3]),	// dayHigh
-					Double.parseDouble(columns[2]),	// dayLow
-					date,				 			// ex-dividend date, Date
-					Double.parseDouble(columns[8]),	// ex-dividend
-					Double.parseDouble(parts[0]), 	// price change since open
-					Double.parseDouble(parts[1]), 	// percent change since open
-					Integer.parseInt(columns[4]), 	// volume
-					Double.parseDouble(columns[1]), // bid
-					Double.parseDouble(columns[5]) 	// open
+					columns[0], 										// description
+					Double.parseDouble(columns[4]),						// dayHigh
+					Double.parseDouble(columns[3]),						// dayLow
+					date,				 								// ex-dividend date, Date
+					Double.parseDouble(columns[10]),					// ex-dividend
+					Double.parseDouble(columns[7].replace("+", "")), 	// price change since open
+					Double.parseDouble(columns[8].replace("%", "")), 	// percent change since open
+					Integer.parseInt(columns[5]), 						// volume
+					Double.parseDouble(columns[1]), 					// bid
+					Double.parseDouble(columns[2]),						// ask
+					Double.parseDouble(columns[4]) 						// open
 					);
+			}
+			catch (NumberFormatException nfe)
+			{
+				// ignore
+			}
 		}
 		
 		return stockInfo;
