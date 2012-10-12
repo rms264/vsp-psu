@@ -6,6 +6,7 @@
 <%@ page import="vsp.dal.requests.*"%>
 <%@ page import="vsp.dataObject.*"%>
 <%@ page import="vsp.orders.*"%>
+<%@ page import="vsp.utils.*"%>
 <%@ page import="vsp.utils.Enumeration.*"%>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
@@ -53,7 +54,7 @@
 			Order order = new Order(Order.CreateId(), userName, stockCif, OrderAction.BUY, 100f, OrderType.MARKET, 0.0, 0.0, TimeInForce.DAY, OrderState.PENDING, new Date());
 			Orders.addOrder(order);
 			
-			Stock stockMfv = new Stock("MFS", "MFS Special Value Trust");
+			Stock stockMfv = new Stock("MFV", "MFS Special Value Trust");
 			order = new Order(Order.CreateId(), userName, stockMfv, OrderAction.BUY, 500f, OrderType.LIMIT, 8.00, 0.0, TimeInForce.GOODUNTILCANCELED, OrderState.PENDING, new Date());
 			Orders.addOrder(order);
 			
@@ -63,6 +64,24 @@
 		
 		if (pendingOrders != null && pendingOrders.size() > 0)
 		{
+			// build stock symbol list
+			List<String> symbols = new ArrayList<String>();
+			for (Order pendingOrder : pendingOrders)
+			{
+				symbols.add(pendingOrder.getStock().getStockSymbol());
+			}
+			
+			// try to get latest stock information for all symbols
+			List<StockInfo> stockInfos = vsp.getLatestStockInfo(symbols);
+			Map<String,StockInfo> stockInfoMap = new HashMap<String,StockInfo>(stockInfos.size());
+			if (stockInfos != null)
+			{
+				for (StockInfo info : stockInfos)
+				{
+					stockInfoMap.put(info.getSymbol(), info);
+				}
+			}
+			
 			DecimalFormat df = new DecimalFormat("0.00");
 			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 			
@@ -78,15 +97,18 @@
 			out.println("<td align=center><b>Quantity</b></td>");
 			out.println("<td align=center><b>Limit</b></td>");
 			out.println("<td align=center><b>Stop</b></td>");
+			out.println("<td align=center><b>Estimated Value</b></td>");
 			out.println("<td align=center><b>Id</b></td>");
 			out.println("</tr>");
 			
 			OrderType type = OrderType.DEFAULT;
 			Order order = null;
+			String symbol = null;
 			for (int i = 0; i < pendingOrders.size(); ++i)
 			{
 				order = pendingOrders.get(i);
 				type = order.getType();
+				symbol = order.getStock().getStockSymbol();
 				
 				out.println("<tr>");
 				
@@ -100,7 +122,7 @@
 				out.println("<td>" + order.getAction().toString() + "</td>");
 				out.println("<td>" + type.toString() + "</td>");
 				out.println("<td>" + order.getTimeInForce().toString() + "</td>");
-				out.println("<td>" + order.getStock().getStockSymbol() + "</td>");
+				out.println("<td>" + symbol + "</td>");
 				out.println("<td>" + order.getStock().getStockDescription() + "</td>");
 				out.println("<td>" + order.getQuantity() + "</td>");
 				
@@ -122,6 +144,15 @@
 					out.println("<td>N/A</td>");
 				}
 				
+				if (stockInfoMap.containsKey(symbol))
+				{
+					out.println("<td>" + VSPUtils.formatColor(order.getLatestEstimatedValue(stockInfoMap.get(symbol)), df) + "</td>");	
+				}
+				else
+				{
+					out.println("<td>Unavailable</td>");
+				}
+								
 				out.println("<td>" + order.getId() + "</td>");
 				out.println("</tr>");
 			}
