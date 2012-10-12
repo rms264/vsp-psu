@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.wsdl.Types;
+
 import vsp.orders.Order;
 import vsp.utils.Enumeration.TransactionType;
 
@@ -103,7 +105,7 @@ public final class StockTransaction
 		
 	public static String getInsertStatement()
 	{
-		return "INSERT into Orders VALUES(?,?,?,?,?,?,?,?,?)";
+		return "INSERT into vsp.Transaction VALUES(?,?,?,?,?,?,?,?,?)";
 	}
 	
 	public Order getOrder()
@@ -148,7 +150,7 @@ public final class StockTransaction
 		statement.setInt(2,  this.type.getValue());
 		if (this.type == TransactionType.DIVIDEND)
 		{ // no associated order
-			statement.setString(3, null);
+			statement.setNull(3, Types.STRING_TYPE);
 		}
 		else
 		{

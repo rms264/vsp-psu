@@ -23,6 +23,12 @@ public class VspServiceProvider
 		// no implementation required
 	}
 	
+	public void cancelOrder(String userName, String orderId)
+			throws SQLException, SqlRequestException
+	{
+		Orders.cancelOrder(userName, orderId);
+	}
+	
 	public void createTraderAccount(String userName, String password1, 
 			String password2, String email, String question, String answer) 
 			throws ValidationException, SQLException, SqlRequestException 

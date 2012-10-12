@@ -27,21 +27,23 @@
 		VspServiceProvider vsp = new VspServiceProvider();
 		// throws on error
 		List<StockTransaction> transactions = vsp.getTransactionHistory(userName);
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 		
 		if (transactions != null && transactions.size() > 0)
 		{
+			DecimalFormat df = new DecimalFormat("0.00");
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+			
 			out.println("<table border=1 cellpadding=4 cellspacing=0>");
 			out.println("<tr>");
-			out.println("<td><b>Date/Time</b></td>");
-			out.println("<td><b>Type</b></td>");
-			out.println("<td><b>Symbol</b></td>");
-			out.println("<td><b>Name</b></td>");
-			out.println("<td><b>Price per Share</b></td>");
-			out.println("<td><b>Quantity</b></td>");
-			out.println("<td><b>Value</b></td>");
+			out.println("<td align=center><b>Date/Time</b></td>");
+			out.println("<td align=center><b>Type</b></td>");
+			out.println("<td align=center><b>Symbol</b></td>");
+			out.println("<td align=center><b>Name</b></td>");
+			out.println("<td align=center><b>Quantity</b></td>");
+			out.println("<td align=center><b>Per Share</b></td>");
+			out.println("<td align=center><b>Value</b></td>");
 			//out.println("<td><b>Order Id</b></td>");
-			out.println("<td><b>Id</b></td>");
+			out.println("<td align=center><b>Id</b></td>");
 			out.println("</tr>");
 			
 			Order order = null;
@@ -58,9 +60,19 @@
 				out.println("<td>" + type.toString() + "</td>");
 				out.println("<td>" + transaction.getStock().getStockSymbol() + "</td>");
 				out.println("<td>" + transaction.getStock().getStockDescription() + "</td>");
-				out.println("<td>" + transaction.getQuantity() + "</td>");
-				out.println("<td>" + transaction.getPricePerShare() + "</td>");
-				out.println("<td>" + transaction.getValue() + "</td>");
+				
+				if (type == TransactionType.CANCELLATION)
+				{
+					out.println("<td>N/A</td>");
+					out.println("<td>N/A</td>");
+					out.println("<td>N/A</td>");
+				}
+				else
+				{
+					out.println("<td>" + transaction.getQuantity() + "</td>");
+					out.println("<td>" + df.format(transaction.getPricePerShare()) + "</td>");
+					out.println("<td>" + df.format(transaction.getValue()) + "</td>");
+				}
 				
 				/*if (order != null)
 				{

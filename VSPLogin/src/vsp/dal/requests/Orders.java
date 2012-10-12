@@ -2,9 +2,11 @@ package vsp.dal.requests;
 
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.Stock;
+import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.orders.Order;
+import vsp.utils.Validate;
 import vsp.utils.Enumeration.*;
 
 import java.sql.Connection;
@@ -22,6 +24,13 @@ public class Orders
 	{
 		Orders orders = new Orders();
 		return orders.insert(order);
+	}
+	
+	public static void cancelOrder(String userName, String orderId)
+		throws SQLException, SqlRequestException
+	{
+		Orders orders = new Orders();
+		orders.cancel(userName, orderId);
 	}
 	
 	public static boolean deleteOrderById(String orderId) throws 
@@ -54,6 +63,52 @@ public class Orders
 	
 	private Orders(){}
 	
+	private void cancel(String userName, String orderId)
+		throws SQLException, SqlRequestException
+	{
+		Connection connection = null;
+		try
+		{
+			connection = DatasourceConnection.getConnection();
+
+			// update order state
+			String sqlStatement = "UPDATE vsp.Order SET state=? WHERE user_name=? AND order_id=? AND state=?";
+			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+			pStmt.setInt(1, OrderState.CANCELLED.getValue());  
+			pStmt.setString(2, userName);   
+			pStmt.setString(3, orderId);
+			pStmt.setInt(4, OrderState.PENDING.getValue());
+			int result = pStmt.executeUpdate();
+			if (result != 1)
+			{
+				throw (new SqlRequestException("Error:  Order already executed, is already cancelled or no longer exists."));
+			}
+			
+			Order order = Orders.getOrderById(orderId);
+			if (order == null)
+			{
+				throw (new SqlRequestException("Error:  Cannot find order."));
+			}
+			
+			Date cancelled = new Date();
+			
+			// add cancelled transaction
+			StockTransaction transaction = StockTransaction.CreateNewCancellation(userName, order, cancelled);
+			Transactions.addTransaction(transaction);
+		}
+		catch (SQLException ex)
+		{
+			throw ex;
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
+	}
+	
 	private boolean insert(Order order) throws
 		SqlRequestException, ValidationException, SQLException
 	{
@@ -61,9 +116,14 @@ public class Orders
 		boolean success = false;
 		try
 		{
-			String sqlStatement = "INSERT into vsp.Order values(?,?,?,?,?,?,?,?,?,?,?)";
-
 			connection = DatasourceConnection.getConnection();
+			if (!Validate.stockExistsInDb(order.getStock().getStockSymbol()))
+			{ // add stock to the database if it does not exist yet
+				Stock stock = order.getStock();
+				Stocks.addNewStock(stock.getStockSymbol(), stock.getStockDescription());
+			}
+
+			String sqlStatement = "INSERT into vsp.Order values(?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, order.getId());  
 			pStmt.setString(2, order.getUserName());   
@@ -162,7 +222,7 @@ public class Orders
 		List<Order> orders = new ArrayList<Order>();
 		try
 		{
-			String sqlStatement = "SELECT * FROM vsp.Order WHERE user_name=?";
+			String sqlStatement = "SELECT * FROM vsp.Order WHERE user_name=? ORDER BY date_submitted";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);
@@ -193,7 +253,7 @@ public class Orders
 		List<Order> orders = new ArrayList<Order>();
 		try
 		{
-			String sqlStatement = "SELECT * FROM vsp.Order WHERE state=? AND user_name=?";
+			String sqlStatement = "SELECT * FROM vsp.Order WHERE state=? AND user_name=? ORDER BY date_submitted";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setInt(1, OrderState.PENDING.getValue());

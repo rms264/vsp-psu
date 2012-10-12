@@ -125,7 +125,7 @@ public class Transactions
 		StockTransaction transaction = null;
 		try
 		{
-			String sqlStatement = "SELECT * FROM Transaction WHERE transaction_id=?";
+			String sqlStatement = "SELECT * FROM Transaction WHERE transaction_id=? ORDER BY date";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, transactionId);

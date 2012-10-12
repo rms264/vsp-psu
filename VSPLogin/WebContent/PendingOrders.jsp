@@ -3,6 +3,7 @@
 <%@ page session="true"%>
 
 <%@ page import="vsp.*"%>
+<%@ page import="vsp.dal.requests.*"%>
 <%@ page import="vsp.dataObject.*"%>
 <%@ page import="vsp.orders.*"%>
 <%@ page import="vsp.utils.Enumeration.*"%>
@@ -25,24 +26,59 @@
 	{
 		String userName = request.getRemoteUser();
 		VspServiceProvider vsp = new VspServiceProvider();
+		
+	    // If process is true, attempt to validate and process the form
+	    if ("true".equals(request.getParameter("process"))
+	    		&& !request.getParameter("id").isEmpty())
+	    {
+	    	try
+	    	{
+	    		// throws on error
+	    		vsp.cancelOrder(userName, request.getParameter("id"));
+	    		out.println("<p><b><i>Order cancelled successfully.</i></b></p>");
+	    	}
+	    	catch(Exception ex)
+	    	{
+	    		out.println("<p><b><i>Unable to cancel order:</i></b><br><font color=red>" + ex.getLocalizedMessage() + "</font>");
+	    	}
+	    }
+		
 		// throws on error
 		List<Order> pendingOrders = vsp.getPendingOrders(userName);
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		
+		/**** DEBUG ONLY (BEGIN) ****/
+		if (pendingOrders.size() == 0)
+		{
+			Stock stockCif = new Stock("CIF", "MFS Intermediate Income");
+			Order order = new Order(Order.CreateId(), userName, stockCif, OrderAction.BUY, 100f, OrderType.MARKET, 0.0, 0.0, TimeInForce.DAY, OrderState.PENDING, new Date());
+			Orders.addOrder(order);
+			
+			Stock stockMfv = new Stock("MFS", "MFS Special Value Trust");
+			order = new Order(Order.CreateId(), userName, stockMfv, OrderAction.BUY, 500f, OrderType.LIMIT, 8.00, 0.0, TimeInForce.GOODUNTILCANCELED, OrderState.PENDING, new Date());
+			Orders.addOrder(order);
+			
+			pendingOrders = vsp.getPendingOrders(userName);
+		}
+		/**** DEBUG ONLY (END) ****/
 		
 		if (pendingOrders != null && pendingOrders.size() > 0)
 		{
+			DecimalFormat df = new DecimalFormat("0.00");
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+			
 			out.println("<table border=1 cellpadding=4 cellspacing=0>");
 			out.println("<tr>");
-			out.println("<td><b>Submitted</b></td>");
-			out.println("<td><b>Action</b></td>");
-			out.println("<td><b>Type</b></td>");
-			out.println("<td><b>Time in Force</b></td>");
-			out.println("<td><b>Symbol</b></td>");
-			out.println("<td><b>Name</b></td>");
-			out.println("<td><b>Quantity</b></td>");
-			out.println("<td><b>Limit Price</b></td>");
-			out.println("<td><b>Stop Price</b></td>");
-			out.println("<td><b>Id</b></td>");
+			out.println("<td align=center>&nbsp;</td>");
+			out.println("<td align=center><b>Submitted</b></td>");
+			out.println("<td align=center><b>Action</b></td>");
+			out.println("<td align=center><b>Type</b></td>");
+			out.println("<td align=center><b>Time in Force</b></td>");
+			out.println("<td align=center><b>Symbol</b></td>");
+			out.println("<td align=center><b>Name</b></td>");
+			out.println("<td align=center><b>Quantity</b></td>");
+			out.println("<td align=center><b>Limit</b></td>");
+			out.println("<td align=center><b>Stop</b></td>");
+			out.println("<td align=center><b>Id</b></td>");
 			out.println("</tr>");
 			
 			OrderType type = OrderType.DEFAULT;
@@ -53,6 +89,13 @@
 				type = order.getType();
 				
 				out.println("<tr>");
+				
+				out.println("<td><form name='cancelOrder" + i + "' action='" + request.getRequestURI() + "' method='POST'>");
+				out.println("<input type='hidden' name='process' value='true' />");
+				out.println("<input type='hidden' name='id' value='" + order.getId() + "' />");
+				out.println("<input type='submit' value='Attempt Cancel' />");
+				out.println("</form></td>");
+				
 				out.println("<td>" + sd.format(order.getDateSubmitted()) + "</td>");
 				out.println("<td>" + order.getAction().toString() + "</td>");
 				out.println("<td>" + type.toString() + "</td>");
@@ -63,7 +106,7 @@
 				
 				if (type == OrderType.LIMIT || type == OrderType.STOPLIMIT)
 				{
-					out.println("<td>" + order.getLimitPrice() + "</td>");
+					out.println("<td>" + df.format(order.getLimitPrice()) + "</td>");
 				}
 				else
 				{
@@ -72,7 +115,7 @@
 				
 				if (type == OrderType.STOP || type == OrderType.STOPLIMIT)
 				{
-					out.println("<td>" + order.getStopPrice() + "</td>");
+					out.println("<td>" + df.format(order.getStopPrice()) + "</td>");
 				}
 				else
 				{

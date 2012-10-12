@@ -53,7 +53,7 @@ public class Stocks {
 	{
 		boolean success = false;
 		Connection connection = null;
-		if(!Validate.stockExistsInDb(stockSymbol))
+		if(Validate.stockExistsInDb(stockSymbol))
 		{
 			throw new ValidationException(
 				"Error: Cannot insert Stock: " + stockSymbol +" Already Exists");
