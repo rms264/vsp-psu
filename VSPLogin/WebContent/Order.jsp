@@ -5,18 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>VSP - Portfolio</title>
+<title>VSP - Order Stock</title>
 </head>
 <body>
  <h2>Virtual Stock Portfolio (VSP) System</h2>
  
-  <h3>Portfolio</h3>
- 
- <p>&nbsp;</p>
- <p>&nbsp;</p> 
- 
+ <h3>Order Stock</h3>
+
+<p><i>Put order stuff here</i></p>
+<p>&nbsp;</p>
+
 <ul>
-<li><a href="Order.jsp">Order Stock</a></li>
+<li><a href="Portfolio.jsp">Portfolio</a></li>
 <li><a href="PendingOrders.jsp">Pending Orders</a></li>
 <li><a href="TransactionHistory.jsp">Transaction History</a></li>
 <li><a href="UserInfo.jsp">User Info</a></li>

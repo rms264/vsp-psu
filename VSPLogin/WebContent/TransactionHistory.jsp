@@ -104,6 +104,7 @@
  
 <ul>
 <li><a href="Portfolio.jsp">Portfolio</a></li>
+<li><a href="Order.jsp">Order Stock</a></li>
 <li><a href="PendingOrders.jsp">Pending Orders</a></li>
 <li><a href="UserInfo.jsp">User Info</a></li>
 <li><a href="Logout.jsp">Logout</a></li>
