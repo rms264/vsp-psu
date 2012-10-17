@@ -18,9 +18,6 @@
  
  <h3>Order Stock</h3>
 
-<p><i>Put order stuff here</i></p>
-<p>&nbsp;</p>
-
 <%
 	Boolean showForm = true;
 	String userName = request.getRemoteUser();
@@ -37,19 +34,41 @@
     	try
     	{
     		// throws on error
-    		vsp.createOrder(userName, 
-    				request.getParameter("action"), 
-    				request.getParameter("stock"), 
-    				request.getParameter("quantity"), 
-    				request.getParameter("type"), 
-    				request.getParameter("timeInForce"),
-    				request.getParameter("limitPrice"),
-    				request.getParameter("stopPrice"));
+    		Order order = vsp.createOrder(userName, 
+    							request.getParameter("action"), 
+    							request.getParameter("stock"), 
+    							request.getParameter("quantity"), 
+    							request.getParameter("type"), 
+    							request.getParameter("timeInForce"),
+    							request.getParameter("limitPrice"),
+    							request.getParameter("stopPrice"));
 
-    		// TODO: show order submitted text and offer link to this page for another order
+    		out.println("<p><b><i>Order Submitted:</i></b>");
+    		
+    		DecimalFormat df = new DecimalFormat("0.00");
+    		
+    		out.println("<table border=1 cellpadding=4 cellspacing=0>");
+    		out.println("<tr><td>Action: </td><td>" + order.getAction().toString() + "</td></tr>");
+	    	out.println("<tr><td>Stock Symbol: </td><td>" + order.getStock().getStockSymbol() + "</td></tr>");
+	    	out.println("<tr><td>Stock Name: </td><td>" + order.getStock().getStockDescription() + "</td></tr>");
+	    	out.println("<tr><td>Quantity: </td><td>" + order.getQuantity() + "</td></tr>");
+	    	out.println("<tr><td>Order Type: </td><td>" + order.getType().toString() + "</td></tr>");
+	    	
+	    	if (order.getType() == OrderType.LIMIT || order.getType() == OrderType.STOPLIMIT)
+	    	{
+	    		out.println("<tr><td>Limit Price: </td><td>" + df.format(order.getLimitPrice()) + "</td></tr>");
+	    	}
+	    	
+	    	if (order.getType() == OrderType.STOP || order.getType() == OrderType.STOPLIMIT)
+	    	{
+	    		out.println("<tr><td>Stop Price: </td><td>" + df.format(order.getStopPrice()) + "</td></tr>");
+	    	}
+	    	
+	    	out.println("<tr><td>Time in Force: </td><td>" + order.getTimeInForce().toString() + "</td></tr>");
+	    	out.println("<tr><td>Order Id: </td><td>" + order.getId() + "</td></tr>");
+    		out.println("</table>");
     		
    			showForm = false;
-   			return;
     	}
     	catch(Exception ex)
     	{

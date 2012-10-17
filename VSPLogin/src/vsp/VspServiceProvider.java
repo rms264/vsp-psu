@@ -52,7 +52,7 @@ public class VspServiceProvider
 		Transactions.addTransaction(transaction);
 	}
 	
-	public void createOrder(String userName, String action, String stockSymbol, String quantity, String type, String timeInForce ,
+	public Order createOrder(String userName, String action, String stockSymbol, String quantity, String type, String timeInForce ,
 			String limitPrice, String stopPrice)
 			throws SQLException, SqlRequestException, ValidationException
 	{
@@ -211,6 +211,8 @@ public class VspServiceProvider
 		
 		// attempt to process order(s) with VTSP
 		vtsp.processPendingOrders(userName);
+		
+		return newOrder;
 	}
 	
 	public void processPendingOrders(String userName) throws SQLException, SqlRequestException
