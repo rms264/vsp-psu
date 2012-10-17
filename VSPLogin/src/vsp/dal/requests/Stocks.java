@@ -22,33 +22,29 @@ public class Stocks {
 	 */
 	public static List<Stock> getAllStocks() throws SQLException
 	{
-		Stocks request = new Stocks();
-		return request.submitGetAllStocksRequest();
+		return submitGetAllStocksRequest();
 	}
 	
 	public static Stock getStock(String stockSymbol) throws SQLException
 	{
-		Stocks request = new Stocks();
-		return request.submitStockRequest(stockSymbol);
+		return submitStockRequest(stockSymbol);
 	}
 	
 	public static boolean addNewStock(String stockSymbol, String description) 
 			throws SqlRequestException, ValidationException, SQLException
 	{
-		Stocks request = new Stocks();
-		return request.insert(stockSymbol, description);
+		return insert(stockSymbol, description);
 	}
 	
 	public static boolean deleteStock(String stockSymbol) 
 			throws SqlRequestException, SQLException, ValidationException
 	{
-		Stocks request = new Stocks();
-		return request.delete(stockSymbol);
+		return delete(stockSymbol);
 	}
 	
 	private Stocks(){}
 	
-	private boolean insert(String stockSymbol, String description) throws
+	private static boolean insert(String stockSymbol, String description) throws
 		SqlRequestException, ValidationException, SQLException
 	{
 		boolean success = false;
@@ -88,7 +84,7 @@ public class Stocks {
 		}
 	}
 	
-	private boolean delete(String symbol) throws SqlRequestException,
+	private static boolean delete(String symbol) throws SqlRequestException,
 		SQLException, ValidationException
 	{
 		boolean success = false;
@@ -126,7 +122,7 @@ public class Stocks {
 		}
 	}
 	
-	private List<Stock> submitGetAllStocksRequest() throws SQLException
+	private static List<Stock> submitGetAllStocksRequest() throws SQLException
 	{
 		Connection connection = null;
 		List<Stock> results = new ArrayList<Stock>();
@@ -152,7 +148,7 @@ public class Stocks {
 		}
 	}
 	
-	private Stock submitStockRequest(String stockSymbol) throws SQLException
+	private static Stock submitStockRequest(String stockSymbol) throws SQLException
 	{
 		Connection connection = null;
 		Stock stock = null;
@@ -179,7 +175,7 @@ public class Stocks {
 		}
 	}
 	
-	private Stock getStockFromResultSet(ResultSet rs) throws 
+	private static Stock getStockFromResultSet(ResultSet rs) throws 
 		SQLException
 	{
 		Stock stock = null;

@@ -15,13 +15,12 @@ public class Roles {
 	public static boolean addNewUserRole(String userName, Role role) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
-		Roles request = new Roles();
-		return request.insert(userName, role);
+		return insert(userName, role);
 	}
 	
 	private Roles(){}
 	
-	private boolean insert(String userName, Role role) throws SQLException, 
+	private static boolean insert(String userName, Role role) throws SQLException, 
 		SqlRequestException, ValidationException
 	{
 		boolean success = false;

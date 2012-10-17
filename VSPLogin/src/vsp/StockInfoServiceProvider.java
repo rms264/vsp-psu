@@ -12,6 +12,9 @@ import vsp.dataObject.StockInfo;
 
 public final class StockInfoServiceProvider  implements IStockInfo
 {
+	private final SimpleDateFormat historicalDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+	private final SimpleDateFormat stockInfoFormat = new SimpleDateFormat("MMM dd", Locale.ENGLISH);	
+	
 	public StockInfoServiceProvider()
 	{
 		// no implementation required
@@ -19,8 +22,9 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	
 	public boolean isWithinTradingHours()
 	{
-		boolean withinTradingHours = true;//false;
-		/*String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
+		boolean withinTradingHours = true;
+		/*boolean withinTradingHours = false;
+		String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
 		// a, Ask
 		
 		List<String> responseLines = null;
@@ -316,7 +320,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return results;
 	}
 	
-	private static HistoricalStockInfo parseHistoricalStockInfo(String line)
+	private HistoricalStockInfo parseHistoricalStockInfo(String line)
 	{
 		HistoricalStockInfo stockInfo = null;
 		
@@ -333,8 +337,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 			Date date = null;
 			try
 			{
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);	
-				date = sdf.parse(columns[0]);
+				date = this.historicalDateFormat.parse(columns[0]);
 				
 				// create StockInfo instance
 				stockInfo = new HistoricalStockInfo(date, 	// date
@@ -359,7 +362,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return stockInfo;
 	}
 	
-	private static StockInfo parseStockInfo(String symbol, String line)
+	private StockInfo parseStockInfo(String symbol, String line)
 	{
 		StockInfo stockInfo = null;
 		
@@ -376,8 +379,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 			Date date = null;
 			try
 			{
-				SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.ENGLISH);	
-				date = sdf.parse(columns[9]);
+				date = this.stockInfoFormat.parse(columns[9]);
 				
 				int year = Calendar.getInstance().get(Calendar.YEAR);
 				date.setYear(year);

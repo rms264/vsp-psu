@@ -27,44 +27,37 @@ public class Users
 			String answer) throws ValidationException, SQLException, 
 			SqlRequestException
 	{
-		Users request = new Users();
-		return request.insert(userName, email, password1, password2, 
-				questionNum, answer);
+		return insert(userName, email, password1, password2, questionNum, answer);
 	}
 	
 	public static boolean deleteTraderAccount(String userName) throws 
 		SQLException, SqlRequestException
 	{
-		Users request = new Users();
-		return request.delete(userName);
+		return delete(userName);
 	}
 	
 	public static boolean updateBalance(String userName, double balance) throws 
 		SQLException, SqlRequestException
 	{
-		Users request = new Users();
-		return request.submitBalanceUpdate(userName, balance);
+		return submitBalanceUpdate(userName, balance);
 	}
 	
 	public static boolean updateEmail(String userName, String email) throws 
 		SQLException, SqlRequestException
 	{
-		Users request = new Users();
-		return request.submitEmailUpdate(userName, email);
+		return submitEmailUpdate(userName, email);
 	}
 	
 	public static boolean updatePassword(String userName, String password1, String password2) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
-		Users request = new Users();
-		return request.submitPasswordUpdate(userName, password1, password2);
+		return submitPasswordUpdate(userName, password1, password2);
 	}
 	
 	public static boolean updateSecurity(String userName, String questionNum, String answer) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
-		Users request = new Users();
-		return request.submitSecurityUpdate(userName, questionNum, answer);
+		return submitSecurityUpdate(userName, questionNum, answer);
 	}
 	
 	/**
@@ -121,7 +114,7 @@ public class Users
 	
 	private Users(){}
 	
-	private boolean submitBalanceUpdate(String userName, double balance) throws 
+	private static boolean submitBalanceUpdate(String userName, double balance) throws 
 		SQLException, SqlRequestException
 	{
 		boolean success = false;
@@ -155,7 +148,7 @@ public class Users
 		return success;
 	}
 	
-	private boolean submitEmailUpdate(String userName, String email) throws 
+	private static boolean submitEmailUpdate(String userName, String email) throws 
 		SQLException, SqlRequestException
 	{
 		boolean success = false;
@@ -189,7 +182,7 @@ public class Users
 		return success;
 	}
 	
-	private boolean submitPasswordUpdate(String userName, String password1, String password2) throws 
+	private static boolean submitPasswordUpdate(String userName, String password1, String password2) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
 		Connection connection = null;
@@ -226,7 +219,7 @@ public class Users
 		return success;
 	}
 	
-	private boolean submitSecurityUpdate(String userName, String questionNum, String answer) throws 
+	private static boolean submitSecurityUpdate(String userName, String questionNum, String answer) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
 		Connection connection = null;
@@ -267,7 +260,7 @@ public class Users
 		return success;
 	}
 	
-	private List<String> submitUserNameQuery(String userName) throws SQLException, 
+	private static List<String> submitUserNameQuery(String userName) throws SQLException, 
 		ValidationException
 	{
 		String sqlStatement = "SELECT * FROM User WHERE user_name=?";
@@ -305,7 +298,7 @@ public class Users
 	}
 	
 
-	private List<String> submitEmailQuery(String email) throws SQLException, 
+	private static List<String> submitEmailQuery(String email) throws SQLException, 
 		ValidationException
 	{
 		if(Validate.validateEmail(email))
@@ -342,7 +335,7 @@ public class Users
 		}
 	}
 	
-	private List<String> submitTradersQuery() throws SQLException{
+	private static List<String> submitTradersQuery() throws SQLException{
 		List<String> results = new ArrayList<String>();
 		Connection connection = null;
 		try
@@ -370,7 +363,7 @@ public class Users
 		return results;
 	}
 	
-	private AccountData submitAccoutDataQuery(String userName) throws SQLException
+	private static AccountData submitAccoutDataQuery(String userName) throws SQLException
 	{
 		Connection connection = null;
 		AccountData data = null;
@@ -397,9 +390,9 @@ public class Users
 		return data;
 	}
 	
-	private boolean insert(String userName, String email, 
-			String password1, String password2, String questionNum, 
-			String answer) throws SQLException, ValidationException
+	private static boolean insert(String userName, String email, 
+					String password1, String password2, String questionNum, 
+					String answer) throws SQLException, ValidationException
 	{
 		Connection connection = null;
 		boolean success = false;
@@ -450,7 +443,7 @@ public class Users
 		return success;
 	}
 	
-	private boolean delete(String userName) throws SQLException, SqlRequestException
+	private static boolean delete(String userName) throws SQLException, SqlRequestException
 	{
 		Connection connection = null;
 		boolean success = false;
@@ -481,7 +474,7 @@ public class Users
 		return success;
 	}
 	
-	private AccountData getAccountDataFromResultSet(ResultSet rs) throws 
+	private static AccountData getAccountDataFromResultSet(ResultSet rs) throws 
 		SQLException
 	{
 		AccountData data = null;

@@ -22,55 +22,48 @@ public class Orders
 	public static boolean addOrder(Order order) throws
 		SqlRequestException, ValidationException, SQLException
 	{
-		Orders orders = new Orders();
-		return orders.insert(order);
+		return insert(order);
 	}
 	
 	public static void changeOrderState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
-		Orders orders = new Orders();
-		orders.updateState(userName, orderId, oldState, newState);
+		updateState(userName, orderId, oldState, newState);
 	}
 	
 	public static boolean deleteOrderById(String orderId) throws 
 		SqlRequestException, SQLException
 	{
-		Orders orders = new Orders();
-		return orders.delete(orderId);
+		return delete(orderId);
 	}
 	
 	public static Order getOrderById(String orderId) throws 
 		SqlRequestException, SQLException
 	{
-		Orders orders = new Orders();
-		return orders.submitOrderQuery(orderId);
+		return submitOrderQuery(orderId);
 	}
 	
 	public static List<Order> getPendingOrdersForUser(String userName) throws 
 		SqlRequestException, SQLException
 	{
-		Orders orders = new Orders();
-		return orders.submitUserPendingOrdersQuery(userName);
+		return submitUserPendingOrdersQuery(userName);
 	}
 	
 	public static List<Order> getOrdersForUser(String userName) throws 
 		SqlRequestException, SQLException
 	{
-		Orders orders = new Orders();
-		return orders.submitUserOrdersQuery(userName);
+		return submitUserOrdersQuery(userName);
 	}
 	
 	public static void updateLastEvaulated(String orderId, Date lastEvaluated)
 		throws SQLException, SqlRequestException
 	{
-		Orders orders = new Orders();
-		orders.updateLastEvaluatedForOrder(orderId, lastEvaluated);
+		updateLastEvaluatedForOrder(orderId, lastEvaluated);
 	}
 	
 	private Orders(){}
 	
-	private void updateState(String userName, String orderId, OrderState oldState, OrderState newState)
+	private static void updateState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
 		Connection connection = null;
@@ -104,7 +97,7 @@ public class Orders
 		}
 	}
 	
-	private boolean insert(Order order) throws
+	private static boolean insert(Order order) throws
 		SqlRequestException, ValidationException, SQLException
 	{
 		Connection connection = null;
@@ -150,7 +143,7 @@ public class Orders
 		return success;
 	}
 	
-	private boolean delete(String orderId) throws 
+	private static boolean delete(String orderId) throws 
 		SqlRequestException, SQLException
 	{
 		boolean success = false;
@@ -182,7 +175,7 @@ public class Orders
 		return success;
 	}
 	
-	private void updateLastEvaluatedForOrder(String orderId, Date lastEvaluated) 
+	private static void updateLastEvaluatedForOrder(String orderId, Date lastEvaluated) 
 		throws SQLException, SqlRequestException
 	{
 		Connection connection = null;
@@ -208,7 +201,7 @@ public class Orders
 		}
 	}
 	
-	private Order submitOrderQuery(String orderId) throws 
+	private static Order submitOrderQuery(String orderId) throws 
 		SqlRequestException, SQLException
 	{
 		Order order = null;
@@ -237,7 +230,7 @@ public class Orders
 		return order;
 	}
 	
-	private List<Order> submitUserOrdersQuery(String userName) throws 
+	private static List<Order> submitUserOrdersQuery(String userName) throws 
 		SqlRequestException, SQLException
 	{
 		Connection connection = null;
@@ -268,7 +261,7 @@ public class Orders
 		return orders;
 	}
 	
-	private List<Order> submitUserPendingOrdersQuery(String userName) throws 
+	private static List<Order> submitUserPendingOrdersQuery(String userName) throws 
 		SqlRequestException, SQLException
 	{
 		Connection connection = null;
@@ -300,7 +293,7 @@ public class Orders
 		return orders;
 	}
 	
-	private Order getOrderFromResultSet(ResultSet rs) throws
+	private static Order getOrderFromResultSet(ResultSet rs) throws
 		SQLException, SqlRequestException
 	{
 		Order order = null;

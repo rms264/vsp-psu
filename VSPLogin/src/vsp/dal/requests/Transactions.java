@@ -22,41 +22,36 @@ public class Transactions
 	public static boolean addTransaction(StockTransaction transaction) throws
 		SqlRequestException, SQLException
 	{
-		Transactions transactions = new Transactions();
-		return transactions.insert(transaction);
+		return insert(transaction);
 	}
 	
 	public static boolean deleteTransactionById(String transactionId)  throws
 		SqlRequestException, SQLException
 	{
-		Transactions transactions = new Transactions();
-		return transactions.delete(transactionId);
+		return delete(transactionId);
 	}
 	
 	public static StockTransaction getTransactionById(String transactionId) throws
 		SqlRequestException, SQLException
 	{
-		Transactions transactions = new Transactions();
-		return transactions.submitTransactionQuery(transactionId);
+		return submitTransactionQuery(transactionId);
 	}
 	
 	public static List<StockTransaction> getTransactionsForUser(String userName) throws
 		SqlRequestException, SQLException
 	{
-		Transactions transactions = new Transactions();
-		return transactions.submitUserTransactionsQuery(userName);
+		return submitUserTransactionsQuery(userName);
 	}
 	
 	public static StockTransaction getTransactionForOrderId(String orderId) throws
 		SqlRequestException, SQLException
 	{
-		Transactions transactions = new Transactions();
-		return transactions.submitTransactionQueryForOrder(orderId);
+		return submitTransactionQueryForOrder(orderId);
 	}
 	
 	private Transactions(){}
 	
-	private boolean insert(StockTransaction transaction) throws
+	private static boolean insert(StockTransaction transaction) throws
 		SqlRequestException, SQLException
 	{
 		boolean success = false;
@@ -85,7 +80,7 @@ public class Transactions
 		return success;
 	}
 	
-	private boolean delete(String transactionId) throws 
+	private static boolean delete(String transactionId) throws 
 		SqlRequestException, SQLException
 	{
 		boolean success = false;
@@ -117,7 +112,7 @@ public class Transactions
 		return success;
 	}
 	
-	private StockTransaction submitTransactionQuery(String transactionId) throws
+	private static StockTransaction submitTransactionQuery(String transactionId) throws
 		SQLException, SqlRequestException
 	{
 		Connection connection = null;
@@ -146,7 +141,7 @@ public class Transactions
 		return transaction;
 	}
 	
-	private StockTransaction submitTransactionQueryForOrder(String orderId) throws
+	private static StockTransaction submitTransactionQueryForOrder(String orderId) throws
 		SQLException, SqlRequestException
 	{
 		Connection connection = null;
@@ -175,7 +170,7 @@ public class Transactions
 		return transaction;
 	}
 	
-	private List<StockTransaction> submitUserTransactionsQuery(String userName) throws
+	private static List<StockTransaction> submitUserTransactionsQuery(String userName) throws
 		SQLException, SqlRequestException
 	{
 		Connection connection = null;
@@ -206,7 +201,7 @@ public class Transactions
 		return transactions;
 	}
 	
-	private StockTransaction getTransactionFromResultSet(ResultSet rs) throws
+	private static StockTransaction getTransactionFromResultSet(ResultSet rs) throws
 		SQLException, SqlRequestException
 	{
 		StockTransaction transaction = null;

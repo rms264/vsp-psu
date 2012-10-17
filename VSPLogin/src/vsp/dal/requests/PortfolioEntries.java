@@ -28,42 +28,36 @@ public class PortfolioEntries {
 	 */
 	public static List<PortfolioData> requestAllUserStocks(String userName) throws SQLException
 	{
-		PortfolioEntries request = new PortfolioEntries();
-		List<PortfolioData> results = request.submitUserPortfolioRequest(userName);
-		return results;
+		return submitUserPortfolioRequest(userName);
 	}
 	
 	public static boolean addEntry(PortfolioData data)  throws
 		SqlRequestException, ValidationException, SQLException
 	{	
-		PortfolioEntries request = new PortfolioEntries();
-		return request.insert(data);
+		return insert(data);
 	}
 	
 	public static boolean updateEntry(PortfolioData data) throws 
 		SqlRequestException, SQLException
 	{
-		PortfolioEntries request = new PortfolioEntries();
-		return request.update(data);
+		return update(data);
 	}
 	
 	public static boolean deleteEntry(String userName, String stockSymbol) throws 
 		SqlRequestException, SQLException
 	{
-		PortfolioEntries request = new PortfolioEntries();
-		return request.delete(userName, stockSymbol);
+		return delete(userName, stockSymbol);
 	}
 	 
 	public static PortfolioData getEntry(String userName, String stockSymbol) throws 
 		SqlRequestException, SQLException
 	{
-		PortfolioEntries request = new PortfolioEntries();
-		return request.submitUserPortfolioEntryRequest(userName, stockSymbol);
+		return submitUserPortfolioEntryRequest(userName, stockSymbol);
 	}
 	
 	private PortfolioEntries(){}
 	
-	private boolean insert(PortfolioData data) throws
+	private static boolean insert(PortfolioData data) throws
 		SqlRequestException, ValidationException, SQLException
 	{
 		Connection connection = null;
@@ -106,7 +100,7 @@ public class PortfolioEntries {
 		return success;
 	}
 	
-	private boolean update(PortfolioData data) throws 
+	private static boolean update(PortfolioData data) throws 
 		SqlRequestException, SQLException
 	{
 		boolean success = false;
@@ -142,7 +136,7 @@ public class PortfolioEntries {
 		return success;
 	}
 	
-	private boolean delete(String userName, String stockSymbol) throws 
+	private static boolean delete(String userName, String stockSymbol) throws 
 		SqlRequestException, SQLException
 	{
 		boolean success = false;
@@ -175,7 +169,7 @@ public class PortfolioEntries {
 		}
 	}
 		
-	private PortfolioData submitUserPortfolioEntryRequest(String userName, String stockSymbol) throws SQLException
+	private static PortfolioData submitUserPortfolioEntryRequest(String userName, String stockSymbol) throws SQLException
 	{
 		PortfolioData data = null;
 		Connection connection = null;
@@ -205,7 +199,7 @@ public class PortfolioEntries {
 		return data;
 	}
 	
-	private List<PortfolioData> submitUserPortfolioRequest(String userName) throws SQLException
+	private static List<PortfolioData> submitUserPortfolioRequest(String userName) throws SQLException
 	{
 		List<PortfolioData> results = new ArrayList<PortfolioData>();
 		Connection connection = null;
@@ -236,7 +230,7 @@ public class PortfolioEntries {
 		return results;
 	}
 	
-	private PortfolioData getPortfolioDataFromResultSet(ResultSet rs) throws 
+	private static PortfolioData getPortfolioDataFromResultSet(ResultSet rs) throws 
 		SQLException
 	{
 		PortfolioData data = null;
