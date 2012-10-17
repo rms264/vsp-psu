@@ -301,7 +301,7 @@ public final class StockInfoServiceProvider
 			Date date = null;
 			try
 			{
-				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);	
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);	
 				date = sdf.parse(columns[0]);
 				
 				// create StockInfo instance
@@ -316,7 +316,7 @@ public final class StockInfoServiceProvider
 			}
 			catch (ParseException pe)
 			{
-				// ignore
+				System.out.println(pe.toString());
 			}
 			catch (NumberFormatException nfe)
 			{
