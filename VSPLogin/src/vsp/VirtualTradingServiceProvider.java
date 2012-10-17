@@ -39,7 +39,9 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 		List<Order> pendingOrders = Orders.getPendingOrdersForUser(userName);
 		if (pendingOrders != null && pendingOrders.size() > 0)
 		{
+			Date date = new Date();
 			OrderResult result = null;
+			PortfolioData data = null;
 			OrderExecutor executor = null;
 			StockTransaction transaction = null;
 			for (Order pendingOrder : pendingOrders)
@@ -53,7 +55,6 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 					result = executor.Execute(pendingOrder, this, sisp);
 					
 					// update last evaluated date
-					Date date = new Date();
 					pendingOrder.setLastEvaluated(date);
 					Orders.updateLastEvaulated(pendingOrder.getId(), date);
 					
@@ -63,8 +64,8 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 						transaction = StockTransaction.CreateNewExecution(pendingOrder.getUserName(), pendingOrder, 
 								result.getDateTime(), result.getValue(), result.getSharePrice(), result.getQuantity());
 						Transactions.addTransaction(transaction);
-						
-						PortfolioData data = null;
+					
+						data = null;
 						try
 						{
 							data = PortfolioEntries.getEntry(userName, pendingOrder.getStock().getStockSymbol());
