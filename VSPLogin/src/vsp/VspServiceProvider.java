@@ -1,20 +1,26 @@
 package vsp;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import vsp.dal.requests.Orders;
+import vsp.dal.requests.PortfolioEntries;
 import vsp.dal.requests.Roles;
 import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
+import vsp.dataObject.Order;
+import vsp.dataObject.PortfolioData;
 import vsp.dataObject.StockInfo;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
-import vsp.orders.Order;
-import vsp.utils.Enumeration.Role;
+import vsp.utils.Validate;
+import vsp.utils.Enumeration.*;
 
 
 public class VspServiceProvider
@@ -30,6 +36,158 @@ public class VspServiceProvider
 			throws SQLException, SqlRequestException
 	{
 		Orders.cancelOrder(userName, orderId);
+	}
+	
+	public void createOrder(String userName, String action, String stockSymbol, String quantity, String type, String timeInForce ,
+			String limitPrice, String stopPrice)
+			throws SQLException, SqlRequestException, ValidationException
+	{
+		// validate inputs
+		OrderAction orderAction = OrderAction.convert(Integer.parseInt(action));
+		OrderType orderType = OrderType.convert(Integer.parseInt(type));
+		TimeInForce tif = TimeInForce.convert(Integer.parseInt(timeInForce));
+		float orderQuantity = Validate.validateQuantity(quantity);
+		double limit = Validate.validateLimitPrice(limitPrice);
+		double stop = Validate.validateStopPrice(stopPrice);
+		
+		StockInfo stockInfo = sisp.requestCurrentStockData(stockSymbol);
+		if (stockInfo == null)
+		{
+			throw new ValidationException("Error:  Please enter a valid stock symbol.");
+		}
+	
+		
+		// validate combination of inputs
+		boolean withinTradingHours = sisp.isWithinTradingHours();
+		if (orderType == OrderType.MARKET && !withinTradingHours)
+		{
+			throw new ValidationException("Error:  A Market Order may only be submitted when the market is open.");
+		}
+		
+		if (orderType == OrderType.MARKET && tif != TimeInForce.DAY)
+		{
+			throw new ValidationException("Error:  A Market Order may only use a Time In Force of 'Day'.");
+		}
+		
+		if ((orderType == OrderType.STOP || orderType == OrderType.STOPLIMIT) 
+				&& (tif == TimeInForce.FILLORKILL || tif == TimeInForce.IMMEDIATEORCANCEL))
+		{
+			throw new ValidationException("Error:  A " + orderType.toString() + " Order may only use a Time In Force of 'Market' or 'Good Until Cancelled'.");
+		}
+		
+		if (tif == TimeInForce.FILLORKILL)
+		{
+			if (!withinTradingHours)
+			{
+				throw new ValidationException("Error:  A Fill or Kill order may only be submitted when the market is open.");
+			}
+			else if (orderQuantity <= 100)
+			{
+				throw new ValidationException("Error:  A Fill or Kill order must be for 101 or more shares.");
+			}
+		}
+		
+		Order newOrder = Order.CreateNewOrder(userName, stockInfo.getStock(), orderAction, orderQuantity, orderType, limit, stop, tif);
+		AccountData userInfo = Users.requestAccountData(userName);
+		
+		if (orderAction == OrderAction.BUY)
+		{
+			// get pending commitments (best effort)
+			double commitments = 0.0;
+			List<Order> pendingOrders = this.getPendingOrders(userName);
+			if (pendingOrders != null && pendingOrders.size() > 0)
+			{
+				List<String> symbolList = new ArrayList<String>();
+				for (Order pendingOrder : pendingOrders)
+				{
+					if (pendingOrder.getAction() == OrderAction.BUY)
+					{
+						symbolList.add(pendingOrder.getStock().getStockSymbol());
+					}
+				}
+				
+				List<StockInfo> stockInfos = sisp.requestCurrentStockData(symbolList);
+				Map<String,StockInfo> stockInfoMap = new HashMap<String,StockInfo>(stockInfos.size());
+				if (stockInfos != null)
+				{
+					for (StockInfo info : stockInfos)
+					{
+						stockInfoMap.put(info.getSymbol(), info);
+					}
+					
+					String symbol;
+					for (Order pendingOrder : pendingOrders)
+					{
+						if (pendingOrder.getAction() == OrderAction.BUY)
+						{
+							symbol = pendingOrder.getStock().getStockSymbol();
+							if (stockInfoMap.containsKey(symbol))
+							{
+								commitments += pendingOrder.getLatestEstimatedValue(stockInfoMap.get(symbol));
+							}
+						}
+					}
+				}
+			}
+						
+			// get commitment for this order
+			commitments += newOrder.getLatestEstimatedValue(stockInfo);
+			if (commitments > userInfo.getBalance())
+			{
+				throw new ValidationException("Error:  You do not have the necessary funds for this Buy order.");
+			}
+		}
+		else if (orderAction == OrderAction.SELL)
+		{
+			// see if trader already owns stock
+			PortfolioData ownedStock = null;
+			List<PortfolioData> ownedStocks = this.getPortfolioEntries(userName);
+			if (ownedStocks != null && ownedStocks.size() > 0)
+			{
+				for (PortfolioData data : ownedStocks)
+				{
+					if (data.getStock().getStockSymbol().equals(stockSymbol))
+					{
+						ownedStock = data;
+						break;
+					}
+				}
+			}
+			
+			if (ownedStock != null)
+			{
+				// see if trader has enough shares that are not already committed elsewhere
+				float quantityPending = 0.0f;
+				List<Order> pendingOrders = this.getPendingOrders(userName);
+				if (pendingOrders != null && pendingOrders.size() > 0)
+				{
+					for (Order pendingOrder : pendingOrders)
+					{
+						if (pendingOrder.getAction() == OrderAction.SELL 
+								&& pendingOrder.getStock().getStockSymbol().equals(stockSymbol))
+						{
+							quantityPending += pendingOrder.getQuantity();
+						}
+					}
+				}
+				
+				if (orderQuantity > (ownedStock.getQuantity() - quantityPending))
+				{
+					throw new ValidationException("Error:  You do not have enough of '" + stockInfo.getSymbol() + "' available to sell " + orderQuantity + " shares.");
+				}
+			}
+			else
+			{
+				throw new ValidationException("Error:  You do not own any shares of the '" + stockInfo.getSymbol() + "' stock.");
+			}
+		}
+				
+		// submit order (add to DB)
+		Orders.addOrder(newOrder);
+		
+		// attempt to process order(s) with VTSP
+		VirtualTradingServiceProvider vtsp = new VirtualTradingServiceProvider();
+		vtsp.processPendingOrders(userName);
 	}
 	
 	public void createTraderAccount(String userName, String password1, 
@@ -59,6 +217,12 @@ public class VspServiceProvider
 			throws SQLException, SqlRequestException
 	{
 		return Orders.getPendingOrdersForUser(userName);
+	}
+	
+	public List<PortfolioData> getPortfolioEntries(String userName) 
+			throws SQLException
+	{
+		return PortfolioEntries.requestAllUserStocks(userName);
 	}
 	
 	public List<StockInfo> getLatestStockInfo(List<String> symbols)

@@ -1,4 +1,4 @@
-package vsp.orders;
+package vsp.dataObject;
 
 import java.util.Date;
 

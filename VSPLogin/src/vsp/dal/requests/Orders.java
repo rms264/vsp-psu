@@ -1,11 +1,11 @@
 package vsp.dal.requests;
 
 import vsp.dal.DatasourceConnection;
+import vsp.dataObject.Order;
 import vsp.dataObject.Stock;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
-import vsp.orders.Order;
 import vsp.utils.Validate;
 import vsp.utils.Enumeration.*;
 
@@ -59,6 +59,13 @@ public class Orders
 	{
 		Orders orders = new Orders();
 		return orders.submitUserOrdersQuery(userName);
+	}
+	
+	public static void updateLastEvaulated(String orderId, Date lastEvaluated)
+		throws SQLException, SqlRequestException
+	{
+		Orders orders = new Orders();
+		orders.updateLastEvaluatedForOrder(orderId, lastEvaluated);
 	}
 	
 	private Orders(){}
@@ -123,7 +130,7 @@ public class Orders
 				Stocks.addNewStock(stock.getStockSymbol(), stock.getStockDescription());
 			}
 
-			String sqlStatement = "INSERT into vsp.Order values(?,?,?,?,?,?,?,?,?,?,?)";
+			String sqlStatement = "INSERT into vsp.Order values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, order.getId());  
 			pStmt.setString(2, order.getUserName());   
@@ -136,6 +143,7 @@ public class Orders
 			pStmt.setDouble(9, order.getLimitPrice());
 			pStmt.setDouble(10,  order.getStopPrice());
 			pStmt.setInt(11, order.getTimeInForce().getValue());
+			pStmt.setDate(12, new java.sql.Date(order.getLastEvaluated().getTime()));
 		
 			int result = pStmt.executeUpdate();
 			if (result == 1)
@@ -184,6 +192,32 @@ public class Orders
 		}
 		
 		return success;
+	}
+	
+	private void updateLastEvaluatedForOrder(String orderId, Date lastEvaluated) 
+		throws SQLException, SqlRequestException
+	{
+		Connection connection = null;
+		try
+		{
+			String sqlStatement = "UPDATE vsp.Order SET last_evaluated=? WHERE order_id=?";
+			connection = DatasourceConnection.getConnection();
+			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+			pStmt.setDate(1, new java.sql.Date(lastEvaluated.getTime()));
+			pStmt.setString(2, orderId);
+			int result = pStmt.executeUpdate();
+			if(result != 1)
+			{
+				throw (new SqlRequestException("Error:  Unable to update last evaluated date."));
+			}
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
 	}
 	
 	private Order submitOrderQuery(String orderId) throws 
@@ -287,6 +321,7 @@ public class Orders
 		String userName = rs.getString("user_name");
 		Stock stock = Stocks.getStock(rs.getString("stock_symbol"));
 		Date date = rs.getDate("date_submitted");
+		Date lastEval = rs.getDate("date_submitted");
 		OrderState state = OrderState.convert(rs.getInt("state"));
 		float quantity = rs.getFloat("quantity");
 		OrderAction action = OrderAction.convert(rs.getInt("action"));
@@ -295,7 +330,7 @@ public class Orders
 		double stopPrice = rs.getDouble("stop_price");
 		TimeInForce timeInForce = TimeInForce.convert(rs.getInt("time_in_force"));
 			
-		order = new Order(id, userName, stock, action, quantity, type, limitPrice, stopPrice, timeInForce, state, date);
+		order = new Order(id, userName, stock, action, quantity, type, limitPrice, stopPrice, timeInForce, state, date, lastEval);
 		
 		return order;
 	}

@@ -7,7 +7,6 @@ import java.util.*;
 
 import javax.wsdl.Types;
 
-import vsp.orders.Order;
 import vsp.utils.Enumeration.TransactionType;
 
 public final class StockTransaction

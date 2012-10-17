@@ -12,7 +12,6 @@ import java.util.List;
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.*;
 import vsp.exception.*;
-import vsp.orders.Order;
 import vsp.utils.VSPUtils;
 import vsp.utils.Validate;
 import vsp.utils.Enumeration.SecurityQuestion;

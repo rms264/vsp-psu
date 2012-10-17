@@ -1,10 +1,8 @@
-package vsp.orders;
+package vsp.dataObject;
 
 import java.util.Date;
 import java.util.UUID;
 
-import vsp.dataObject.Stock;
-import vsp.dataObject.StockInfo;
 import vsp.utils.Enumeration.*;
 
 public final class Order
@@ -20,10 +18,11 @@ public final class Order
 	private final TimeInForce timeInForce;
 	private OrderState state;
 	private final Date dateSubmitted;
+	private Date lastEvaluated;
 	
 	public Order(String id, String userName, Stock stock, OrderAction action, 
 			float quantity, OrderType type, double limitPrice, double stopPrice,
-			TimeInForce timeInForce, OrderState state, Date dateSubmitted)
+			TimeInForce timeInForce, OrderState state, Date dateSubmitted, Date lastEvaluated)
 	{
 		this.id = id;
 		this.userName = userName;
@@ -36,6 +35,14 @@ public final class Order
 		this.timeInForce = timeInForce;
 		this.state = state;
 		this.dateSubmitted = dateSubmitted;
+		this.lastEvaluated = lastEvaluated;
+	}
+	
+	public static Order CreateNewOrder(String userName, Stock stock, OrderAction action, 
+			float quantity, OrderType type, double limitPrice, double stopPrice,
+			TimeInForce timeInForce)
+	{
+		return new Order(CreateId(), userName, stock, action, quantity, type, limitPrice, stopPrice, timeInForce, OrderState.PENDING, new Date(), new Date());
 	}
 	
 	public static String CreateId()
@@ -47,6 +54,16 @@ public final class Order
 	public OrderAction getAction()
 	{
 		return this.action;
+	}
+	
+	public Date getLastEvaluated()
+	{
+		return this.lastEvaluated;
+	}
+	
+	public void setLastEvaluated(Date date)
+	{
+		this.lastEvaluated = date;
 	}
 	
 	// estimation leans toward a worst case scenario

@@ -26,7 +26,7 @@ public class PortfolioEntries {
 	 * 		   table for the user that matches the user name passed in.
 	 * @throws SQLException
 	 */
-	public List<PortfolioData> requestAllUserStocks(String userName) throws SQLException
+	public static List<PortfolioData> requestAllUserStocks(String userName) throws SQLException
 	{
 		PortfolioEntries request = new PortfolioEntries();
 		List<PortfolioData> results = request.submitUserPortfolioRequest(userName);

@@ -1,6 +1,6 @@
-package vsp.orders;
+package vsp.dataObject;
 
-public final class StopOrderExecutor extends OrderExecutor
+final class StopOrderExecutor extends OrderExecutor
 {
 	private OrderExecutor decoratedExecutor;
 	
@@ -15,7 +15,7 @@ public final class StopOrderExecutor extends OrderExecutor
 	}
 	
 	@Override
-	public OrderResult Execute(Order order)
+	public OrderResult Execute(Order order, IUserBalance balance, IStockInfo stockInfo)
 	{
 		// TODO: implement
 		return null;

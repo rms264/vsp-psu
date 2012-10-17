@@ -85,6 +85,11 @@ public final class StockInfo
 		return this.priceChangeSinceOpen;
 	}
 	
+	public Stock getStock()
+	{
+		return new Stock(this.symbol, this.description);
+	}
+	
 	public String getSymbol()
 	{
 		return this.symbol;

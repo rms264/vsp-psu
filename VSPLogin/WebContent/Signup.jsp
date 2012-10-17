@@ -1,7 +1,7 @@
-<%@page import="vsp.utils.Enumeration.SecurityQuestion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="vsp.*"%>
+<%@page import="vsp.utils.Enumeration.SecurityQuestion"%>
 <%@ page import="java.text.*" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -58,15 +58,12 @@
     	out.println("<tr><td>Enter your Email: </td><td><input type='text' name='email' size=46 /></td></tr>");
     	out.println("<tr><td>Enter your Security Question: </td><td><select name='question' width=50>");
     	
-//     	String[] securityQuestions = SecurityQuestions.getAllQuestions();
     	out.println("<option value='-1' selected>(Please select one:)</option>");
-//     	for (int i = 0; i < securityQuestions.length; ++i)
-//     	{
-//     		out.println("<option value='" + Integer.toString(i) + "'>" + securityQuestions[i] + "</option>");
-//     	}
-    	for(SecurityQuestion question : SecurityQuestion.values()){
+    	for(SecurityQuestion question : SecurityQuestion.values())
+    	{
     		if(question == SecurityQuestion.DEFAULT)
     			continue;
+    		
     		out.println("<option value='" + Integer.toString(question.getValue()) + "'>" + question + "</option>");
     	}
     	

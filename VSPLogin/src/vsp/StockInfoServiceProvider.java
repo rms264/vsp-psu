@@ -16,6 +16,72 @@ public final class StockInfoServiceProvider
 		// no implementation required
 	}
 	
+	public boolean isWithinTradingHours()
+	{
+		boolean withinTradingHours = false;
+		String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
+		// a, Ask
+		
+		List<String> responseLines = null;
+		try
+		{
+			responseLines = getDataFromUrl(url);
+			if (responseLines.size() == 1)
+			{
+				if (!responseLines.get(0).contains("N/A"))
+				{
+					withinTradingHours = true;
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			// ignore
+		}
+		
+		return withinTradingHours;
+	}
+	
+	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date since)
+	{
+		Date today = new Date();
+		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		historyUrl += "&a=" + Integer.toString(since.getMonth() - 1); // month - 1
+		historyUrl += "&b=" + Integer.toString(since.getDay()); // day
+		historyUrl += "&c=" + Integer.toString(since.getYear()); // year
+		historyUrl += "&d=" + Integer.toString(today.getMonth() - 1); // month - 1
+		historyUrl += "&e=" + Integer.toString(today.getDay()); // day
+		historyUrl += "&f=" + Integer.toString(today.getYear()); // year
+		historyUrl += "g=d"; // daily history 
+		
+		List<HistoricalStockInfo> results = new ArrayList<HistoricalStockInfo>();
+		List<String> data = null;
+		try
+		{
+			data = getDataFromUrl(historyUrl);
+		}
+		catch (Exception ex)
+		{
+			// ignore
+		}
+		
+		if (data != null && data.size() > 1)
+		{
+			HistoricalStockInfo stockInfo = null;
+			// ignore the first row as it's just the column headers
+			for (int i = 1; i < data.size(); ++i)
+			{
+				stockInfo = parseHistoricalStockInfo(data.get(i));
+				if (stockInfo != null)
+				{
+					results.add(stockInfo);
+				}
+			}
+		}
+		
+		return results;
+	}
+	
 	public List<Stock> searchForStocks(String search)
 	{
 		String searchUrl = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + search + "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";		
@@ -31,7 +97,7 @@ public final class StockInfoServiceProvider
 			// ignore
 		}
 		
-		if (data.size() == 1)
+		if (data != null && data.size() == 1)
 		{
 			results = parseStockSymbolsAndNames(data.get(0));
 		}
@@ -65,7 +131,7 @@ public final class StockInfoServiceProvider
 			// ignore
 		}
 		
-		if (responseLines.size() == 1)
+		if (responseLines != null && responseLines.size() == 1)
 		{
 			stockInfo = parseStockInfo(symbol, responseLines.get(0));
 		}
@@ -107,13 +173,16 @@ public final class StockInfoServiceProvider
 				// ignore
 			}
 			
-			StockInfo stockInfo = null;
-			for (int i = 0; i < responseLines.size(); ++i)
+			if (responseLines != null)
 			{
-				stockInfo = parseStockInfo(symbols.get(i), responseLines.get(i));
-				if (stockInfo != null)
+				StockInfo stockInfo = null;
+				for (int i = 0; i < responseLines.size(); ++i)
 				{
-					results.add(stockInfo);
+					stockInfo = parseStockInfo(symbols.get(i), responseLines.get(i));
+					if (stockInfo != null)
+					{
+						results.add(stockInfo);
+					}
 				}
 			}
 		}
@@ -215,6 +284,49 @@ public final class StockInfoServiceProvider
 		return results;
 	}
 	
+	private static HistoricalStockInfo parseHistoricalStockInfo(String line)
+	{
+		HistoricalStockInfo stockInfo = null;
+		
+		// parse into columns
+		String[] columns = line.split(",");
+		for (int i = 0; i < columns.length; ++i)
+		{
+			columns[i] = columns[i].replaceAll("\"", "").trim();
+		}
+			
+		if (columns.length == 7)
+		{		
+			// parse date
+			Date date = null;
+			try
+			{
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);	
+				date = sdf.parse(columns[0]);
+				
+				// create StockInfo instance
+				stockInfo = new HistoricalStockInfo(date, 	// date
+						Double.parseDouble(columns[1]),		// open
+						Double.parseDouble(columns[2]),		// day high
+						Double.parseDouble(columns[3]),		// day low
+						Double.parseDouble(columns[4]),		// close
+						Integer.parseInt(columns[5]),		// volume
+						Double.parseDouble(columns[6])	 	// adjusted close
+						);
+			}
+			catch (ParseException pe)
+			{
+				// ignore
+			}
+			catch (NumberFormatException nfe)
+			{
+				// ignore
+			}
+		}
+		
+		return stockInfo;
+	}
+	
 	private static StockInfo parseStockInfo(String symbol, String line)
 	{
 		StockInfo stockInfo = null;
@@ -234,29 +346,28 @@ public final class StockInfoServiceProvider
 			{
 				SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.ENGLISH);	
 				date = sdf.parse(columns[9]);
-				// TODO: set year here if we need it
+				
+				int year = Calendar.getInstance().get(Calendar.YEAR);
+				date.setYear(year);
+				
+				// create StockInfo instance
+				stockInfo = new StockInfo(symbol, 
+						columns[0], 										// description
+						Double.parseDouble(columns[4]),						// dayHigh
+						Double.parseDouble(columns[3]),						// dayLow
+						date,				 								// ex-dividend date, Date
+						Double.parseDouble(columns[10]),					// ex-dividend
+						Double.parseDouble(columns[7].replace("+", "")), 	// price change since open
+						Double.parseDouble(columns[8].replace("%", "")), 	// percent change since open
+						Integer.parseInt(columns[5]), 						// volume
+						Double.parseDouble(columns[1]), 					// bid
+						Double.parseDouble(columns[2]),						// ask
+						Double.parseDouble(columns[4]) 						// open
+						);
 			}
 			catch (ParseException pe)
 			{
 				// ignore
-			}
-			
-			try
-			{
-			// create StockInfo instance
-			stockInfo = new StockInfo(symbol, 
-					columns[0], 										// description
-					Double.parseDouble(columns[4]),						// dayHigh
-					Double.parseDouble(columns[3]),						// dayLow
-					date,				 								// ex-dividend date, Date
-					Double.parseDouble(columns[10]),					// ex-dividend
-					Double.parseDouble(columns[7].replace("+", "")), 	// price change since open
-					Double.parseDouble(columns[8].replace("%", "")), 	// percent change since open
-					Integer.parseInt(columns[5]), 						// volume
-					Double.parseDouble(columns[1]), 					// bid
-					Double.parseDouble(columns[2]),						// ask
-					Double.parseDouble(columns[4]) 						// open
-					);
 			}
 			catch (NumberFormatException nfe)
 			{

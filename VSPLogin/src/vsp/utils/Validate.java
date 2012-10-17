@@ -81,6 +81,19 @@ public class Validate
 		return found;
 	}
 	
+	public static boolean validateOrderAction(String action) 
+			throws ValidationException
+	{
+		if (action == null || action.isEmpty())
+		{
+			throw (new ValidationException(
+					"Error:  Please enter an answer for your security " + 
+					"question."));
+		}
+		
+		return true;
+	}
+	
 	/**
 	 * @param userName
 	 * @param password1
@@ -145,6 +158,56 @@ public class Validate
 		}
 		
 		return true;
+	}
+	
+	
+	public static float validateLimitPrice(String limitPrice)
+			throws ValidationException
+	{
+		float price = Float.parseFloat(limitPrice);	
+		if (price <= 0)
+		{
+			throw (new ValidationException(
+					"Error:  Please enter a positive Limit Price."));
+		}
+		
+		return price;
+	}
+	
+	public static float validateStopPrice(String stopPrice)
+			throws ValidationException
+	{
+		float price = Float.parseFloat(stopPrice);	
+		if (price <= 0)
+		{
+			throw (new ValidationException(
+					"Error:  Please enter a positive Stop Price."));
+		}
+		
+		return price;
+	}
+	
+	public static float validateQuantity(String quantity)
+			throws ValidationException
+	{
+		int quantityParsed = 0;
+		try
+		{
+			quantityParsed = Integer.parseInt(quantity);
+		}
+		catch (Exception ex)
+		{
+			throw (new ValidationException(
+					"Error:  Please enter a whole number for the quantity."));
+		}
+		
+		if (quantityParsed <= 0)
+		{
+			throw (new ValidationException(
+					"Error:  Please provide a positive quantity."));
+		}
+		
+		return Float.parseFloat(quantity);
 	}
 	
 	public static boolean validateSecurityQuestion(SecurityQuestion question) 
