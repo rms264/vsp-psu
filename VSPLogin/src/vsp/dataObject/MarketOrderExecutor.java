@@ -17,44 +17,40 @@ final class MarketOrderExecutor extends OrderExecutor
 	{
 		OrderResult result = new OrderResult(order);
 		Date today = new Date();
-		if (stockService.isWithinTradingHours())
+		Date submitted = order.getDateSubmitted();
+		if (submitted.getYear() == today.getYear() 
+				&& submitted.getMonth() == today.getMonth()
+				&& submitted.getDay() == today.getDay())
 		{
-			Date lastEvaluated = order.getLastEvaluated();
-			if (lastEvaluated.getYear() == today.getYear() 
-					&& lastEvaluated.getMonth() == today.getMonth()
-					&& lastEvaluated.getDay() == today.getDay())
+			StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
+			if (info != null)
 			{
-				StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
-				if (info != null)
-				{
-					attemptTrade(result, balanceService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
-				}
-			}
-			else
-			{
-				List<HistoricalStockInfo> infos = stockService.requestDailyHistoricalStockData(order.getStock().getStockSymbol(), lastEvaluated);
-				if (infos != null && infos.size() > 0)
-				{
-					HistoricalStockInfo info = infos.get(infos.size() - 1);
-					attemptTrade(result, balanceService, info.getDate(), info.getDayLow(), info.getDayHigh(), info.getVolume());
-					if (!result.getCompleted())
-					{ // market order is only good for the day it was placed
-						result.setCancelled(true);
-						result.setDateTime(info.getDate());
-					}
+				attemptTrade(result, balanceService, today, info.getAsk(), info.getBid(), info.getDayLow(), info.getDayHigh(), info.getVolume());
+				if (!result.getCompleted() && !stockService.isWithinTradingHours())
+				{ // market order is only good for the day it was placed
+					result.setCancelled(true);
+					result.setDateTime(today);
 				}
 			}
 		}
 		else
-		{ // market order is only good for the day it was placed
-			result.setCancelled(true);
-			result.setDateTime(today);
+		{
+			HistoricalStockInfo info = stockService.requestHistoricalStockDataForDay(order.getStock().getStockSymbol(), submitted);
+			if (info != null)
+			{
+				attemptTrade(result, balanceService, info.getDate(), 0.0, 0.0, info.getDayLow(), info.getDayHigh(), info.getVolume());
+				if (!result.getCompleted())
+				{ // market order is only good for the day it was placed
+					result.setCancelled(true);
+					result.setDateTime(info.getDate());
+				}
+			}
 		}
 		
 		return result;
 	}
 	
-	protected void attemptTrade(OrderResult result, IUserBalance balanceService, Date date, double dayLow, double dayHigh, int volume)
+	protected void attemptTrade(OrderResult result, IUserBalance balanceService, Date date, double ask, double bid, double dayLow, double dayHigh, int volume)
 	{
 		Order order = result.getOrder();
 		
@@ -64,10 +60,13 @@ final class MarketOrderExecutor extends OrderExecutor
 			quantity = volume;
 		}
 		
+		double sellPrice = (bid == 0.0) ? dayHigh : bid;
+		double buyPrice = (ask == 0.0) ? dayLow : ask;
+		
 		double accountBalance = balanceService.getBalance(order.getUserName());
 		if (order.getAction() == OrderAction.BUY)
 		{
-			double orderTotal = quantity * dayLow;
+			double orderTotal = quantity * buyPrice;
 			if (accountBalance >= orderTotal)
 			{
 				try
@@ -75,7 +74,7 @@ final class MarketOrderExecutor extends OrderExecutor
 					balanceService.updateBalance(order.getUserName(), accountBalance - orderTotal);
 					result.setCompleted(true);
 					result.setQuantity(quantity);
-					result.setSharePrice(dayLow);
+					result.setSharePrice(buyPrice);
 					result.setDateTime(date);
 				}
 				catch (Exception ex)
@@ -86,13 +85,13 @@ final class MarketOrderExecutor extends OrderExecutor
 		}
 		else
 		{
-			double orderTotal = quantity * dayHigh;
+			double orderTotal = quantity * sellPrice;
 			try
 			{
 				balanceService.updateBalance(order.getUserName(), accountBalance + orderTotal);
 				result.setCompleted(true);
 				result.setQuantity(quantity);
-				result.setSharePrice(dayHigh);
+				result.setSharePrice(sellPrice);
 				result.setDateTime(date);
 			}
 			catch (Exception ex)

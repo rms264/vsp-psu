@@ -43,6 +43,37 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return withinTradingHours;
 	}
 	
+	public HistoricalStockInfo requestHistoricalStockDataForDay(String symbol, Date day)
+	{
+		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		historyUrl += "&a=" + Integer.toString(day.getMonth() - 1); // month - 1
+		historyUrl += "&b=" + Integer.toString(day.getDay()); // day
+		historyUrl += "&c=" + Integer.toString(day.getYear()); // year
+		historyUrl += "&d=" + Integer.toString(day.getMonth() - 1); // month - 1
+		historyUrl += "&e=" + Integer.toString(day.getDay()); // day
+		historyUrl += "&f=" + Integer.toString(day.getYear()); // year
+		historyUrl += "g=d"; // daily history 
+		
+		HistoricalStockInfo result = null;
+		List<String> data = null;
+		try
+		{
+			data = getDataFromUrl(historyUrl);
+		}
+		catch (Exception ex)
+		{
+			// ignore
+		}
+		
+		if (data != null && data.size() > 1)
+		{
+			// ignore the first row as it's just the column headers
+			result = parseHistoricalStockInfo(data.get(1));
+		}
+		
+		return result;
+	}
+	
 	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date since)
 	{
 		Date today = new Date();
