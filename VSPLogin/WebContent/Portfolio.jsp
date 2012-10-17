@@ -66,6 +66,7 @@
 			out.println("<td colspan=2 align=center>Change Since Close</td>");
 			out.println("<td colspan=2 align=center>Change Since Purchase</td>");
 			out.println("<td colspan=2 align=center>Cost Basis</td>");
+			out.println("<td colspan=1 align=center>&nbsp;</td>");
 			out.println("</tr>");
 			
 			out.println("<tr>");
@@ -81,6 +82,7 @@
 			out.println("<td align=center><u>Percent</u></td>");
 			out.println("<td align=center><u>Share</u></td>");
 			out.println("<td align=center><u>Total</u></td>");
+			out.println("<td align=center><u>Action</u></td>");
 			out.println("</tr>");
 			
 			String symbol;
@@ -135,6 +137,9 @@
 				// cost basis
 				out.println("<td align=center>$" + df.format(item.getCostBasisPerShare()) + "</td>");
 				out.println("<td align=center>$" + df.format(item.getCostBasis()) + "</td>");
+				
+				// sell link
+				out.println("<td align=center><a href='Order.jsp?action=1&symbol=" + symbol + "'>Sell</a></td>");
 				
 				out.println("</tr>");
 			}

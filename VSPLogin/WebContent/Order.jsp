@@ -92,16 +92,28 @@
     	out.println("<input type='hidden' name='process' value='true' />");
     	out.println("<table>");
     	
+    	String symbol = request.getParameter("symbol");
+    	String action = request.getParameter("action");
+    	
     	out.println("<tr><td>Action: </td><td><select name='action' width=50>");
-    	out.println("<option value='" + OrderAction.BUY.getValue() + "' selected>" + OrderAction.BUY.toString() + "</option>");
-    	if (portfolioEntries != null && portfolioEntries.size() > 0)
-    	{
-    		out.println("<option value='" + OrderAction.SELL.getValue() + "'>" + OrderAction.SELL.toString() + "</option>");
+    	
+    	if (action.equals(Integer.toString(OrderAction.SELL.getValue())) && portfolioEntries != null && portfolioEntries.size() > 0)
+    	{ // select SELL
+    		out.println("<option value='" + OrderAction.BUY.getValue() + "'>" + OrderAction.BUY.toString() + "</option>");
+       		out.println("<option value='" + OrderAction.SELL.getValue() + "' selected>" + OrderAction.SELL.toString() + "</option>");
+    	}
+    	else
+    	{ // select BUY
+	    	out.println("<option value='" + OrderAction.BUY.getValue() + "' selected>" + OrderAction.BUY.toString() + "</option>");
+	    	if (portfolioEntries != null && portfolioEntries.size() > 0)
+	    	{
+	    		out.println("<option value='" + OrderAction.SELL.getValue() + "'>" + OrderAction.SELL.toString() + "</option>");
+	    	}
     	}
   	
-    	out.println("</td></tr>");
+    	out.println("</select></td></tr>");
     	   	    	
-    	out.println("<tr><td>Stock Symbol: </td><td><input type='text' name='stock' /></td></tr>");
+    	out.println("<tr><td>Stock Symbol: </td><td><input type='text' value='" + symbol + "' name='stock' /></td></tr>");
     	out.println("<tr><td>Quantity: </td><td><input type='text' name='quantity' /></td></tr>");
     	
     	out.println("<tr><td>Order Type: </td><td><select name='type' width=50>");
