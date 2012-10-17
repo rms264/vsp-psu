@@ -64,7 +64,16 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 								result.getDateTime(), result.getValue(), result.getSharePrice(), result.getQuantity());
 						Transactions.addTransaction(transaction);
 						
-						PortfolioData data = PortfolioEntries.getEntry(userName, pendingOrder.getStock().getStockSymbol());
+						PortfolioData data = null;
+						try
+						{
+							data = PortfolioEntries.getEntry(userName, pendingOrder.getStock().getStockSymbol());
+						}
+						catch (Exception ex)
+						{
+							// ignore
+						}
+						
 						if (data == null)
 						{ // add (only applies when buying)
 							data = new PortfolioData(pendingOrder.getStock(), result.getSharePrice(), result.getQuantity(), userName); 

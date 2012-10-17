@@ -74,10 +74,10 @@ public class Orders
 			// update order state
 			String sqlStatement = "UPDATE vsp.Order SET state=? WHERE user_name=? AND order_id=? AND state=?";
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-			pStmt.setInt(1, oldState.getValue());  
+			pStmt.setInt(1, newState.getValue());  
 			pStmt.setString(2, userName);   
 			pStmt.setString(3, orderId);
-			pStmt.setInt(4, newState.getValue());
+			pStmt.setInt(4, oldState.getValue());
 			int result = pStmt.executeUpdate();
 			if (result != 1 && newState == OrderState.CANCELLED)
 			{

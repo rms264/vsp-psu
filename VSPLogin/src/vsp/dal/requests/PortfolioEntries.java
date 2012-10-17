@@ -64,7 +64,7 @@ public class PortfolioEntries {
 		boolean success = false;
 		try
 		{
-			String sqlStatement = "INSERT into PortfolioEntry values(?,?,?,?,?)";
+			String sqlStatement = "INSERT into PortfolioEntry values(?,?,?,?)";
 			if (!Validate.stockExistsInDb(data.getStock().getStockSymbol()))
 			{ // add stock to the database if it does not exist yet
 				Stock stock = data.getStock();

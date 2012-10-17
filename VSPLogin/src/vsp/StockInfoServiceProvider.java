@@ -144,7 +144,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public StockInfo requestCurrentStockData(String symbol)
 	{
 		StockInfo stockInfo = null;
-		String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=nb3b2ghvoc6p2qd";
+		String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=nb3b2ghvoc6p2qdl1p";
 		// n, Name
 		// b3, Bid
 		// b2, Ask
@@ -156,6 +156,8 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		// p2, Percent Change real-time
 		// q, Ex-dividend date
 		// d, Dividend/Share
+		// l1, Last Trade Price
+		// p, Previous Close
 		
 		List<String> responseLines = null;
 		try
@@ -186,7 +188,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 				url += "+" + symbols.get(i).trim();
 			}
 			
-			url += "&f=nb3b2ghvoc6p2qd";
+			url += "&f=nb3b2ghvoc6p2qdl1p";
 			// n, Name
 			// b3, Bid real-time
 			// b2, Ask real-time
@@ -198,6 +200,8 @@ public final class StockInfoServiceProvider  implements IStockInfo
 			// p2, Percent Change real-time
 			// q, Ex-dividend date
 			// d, Dividend/Share
+			// l1, Last Trade Price
+			// p, Previous Close
 			
 			List<String> responseLines = null;
 			try
@@ -373,7 +377,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 			columns[i] = columns[i].replaceAll("\"", "").trim();
 		}
 			
-		if (columns.length == 11)
+		if (columns.length == 13)
 		{		
 			// parse date
 			Date date = null;
@@ -396,7 +400,9 @@ public final class StockInfoServiceProvider  implements IStockInfo
 						Integer.parseInt(columns[5]), 						// volume
 						Double.parseDouble(columns[1]), 					// bid
 						Double.parseDouble(columns[2]),						// ask
-						Double.parseDouble(columns[4]) 						// open
+						Double.parseDouble(columns[4]),						// open
+						Double.parseDouble(columns[11]), 					// last trade price
+						Double.parseDouble(columns[12]) 					// previous close
 						);
 			}
 			catch (ParseException pe)

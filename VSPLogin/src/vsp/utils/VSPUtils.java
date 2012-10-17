@@ -29,7 +29,21 @@ public class VSPUtils {
 	
 	public static String formatColor(double value, DecimalFormat format)
 	{
+		return formatColor(value, format, false);
+	}
+	
+	public static String formatColor(double value, DecimalFormat format, boolean percent)
+	{
 		String valueString = format.format(value);
+		if (!percent)
+		{
+			valueString = "$" + valueString;
+		}
+		else
+		{
+			valueString += "%";
+		}
+		
 		if (value > 0)
 		{
 			return "<font color=green>" + valueString + "</font>";
