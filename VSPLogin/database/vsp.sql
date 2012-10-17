@@ -67,6 +67,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Order` (
   `limit_price` DOUBLE NULL DEFAULT NULL ,
   `stop_price` DOUBLE NULL DEFAULT NULL ,
   `time_in_force` INT NOT NULL ,
+  `last_evaluated` DATE NOT NULL ,
   PRIMARY KEY (`order_id`) ,
   CONSTRAINT FOREIGN KEY (`stock_symbol`)
     REFERENCES `vsp`.`Stock` (`stock_symbol`)
