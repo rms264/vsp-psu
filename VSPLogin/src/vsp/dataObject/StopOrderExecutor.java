@@ -15,7 +15,7 @@ final class StopOrderExecutor extends OrderExecutor
 	}
 	
 	@Override
-	public OrderResult Execute(Order order, IUserBalance balance, IStockInfo stockInfo)
+	public OrderResult Execute(Order order, IUserBalance balanceService, IStockInfo stockService)
 	{
 		// TODO: implement
 		return null;

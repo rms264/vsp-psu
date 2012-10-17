@@ -7,5 +7,5 @@ public abstract class OrderExecutor
 		// no implementation required
 	}
 	
-	public abstract OrderResult Execute(Order order, IUserBalance balance, IStockInfo stockInfo);
+	public abstract OrderResult Execute(Order order, IUserBalance balanceService, IStockInfo stockService);
 }

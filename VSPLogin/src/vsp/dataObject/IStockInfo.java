@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface IStockInfo
 {
-	public StockInfo getLatest(String symbol);
-	public List<HistoricalStockInfo> getHistoricalStockInfo(String symbol, Date since);
+	public boolean isWithinTradingHours();
+	public StockInfo requestCurrentStockData(String symbol);
+	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date since);
 }

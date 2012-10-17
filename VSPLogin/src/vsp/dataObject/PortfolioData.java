@@ -30,13 +30,6 @@ public final class PortfolioData
 		return quantity;
 	}
 	/**
-	 * @param quantity the quantity to set
-	 */
-	public void setQuantity(int quantity)
-	{
-		this.quantity = quantity;
-	}
-	/**
 	 * @return the stock
 	 */
 	public Stock getStock()
@@ -67,8 +60,17 @@ public final class PortfolioData
 	
 	public void addQuantity(float quantity, double pricePerShare)
 	{
-		// TODO: implement
-		// calculate new cost basis per share given the existing quantity and cost basis
-		// update the quantity and costBasisPerShare fields
+		double newQuantity = this.quantity + quantity;
+		double newCostBasis = this.getCostBasis() + (quantity * pricePerShare);
+		this.costBasisPerShare = newCostBasis / newQuantity;
+	}
+	
+	public void removeQuantity(float quantity)
+	{
+		this.quantity -= quantity;
+		if (this.quantity < 0)
+		{
+			this.quantity = 0;
+		}
 	}
 }

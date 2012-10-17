@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import vsp.dal.requests.Orders;
+import vsp.dal.requests.PortfolioEntries;
+import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
 import vsp.dataObject.HistoricalStockInfo;
@@ -14,10 +16,15 @@ import vsp.dataObject.Order;
 import vsp.dataObject.OrderExecutor;
 import vsp.dataObject.OrderExecutorFactory;
 import vsp.dataObject.OrderResult;
+import vsp.dataObject.PortfolioData;
+import vsp.dataObject.Stock;
 import vsp.dataObject.StockInfo;
+import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
+import vsp.utils.Enumeration.OrderAction;
+import vsp.utils.Enumeration.OrderState;
 
-public final class VirtualTradingServiceProvider implements IUserBalance, IStockInfo
+public final class VirtualTradingServiceProvider implements IUserBalance
 {
 	private StockInfoServiceProvider sisp = new StockInfoServiceProvider();
 	
@@ -34,13 +41,16 @@ public final class VirtualTradingServiceProvider implements IUserBalance, IStock
 		{
 			OrderResult result = null;
 			OrderExecutor executor = null;
+			StockTransaction transaction = null;
 			for (Order pendingOrder : pendingOrders)
 			{
 				result = null;
+				transaction = null;
+				
 				executor = OrderExecutorFactory.CreateFor(pendingOrder.getType());
 				try
 				{
-					result = executor.Execute(pendingOrder, this, this);
+					result = executor.Execute(pendingOrder, this, sisp);
 					
 					// update last evaluated date
 					Date date = new Date();
@@ -49,8 +59,36 @@ public final class VirtualTradingServiceProvider implements IUserBalance, IStock
 					
 					if (result.getCompleted())
 					{
-						// TODO: change order state to complete
-						// TODO: add transaction for order
+						Orders.changeOrderState(userName, pendingOrder.getId(), pendingOrder.getState(), OrderState.COMPLETE);
+						transaction = StockTransaction.CreateNewExecution(pendingOrder.getUserName(), pendingOrder, 
+								result.getDateTime(), result.getValue(), result.getSharePrice(), result.getQuantity());
+						Transactions.addTransaction(transaction);
+						
+						PortfolioData data = PortfolioEntries.getEntry(userName, pendingOrder.getStock().getStockSymbol());
+						if (data == null)
+						{ // add (only applies when buying)
+							data = new PortfolioData(pendingOrder.getStock(), result.getSharePrice(), result.getQuantity(), userName); 
+							PortfolioEntries.addEntry(data);
+						}
+						else
+						{ // update
+							if (pendingOrder.getAction() == OrderAction.BUY)
+							{ // cost basis changes based on new shares
+								data.addQuantity(result.getQuantity(), result.getSharePrice());
+							}
+							else if (pendingOrder.getAction() == OrderAction.SELL)
+							{ // cost basis does not change
+								data.removeQuantity(result.getQuantity());
+							}
+							
+							PortfolioEntries.updateEntry(data);
+						}
+					}
+					else if (result.getCancelled())
+					{
+						Orders.changeOrderState(userName, pendingOrder.getId(), pendingOrder.getState(), OrderState.CANCELLED);
+						transaction = StockTransaction.CreateNewCancellation(userName, pendingOrder, result.getDateTime());
+						Transactions.addTransaction(transaction);
 					}
 				}
 				catch (Exception ex)
@@ -84,15 +122,5 @@ public final class VirtualTradingServiceProvider implements IUserBalance, IStock
 		throws SQLException, SqlRequestException
 	{
 		Users.updateBalance(userName, balance);
-	}
-	
-	public StockInfo getLatest(String symbol)
-	{
-		return sisp.requestCurrentStockData(symbol);
-	}
-
-	public List<HistoricalStockInfo> getHistoricalStockInfo(String symbol, Date since)
-	{
-		return sisp.requestDailyHistoricalStockData(symbol, since);
 	}
 }

@@ -43,6 +43,16 @@
 	    	}
 	    }
 		
+	    // try to execute any pending orders
+	    try
+	    {
+	    	vsp.processPendingOrders(userName);
+	    }
+	    catch (Exception ex)
+	    {
+	    	// ignore
+	    }
+	    
 		// throws on error
 		List<Order> pendingOrders = vsp.getPendingOrders(userName);
 		

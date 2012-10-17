@@ -42,8 +42,9 @@
     				request.getParameter("stock"), 
     				request.getParameter("quantity"), 
     				request.getParameter("type"), 
-    				request.getParameter("timeInForce"));
-
+    				request.getParameter("timeInForce"),
+    				request.getParameter("limitPrice"),
+    				request.getParameter("stopPrice"));
 
     		// TODO: show order submitted text and offer link to this page for another order
     		
@@ -90,6 +91,9 @@
     	out.println("<option value='" + OrderType.STOP.getValue() + "'>" + OrderType.STOP.toString() + "</option>");
     	out.println("<option value='" + OrderType.STOPLIMIT.getValue() + "'>" + OrderType.STOPLIMIT.toString() + "</option>");
     	out.println("</td></tr>");
+    	
+    	out.println("<tr><td>Limit Price: </td><td><input type='text' name='limitPrice' /></td></tr>");
+    	out.println("<tr><td>Stop Price: </td><td><input type='text' name='stopPrice' /></td></tr>");
     	
     	out.println("<tr><td>Time in Force: </td><td><select name='timeInForce' width=50>");
     	out.println("<option value='" + TimeInForce.DAY.getValue() + "' selected>" + TimeInForce.DAY.toString() + "</option>");

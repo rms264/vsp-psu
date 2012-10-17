@@ -2,6 +2,7 @@ package vsp;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import vsp.utils.Enumeration.*;
 public class VspServiceProvider
 {
 	private StockInfoServiceProvider sisp = new StockInfoServiceProvider();
+	private VirtualTradingServiceProvider vtsp = new VirtualTradingServiceProvider();
 	
 	public VspServiceProvider()
 	{
@@ -35,7 +37,19 @@ public class VspServiceProvider
 	public void cancelOrder(String userName, String orderId)
 			throws SQLException, SqlRequestException
 	{
-		Orders.cancelOrder(userName, orderId);
+		Orders.changeOrderState(userName, orderId, OrderState.PENDING, OrderState.CANCELLED);
+		
+		Order order = Orders.getOrderById(orderId);
+		if (order == null)
+		{
+			throw (new SqlRequestException("Error:  Cannot find order."));
+		}
+		
+		Date cancelled = new Date();
+		
+		// add cancelled transaction
+		StockTransaction transaction = StockTransaction.CreateNewCancellation(userName, order, cancelled);
+		Transactions.addTransaction(transaction);
 	}
 	
 	public void createOrder(String userName, String action, String stockSymbol, String quantity, String type, String timeInForce ,
@@ -47,8 +61,16 @@ public class VspServiceProvider
 		OrderType orderType = OrderType.convert(Integer.parseInt(type));
 		TimeInForce tif = TimeInForce.convert(Integer.parseInt(timeInForce));
 		float orderQuantity = Validate.validateQuantity(quantity);
-		double limit = Validate.validateLimitPrice(limitPrice);
-		double stop = Validate.validateStopPrice(stopPrice);
+		double limit = 0.0, stop = 0.0;
+		if (orderType == OrderType.LIMIT || orderType == OrderType.STOPLIMIT)
+		{
+			limit = Validate.validateLimitPrice(limitPrice);
+		}
+		
+		if (orderType == OrderType.STOP || orderType == OrderType.STOPLIMIT)
+		{
+			stop = Validate.validateStopPrice(stopPrice);
+		}
 		
 		StockInfo stockInfo = sisp.requestCurrentStockData(stockSymbol);
 		if (stockInfo == null)
@@ -127,6 +149,8 @@ public class VspServiceProvider
 							}
 						}
 					}
+					
+					commitments *= -1;
 				}
 			}
 						
@@ -186,7 +210,11 @@ public class VspServiceProvider
 		Orders.addOrder(newOrder);
 		
 		// attempt to process order(s) with VTSP
-		VirtualTradingServiceProvider vtsp = new VirtualTradingServiceProvider();
+		vtsp.processPendingOrders(userName);
+	}
+	
+	public void processPendingOrders(String userName) throws SQLException, SqlRequestException
+	{
 		vtsp.processPendingOrders(userName);
 	}
 	

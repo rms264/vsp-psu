@@ -6,10 +6,11 @@ import java.text.*;
 import java.util.*;
 
 import vsp.dataObject.HistoricalStockInfo;
+import vsp.dataObject.IStockInfo;
 import vsp.dataObject.Stock;
 import vsp.dataObject.StockInfo;
 
-public final class StockInfoServiceProvider
+public final class StockInfoServiceProvider  implements IStockInfo
 {
 	public StockInfoServiceProvider()
 	{
@@ -18,8 +19,8 @@ public final class StockInfoServiceProvider
 	
 	public boolean isWithinTradingHours()
 	{
-		boolean withinTradingHours = false;
-		String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
+		boolean withinTradingHours = true;//false;
+		/*String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
 		// a, Ask
 		
 		List<String> responseLines = null;
@@ -37,7 +38,7 @@ public final class StockInfoServiceProvider
 		catch (Exception ex)
 		{
 			// ignore
-		}
+		}*/
 		
 		return withinTradingHours;
 	}

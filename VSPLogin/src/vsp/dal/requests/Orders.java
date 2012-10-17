@@ -26,11 +26,11 @@ public class Orders
 		return orders.insert(order);
 	}
 	
-	public static void cancelOrder(String userName, String orderId)
+	public static void changeOrderState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
 		Orders orders = new Orders();
-		orders.cancel(userName, orderId);
+		orders.updateState(userName, orderId, oldState, newState);
 	}
 	
 	public static boolean deleteOrderById(String orderId) throws 
@@ -70,7 +70,7 @@ public class Orders
 	
 	private Orders(){}
 	
-	private void cancel(String userName, String orderId)
+	private void updateState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
 		Connection connection = null;
@@ -81,27 +81,15 @@ public class Orders
 			// update order state
 			String sqlStatement = "UPDATE vsp.Order SET state=? WHERE user_name=? AND order_id=? AND state=?";
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-			pStmt.setInt(1, OrderState.CANCELLED.getValue());  
+			pStmt.setInt(1, oldState.getValue());  
 			pStmt.setString(2, userName);   
 			pStmt.setString(3, orderId);
-			pStmt.setInt(4, OrderState.PENDING.getValue());
+			pStmt.setInt(4, newState.getValue());
 			int result = pStmt.executeUpdate();
-			if (result != 1)
+			if (result != 1 && newState == OrderState.CANCELLED)
 			{
-				throw (new SqlRequestException("Error:  Order already executed, is already cancelled or no longer exists."));
+				throw (new SqlRequestException("Error:  Order already executed, is already cancelled or no longer exists."));				
 			}
-			
-			Order order = Orders.getOrderById(orderId);
-			if (order == null)
-			{
-				throw (new SqlRequestException("Error:  Cannot find order."));
-			}
-			
-			Date cancelled = new Date();
-			
-			// add cancelled transaction
-			StockTransaction transaction = StockTransaction.CreateNewCancellation(userName, order, cancelled);
-			Transactions.addTransaction(transaction);
 		}
 		catch (SQLException ex)
 		{

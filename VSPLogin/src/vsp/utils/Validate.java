@@ -164,7 +164,17 @@ public class Validate
 	public static float validateLimitPrice(String limitPrice)
 			throws ValidationException
 	{
-		float price = Float.parseFloat(limitPrice);	
+		float price = 0f;
+		try
+		{
+			Float.parseFloat(limitPrice);	
+		}
+		catch (Exception ex)
+		{
+			throw (new ValidationException(
+						"Error:  Please enter a whole number for the Limit Rice."));
+		}
+		
 		if (price <= 0)
 		{
 			throw (new ValidationException(
@@ -177,7 +187,17 @@ public class Validate
 	public static float validateStopPrice(String stopPrice)
 			throws ValidationException
 	{
-		float price = Float.parseFloat(stopPrice);	
+		float price = 0f;
+		try
+		{
+			Float.parseFloat(stopPrice);	
+		}
+		catch (Exception ex)
+		{
+			throw (new ValidationException(
+						"Error:  Please enter a whole number for the Stop Rice."));
+		}
+		
 		if (price <= 0)
 		{
 			throw (new ValidationException(
