@@ -5,7 +5,6 @@
 <%@ page import="vsp.*"%>
 <%@ page import="vsp.dal.requests.*"%>
 <%@ page import="vsp.dataObject.*"%>
-<%@ page import="vsp.orders.*"%>
 <%@ page import="vsp.utils.*"%>
 <%@ page import="vsp.utils.Enumeration.*"%>
 <%@ page import="java.text.*" %>
@@ -51,11 +50,11 @@
 		if (pendingOrders.size() == 0)
 		{
 			Stock stockCif = new Stock("CIF", "MFS Intermediate Income");
-			Order order = new Order(Order.CreateId(), userName, stockCif, OrderAction.BUY, 100f, OrderType.MARKET, 0.0, 0.0, TimeInForce.DAY, OrderState.PENDING, new Date());
+			Order order = new Order(Order.CreateId(), userName, stockCif, OrderAction.BUY, 100f, OrderType.MARKET, 0.0, 0.0, TimeInForce.DAY, OrderState.PENDING, new Date(), new Date());
 			Orders.addOrder(order);
 			
 			Stock stockMfv = new Stock("MFV", "MFS Special Value Trust");
-			order = new Order(Order.CreateId(), userName, stockMfv, OrderAction.BUY, 500f, OrderType.LIMIT, 8.00, 0.0, TimeInForce.GOODUNTILCANCELED, OrderState.PENDING, new Date());
+			order = new Order(Order.CreateId(), userName, stockMfv, OrderAction.BUY, 500f, OrderType.LIMIT, 8.00, 0.0, TimeInForce.GOODUNTILCANCELED, OrderState.PENDING, new Date(), new Date());
 			Orders.addOrder(order);
 			
 			pendingOrders = vsp.getPendingOrders(userName);
