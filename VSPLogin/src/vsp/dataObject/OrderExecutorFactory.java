@@ -41,7 +41,7 @@ public final class OrderExecutorFactory
 	
 	public static OrderExecutor CreateStop()
 	{
-		return new StopOrderExecutor();
+		return new StopOrderExecutor(new MarketOrderExecutor());
 	}
 	
 	public static OrderExecutor CreateStopLimit()

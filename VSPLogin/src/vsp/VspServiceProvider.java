@@ -109,6 +109,32 @@ public class VspServiceProvider
 			}
 		}
 		
+		if (tif == TimeInForce.IMMEDIATEORCANCEL)
+		{
+			if (!withinTradingHours)
+			{
+				throw new ValidationException("Error:  An Immediate or Cancel order may only be submitted when the market is open.");
+			}
+		}
+		
+		if (orderType == OrderType.STOP || orderType == OrderType.STOPLIMIT)
+		{
+			if (orderAction == OrderAction.BUY)
+			{
+				if (stop <= stockInfo.getLastTradePrice())
+				{
+					throw new ValidationException("Error:  The buy Stop Price must be above the current trade price.");
+				}
+			}
+			else // SELL
+			{
+				if (stop >= stockInfo.getLastTradePrice())
+				{
+					throw new ValidationException("Error:  The sell Stop Price must be below the current trade price.");
+				}
+			}
+		}
+		
 		Order newOrder = Order.CreateNewOrder(userName, stockInfo.getStock(), orderAction, orderQuantity, orderType, limit, stop, tif);
 		AccountData userInfo = Users.requestAccountData(userName);
 		

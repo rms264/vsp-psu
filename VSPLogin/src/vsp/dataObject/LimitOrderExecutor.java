@@ -29,9 +29,7 @@ final class LimitOrderExecutor extends OrderExecutor
 	{
 		OrderResult result = new OrderResult(order);
 		Date submitted = order.getDateSubmitted();
-		if (submitted.getYear() == today.getYear() 
-				&& submitted.getMonth() == today.getMonth()
-				&& submitted.getDay() == today.getDay())
+		if (today.equals(submitted))
 		{
 			StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
 			if (info != null)
@@ -39,7 +37,7 @@ final class LimitOrderExecutor extends OrderExecutor
 				attemptTrade(result, balanceService, stockService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
 			}
 		}
-		else
+		else // SELL
 		{
 			List<HistoricalStockInfo> infos = stockService.requestDailyHistoricalStockData(order.getStock().getStockSymbol(), order.getLastEvaluated());
 			if (infos != null && infos.size() > 0)
@@ -70,10 +68,8 @@ final class LimitOrderExecutor extends OrderExecutor
 			return;
 		}
 				
-		
 		try
 		{
-			double accountBalance = balanceService.getBalance(order.getUserName());
 			if (order.getAction() == OrderAction.BUY)
 			{
 				if (order.getLimitPrice() < dayLow)
@@ -82,6 +78,7 @@ final class LimitOrderExecutor extends OrderExecutor
 				}
 				
 				double orderTotal = quantity * dayLow;
+				double accountBalance = balanceService.getBalance(order.getUserName());
 				if (accountBalance >= orderTotal)
 				{
 					try
@@ -106,6 +103,7 @@ final class LimitOrderExecutor extends OrderExecutor
 				}
 				
 				double orderTotal = quantity * dayHigh;
+				double accountBalance = balanceService.getBalance(order.getUserName());
 				try
 				{
 					balanceService.updateBalance(order.getUserName(), accountBalance + orderTotal);

@@ -1,36 +1,40 @@
 package vsp.dataObject;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import vsp.utils.Enumeration.OrderAction;
+import vsp.utils.Enumeration.TimeInForce;
 
 final class MarketOrderExecutor extends OrderExecutor
 {
+	private final Date today;
+	
 	MarketOrderExecutor()
 	{
-		// no implementation required
+		Calendar currDtCal = Calendar.getInstance();
+
+	    // Zero out the hour, minute, second, and millisecond
+	    currDtCal.set(Calendar.HOUR_OF_DAY, 0);
+	    currDtCal.set(Calendar.MINUTE, 0);
+	    currDtCal.set(Calendar.SECOND, 0);
+	    currDtCal.set(Calendar.MILLISECOND, 0);
+	    
+		this.today = currDtCal.getTime();
 	}
 	
 	@Override
 	public OrderResult Execute(Order order, IUserBalance balanceService, IStockInfo stockService)
 	{
 		OrderResult result = new OrderResult(order);
-		Date today = new Date();
 		Date submitted = order.getDateSubmitted();
-		if (submitted.getYear() == today.getYear() 
-				&& submitted.getMonth() == today.getMonth()
-				&& submitted.getDay() == today.getDay())
+		if (today.equals(submitted))
 		{
 			StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
 			if (info != null)
 			{
-				attemptTrade(result, balanceService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
-				if (!result.getCompleted() && !stockService.isWithinTradingHours())
-				{ // market order is only good for the day it was placed
-					result.setCancelled(true);
-					result.setDateTime(today);
-				}
+				attemptTrade(result, balanceService, stockService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
 			}
 		}
 		else
@@ -38,19 +42,14 @@ final class MarketOrderExecutor extends OrderExecutor
 			HistoricalStockInfo info = stockService.requestHistoricalStockDataForDay(order.getStock().getStockSymbol(), submitted);
 			if (info != null)
 			{
-				attemptTrade(result, balanceService, info.getDate(), info.getDayLow(), info.getDayHigh(), info.getVolume());
-				if (!result.getCompleted())
-				{ // market order is only good for the day it was placed
-					result.setCancelled(true);
-					result.setDateTime(info.getDate());
-				}
+				attemptTrade(result, balanceService, stockService, info.getDate(), info.getDayLow(), info.getDayHigh(), info.getVolume());
 			}
 		}
 		
 		return result;
 	}
 	
-	private void attemptTrade(OrderResult result, IUserBalance balanceService, Date date, double dayLow, double dayHigh, int volume)
+	private void attemptTrade(OrderResult result, IUserBalance balanceService, IStockInfo stockService, Date date, double dayLow, double dayHigh, int volume)
 	{
 		Order order = result.getOrder();
 		
@@ -60,18 +59,37 @@ final class MarketOrderExecutor extends OrderExecutor
 			quantity = volume;
 		}
 		
-		double accountBalance = balanceService.getBalance(order.getUserName());
-		if (order.getAction() == OrderAction.BUY)
+		try
 		{
-			double orderTotal = quantity * dayLow;
-			if (accountBalance >= orderTotal)
+			double accountBalance = balanceService.getBalance(order.getUserName());
+			if (order.getAction() == OrderAction.BUY)
 			{
+				double orderTotal = quantity * dayLow;
+				if (accountBalance >= orderTotal)
+				{
+					try
+					{
+						balanceService.updateBalance(order.getUserName(), accountBalance - orderTotal);
+						result.setCompleted(true);
+						result.setQuantity(quantity);
+						result.setSharePrice(dayLow);
+						result.setDateTime(date);
+					}
+					catch (Exception ex)
+					{
+						// ignore
+					}
+				}
+			}
+			else // SELL
+			{
+				double orderTotal = quantity * dayHigh;
 				try
 				{
-					balanceService.updateBalance(order.getUserName(), accountBalance - orderTotal);
+					balanceService.updateBalance(order.getUserName(), accountBalance + orderTotal);
 					result.setCompleted(true);
 					result.setQuantity(quantity);
-					result.setSharePrice(dayLow);
+					result.setSharePrice(dayHigh);
 					result.setDateTime(date);
 				}
 				catch (Exception ex)
@@ -80,20 +98,16 @@ final class MarketOrderExecutor extends OrderExecutor
 				}
 			}
 		}
-		else
+		finally
 		{
-			double orderTotal = quantity * dayHigh;
-			try
+			// these apply on the first historical trade attempt (should be the same day the order was submitted)
+			if (!result.getCompleted())
 			{
-				balanceService.updateBalance(order.getUserName(), accountBalance + orderTotal);
-				result.setCompleted(true);
-				result.setQuantity(quantity);
-				result.setSharePrice(dayHigh);
-				result.setDateTime(date);
-			}
-			catch (Exception ex)
-			{
-				// ignore
+				if (today.after(date) || (today.equals(date) && !stockService.isWithinTradingHours()))
+				{ // Cancel order
+					result.setCancelled(true);
+					result.setDateTime(date);
+				}
 			}
 		}
 	}

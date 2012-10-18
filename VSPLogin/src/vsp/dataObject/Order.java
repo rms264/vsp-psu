@@ -19,6 +19,7 @@ public final class Order
 	private OrderState state;
 	private final Date dateSubmitted;
 	private Date lastEvaluated;
+	private boolean stopPriceMet;
 	
 	public Order(String id, String userName, Stock stock, OrderAction action, 
 			float quantity, OrderType type, double limitPrice, double stopPrice,
@@ -134,6 +135,16 @@ public final class Order
 	public double getStopPrice()
 	{
 		return this.stopPrice;
+	}
+	
+	public boolean getStopPriceMet()
+	{
+		return this.stopPriceMet;
+	}
+	
+	public void setStopPriceMet(boolean stopPriceMet)
+	{
+		this.stopPriceMet = stopPriceMet;
 	}
 	
 	public TimeInForce getTimeInForce()
