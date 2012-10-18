@@ -94,7 +94,7 @@ public class VspServiceProvider
 		if ((orderType == OrderType.STOP || orderType == OrderType.STOPLIMIT) 
 				&& (tif == TimeInForce.FILLORKILL || tif == TimeInForce.IMMEDIATEORCANCEL))
 		{
-			throw new ValidationException("Error:  A " + orderType.toString() + " Order may only use a Time In Force of 'Market' or 'Good Until Cancelled'.");
+			throw new ValidationException("Error:  A " + orderType.toString() + " Order may only use a Time In Force of 'Day' or 'Good Until Cancelled'.");
 		}
 		
 		if (tif == TimeInForce.FILLORKILL)

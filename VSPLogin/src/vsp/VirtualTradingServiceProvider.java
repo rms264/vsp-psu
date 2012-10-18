@@ -26,11 +26,24 @@ import vsp.utils.Enumeration.OrderState;
 
 public final class VirtualTradingServiceProvider implements IUserBalance
 {
-	private StockInfoServiceProvider sisp = new StockInfoServiceProvider();
+	private IStockInfo sisp = new StockInfoServiceProvider();
+	private IUserBalance ub = this;
 	
 	public VirtualTradingServiceProvider()
 	{
 		// no implementation required
+	}
+	
+	// for unit testing
+	public void setStockInfo(IStockInfo stockInfo)
+	{
+		this.sisp = stockInfo;
+	}
+	
+	// for unit testing
+	public void setUserBalance(IUserBalance userBalance)
+	{
+		this.ub = userBalance;
 	}
 	
 	public void processPendingOrders(String userName) 
@@ -52,7 +65,7 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 				executor = OrderExecutorFactory.CreateFor(pendingOrder.getType());
 				try
 				{
-					result = executor.Execute(pendingOrder, this, sisp);
+					result = executor.Execute(pendingOrder, this.ub, this.sisp);
 					
 					// update last evaluated date
 					pendingOrder.setLastEvaluated(date);
