@@ -4,7 +4,6 @@
 
 <%@ page import="vsp.*"%>
 <%@ page import="vsp.dataObject.*"%>
-<%@ page import="vsp.orders.*"%>
 <%@ page import="vsp.utils.Enumeration.*"%>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
@@ -42,13 +41,14 @@
 			out.println("<td align=center><b>Quantity</b></td>");
 			out.println("<td align=center><b>Per Share</b></td>");
 			out.println("<td align=center><b>Value</b></td>");
-			//out.println("<td><b>Order Id</b></td>");
+			out.println("<td align=center><b>Note</b></td>");
 			out.println("<td align=center><b>Id</b></td>");
 			out.println("</tr>");
 			
 			Order order = null;
 			TransactionType type = TransactionType.DEFAULT;
 			StockTransaction transaction = null;
+			String note;
 			for (int i = 0; i < transactions.size(); ++i)
 			{
 				transaction = transactions.get(i);
@@ -63,25 +63,26 @@
 				
 				if (type == TransactionType.CANCELLATION)
 				{
-					out.println("<td>N/A</td>");
-					out.println("<td>N/A</td>");
-					out.println("<td>N/A</td>");
+					out.println("<td align=center>" + transaction.getOrder().getQuantity() + "</td>");
+					out.println("<td align=center>N/A</td>");
+					out.println("<td align=center>N/A</td>");
 				}
 				else
 				{
-					out.println("<td>" + transaction.getQuantity() + "</td>");
-					out.println("<td>" + df.format(transaction.getPricePerShare()) + "</td>");
-					out.println("<td>" + df.format(transaction.getValue()) + "</td>");
+					out.println("<td align=center>" + transaction.getQuantity() + "</td>");
+					out.println("<td align=center>" + df.format(transaction.getPricePerShare()) + "</td>");
+					out.println("<td align=center>" + df.format(transaction.getValue()) + "</td>");
 				}
 				
-				/*if (order != null)
+				note = transaction.getNote();
+				if (note != null && !note.isEmpty())
 				{
-					out.println("<td>" + order.getId() + "</td>");
+					out.println("<td>" + note + "</td>");
 				}
 				else
 				{
-					out.println("<td>N/A</td>");
-				}*/
+					out.println("<td>&nbsp;</td>");
+				}
 
 				out.println("<td>" + transaction.getId() + "</td>");
 				out.println("</tr>");
