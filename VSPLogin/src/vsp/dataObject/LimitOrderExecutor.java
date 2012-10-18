@@ -45,18 +45,7 @@ final class LimitOrderExecutor extends OrderExecutor
 			Date lastEvaluated = order.getLastEvaluated();
 			if (order.getDateSubmitted().equals(lastEvaluated))
 			{ // do not try to evaluate again the first day the Limit order was submitted
-				Calendar currDtCal = Calendar.getInstance();
-			    currDtCal.set(Calendar.HOUR_OF_DAY, 0);
-			    currDtCal.set(Calendar.MINUTE, 0);
-			    currDtCal.set(Calendar.SECOND, 0);
-			    currDtCal.set(Calendar.MILLISECOND, 0);
-			    currDtCal.set(Calendar.MONTH, lastEvaluated.getMonth());
-			    currDtCal.set(Calendar.DAY_OF_MONTH, lastEvaluated.getDate());
-			    currDtCal.set(Calendar.YEAR, lastEvaluated.getYear() + 1900);
-			    
-			    currDtCal.add(Calendar.DAY_OF_YEAR, 1);
-			    
-			    lastEvaluated = currDtCal.getTime();
+				lastEvaluated = getDateOneDayInTheFuture(lastEvaluated);
 			}
 			
 			List<HistoricalStockInfo> infos = stockService.requestDailyHistoricalStockData(order.getStock().getStockSymbol(), lastEvaluated);
