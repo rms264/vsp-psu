@@ -60,9 +60,10 @@ public final class PortfolioData
 	
 	public void addQuantity(float quantity, double pricePerShare)
 	{
-		double newQuantity = this.quantity + quantity;
+		float newQuantity = this.quantity + quantity;
 		double newCostBasis = this.getCostBasis() + (quantity * pricePerShare);
 		this.costBasisPerShare = newCostBasis / newQuantity;
+		this.quantity = newQuantity;
 	}
 	
 	public void removeQuantity(float quantity)

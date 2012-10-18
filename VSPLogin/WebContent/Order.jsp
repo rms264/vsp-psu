@@ -93,7 +93,16 @@
     	out.println("<table>");
     	
     	String symbol = request.getParameter("symbol");
+    	if (symbol == null)
+    	{
+    		symbol = "";
+    	}
+    	
     	String action = request.getParameter("action");
+    	if (action == null)
+    	{
+    		action = "";
+    	}
     	
     	out.println("<tr><td>Action: </td><td><select name='action' width=50>");
     	

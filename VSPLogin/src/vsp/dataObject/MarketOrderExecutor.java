@@ -34,7 +34,7 @@ final class MarketOrderExecutor extends OrderExecutor
 			StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
 			if (info != null)
 			{
-				attemptTrade(result, balanceService, stockService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
+				attemptTrade(result, balanceService, stockService, today, info.getLastTradePrice(), info.getLastTradePrice(), info.getVolume());
 			}
 		}
 		else

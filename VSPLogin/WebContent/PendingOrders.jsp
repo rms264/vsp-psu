@@ -57,7 +57,7 @@
 		List<Order> pendingOrders = vsp.getPendingOrders(userName);
 		
 		/**** DEBUG ONLY (BEGIN) ****/
-		if (pendingOrders.size() == 0)
+		/*if (pendingOrders.size() == 0)
 		{
 			Stock stockCif = new Stock("CIF", "MFS Intermediate Income");
 			Order order = new Order(Order.CreateId(), userName, stockCif, OrderAction.BUY, 100f, OrderType.MARKET, 0.0, 0.0, TimeInForce.DAY, OrderState.PENDING, new Date(), new Date());
@@ -68,7 +68,7 @@
 			Orders.addOrder(order);
 			
 			pendingOrders = vsp.getPendingOrders(userName);
-		}
+		}*/
 		/**** DEBUG ONLY (END) ****/
 		
 		if (pendingOrders != null && pendingOrders.size() > 0)

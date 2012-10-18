@@ -177,7 +177,7 @@ public class Transactions
 		List<StockTransaction> transactions = new ArrayList<StockTransaction>();
 		try
 		{
-			String sqlStatement = "SELECT * FROM Transaction WHERE user_name=?";
+			String sqlStatement = "SELECT * FROM Transaction WHERE user_name=? ORDER BY date DESC";
 			connection = DatasourceConnection.getConnection();
 			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
 			pStmt.setString(1, userName);
