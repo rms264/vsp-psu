@@ -69,6 +69,7 @@ final class MarketOrderExecutor extends OrderExecutor
 				{
 					quantity = (int) (accountBalance / dayLow);
 					orderTotal = quantity * dayLow;
+					result.setNote("Reduced quantity from " + order.getQuantity() + " to " + quantity);
 				}
 				
 				if (quantity > 0 && accountBalance >= orderTotal)
@@ -90,6 +91,7 @@ final class MarketOrderExecutor extends OrderExecutor
 				{ // account balance is zero or not enough to purchase even one share
 					result.setCancelled(true);
 					result.setDateTime(date);
+					result.setNote("Insufficient funds");
 				}
 			}
 			else // SELL
@@ -118,6 +120,7 @@ final class MarketOrderExecutor extends OrderExecutor
 				{ // Cancel order
 					result.setCancelled(true);
 					result.setDateTime(date);
+					result.setNote("Market closed");
 				}
 			}
 		}

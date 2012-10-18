@@ -97,7 +97,7 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 					else if (result.getCancelled())
 					{
 						Orders.changeOrderState(userName, pendingOrder.getId(), pendingOrder.getState(), OrderState.CANCELLED);
-						transaction = StockTransaction.CreateNewCancellation(userName, pendingOrder, result.getDateTime());
+						transaction = StockTransaction.CreateNewCancellation(userName, pendingOrder, result.getDateTime(), result.getNote());
 						Transactions.addTransaction(transaction);
 					}
 				}

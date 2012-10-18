@@ -20,9 +20,10 @@ public final class StockTransaction
 	private final double pricePerShare;
 	private final float quantity;
 	private final Order order;
+	private String note;
 	
 	private StockTransaction(TransactionType type, String userName, String id, Stock stock, 
-			Date dateTime, double value, double pricePerShare, float quantity, Order order)
+			Date dateTime, double value, double pricePerShare, float quantity, Order order, String note)
 	{
 		this.type = type;
 		this.userName = userName;
@@ -33,9 +34,10 @@ public final class StockTransaction
 		this.pricePerShare = pricePerShare;
 		this.quantity = quantity;
 		this.order = order;
+		this.note = note;
 	}
 	
-	public static StockTransaction CreateFromDb(TransactionType type, String userName, String id, Stock stock, Date dateTime, double value, double pricePerShare, float quantity, Order order)
+	public static StockTransaction CreateFromDb(TransactionType type, String userName, String id, Stock stock, Date dateTime, double value, double pricePerShare, float quantity, Order order, String note)
 	{
 		StockTransaction transaction = null;
 		switch (type)
@@ -44,7 +46,7 @@ public final class StockTransaction
 				transaction = CreateDividend(userName, id, stock, dateTime, value, pricePerShare, quantity);
 				break;
 			case CANCELLATION:
-				transaction = CreateCancellation(userName, id, order, dateTime);
+				transaction = CreateCancellation(userName, id, order, dateTime, note);
 				break;
 			case EXECUTION:
 				transaction = CreateExecution(userName, id, order, dateTime, value, pricePerShare, quantity);
@@ -56,34 +58,34 @@ public final class StockTransaction
 		return transaction;
 	}
 	
-	public static StockTransaction CreateCancellation(String userName, String id, Order order, Date dateTime)
+	public static StockTransaction CreateCancellation(String userName, String id, Order order, Date dateTime, String note)
 	{
-		return new StockTransaction(TransactionType.CANCELLATION, userName, id, order.getStock(), dateTime, 0.0, 0.0, 0.0f, order);
+		return new StockTransaction(TransactionType.CANCELLATION, userName, id, order.getStock(), dateTime, 0.0, 0.0, 0.0f, order, note);
 	}
 	
-	public static StockTransaction CreateNewCancellation(String userName, Order order, Date dateTime)
+	public static StockTransaction CreateNewCancellation(String userName, Order order, Date dateTime, String note)
 	{
-		return new StockTransaction(TransactionType.CANCELLATION, userName, CreateId(), order.getStock(), dateTime, 0.0, 0.0, 0.0f, order);
+		return new StockTransaction(TransactionType.CANCELLATION, userName, CreateId(), order.getStock(), dateTime, 0.0, 0.0, 0.0f, order, note);
 	}
 	
 	public static StockTransaction CreateDividend(String userName, String id, Stock stock, Date dateTime, double value, double pricePerShare, float quantity)
 	{
-		return new StockTransaction(TransactionType.DIVIDEND, userName, id, stock, dateTime, value, pricePerShare, quantity, null);
+		return new StockTransaction(TransactionType.DIVIDEND, userName, id, stock, dateTime, value, pricePerShare, quantity, null, "");
 	}
 	
 	public static StockTransaction CreateNewDividend(String userName, Stock stock, Date dateTime, double value, double pricePerShare, float quantity)
 	{
-		return new StockTransaction(TransactionType.DIVIDEND, userName, CreateId(), stock, dateTime, value, pricePerShare, quantity, null);
+		return new StockTransaction(TransactionType.DIVIDEND, userName, CreateId(), stock, dateTime, value, pricePerShare, quantity, null, "");
 	}
 	
 	public static StockTransaction CreateExecution(String userName, String id, Order order, Date dateTime, double value, double pricePerShare, float quantity)
 	{
-		return new StockTransaction(TransactionType.EXECUTION, userName, id, order.getStock(), dateTime, value, pricePerShare, quantity, order);
+		return new StockTransaction(TransactionType.EXECUTION, userName, id, order.getStock(), dateTime, value, pricePerShare, quantity, order, "");
 	}
 	
 	public static StockTransaction CreateNewExecution(String userName, Order order, Date dateTime, double value, double pricePerShare, float quantity)
 	{
-		return new StockTransaction(TransactionType.EXECUTION, userName, CreateId(), order.getStock(), dateTime, value, pricePerShare, quantity, order);
+		return new StockTransaction(TransactionType.EXECUTION, userName, CreateId(), order.getStock(), dateTime, value, pricePerShare, quantity, order, "");
 	}
 	
 	public static String CreateId()
@@ -104,7 +106,17 @@ public final class StockTransaction
 		
 	public static String getInsertStatement()
 	{
-		return "INSERT into vsp.Transaction VALUES(?,?,?,?,?,?,?,?,?)";
+		return "INSERT into vsp.Transaction VALUES(?,?,?,?,?,?,?,?,?,?)";
+	}
+	
+	public String getNote()
+	{
+		return this.note;
+	}
+	
+	public void setNote(String note)
+	{
+		this.note = note;
 	}
 	
 	public Order getOrder()
@@ -162,5 +174,6 @@ public final class StockTransaction
 		statement.setDouble(7, this.getPricePerShare());
 		statement.setDouble(8, this.getValue());
 		statement.setString(9, this.getUserName());
+		statement.setString(10, this.getNote());
 	}
 }

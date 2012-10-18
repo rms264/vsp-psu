@@ -10,6 +10,7 @@ public final class OrderResult
 	private float quantity;
 	private double sharePrice;
 	private Date dateTime;
+	private String note = "";
 	
 	public OrderResult(Order order)
 	{
@@ -54,6 +55,16 @@ public final class OrderResult
 	void setDateTime(Date dateTime)
 	{
 		this.dateTime = dateTime;
+	}
+	
+	public String getNote()
+	{
+		return this.note;
+	}
+	
+	void setNote(String note)
+	{
+		this.note = note;
 	}
 	
 	public Order getOrder()

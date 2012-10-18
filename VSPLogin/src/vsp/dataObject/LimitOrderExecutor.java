@@ -83,6 +83,7 @@ final class LimitOrderExecutor extends OrderExecutor
 				{
 					quantity = (int) (accountBalance / dayLow);
 					orderTotal = quantity * dayLow;
+					result.setNote("Reduced quantity from " + order.getQuantity() + " to " + quantity);
 				}
 				
 				if (quantity > 0 && accountBalance >= orderTotal)
@@ -104,6 +105,7 @@ final class LimitOrderExecutor extends OrderExecutor
 				{ // account balance is zero or not enough to purchase even one share
 					result.setCancelled(true);
 					result.setDateTime(date);
+					result.setNote("Insufficient funds");
 				}
 			}
 			else
@@ -134,17 +136,19 @@ final class LimitOrderExecutor extends OrderExecutor
 			// these apply on the first historical trade attempt (should be the same day the order was submitted)
 			if (!result.getCompleted())
 			{
-				if (order.getTimeInForce() == TimeInForce.DAY 
+				if ((order.getTimeInForce() == TimeInForce.DAY || order.getTimeInForce() == TimeInForce.FILLORKILL)
 						&& (today.after(date) || (today.equals(date) && !stockService.isWithinTradingHours())))
 				{ // Cancel order
 					result.setCancelled(true);
 					result.setDateTime(date);
+					result.setNote("Market closed");
 				}
 				
-				if ((order.getTimeInForce() == TimeInForce.IMMEDIATEORCANCEL || order.getTimeInForce() == TimeInForce.FILLORKILL))
+				if (order.getTimeInForce() == TimeInForce.IMMEDIATEORCANCEL)
 				{ // Cancel order
 					result.setCancelled(true);
 					result.setDateTime(date);
+					result.setNote("Unable to fill immediately");
 				}
 			}
 			

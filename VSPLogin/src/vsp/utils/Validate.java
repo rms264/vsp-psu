@@ -167,7 +167,7 @@ public class Validate
 		float price = 0f;
 		try
 		{
-			Float.parseFloat(limitPrice);	
+			price = Float.parseFloat(limitPrice);	
 		}
 		catch (Exception ex)
 		{
@@ -190,7 +190,7 @@ public class Validate
 		float price = 0f;
 		try
 		{
-			Float.parseFloat(stopPrice);	
+			price = Float.parseFloat(stopPrice);	
 		}
 		catch (Exception ex)
 		{

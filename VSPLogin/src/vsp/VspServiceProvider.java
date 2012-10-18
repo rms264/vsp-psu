@@ -48,7 +48,7 @@ public class VspServiceProvider
 		Date cancelled = new Date();
 		
 		// add cancelled transaction
-		StockTransaction transaction = StockTransaction.CreateNewCancellation(userName, order, cancelled);
+		StockTransaction transaction = StockTransaction.CreateNewCancellation(userName, order, cancelled, "Cancelled by user");
 		Transactions.addTransaction(transaction);
 	}
 	

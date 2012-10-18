@@ -214,6 +214,7 @@ public class Transactions
 		double pricePerShare = rs.getDouble("price_per_share");
 		double totalValue = rs.getDouble("total_value");
 		String orderId = rs.getString("order_id");
+		String note = rs.getString("note");
 		
 		Order order = null;
 		if (orderId != null)
@@ -222,7 +223,7 @@ public class Transactions
 		}
 		
 		TransactionType type = TransactionType.convert(rs.getInt("type"));
-		transaction = StockTransaction.CreateFromDb(type, userName, id, stock, date, totalValue, pricePerShare, quantity, order);
+		transaction = StockTransaction.CreateFromDb(type, userName, id, stock, date, totalValue, pricePerShare, quantity, order, note);
 		if (transaction == null)
 		{
 			throw (new SqlRequestException("Error:  Unrecognized transaction type: " + type.toString()));

@@ -94,6 +94,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`Transaction` (
   `price_per_share` DOUBLE NULL DEFAULT NULL ,
   `total_value` DOUBLE NULL DEFAULT NULL ,
   `user_name` VARCHAR(45) NOT NULL,
+  `note` VARCHAR(128) NULL DEFAULT NULL,
   PRIMARY KEY (`transaction_id`) , 
   CONSTRAINT FOREIGN KEY (`stock_symbol` )
     REFERENCES `vsp`.`Stock` (`stock_symbol` )
