@@ -281,9 +281,19 @@ public class VspServiceProvider
 		return PortfolioEntries.requestAllUserStocks(userName);
 	}
 	
-	public List<StockInfo> getLatestStockInfo(List<String> symbols)
+	public Map<String,StockInfo> getLatestStockInfo(List<String> symbols)
 	{
-		return sisp.requestCurrentStockData(symbols);
+		Map<String,StockInfo> map = new HashMap<String,StockInfo>();
+		List<StockInfo> results = sisp.requestCurrentStockData(symbols);
+		if (results != null && results.size() > 0)
+		{
+			for (StockInfo info : results)
+			{
+				map.put(info.getSymbol(), info);
+			}
+		}
+		
+		return map;
 	}
 	
 	public List<String> getTraders() 

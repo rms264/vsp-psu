@@ -81,15 +81,7 @@
 			}
 			
 			// try to get latest stock information for all symbols
-			List<StockInfo> stockInfos = vsp.getLatestStockInfo(symbols);
-			Map<String,StockInfo> stockInfoMap = new HashMap<String,StockInfo>(stockInfos.size());
-			if (stockInfos != null)
-			{
-				for (StockInfo info : stockInfos)
-				{
-					stockInfoMap.put(info.getSymbol(), info);
-				}
-			}
+			Map<String,StockInfo> stockInfoMap = vsp.getLatestStockInfo(symbols);
 			
 			DecimalFormat df = new DecimalFormat("0.00");
 			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
