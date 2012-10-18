@@ -25,7 +25,7 @@ final class MarketOrderExecutor extends OrderExecutor
 			StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
 			if (info != null)
 			{
-				attemptTrade(result, balanceService, today, info.getAsk(), info.getBid(), info.getDayLow(), info.getDayHigh(), info.getVolume());
+				attemptTrade(result, balanceService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
 				if (!result.getCompleted() && !stockService.isWithinTradingHours())
 				{ // market order is only good for the day it was placed
 					result.setCancelled(true);
@@ -38,7 +38,7 @@ final class MarketOrderExecutor extends OrderExecutor
 			HistoricalStockInfo info = stockService.requestHistoricalStockDataForDay(order.getStock().getStockSymbol(), submitted);
 			if (info != null)
 			{
-				attemptTrade(result, balanceService, info.getDate(), 0.0, 0.0, info.getDayLow(), info.getDayHigh(), info.getVolume());
+				attemptTrade(result, balanceService, info.getDate(), info.getDayLow(), info.getDayHigh(), info.getVolume());
 				if (!result.getCompleted())
 				{ // market order is only good for the day it was placed
 					result.setCancelled(true);
@@ -50,7 +50,7 @@ final class MarketOrderExecutor extends OrderExecutor
 		return result;
 	}
 	
-	protected void attemptTrade(OrderResult result, IUserBalance balanceService, Date date, double ask, double bid, double dayLow, double dayHigh, int volume)
+	private void attemptTrade(OrderResult result, IUserBalance balanceService, Date date, double dayLow, double dayHigh, int volume)
 	{
 		Order order = result.getOrder();
 		
@@ -60,13 +60,10 @@ final class MarketOrderExecutor extends OrderExecutor
 			quantity = volume;
 		}
 		
-		double sellPrice = (bid == 0.0) ? dayHigh : bid;
-		double buyPrice = (ask == 0.0) ? dayLow : ask;
-		
 		double accountBalance = balanceService.getBalance(order.getUserName());
 		if (order.getAction() == OrderAction.BUY)
 		{
-			double orderTotal = quantity * buyPrice;
+			double orderTotal = quantity * dayLow;
 			if (accountBalance >= orderTotal)
 			{
 				try
@@ -74,7 +71,7 @@ final class MarketOrderExecutor extends OrderExecutor
 					balanceService.updateBalance(order.getUserName(), accountBalance - orderTotal);
 					result.setCompleted(true);
 					result.setQuantity(quantity);
-					result.setSharePrice(buyPrice);
+					result.setSharePrice(dayLow);
 					result.setDateTime(date);
 				}
 				catch (Exception ex)
@@ -85,13 +82,13 @@ final class MarketOrderExecutor extends OrderExecutor
 		}
 		else
 		{
-			double orderTotal = quantity * sellPrice;
+			double orderTotal = quantity * dayHigh;
 			try
 			{
 				balanceService.updateBalance(order.getUserName(), accountBalance + orderTotal);
 				result.setCompleted(true);
 				result.setQuantity(quantity);
-				result.setSharePrice(sellPrice);
+				result.setSharePrice(dayHigh);
 				result.setDateTime(date);
 			}
 			catch (Exception ex)
