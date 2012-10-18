@@ -22,8 +22,8 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	
 	public boolean isWithinTradingHours()
 	{
-		boolean withinTradingHours = true;
-		/*boolean withinTradingHours = false;
+		//boolean withinTradingHours = true;
+		boolean withinTradingHours = false;
 		String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
 		// a, Ask
 		
@@ -42,7 +42,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		catch (Exception ex)
 		{
 			// ignore
-		}*/
+		}
 		
 		return withinTradingHours;
 	}
@@ -50,12 +50,12 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public HistoricalStockInfo requestHistoricalStockDataForDay(String symbol, Date day)
 	{
 		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
-		historyUrl += "&a=" + Integer.toString(day.getMonth() - 1); // month - 1
-		historyUrl += "&b=" + Integer.toString(day.getDay()); // day
-		historyUrl += "&c=" + Integer.toString(day.getYear()); // year
-		historyUrl += "&d=" + Integer.toString(day.getMonth() - 1); // month - 1
-		historyUrl += "&e=" + Integer.toString(day.getDay()); // day
-		historyUrl += "&f=" + Integer.toString(day.getYear()); // year
+		historyUrl += "&a=" + Integer.toString(day.getMonth()); // month
+		historyUrl += "&b=" + Integer.toString(day.getDate()); // day
+		historyUrl += "&c=" + Integer.toString(day.getYear() + 1900); // year
+		historyUrl += "&d=" + Integer.toString(day.getMonth()); // month
+		historyUrl += "&e=" + Integer.toString(day.getDate()); // day
+		historyUrl += "&f=" + Integer.toString(day.getYear() + 1900); // year
 		historyUrl += "g=d"; // daily history 
 		
 		HistoricalStockInfo result = null;
@@ -82,12 +82,12 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	{
 		Date today = new Date();
 		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
-		historyUrl += "&a=" + Integer.toString(since.getMonth() - 1); // month - 1
-		historyUrl += "&b=" + Integer.toString(since.getDay()); // day
-		historyUrl += "&c=" + Integer.toString(since.getYear()); // year
-		historyUrl += "&d=" + Integer.toString(today.getMonth() - 1); // month - 1
-		historyUrl += "&e=" + Integer.toString(today.getDay()); // day
-		historyUrl += "&f=" + Integer.toString(today.getYear()); // year
+		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
+		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
+		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
+		historyUrl += "&d=" + Integer.toString(today.getMonth()); // month
+		historyUrl += "&e=" + Integer.toString(today.getDate()); // day
+		historyUrl += "&f=" + Integer.toString(today.getYear() + 1900); // year
 		historyUrl += "g=d"; // daily history 
 		
 		List<HistoricalStockInfo> results = new ArrayList<HistoricalStockInfo>();

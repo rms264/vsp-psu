@@ -24,6 +24,17 @@
 	{
 		String userName = request.getRemoteUser();
 		VspServiceProvider vsp = new VspServiceProvider();
+		
+	    // try to execute any pending orders
+	    try
+	    {
+	    	vsp.processPendingOrders(userName);
+	    }
+	    catch (Exception ex)
+	    {
+	    	// ignore
+	    }
+		
 		// throws on error
 		List<StockTransaction> transactions = vsp.getTransactionHistory(userName);
 		

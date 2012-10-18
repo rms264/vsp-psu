@@ -31,15 +31,35 @@ final class LimitOrderExecutor extends OrderExecutor
 		Date submitted = order.getDateSubmitted();
 		if (today.equals(submitted))
 		{
-			StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
-			if (info != null)
+			if (stockService.isWithinTradingHours())
 			{
-				attemptTrade(result, balanceService, stockService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
+				StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
+				if (info != null)
+				{
+					attemptTrade(result, balanceService, stockService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
+				}
 			}
 		}
 		else // SELL
 		{
-			List<HistoricalStockInfo> infos = stockService.requestDailyHistoricalStockData(order.getStock().getStockSymbol(), order.getLastEvaluated());
+			Date lastEvaluated = order.getLastEvaluated();
+			if (order.getDateSubmitted().equals(lastEvaluated))
+			{ // do not try to evaluate again the first day the Limit order was submitted
+				Calendar currDtCal = Calendar.getInstance();
+			    currDtCal.set(Calendar.HOUR_OF_DAY, 0);
+			    currDtCal.set(Calendar.MINUTE, 0);
+			    currDtCal.set(Calendar.SECOND, 0);
+			    currDtCal.set(Calendar.MILLISECOND, 0);
+			    currDtCal.set(Calendar.MONTH, lastEvaluated.getMonth());
+			    currDtCal.set(Calendar.DAY_OF_MONTH, lastEvaluated.getDate());
+			    currDtCal.set(Calendar.YEAR, lastEvaluated.getYear() + 1900);
+			    
+			    currDtCal.add(Calendar.DAY_OF_YEAR, 1);
+			    
+			    lastEvaluated = currDtCal.getTime();
+			}
+			
+			List<HistoricalStockInfo> infos = stockService.requestDailyHistoricalStockData(order.getStock().getStockSymbol(), lastEvaluated);
 			if (infos != null && infos.size() > 0)
 			{
 				HistoricalStockInfo info;
