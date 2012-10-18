@@ -47,6 +47,11 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 		this.ub = userBalance;
 	}
 	
+	public void processDividends(String userName)
+	{
+		// TODO: implement
+	}
+	
 	public void processPendingOrders(String userName) 
 		throws SQLException, SqlRequestException
 	{
