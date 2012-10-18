@@ -33,12 +33,63 @@
 	    	// ignore
 	    }
 	    
+		DecimalFormat df = new DecimalFormat("0.00");
+		AccountData data = vsp.getAccountInfo(userName);
+	    
+		double result;
+		double totalValue = data.getBalance();
+		double totalChangeSincePurchase = 0;
+		double totalChangeSinceClose = 0;
+		double totalCostBasis = 0;
+		double totalCloseValue = 0;
+	    
+		out.println("<table border=1 cellpadding=4 cellspacing=0>");
+		
+		out.println("<tr>");
+		out.println("<td colspan=3 align=center>Stock Holding</td>");
+		out.println("<td colspan=3 align=center>Most Recent</td>");
+		out.println("<td colspan=2 align=center>Change Since Close</td>");
+		out.println("<td colspan=2 align=center>Change Since Purchase</td>");
+		out.println("<td colspan=2 align=center>Cost Basis</td>");
+		out.println("<td colspan=1 align=center>&nbsp;</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<td align=center><u>Symbol</u></td>");
+		out.println("<td align=center><u>Name</u></td>");
+		out.println("<td align=center><u>Quantity</u></td>");
+		out.println("<td align=center><u>Price</u></td>");
+		out.println("<td align=center><u>Change</u></td>");
+		out.println("<td align=center><u>Value</u></td>");
+		out.println("<td align=center><u>Dollar</u></td>");
+		out.println("<td align=center><u>Percent</u></td>");
+		out.println("<td align=center><u>Dollar</u></td>");
+		out.println("<td align=center><u>Percent</u></td>");
+		out.println("<td align=center><u>Share</u></td>");
+		out.println("<td align=center><u>Total</u></td>");
+		out.println("<td align=center><u>Action</u></td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<td>Cash</td>");
+		out.println("<td>Trading Reserves</td>");
+		out.println("<td align=center>" + df.format(data.getBalance()) + "</td>");
+		out.println("<td align=center>$1.00</td>");
+		out.println("<td align=center>$0.00</td>");
+		out.println("<td align=center>$" + df.format(data.getBalance()) + "</td>");
+		out.println("<td align=center> -- </td>");
+		out.println("<td align=center> -- </td>");
+		out.println("<td align=center> -- </td>");
+		out.println("<td align=center> -- </td>");
+		out.println("<td align=center> -- </td>");
+		out.println("<td align=center> -- </td>");
+		out.println("<td align=center> -- </td>");
+		out.println("</tr>");
+		
 		// throws on error
 		List<PortfolioData> portfolioItems = vsp.getPortfolioEntries(userName);
 		if (portfolioItems != null && portfolioItems.size() > 0)
-		{
-			DecimalFormat df = new DecimalFormat("0.00");
-			
+		{			
 			// build stock symbol list
 			List<String> symbols = new ArrayList<String>();
 			for (PortfolioData item : portfolioItems)
@@ -57,42 +108,9 @@
 				}
 			}
 			
-			// format and print items to screen
-			out.println("<table border=1 cellpadding=4 cellspacing=0>");
-			
-			out.println("<tr>");
-			out.println("<td colspan=3 align=center>Stock Holding</td>");
-			out.println("<td colspan=3 align=center>Most Recent</td>");
-			out.println("<td colspan=2 align=center>Change Since Close</td>");
-			out.println("<td colspan=2 align=center>Change Since Purchase</td>");
-			out.println("<td colspan=2 align=center>Cost Basis</td>");
-			out.println("<td colspan=1 align=center>&nbsp;</td>");
-			out.println("</tr>");
-			
-			out.println("<tr>");
-			out.println("<td align=center><u>Symbol</u></td>");
-			out.println("<td align=center><u>Name</u></td>");
-			out.println("<td align=center><u>Quantity</u></td>");
-			out.println("<td align=center><u>Price</u></td>");
-			out.println("<td align=center><u>Change</u></td>");
-			out.println("<td align=center><u>Value</u></td>");
-			out.println("<td align=center><u>Dollar</u></td>");
-			out.println("<td align=center><u>Percent</u></td>");
-			out.println("<td align=center><u>Dollar</u></td>");
-			out.println("<td align=center><u>Percent</u></td>");
-			out.println("<td align=center><u>Share</u></td>");
-			out.println("<td align=center><u>Total</u></td>");
-			out.println("<td align=center><u>Action</u></td>");
-			out.println("</tr>");
-			
+			// format and print items to screen			
 			String symbol;
 			StockInfo latestInfo;
-			double result;
-			double totalValue = 0;
-			double totalChangeSincePurchase = 0;
-			double totalChangeSinceClose = 0;
-			double totalCostBasis = 0;
-			double totalCloseValue = 0;
 			for (PortfolioData item : portfolioItems)
 			{
 				symbol = item.getStock().getStockSymbol();
@@ -171,14 +189,24 @@
 			out.println("<td colspan=1 align=center>$" + df.format(totalCostBasis) + "</td>");
 			out.println("<td colspan=1 align=center> -- </td>");
 			out.println("</tr>");
-			
-			out.println("</table>");
 		}
 		else
 		{
-			out.println("<p><b><i>You do not own any stocks.</i></b></p>");
-			out.println("<p>&nbsp;</p>");
+			out.println("<tr>");
+			out.println("<td colspan=4 align=center>&nbsp;</td>");
+			out.println("<td colspan=1 align=center><b>Total:</b></td>");
+			out.println("<td colspan=1 align=center>$" + df.format(totalValue) + "</td>");
+			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("</tr>");
 		}
+		
+		out.println("</table>");
 	}
 	catch(Exception ex)
 	{
