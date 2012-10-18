@@ -65,7 +65,13 @@ final class MarketOrderExecutor extends OrderExecutor
 			if (order.getAction() == OrderAction.BUY)
 			{
 				double orderTotal = quantity * dayLow;
-				if (accountBalance >= orderTotal)
+				if (accountBalance <= orderTotal)
+				{
+					quantity = (int) (accountBalance / dayLow);
+					orderTotal = quantity * dayLow;
+				}
+				
+				if (quantity > 0 && accountBalance >= orderTotal)
 				{
 					try
 					{
@@ -79,6 +85,11 @@ final class MarketOrderExecutor extends OrderExecutor
 					{
 						// ignore
 					}
+				}
+				else
+				{ // account balance is zero or not enough to purchase even one share
+					result.setCancelled(true);
+					result.setDateTime(date);
 				}
 			}
 			else // SELL
