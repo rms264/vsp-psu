@@ -515,7 +515,9 @@ public class Users
 		Date signup = rs.getDate("signup");
 		int securityQuestion = rs.getInt("security_question_id");
 		double balance = rs.getDouble("current_balance");
-		Date lastDividendCheck = rs.getDate("last_dividend_check");
+		
+		java.sql.Date sqlDate = rs.getDate("last_dividend_check");
+		java.util.Date lastDividendCheck = new java.util.Date(sqlDate.getYear(), sqlDate.getMonth(), sqlDate.getDate());
 	
 		data =  new AccountData(userName, email, signup, 
 			SecurityQuestion.convert(securityQuestion), balance, lastDividendCheck);

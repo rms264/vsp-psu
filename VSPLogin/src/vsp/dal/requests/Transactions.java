@@ -291,7 +291,8 @@ public class Transactions
 		String userName = rs.getString("user_name");
 		String id = rs.getString("transaction_id");
 		Stock stock = Stocks.getStock(rs.getString("stock_symbol"));
-		Date date = rs.getDate("date");
+		java.sql.Date sqlDate = rs.getDate("date");
+		java.util.Date date = new java.util.Date(sqlDate.getYear(), sqlDate.getMonth(), sqlDate.getDate());
 		float quantity = rs.getFloat("quantity");
 		double pricePerShare = rs.getDouble("price_per_share");
 		double totalValue = rs.getDouble("total_value");

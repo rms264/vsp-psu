@@ -56,7 +56,10 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 		throws SQLException, SqlRequestException
 	{
 		Date today = new Date();
+		today = new Date(today.getYear(), today.getMonth(), today.getDate());
+		
 		AccountData data = Users.requestAccountData(userName);
+		Date lastDividendCheck = data.getLastDividendCheck();
 		if (data != null && data.getLastDividendCheck().before(today))
 		{
 			List<PortfolioData> ownedStocks = PortfolioEntries.requestAllUserStocks(userName);
@@ -71,27 +74,6 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 			Users.updateLastDividendCheck(userName, today);
 		}
 	}
-	
-	/*List<StockTransaction> existingDividends = Transactions.getDividendTransactionsForUserAndStock(stock.getUserName(), symbol, lastDividendCheck);
-	if (existingDividends != null && existingDividends.size() > 0)
-	{ // remove already granted dividends from list of dividends we care about
-		DividendInfo divInfo;
-		StockTransaction existingDiv;
-		for (int i = 0; i < dividends.size(); ++i)
-		{
-			divInfo = dividends.get(i);
-			for (int j = 0; j < existingDividends.size(); ++j)
-			{
-				existingDiv = existingDividends.get(j);
-				if (divInfo.getDate().equals(existingDiv))
-				{ // dividend was already granted --> remove it
-					dividends.remove(i);
-					--i;
-					break;
-				}
-			}
-		}
-	}*/
 	
 	private void ProcessDividendForHolding(PortfolioData stock, Date lastDividendCheck) 
 		throws SQLException, SqlRequestException
