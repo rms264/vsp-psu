@@ -1,7 +1,6 @@
 package unitTests;
 
 import java.util.*;
-import org.junit.internal.runners.*;
 import org.junit.runners.*;
 import org.junit.runners.model.*;
 import org.junit.runners.model.InitializationError;
