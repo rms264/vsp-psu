@@ -27,6 +27,16 @@ public final class OrderResult
 		this.dateTime = dateTime;
 	}
 	
+	public void copyFrom(OrderResult otherResult)
+	{
+		this.completed = otherResult.completed;
+		this.cancelled = otherResult.cancelled;
+		this.quantity = otherResult.quantity;
+		this.sharePrice = otherResult.sharePrice;
+		this.dateTime = otherResult.dateTime;
+		this.note = otherResult.note;
+	}
+	
 	public boolean getCancelled()
 	{
 		return this.cancelled;

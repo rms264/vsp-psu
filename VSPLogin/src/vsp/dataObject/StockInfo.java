@@ -85,6 +85,7 @@ public final class StockInfo
 		return this.exdividend;
 	}
 	
+	// null if stock doesn't offer dividends
 	public Date getExdividendDate()
 	{
 		return this.exdividendDate;

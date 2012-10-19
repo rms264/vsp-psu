@@ -77,27 +77,55 @@ final class StopOrderExecutor extends OrderExecutor
 			return;
 		}
 		
-		if (order.getAction() == OrderAction.BUY)
+		try
 		{
-			if (!order.getStopPriceMet() && order.getStopPrice() > dayHigh)
-			{ // price was too low to trigger the stop order conversion to an executable order
-				return;
+			if (order.getAction() == OrderAction.BUY)
+			{
+				if (!order.getStopPriceMet() && order.getStopPrice() > dayHigh)
+				{ // price was too low to trigger the stop order conversion to an executable order
+					return;
+				}
+				
+				// stop price met --> try to execute
+				order.setStopPriceMet(true);
+				result.copyFrom(this.decoratedExecutor.Execute(order, balanceService, stockService));
 			}
-			
-			// stop price met --> try to execute
-			order.setStopPriceMet(true);
-			result = this.decoratedExecutor.Execute(order, balanceService, stockService);
+			else // SELL
+			{
+				if (!order.getStopPriceMet() && order.getStopPrice() < dayLow)
+				{  // price was too high to trigger the stop order conversion to an executable order
+					return;
+				}
+				
+				// stop price met --> try to execute
+				order.setStopPriceMet(true);
+				result.copyFrom(this.decoratedExecutor.Execute(order, balanceService, stockService));
+			}
 		}
-		else // SELL
+		finally
 		{
-			if (!order.getStopPriceMet() && order.getStopPrice() < dayLow)
-			{  // price was too high to trigger the stop order conversion to an executable order
-				return;
+			// these apply on the first historical trade attempt (should be the same day the order was submitted)
+			if (!result.getCompleted() && !result.getCancelled())
+			{
+				if (order.getTimeInForce() == TimeInForce.DAY
+						&& (today.after(date) || (today.equals(date) && !stockService.isWithinTradingHours())))
+				{ // Cancel order
+					result.setCancelled(true);
+					result.setDateTime(date);
+					result.setNote("Market closed");
+				}
+				
+				if (order.getTimeInForce() == TimeInForce.GOODUNTILCANCELED)
+				{  // Cancel order
+					long diffInDays = (date.getTime() - order.getDateSubmitted().getTime()) / (1000 * 60 * 60 * 24);
+					if (diffInDays > 120)
+					{
+						result.setCancelled(true);
+						result.setDateTime(date);
+						result.setNote("120 day limit reached");
+					}
+				}
 			}
-			
-			// stop price met --> try to execute
-			order.setStopPriceMet(true);
-			result = this.decoratedExecutor.Execute(order, balanceService, stockService);
 		}
 	}
 }

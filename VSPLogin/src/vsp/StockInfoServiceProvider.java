@@ -16,33 +16,58 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	private final SimpleDateFormat historicalDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 	private final SimpleDateFormat stockInfoFormat = new SimpleDateFormat("MMM dd", Locale.ENGLISH);	
 	
+	// used for unit testing
+	private String historyBaseUrl = "http://ichart.yahoo.com";
+	private String currentBaseUrl = "http://finance.yahoo.com";
+	
+	public static boolean ForceWithinHours;
+	
 	public StockInfoServiceProvider()
 	{
 		// no implementation required
+	}
+	
+	// used for unit testing
+	public void setCurrentInfoBaseUrl(String currentBaseUrl)
+	{
+		this.currentBaseUrl = currentBaseUrl;
+	}
+	
+	// used for unit testing
+	public void setHistoryBaseUrl(String historyBaseUrl)
+	{
+		this.historyBaseUrl = historyBaseUrl;
 	}
 	
 	public boolean isWithinTradingHours()
 	{
 		//boolean withinTradingHours = true;
 		boolean withinTradingHours = false;
-		String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
-		// a, Ask
-		
-		List<String> responseLines = null;
-		try
+		if (!ForceWithinHours)
 		{
-			responseLines = getDataFromUrl(url);
-			if (responseLines.size() == 1)
+			String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
+			// a, Ask
+			
+			List<String> responseLines = null;
+			try
 			{
-				if (!responseLines.get(0).contains("N/A"))
+				responseLines = getDataFromUrl(url);
+				if (responseLines.size() == 1)
 				{
-					withinTradingHours = true;
+					if (!responseLines.get(0).contains("N/A"))
+					{
+						withinTradingHours = true;
+					}
 				}
 			}
+			catch (Exception ex)
+			{
+				// ignore
+			}
 		}
-		catch (Exception ex)
+		else
 		{
-			// ignore
+			withinTradingHours = true;
 		}
 		
 		return withinTradingHours;
@@ -51,7 +76,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public List<DividendInfo> requestHistoricalDividendInfoSince(String symbol, Date since)
 	{
 		Date today = new Date();
-		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
 		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
 		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
 		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
@@ -90,7 +115,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	
 	public HistoricalStockInfo requestHistoricalStockDataForDay(String symbol, Date day)
 	{
-		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
 		historyUrl += "&a=" + Integer.toString(day.getMonth()); // month
 		historyUrl += "&b=" + Integer.toString(day.getDate()); // day
 		historyUrl += "&c=" + Integer.toString(day.getYear() + 1900); // year
@@ -122,7 +147,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date since)
 	{
 		Date today = new Date();
-		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
 		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
 		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
 		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
@@ -185,7 +210,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public StockInfo requestCurrentStockData(String symbol)
 	{
 		StockInfo stockInfo = null;
-		String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=nb3b2ghvoc6p2qdl1p";
+		String url = currentBaseUrl + "/d/quotes.csv?s=" + symbol + "&f=nb3b2ghvoc6p2qdl1p";
 		// n, Name
 		// b3, Bid
 		// b2, Ask
@@ -223,7 +248,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		List<StockInfo> results = new ArrayList<StockInfo>();
 		if (!symbols.isEmpty())
 		{
-			String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbols.get(0);
+			String url = currentBaseUrl + "/d/quotes.csv?s=" + symbols.get(0);
 			for (int i = 1; i < symbols.size(); ++i)
 			{
 				url += "+" + symbols.get(i).trim();
@@ -271,10 +296,14 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return results;
 	}
 	
-	public HistoricalStockInfo requestHistoricalStockData(String symbol, int months)
+	public List<HistoricalStockInfo> requestHistoricalStockData(String symbol, int months)
 	{
-		// TODO: implement
-		return null;
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(new Date()); // today
+		c.add(Calendar.MONTH, months * -1);
+		Date since = c.getTime();
+		
+		return this.requestDailyHistoricalStockData(symbol, since);
 	}
 	
 	private static List<Stock> parseStockSymbolsAndNames(String json)
@@ -443,8 +472,8 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	{
 		StockInfo stockInfo = null;
 		
-		// parse into columns
-		String[] columns = line.split(",");
+		// parse into columns based on commas (but allowing commas between the quotes)
+		String[] columns = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < columns.length; ++i)
 		{
 			columns[i] = columns[i].replaceAll("\"", "").trim();
@@ -456,10 +485,16 @@ public final class StockInfoServiceProvider  implements IStockInfo
 			Date date = null;
 			try
 			{
-				date = this.stockInfoFormat.parse(columns[9]);
-				
-				int year = Calendar.getInstance().get(Calendar.YEAR);
-				date.setYear(year);
+				try
+				{
+					date = this.stockInfoFormat.parse(columns[9]);
+					int year = Calendar.getInstance().get(Calendar.YEAR);
+					date.setYear(year);
+				}
+				catch (ParseException pe)
+				{
+					// probably N/A... pass a NULL date
+				}
 				
 				// create StockInfo instance
 				stockInfo = new StockInfo(symbol, 
@@ -477,10 +512,6 @@ public final class StockInfoServiceProvider  implements IStockInfo
 						Double.parseDouble(columns[11]), 					// last trade price
 						Double.parseDouble(columns[12]) 					// previous close
 						);
-			}
-			catch (ParseException pe)
-			{
-				// ignore
 			}
 			catch (NumberFormatException nfe)
 			{

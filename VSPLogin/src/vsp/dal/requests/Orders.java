@@ -25,6 +25,13 @@ public class Orders
 		return insert(order);
 	}
 	
+	// for use in unit testing
+	public static void changeSubmittedAndEvaluatedDates(String userName, String orderId, Date date)
+			throws SQLException, SqlRequestException
+	{
+		updateSubmittedAndEvaluatedDates(userName, orderId, date);
+	}
+	
 	public static void changeOrderState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
@@ -63,6 +70,36 @@ public class Orders
 	
 	private Orders(){}
 	
+	private static void updateSubmittedAndEvaluatedDates(String userName, String orderId, Date date)
+			throws SQLException, SqlRequestException
+		{
+			Connection connection = null;
+			try
+			{
+				connection = DatasourceConnection.getConnection();
+
+				// update submitted date
+				String sqlStatement = "UPDATE vsp.Order SET date_submitted=?, last_evaluated=? WHERE user_name=? AND order_id=?";
+				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+				pStmt.setDate(1, new java.sql.Date(date.getTime()));
+				pStmt.setDate(2, new java.sql.Date(date.getTime()));
+				pStmt.setString(3, userName);   
+				pStmt.setString(4, orderId);
+				int result = pStmt.executeUpdate();
+				if (result != 1)
+				{
+					throw (new SqlRequestException("Error:  Unable to update submitted and evaluated dates."));				
+				}
+			}
+			finally
+			{
+				if(connection != null)
+				{
+					connection.close();
+				}
+			}
+		}
+	
 	private static void updateState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
@@ -83,10 +120,6 @@ public class Orders
 			{
 				throw (new SqlRequestException("Error:  Order already executed, is already cancelled or no longer exists."));				
 			}
-		}
-		catch (SQLException ex)
-		{
-			throw ex;
 		}
 		finally
 		{
@@ -301,8 +334,10 @@ public class Orders
 		String id = rs.getString("order_id");
 		String userName = rs.getString("user_name");
 		Stock stock = Stocks.getStock(rs.getString("stock_symbol"));
-		Date date = rs.getDate("date_submitted");
-		Date lastEval = rs.getDate("date_submitted");
+		Date sqlSubDate = rs.getDate("date_submitted");
+		java.util.Date subDate = new java.util.Date(sqlSubDate.getYear(), sqlSubDate.getMonth(), sqlSubDate.getDate());
+		Date sqlLastEvalDate = rs.getDate("last_evaluated");
+		java.util.Date lastEvalDate = new java.util.Date(sqlLastEvalDate.getYear(), sqlLastEvalDate.getMonth(), sqlLastEvalDate.getDate());
 		OrderState state = OrderState.convert(rs.getInt("state"));
 		float quantity = rs.getFloat("quantity");
 		OrderAction action = OrderAction.convert(rs.getInt("action"));
@@ -311,7 +346,7 @@ public class Orders
 		double stopPrice = rs.getDouble("stop_price");
 		TimeInForce timeInForce = TimeInForce.convert(rs.getInt("time_in_force"));
 			
-		order = new Order(id, userName, stock, action, quantity, type, limitPrice, stopPrice, timeInForce, state, date, lastEval);
+		order = new Order(id, userName, stock, action, quantity, type, limitPrice, stopPrice, timeInForce, state, subDate, lastEvalDate);
 		
 		return order;
 	}
