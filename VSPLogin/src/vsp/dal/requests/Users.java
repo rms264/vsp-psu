@@ -54,6 +54,12 @@ public class Users
 		return submitPasswordUpdate(userName, password1, password2);
 	}
 	
+	public static void updateLastDividendCheck(String userName, Date lastDividendCheck) throws 
+		SQLException, SqlRequestException
+	{
+		submitLastDividendCheckUpdate(userName, lastDividendCheck);
+	}
+	
 	public static boolean updateSecurity(String userName, String questionNum, String answer) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
@@ -70,8 +76,7 @@ public class Users
 	public static List<String> queryUserNames(String userName) throws 
 		ValidationException, SQLException
 	{
-		Users request = new Users();
-		return request.submitUserNameQuery(userName);
+		return submitUserNameQuery(userName);
 	}
 	
 	/**
@@ -84,9 +89,7 @@ public class Users
 	public static List<String> queryEmailAddresses(String email) throws 
 		SQLException, ValidationException
 	{
-		Users request = new Users();
-		return request.submitEmailQuery(email);
-		
+		return submitEmailQuery(email);
 	}
 	
 	/**
@@ -96,8 +99,7 @@ public class Users
 	 */
 	public static List<String> queryAllTraders() throws SQLException
 	{
-		Users request = new Users();
-		return request.submitTradersQuery();
+		return submitTradersQuery();
 	}
 	
 	/**
@@ -108,8 +110,7 @@ public class Users
 	 */
 	public static AccountData requestAccountData(String userName) throws SQLException 
 	{
-		Users request = new Users();
-		return request.submitAccoutDataQuery(userName);
+		return submitAccoutDataQuery(userName);
 	}
 	
 	private Users(){}
@@ -180,6 +181,35 @@ public class Users
 		}
 		
 		return success;
+	}
+	
+	private static void submitLastDividendCheckUpdate(String userName, Date lastDividendCheck) throws 
+		SQLException, SqlRequestException
+	{
+		Connection connection = null;
+		try
+		{
+			String sqlStatement = "Update User SET last_dividend_check=? WHERE user_name=?";			
+			connection = DatasourceConnection.getConnection();
+			java.sql.Date date = new java.sql.Date(new Date().getTime());
+			
+			PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+			pStmt.setDate(1, date);
+			pStmt.setString(2, userName);
+		
+			int result = pStmt.executeUpdate();
+			if (result != 1)
+			{
+				throw new SqlRequestException("Error: Failed to update password for user name: " + userName);
+			}
+		}
+		finally
+		{
+			if(connection != null)
+			{
+				connection.close();
+			}
+		}
 	}
 	
 	private static boolean submitPasswordUpdate(String userName, String password1, String password2) throws 
@@ -399,7 +429,7 @@ public class Users
 		SecurityQuestion question = SecurityQuestion.DEFAULT;
 		try
 		{
-			String sqlStatement = "INSERT into User values(?,?,?,?,?,?,?)";
+			String sqlStatement = "INSERT into User values(?,?,?,?,?,?,?,?)";
 			java.sql.Date date = new java.sql.Date(new Date().getTime());
 			question = SecurityQuestion.convert(
 					Integer.parseInt(questionNum));
@@ -419,6 +449,7 @@ public class Users
 				pStmt.setInt(5, question.getValue());
 				pStmt.setString(6, VSPUtils.hashString(answer));
 				pStmt.setDouble(7, DEFAULT_BALANCE);
+				pStmt.setDate(8 , date);
 			
 				int result = pStmt.executeUpdate();
 				if (result == 1)
@@ -484,9 +515,10 @@ public class Users
 		Date signup = rs.getDate("signup");
 		int securityQuestion = rs.getInt("security_question_id");
 		double balance = rs.getDouble("current_balance");
+		Date lastDividendCheck = rs.getDate("last_dividend_check");
 	
 		data =  new AccountData(userName, email, signup, 
-			SecurityQuestion.convert(securityQuestion), balance);
+			SecurityQuestion.convert(securityQuestion), balance, lastDividendCheck);
 		
 		return data;
 	}
