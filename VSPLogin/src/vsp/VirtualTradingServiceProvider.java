@@ -1,14 +1,19 @@
 package vsp;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import vsp.dal.requests.Orders;
 import vsp.dal.requests.PortfolioEntries;
 import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
+import vsp.dataObject.DividendInfo;
 import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.IStockInfo;
 import vsp.dataObject.IUserBalance;
@@ -48,8 +53,88 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 	}
 	
 	public void processDividends(String userName)
+		throws SQLException, SqlRequestException
 	{
-		// TODO: implement
+		Date today = new Date();
+		today = new Date(today.getYear(), today.getMonth(), today.getDate());
+		
+		AccountData data = Users.requestAccountData(userName);
+		Date lastDividendCheck = data.getLastDividendCheck();
+		if (data != null && data.getLastDividendCheck().before(today))
+		{
+			List<PortfolioData> ownedStocks = PortfolioEntries.requestAllUserStocks(userName);
+			if (ownedStocks != null && ownedStocks.size() > 0)
+			{				
+				for (PortfolioData stock : ownedStocks)
+				{
+					ProcessDividendForHolding(stock, data.getLastDividendCheck());
+				}
+			}
+			
+			Users.updateLastDividendCheck(userName, today);
+		}
+	}
+	
+	private void ProcessDividendForHolding(PortfolioData stock, Date lastDividendCheck) 
+		throws SQLException, SqlRequestException
+	{
+		String symbol = stock.getStock().getStockSymbol();
+		List<DividendInfo> dividends = this.sisp.requestHistoricalDividendInfoSince(symbol, lastDividendCheck);
+		if (dividends != null && dividends.size() > 0)
+		{	
+			float quantity;
+			double value;
+			StockTransaction dividendTransaction;
+			
+			String userName = stock.getUserName();
+			List<StockTransaction> transactions = Transactions.getExecutedTransactionsForUserAndStock(stock.getUserName(), symbol, lastDividendCheck);
+			for (DividendInfo divInfo : dividends)
+			{
+				quantity = DetermineQuantityOwnedOnDate(divInfo.getDate(), transactions, stock.getQuantity());
+				if (quantity > 0)
+				{ // shares were owned on the dividend date
+					// add transaction
+					value = quantity * divInfo.getDividend();
+					dividendTransaction = StockTransaction.CreateNewDividend(userName, stock.getStock(), divInfo.getDate(), value, divInfo.getDividend(), quantity);
+					Transactions.addTransaction(dividendTransaction);
+					
+					// update user's account balance
+					double balance = this.ub.getBalance(userName) + value;
+					this.ub.updateBalance(userName, balance);
+				}
+			}
+		}
+	}
+	
+	private float DetermineQuantityOwnedOnDate(Date dividendDate, List<StockTransaction> transactions, float quantityNow)
+	{
+		float quantity = quantityNow;
+		if (transactions != null && transactions.size() > 0)
+		{
+			Order order;
+			// work backward from current quantity to quantity on specified date
+			for (StockTransaction transaction : transactions)
+			{ // newest transactions are first in the list
+				if (transaction.getDateTime().after(dividendDate))
+				{ // transaction that occurred after the dividend date
+					order = transaction.getOrder();
+					if (order.getAction() == OrderAction.BUY)
+					{ // purchased since the dividend date (remove)
+						quantity -= transaction.getQuantity();
+					}
+					else if (order.getAction() == OrderAction.SELL)
+					{ // potentially owned before the dividend date (add)
+						quantity += transaction.getQuantity();
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		
+		return quantity;
 	}
 	
 	public void processPendingOrders(String userName) 

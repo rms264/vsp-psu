@@ -5,6 +5,7 @@ import java.net.*;
 import java.text.*;
 import java.util.*;
 
+import vsp.dataObject.DividendInfo;
 import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.IStockInfo;
 import vsp.dataObject.Stock;
@@ -47,6 +48,46 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return withinTradingHours;
 	}
 	
+	public List<DividendInfo> requestHistoricalDividendInfoSince(String symbol, Date since)
+	{
+		Date today = new Date();
+		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
+		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
+		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
+		historyUrl += "&d=" + Integer.toString(today.getMonth()); // month
+		historyUrl += "&e=" + Integer.toString(today.getDate()); // day
+		historyUrl += "&f=" + Integer.toString(today.getYear() + 1900); // year
+		historyUrl += "&g=v"; // dividend history 
+		
+		List<DividendInfo> results = new ArrayList<DividendInfo>();
+		List<String> data = null;
+		try
+		{
+			data = getDataFromUrl(historyUrl);
+		}
+		catch (Exception ex)
+		{
+			// ignore
+		}
+		
+		if (data != null && data.size() > 1)
+		{
+			DividendInfo divInfo = null;
+			// ignore the first row as it's just the column headers
+			for (int i = 1; i < data.size(); ++i)
+			{
+				divInfo = parseDividendInfo(data.get(i));
+				if (divInfo != null)
+				{
+					results.add(divInfo);
+				}
+			}
+		}
+		
+		return results;
+	}
+	
 	public HistoricalStockInfo requestHistoricalStockDataForDay(String symbol, Date day)
 	{
 		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
@@ -56,7 +97,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		historyUrl += "&d=" + Integer.toString(day.getMonth()); // month
 		historyUrl += "&e=" + Integer.toString(day.getDate()); // day
 		historyUrl += "&f=" + Integer.toString(day.getYear() + 1900); // year
-		historyUrl += "g=d"; // daily history 
+		historyUrl += "&g=d"; // daily history 
 		
 		HistoricalStockInfo result = null;
 		List<String> data = null;
@@ -88,7 +129,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		historyUrl += "&d=" + Integer.toString(today.getMonth()); // month
 		historyUrl += "&e=" + Integer.toString(today.getDate()); // day
 		historyUrl += "&f=" + Integer.toString(today.getYear() + 1900); // year
-		historyUrl += "g=d"; // daily history 
+		historyUrl += "&g=d"; // daily history 
 		
 		List<HistoricalStockInfo> results = new ArrayList<HistoricalStockInfo>();
 		List<String> data = null;
@@ -324,6 +365,38 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return results;
 	}
 	
+	private DividendInfo parseDividendInfo(String line)
+	{
+		DividendInfo divInfo = null;
+		// parse into columns
+		String[] columns = line.split(",");
+		for (int i = 0; i < columns.length; ++i)
+		{
+			columns[i] = columns[i].replaceAll("\"", "").trim();
+		}
+			
+		if (columns.length == 2)
+		{		
+			// parse date
+			Date date = null;
+			try
+			{
+				date = this.historicalDateFormat.parse(columns[0]);
+				divInfo = new DividendInfo(date, Double.parseDouble(columns[1]));
+			}
+			catch (ParseException pe)
+			{
+				// ignore
+			}
+			catch (NumberFormatException nfe)
+			{
+				// ignore
+			}
+		}
+		
+		return divInfo;
+	}
+	
 	private HistoricalStockInfo parseHistoricalStockInfo(String line)
 	{
 		HistoricalStockInfo stockInfo = null;
@@ -355,7 +428,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 			}
 			catch (ParseException pe)
 			{
-				System.out.println(pe.toString());
+				// ignore
 			}
 			catch (NumberFormatException nfe)
 			{

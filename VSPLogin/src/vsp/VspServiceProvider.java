@@ -241,6 +241,11 @@ public class VspServiceProvider
 		return newOrder;
 	}
 	
+	public void processDividends(String userName) throws SQLException, SqlRequestException
+	{
+		vtsp.processDividends(userName);
+	}
+	
 	public void processPendingOrders(String userName) throws SQLException, SqlRequestException
 	{
 		vtsp.processPendingOrders(userName);

@@ -33,6 +33,16 @@
 	    	// ignore
 	    }
 	    
+	    // try to credit any owed dividends
+	    try
+	    {
+	    	vsp.processDividends(userName);
+	    }
+	    catch (Exception ex)
+	    {
+	    	// ignore
+	    }
+	    
 		DecimalFormat df = new DecimalFormat("0.00");
 		AccountData data = vsp.getAccountInfo(userName);
 	    

@@ -34,6 +34,16 @@
 	    {
 	    	// ignore
 	    }
+	    
+	    // try to credit any owed dividends
+	    try
+	    {
+	    	vsp.processDividends(userName);
+	    }
+	    catch (Exception ex)
+	    {
+	    	// ignore
+	    }
 		
 		// throws on error
 		List<StockTransaction> transactions = vsp.getTransactionHistory(userName);
