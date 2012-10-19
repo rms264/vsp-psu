@@ -19,6 +19,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`User` (
   `security_question_id` INT NOT NULL ,
   `security_answer` VARCHAR(65) NOT NULL ,
   `current_balance` DOUBLE NOT NULL ,
+  `last_dividend_check` DATE NULL DEFAULT NULL , 
   PRIMARY KEY (`user_name`) )
 ENGINE = InnoDB;
 
@@ -133,7 +134,7 @@ CREATE  TABLE IF NOT EXISTS `vsp`.`PortfolioEntry` (
 ENGINE = InnoDB;
 
 LOCK TABLES `User` WRITE, `Role` WRITE;
-INSERT INTO `User` VALUES ('admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','admin@admin.com','2012-09-20',0,'c7941b6920e2ed43e6bb1a2b450a801a9e3e4e7ab3c018b128b104c9ce24df6a', 0.0),('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0);
+INSERT INTO `User` VALUES ('admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','admin@admin.com','2012-09-20',0,'c7941b6920e2ed43e6bb1a2b450a801a9e3e4e7ab3c018b128b104c9ce24df6a', 0.0, '2012-09-20'),('test','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0, '2012-09-20'),('test1','1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014','test1@test1.com','2012-09-20',0,'16477688c0e00699c6cfa4497a3612d7e83c532062b64b250fed8908128ed548', 20000.0, '2012-09-20');
 INSERT INTO `Role` VALUES ('admin','admin'),('test','trader'),('test1','trader');
 UNLOCK TABLES;
 
