@@ -1,16 +1,24 @@
 package unitTests;
 
+import java.util.Date;
+import java.util.List;
+
 import org.junit.*;
 import org.junit.runner.*;
 import vsp.*;
+import vsp.dataObject.Order;
+import vsp.dataObject.StockInfo;
+import vsp.utils.Enumeration.OrderAction;
+import vsp.utils.Enumeration.OrderType;
+import vsp.utils.Enumeration.TimeInForce;
 
 @RunWith(OrderedRunner.class)
 public class StockTransaction
 {
 	private final VspServiceProvider vsp = new VspServiceProvider();
+	private final StockInfoServiceProvider stockInfoSP = new StockInfoServiceProvider(); 
 	
-	@Test
-	@Order(order=1)
+	@Test	
 	public void displayStockInfoWithProvider()
 	{
 		Assert.fail("Not yet implemented");
@@ -27,42 +35,81 @@ public class StockTransaction
 		}*/
 	}
 	
-	@Test
-	@Order(order=2)
+	@Test	
 	public void displayStockInfo()
 	{
-		Assert.fail("Not yet implemented");
-		/*
 		try
 		{
-			String stockSymbol = "Test";
-			vsp.displayStockInfo(stockSymbol);
+			String stockSymbol = "AAPL";
+			StockInfo stockInfo = stockInfoSP.requestCurrentStockData(stockSymbol);
 		}
 		catch (Exception e)
 		{
 			Assert.fail("Not yet implemented");
-		}*/
+		}
 	}
 	
-	@Test
-	@Order(order=3)
-	public void showUserTransaction()
+	@Test	
+	public void displayHistoricalStockInfoForMonths()
 	{
-		Assert.fail("Not yet implemented");
-		/*
 		try
 		{
-			int userId = 999;
-			vsp.getUserTransaction(userId);
+			String stockSymbol = "AAPL";			
+			// Get data for last 3 months
+			stockInfoSP.requestHistoricalStockData(stockSymbol, 3);					
 		}
 		catch (Exception e)
 		{
 			Assert.fail("Not yet implemented");
-		}*/
+		}
 	}
 	
-	@Test
-	@Order(order=4)
+	@Test	
+	public void displayHistoricalStockInfoForDay()
+	{
+		try
+		{
+			String stockSymbol = "AAPL";			
+			Date day = new Date();
+			day.setDate(1);
+			// Get data for particular date, default is Today
+			stockInfoSP.requestHistoricalStockDataForDay(stockSymbol, day);			
+		}
+		catch (Exception e)
+		{
+			Assert.fail("Not yet implemented");
+		}
+	}
+	
+	@Test	
+	public void searchStock()
+	{
+		try
+		{
+			String search = "AAPLE";
+			stockInfoSP.searchForStocks(search);
+		}
+		catch (Exception e)
+		{
+			Assert.fail("Not yet implemented");
+		}
+	}
+	
+	@Test	
+	public void showUserTransaction()
+	{		
+		try
+		{
+			String userName = "test";
+			vsp.getTransactionHistory(userName);
+		}
+		catch (Exception e)
+		{
+			Assert.fail("Not yet implemented");
+		}
+	}
+	
+	@Test	
 	public void displayUserPortfolioWithProvider()
 	{
 		Assert.fail("Not yet implemented");
@@ -79,76 +126,81 @@ public class StockTransaction
 		}*/
 	}
 	
-	@Test
-	@Order(order=5)
+	@Test	
 	public void displayUserPortfolio()
 	{
-		Assert.fail("Not yet implemented");
-		/*
 		try
 		{
-			int userId = 999;
-			vsp.getUserPortfolio(userId);
+			String userName = "test";
+			vsp.getPortfolioEntries(userName);
 		}
 		catch (Exception e)
 		{
 			Assert.fail("Not yet implemented");
-		}*/
+		}
 	}
 	
-	@Test
-	@Order(order=6)
+	@Test	
 	public void showUserPendingOrder()
 	{
-		Assert.fail("Not yet implemented");
-		/*
 		try
 		{
-			int userId = 999;
-			vsp.getPendingOrder(userId);
+			String userName = "test";
+			List<Order> orders = vsp.getPendingOrders(userName);
 		}
 		catch (Exception e)
 		{
 			Assert.fail("Not yet implemented");
-		}*/
+		}
 	}
 	
-	@Test
-	@Order(order=7)
+	@Test	
+	public void createOrder()
+	{
+		try
+		{					
+			String userName = "test";
+			List<Order> orders = vsp.getPendingOrders(userName);
+			vsp.createOrder(userName, "BUY", "AAPL", "10", 
+						"MARKET", "DEFAULT", "0.0","0.0" );			
+		}
+		catch (Exception e)
+		{
+			Assert.fail("Not yet implemented");
+		}
+	}
+	
+	@Test	
 	public void cancelPendingOrder()
 	{
-		Assert.fail("Not yet implemented");
-		/*
 		try
-		{
-			int orderId = 999;
-			vsp.cancelPendingOrder(orderId);
+		{					
+			String userName = "test";
+			List<Order> orders = vsp.getPendingOrders(userName);
+			Order order = orders.get(0);
+			vsp.cancelOrder(userName, order.getId());
 		}
 		catch (Exception e)
 		{
 			Assert.fail("Not yet implemented");
-		}*/
+		}
 	}
 	
 	@Test
-	@Order(order=8)
-	public void executeOrder()
+	public void executePendingOrders()
 	{
-		Assert.fail("Not yet implemented");
-		/*
 		try
 		{
-			int orderId = 999;
-			vsp.executePendingOrder(orderId);
+			String userName = "test";
+			vsp.processPendingOrders(userName);
 		}
 		catch (Exception e)
 		{
 			Assert.fail("Not yet implemented");
-		}*/
+		}
 	}
 	
-	@Test
-	@Order(order=9)
+	@Test	
 	public void buyStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -168,7 +220,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=10)
 	public void buyMarketOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -187,7 +238,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=11)
 	public void buyLimitOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -206,7 +256,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=12)
 	public void buyStopOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -225,7 +274,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=13)
 	public void buyStopLimitOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -244,7 +292,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=14)
 	public void sellStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -264,7 +311,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=15)
 	public void sellMarketOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -283,7 +329,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=16)
 	public void sellLimitOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -302,7 +347,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=17)
 	public void sellStopOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -321,7 +365,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=18)
 	public void sellStopLimitOrderStock()
 	{
 		Assert.fail("Not yet implemented");
@@ -340,7 +383,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=19)
 	public void dayOrderExecute()
 	{
 		Assert.fail("Not yet implemented");
@@ -357,7 +399,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=20)
 	public void setGoodUntilCancel()
 	{
 		Assert.fail("Not yet implemented");
@@ -375,7 +416,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=21)
 	public void setGoodUntilCancelValue()
 	{
 		Assert.fail("Not yet implemented");
@@ -393,7 +433,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=22)
 	public void setFillOrKillValue()
 	{
 		Assert.fail("Not yet implemented");
@@ -411,7 +450,6 @@ public class StockTransaction
 	}
 	
 	@Test
-	@Order(order=23)
 	public void setImmediateOrCancelValue()
 	{
 		Assert.fail("Not yet implemented");
