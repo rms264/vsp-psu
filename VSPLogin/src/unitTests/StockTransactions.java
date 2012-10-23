@@ -52,6 +52,7 @@ public class StockTransactions
 	@Test	
 	public void showUserTransactionHistory()  throws Exception
 	{		
+		// TODO:  ensure there is at least one transaction before calling this unit test (or add some default ones to database)
 		List<StockTransaction> transactions = vsp.getTransactionHistory("test");
 		Assert.assertNotNull("Unable to retrieve transaction history.", transactions);
 		Assert.assertTrue(transactions.size() > 0);
@@ -60,6 +61,7 @@ public class StockTransactions
 	@Test	
 	public void displayUserPortfolio() throws Exception
 	{
+		// TODO:  ensure at least one successful buy order goes through before calling this unit test (or add some default ones to database)
 		List<PortfolioData> entries = vsp.getPortfolioEntries("test");
 		Assert.assertNotNull("Unable to retrieve portfolio entries.", entries);
 		Assert.assertTrue(entries.size() > 0);
@@ -75,6 +77,7 @@ public class StockTransactions
 	@Test	
 	public void showUserPendingOrdersWhenSomeExist() throws Exception
 	{
+		// TODO:  ensure that at least one order has been submitted that will remain in a pending state for a few seconds
 		List<Order> orders = vsp.getPendingOrders("test");
 		Assert.assertNotNull("Unable to retrieve pending orders.", orders);
 		Assert.assertTrue(orders.size() > 0);
@@ -83,6 +86,7 @@ public class StockTransactions
 	@Test	
 	public void showUserPendingOrdersWhenNoneExist() throws Exception
 	{
+		// TODO: ensure no pending orders are in the system
 		List<Order> orders = vsp.getPendingOrders("test");
 		Assert.assertNotNull("Unable to retrieve pending orders.", orders);
 		Assert.assertTrue(orders.size() == 0);
