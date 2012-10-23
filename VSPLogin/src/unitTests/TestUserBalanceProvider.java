@@ -8,7 +8,7 @@ import vsp.dataObject.IUserBalance;
 import vsp.dataObject.StockInfo;
 import vsp.exception.SqlRequestException;
 
-public class TestUserBalanceProvider implements IUserBalance
+class TestUserBalanceProvider implements IUserBalance
 {
 	private double balance;
 	

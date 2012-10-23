@@ -9,7 +9,7 @@ import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.IStockInfo;
 import vsp.dataObject.StockInfo;
 
-public class TestStockInfoProvider implements IStockInfo
+class TestStockInfoProvider implements IStockInfo
 {
 	private boolean controlTradingHours;
 	private boolean isWithinTradingHours;
