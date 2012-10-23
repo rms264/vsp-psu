@@ -34,6 +34,18 @@ public class VspServiceProvider
 		// no implementation required
 	}
 	
+	// for unit testing
+	public void setStockInfo(StockInfoServiceProvider sisp)
+	{
+		this.sisp = sisp;
+	}
+	
+	// for unit testing
+	public void setTrading(VirtualTradingServiceProvider vtsp)
+	{
+		this.vtsp = vtsp;
+	}
+	
 	public void cancelOrder(String userName, String orderId)
 			throws SQLException, SqlRequestException
 	{
