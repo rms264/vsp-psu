@@ -125,7 +125,7 @@ public class StockTransactions
 				"AAPL", 
 				"10", 
 				OrderType.MARKET.toString(),
-				TimeInForce.DAY.toString(),
+				TimeInForce.DAY.toString(), // only DAY is supported for a MARKET order
 				"0.0",
 				"0.0"
 				);
