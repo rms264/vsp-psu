@@ -16,9 +16,25 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	private final SimpleDateFormat historicalDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 	private final SimpleDateFormat stockInfoFormat = new SimpleDateFormat("MMM dd", Locale.ENGLISH);	
 	
+	// used for unit testing
+	private String historyBaseUrl = "http://ichart.yahoo.com";
+	private String currentBaseUrl = "http://finance.yahoo.com";
+	
 	public StockInfoServiceProvider()
 	{
 		// no implementation required
+	}
+	
+	// used for unit testing
+	public void setCurrentInfoBaseUrl(String currentBaseUrl)
+	{
+		this.currentBaseUrl = currentBaseUrl;
+	}
+	
+	// used for unit testing
+	public void setHistoryBaseUrl(String historyBaseUrl)
+	{
+		this.historyBaseUrl = historyBaseUrl;
 	}
 	
 	public boolean isWithinTradingHours()
@@ -51,7 +67,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public List<DividendInfo> requestHistoricalDividendInfoSince(String symbol, Date since)
 	{
 		Date today = new Date();
-		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
 		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
 		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
 		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
@@ -90,7 +106,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	
 	public HistoricalStockInfo requestHistoricalStockDataForDay(String symbol, Date day)
 	{
-		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
 		historyUrl += "&a=" + Integer.toString(day.getMonth()); // month
 		historyUrl += "&b=" + Integer.toString(day.getDate()); // day
 		historyUrl += "&c=" + Integer.toString(day.getYear() + 1900); // year
@@ -122,7 +138,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date since)
 	{
 		Date today = new Date();
-		String historyUrl = "http://ichart.yahoo.com/table.csv?s=" + symbol;
+		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
 		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
 		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
 		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
@@ -185,7 +201,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	public StockInfo requestCurrentStockData(String symbol)
 	{
 		StockInfo stockInfo = null;
-		String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=nb3b2ghvoc6p2qdl1p";
+		String url = currentBaseUrl + "/d/quotes.csv?s=" + symbol + "&f=nb3b2ghvoc6p2qdl1p";
 		// n, Name
 		// b3, Bid
 		// b2, Ask
@@ -223,7 +239,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		List<StockInfo> results = new ArrayList<StockInfo>();
 		if (!symbols.isEmpty())
 		{
-			String url = "http://finance.yahoo.com/d/quotes.csv?s=" + symbols.get(0);
+			String url = currentBaseUrl + "/d/quotes.csv?s=" + symbols.get(0);
 			for (int i = 1; i < symbols.size(); ++i)
 			{
 				url += "+" + symbols.get(i).trim();
@@ -271,7 +287,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return results;
 	}
 	
-	public HistoricalStockInfo requestHistoricalStockData(String symbol, int months)
+	public List<HistoricalStockInfo> requestHistoricalStockData(String symbol, int months)
 	{
 		// TODO: implement
 		return null;

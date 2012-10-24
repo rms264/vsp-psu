@@ -1,6 +1,7 @@
 package unitTests;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -9,6 +10,7 @@ import org.junit.*;
 import org.junit.runner.*;
 import vsp.*;
 import vsp.dal.requests.Orders;
+import vsp.dataObject.DividendInfo;
 import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.Order;
 import vsp.dataObject.PortfolioData;
@@ -27,26 +29,58 @@ public class StockTransactions
 	private final VspServiceProvider vsp = new VspServiceProvider();
 	private final StockInfoServiceProvider stockInfoSP = new StockInfoServiceProvider(); 
 	
-	@Test	
-	public void displayStockInfo1()
+	@Test
+	@unitTests.Order(order=1)
+	public void getStockInfo()
 	{
 		StockInfo stockInfo = stockInfoSP.requestCurrentStockData("AAPL");
 		Assert.assertNotNull("Unable to retrieve stock info.", stockInfo);
 	}
 	
-	@Test	
-	public void displayStockInfo2()
+	@Test
+	@unitTests.Order(order=2)
+	public void getStockSearchResults()
 	{
 		List<Stock> stocks = stockInfoSP.searchForStocks("AAPL");
 		Assert.assertNotNull("Unable to retrieve search results.", stocks);
 		Assert.assertTrue(stocks.size() == 1);
 	}
 	
-	@Test	
-	public void displayStockInfoProviderUnreachable()
+	@Test
+	@unitTests.Order(order=3)
+	public void unreachableStockInfoProviderTests() throws Exception
 	{
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		StockInfoServiceProvider sisp = new StockInfoServiceProvider();
+		sisp.setCurrentInfoBaseUrl("http://127.0.0.1"); // should timeout
+		sisp.setHistoryBaseUrl("http://127.0.0.1"); // should timeout
+		
+		StockInfo stockInfo = sisp.requestCurrentStockData("AAPL");
+		Assert.assertNull("Should not be returning any results for current stock data.", stockInfo);
+		
+		Assert.assertFalse(sisp.isWithinTradingHours());
+		
+		List<String> symbols = new ArrayList<String>();
+		symbols.add("AAPL");
+		symbols.add("GOOG");
+		List<StockInfo> currentResults = sisp.requestCurrentStockData(symbols);
+		Assert.assertNotNull(currentResults);
+		Assert.assertTrue(currentResults.size() == 0);
+		
+		Date since = historicalDateFormat.parse("2011-10-01");
+		List<HistoricalStockInfo> historicalResults = sisp.requestDailyHistoricalStockData("AAPL", since);
+		Assert.assertNotNull(historicalResults);
+		Assert.assertTrue(historicalResults.size() == 0);
+		
+		historicalResults = sisp.requestHistoricalStockData("AAPL", 3);
+		Assert.assertNotNull(historicalResults);
+		Assert.assertTrue(historicalResults.size() == 0);
+		
+		HistoricalStockInfo historicalStockInfo = sisp.requestHistoricalStockDataForDay("AAPL", since);
+		Assert.assertNull("Should not be returning any results for historical stock data.", historicalStockInfo);
+		
+		List<DividendInfo> dividendResults = sisp.requestHistoricalDividendInfoSince("AAPL", since);
+		Assert.assertNotNull(dividendResults);
+		Assert.assertTrue(dividendResults.size() == 0);
 	}
 	
 	@Test	
@@ -61,17 +95,7 @@ public class StockTransactions
 	@Test	
 	public void displayUserPortfolio() throws Exception
 	{
-		// TODO:  ensure at least one successful buy order goes through before calling this unit test (or add some default ones to database)
-		List<PortfolioData> entries = vsp.getPortfolioEntries("test");
-		Assert.assertNotNull("Unable to retrieve portfolio entries.", entries);
-		Assert.assertTrue(entries.size() > 0);
-	}
-	
-	@Test	
-	public void displayUserPortfolioProviderUnreachable() throws Exception
-	{
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Assert.fail("This test must be performed manually.");
 	}
 	
 	@Test	
