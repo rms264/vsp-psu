@@ -159,9 +159,18 @@ final class LimitOrderExecutor extends OrderExecutor
 					result.setDateTime(date);
 					result.setNote("Unable to fill immediately");
 				}
+				
+				if (order.getTimeInForce() == TimeInForce.GOODUNTILCANCELED)
+				{
+					long diffInDays = (today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+					if (diffInDays > 120)
+					{
+						result.setCancelled(true);
+						result.setDateTime(date);
+						result.setNote("120 day limit reached");
+					}
+				}
 			}
-			
-			// GOOD UNTIL CANCELLED lives on for another day
 		}
 	}
 }
