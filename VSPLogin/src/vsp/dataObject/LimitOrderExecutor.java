@@ -143,7 +143,7 @@ final class LimitOrderExecutor extends OrderExecutor
 		finally
 		{
 			// these apply on the first historical trade attempt (should be the same day the order was submitted)
-			if (!result.getCompleted())
+			if (!result.getCompleted() && !result.getCancelled())
 			{
 				if ((order.getTimeInForce() == TimeInForce.DAY || order.getTimeInForce() == TimeInForce.FILLORKILL)
 						&& (today.after(date) || (today.equals(date) && !stockService.isWithinTradingHours())))
