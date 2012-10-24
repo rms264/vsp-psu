@@ -289,8 +289,12 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	
 	public List<HistoricalStockInfo> requestHistoricalStockData(String symbol, int months)
 	{
-		// TODO: implement
-		return null;
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(new Date()); // today
+		c.add(Calendar.MONTH, months * -1);
+		Date since = c.getTime();
+		
+		return this.requestDailyHistoricalStockData(symbol, since);
 	}
 	
 	private static List<Stock> parseStockSymbolsAndNames(String json)
