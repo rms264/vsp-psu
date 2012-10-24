@@ -82,7 +82,7 @@ public class StockTransactions
 	{
 		List<Stock> stocks = stockInfoSP.searchForStocks("AAPL");
 		Assert.assertNotNull("Unable to retrieve search results.", stocks);
-		Assert.assertTrue(stocks.size() == 1);
+		Assert.assertTrue(stocks.size() >= 1);
 	}
 	
 	@Test
@@ -172,7 +172,10 @@ public class StockTransactions
 	@unitTests.Order(order=9)
 	public void buyMarketOrderStock() throws Exception
 	{
-		Order order = vsp.createOrder(userName, 
+		Order order = null;
+		try
+		{
+			order = vsp.createOrder(userName, 
 				OrderAction.BUY.toString(), 
 				"MSFT", 
 				"100", 
@@ -181,6 +184,12 @@ public class StockTransactions
 				"0.0",
 				"0.0"
 				);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		
 		Assert.assertNotNull("Unable to create order.", order);
 		Assert.assertNotNull("Order ID is null.", order.getId());
 	}
