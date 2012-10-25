@@ -196,26 +196,57 @@ public class StockTransactions
 	@unitTests.Order(order=7)
 	public void buyStock() throws Exception
 	{
-		// return funds now that "insufficient" tests are over
+		// make sure we have enough money
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
 		
+		Order order = null;
+		try
+		{
+			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
+			stockInfo.setTradingHours(true);
+			
+			VspServiceProvider vsp = new VspServiceProvider();
+			vsp.setStockInfo(stockInfo);
+			
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"WMT", 
+				"50", 
+				Integer.toString(OrderType.MARKET.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()), // only DAY is supported for a MARKET order
+				"0.0",
+				"0.0"
+				);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
 		
-		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Assert.assertNotNull("Unable to create order.", order);
+		Assert.assertNotNull("Order ID is null.", order.getId());
 	}
 	
 	@Test
 	@unitTests.Order(order=8)
 	public void buyMarketOrderStock() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		Order order = null;
 		try
 		{
+			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
+			stockInfo.setTradingHours(true);
+			
+			VspServiceProvider vsp = new VspServiceProvider();
+			vsp.setStockInfo(stockInfo);
+			
 			order = vsp.createOrder(userName, 
 				Integer.toString(OrderAction.BUY.getValue()), 
 				"MSFT", 
-				"100", 
+				"10", 
 				Integer.toString(OrderType.MARKET.getValue()),
 				Integer.toString(TimeInForce.DAY.getValue()), // only DAY is supported for a MARKET order
 				"0.0",
@@ -233,8 +264,11 @@ public class StockTransactions
 		
 	@Test
 	@unitTests.Order(order=9)
-	public void buyLimitOrderStockLimitPriceMet()
+	public void buyLimitOrderStockLimitPriceMet() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
@@ -249,8 +283,11 @@ public class StockTransactions
 	
 	@Test
 	@unitTests.Order(order=11)
-	public void buyStopOrderStockStopPriceMet()
+	public void buyStopOrderStockStopPriceMet() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
@@ -265,8 +302,11 @@ public class StockTransactions
 	
 	@Test
 	@unitTests.Order(order=13)
-	public void buyStopLimitOrderStockStopPriceMet()
+	public void buyStopLimitOrderStockStopPriceMet() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
@@ -281,8 +321,11 @@ public class StockTransactions
 	
 	@Test
 	@unitTests.Order(order=15)
-	public void dayOrderExecution()
+	public void dayOrderExecution() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
@@ -297,8 +340,11 @@ public class StockTransactions
 	
 	@Test	
 	@unitTests.Order(order=17)
-	public void goodUntilCancelledExecution()
+	public void goodUntilCancelledExecution() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
@@ -313,8 +359,11 @@ public class StockTransactions
 	
 	@Test	
 	@unitTests.Order(order=19)
-	public void fillOrKillFilled()
+	public void fillOrKillFilled() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
@@ -329,8 +378,11 @@ public class StockTransactions
 	
 	@Test	
 	@unitTests.Order(order=21)
-	public void immediateOrCancel()
+	public void immediateOrCancel() throws Exception
 	{
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
