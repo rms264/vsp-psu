@@ -463,8 +463,8 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	{
 		StockInfo stockInfo = null;
 		
-		// parse into columns
-		String[] columns = line.split(",");
+		// parse into columns based on commas (but allowing commas between the quotes)
+		String[] columns = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < columns.length; ++i)
 		{
 			columns[i] = columns[i].replaceAll("\"", "").trim();
