@@ -14,6 +14,7 @@ import vsp.dal.requests.Roles;
 import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
+import vsp.dataObject.IStockInfo;
 import vsp.dataObject.Order;
 import vsp.dataObject.PortfolioData;
 import vsp.dataObject.StockInfo;
@@ -26,7 +27,7 @@ import vsp.utils.Enumeration.*;
 
 public class VspServiceProvider
 {
-	private StockInfoServiceProvider sisp = new StockInfoServiceProvider();
+	private IStockInfo sisp = new StockInfoServiceProvider();
 	private VirtualTradingServiceProvider vtsp = new VirtualTradingServiceProvider();
 	
 	public VspServiceProvider()
@@ -35,7 +36,7 @@ public class VspServiceProvider
 	}
 	
 	// for unit testing
-	public void setStockInfo(StockInfoServiceProvider sisp)
+	public void setStockInfo(IStockInfo sisp)
 	{
 		this.sisp = sisp;
 	}
@@ -146,7 +147,7 @@ public class VspServiceProvider
 				}
 			}
 		}
-		
+				
 		Order newOrder = Order.CreateNewOrder(userName, stockInfo.getStock(), orderAction, orderQuantity, orderType, limit, stop, tif);
 		AccountData userInfo = Users.requestAccountData(userName);
 		
@@ -187,16 +188,16 @@ public class VspServiceProvider
 							}
 						}
 					}
-					
-					commitments *= -1;
 				}
 			}
 						
 			// get commitment for this order
 			commitments += newOrder.getLatestEstimatedValue(stockInfo);
+			commitments *= -1;
+			
 			if (commitments > userInfo.getBalance())
 			{
-				throw new ValidationException("Error:  You do not have the necessary funds for this Buy order.");
+				throw new ValidationException("Error:  You have insufficent funds for this Buy order.");
 			}
 		}
 		else if (orderAction == OrderAction.SELL)

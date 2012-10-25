@@ -476,10 +476,16 @@ public final class StockInfoServiceProvider  implements IStockInfo
 			Date date = null;
 			try
 			{
-				date = this.stockInfoFormat.parse(columns[9]);
-				
-				int year = Calendar.getInstance().get(Calendar.YEAR);
-				date.setYear(year);
+				try
+				{
+					date = this.stockInfoFormat.parse(columns[9]);
+					int year = Calendar.getInstance().get(Calendar.YEAR);
+					date.setYear(year);
+				}
+				catch (ParseException pe)
+				{
+					// probably N/A... pass a NULL date
+				}
 				
 				// create StockInfo instance
 				stockInfo = new StockInfo(symbol, 
@@ -497,10 +503,6 @@ public final class StockInfoServiceProvider  implements IStockInfo
 						Double.parseDouble(columns[11]), 					// last trade price
 						Double.parseDouble(columns[12]) 					// previous close
 						);
-			}
-			catch (ParseException pe)
-			{
-				// ignore
 			}
 			catch (NumberFormatException nfe)
 			{

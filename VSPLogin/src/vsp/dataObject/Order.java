@@ -75,7 +75,17 @@ public final class Order
 		{
 			if (this.type == OrderType.LIMIT || this.type == OrderType.STOPLIMIT)
 			{
-				estimatedCost = this.quantity * this.limitPrice;
+				double price = 0;
+				if (this.action == OrderAction.BUY)
+				{
+					price = (info.getAsk() > this.limitPrice) ? info.getAsk() : this.limitPrice;
+				}
+				else // SELL
+				{
+					price = (info.getBid() > this.limitPrice) ? info.getBid() : this.limitPrice;
+				}
+				
+				estimatedCost = this.quantity * price;
 			}
 			else if (this.type == OrderType.STOP)
 			{

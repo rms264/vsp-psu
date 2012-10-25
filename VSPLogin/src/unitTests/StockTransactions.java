@@ -16,6 +16,7 @@ import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.DividendInfo;
 import vsp.dataObject.HistoricalStockInfo;
+import vsp.dataObject.IStockInfo;
 import vsp.dataObject.Order;
 import vsp.dataObject.PortfolioData;
 import vsp.dataObject.Stock;
@@ -124,16 +125,6 @@ public class StockTransactions
 	
 	@Test
 	@unitTests.Order(order=4)
-	public void showUserTransactionHistory()  throws Exception
-	{		
-		// TODO:  ensure there is at least one transaction before calling this unit test (or add some default ones to database)
-		List<StockTransaction> transactions = vsp.getTransactionHistory(userName);
-		Assert.assertNotNull("Unable to retrieve transaction history.", transactions);
-		Assert.assertTrue(transactions.size() > 0);
-	}
-	
-	@Test
-	@unitTests.Order(order=5)
 	public void showUserPendingOrdersWhenNoneExist() throws Exception
 	{
 		List<Order> orders = vsp.getPendingOrders(userName);
@@ -142,45 +133,91 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=6)
+	@unitTests.Order(order=5)
 	public void buyStockInsufficientFunds()
 	{
-		// TODO: implement
-		Assert.fail("May need to be executed manually, as sufficient funds are calculated in the JSP (or we can move to createOrder method in VSP).");
+		try
+		{
+			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
+			stockInfo.setTradingHours(true);
+			
+			VspServiceProvider vsp = new VspServiceProvider();
+			vsp.setStockInfo(stockInfo);
+			
+			// throws
+			vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AAPL", 
+				"5000", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()),
+				"1.00",
+				"0.0"
+				);
+			Assert.fail("Order creation should fail due to insufficient funds.");
+		}
+		catch (Exception ex)
+		{
+			Assert.assertTrue(ex.getLocalizedMessage().contains("insufficent funds"));
+		}
+	}
+	
+	@Test
+	@unitTests.Order(order=6)
+	public void buyMarketOrderStockInsufficientFunds()
+	{
+		try
+		{
+			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
+			stockInfo.setTradingHours(true);
+			
+			VspServiceProvider vsp = new VspServiceProvider();
+			vsp.setStockInfo(stockInfo);
+			
+			// throws
+			vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"GOOG", 
+				"5000", 
+				Integer.toString(OrderType.MARKET.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()), // only DAY is supported for a MARKET order
+				"0.0",
+				"0.0"
+				);
+			Assert.fail("Order creation should fail due to insufficient funds.");
+		}
+		catch (Exception ex)
+		{
+			Assert.assertTrue(ex.getLocalizedMessage().contains("insufficent funds"));
+		}
 	}
 	
 	@Test
 	@unitTests.Order(order=7)
-	public void buyMarketOrderStockInsufficientFunds() throws Exception
+	public void buyStock() throws Exception
 	{
-		// TODO: implement
-		Assert.fail("May need to be executed manually, as sufficient funds are calculated in the JSP (or we can move to createOrder method in VSP).");
-		
 		// return funds now that "insufficient" tests are over
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
-	}
-	
-	@Test
-	@unitTests.Order(order=8)
-	public void buyStock()
-	{
+		
+		
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
 	
 	@Test
-	@unitTests.Order(order=9)
+	@unitTests.Order(order=8)
 	public void buyMarketOrderStock() throws Exception
 	{
 		Order order = null;
 		try
 		{
 			order = vsp.createOrder(userName, 
-				OrderAction.BUY.toString(), 
+				Integer.toString(OrderAction.BUY.getValue()), 
 				"MSFT", 
 				"100", 
-				OrderType.MARKET.toString(),
-				TimeInForce.DAY.toString(), // only DAY is supported for a MARKET order
+				Integer.toString(OrderType.MARKET.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()), // only DAY is supported for a MARKET order
 				"0.0",
 				"0.0"
 				);
@@ -195,7 +232,7 @@ public class StockTransactions
 	}
 		
 	@Test
-	@unitTests.Order(order=10)
+	@unitTests.Order(order=9)
 	public void buyLimitOrderStockLimitPriceMet()
 	{
 		// TODO: implement
@@ -203,7 +240,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=11)
+	@unitTests.Order(order=10)
 	public void buyLimitOrderStockLimitPriceNotMet()
 	{
 		// TODO: implement
@@ -211,7 +248,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=12)
+	@unitTests.Order(order=11)
 	public void buyStopOrderStockStopPriceMet()
 	{
 		// TODO: implement
@@ -219,7 +256,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=13)
+	@unitTests.Order(order=12)
 	public void buyStopOrderStockStopPriceNotMet()
 	{
 		// TODO: implement
@@ -227,7 +264,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=14)
+	@unitTests.Order(order=13)
 	public void buyStopLimitOrderStockStopPriceMet()
 	{
 		// TODO: implement
@@ -235,7 +272,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=15)
+	@unitTests.Order(order=14)
 	public void buyStopLimitOrderStockStopPriceNotMet()
 	{
 		// TODO: implement
@@ -243,7 +280,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=16)
+	@unitTests.Order(order=15)
 	public void dayOrderExecution()
 	{
 		// TODO: implement
@@ -251,7 +288,7 @@ public class StockTransactions
 	}
 	
 	@Test	
-	@unitTests.Order(order=17)
+	@unitTests.Order(order=16)
 	public void dayOrderExpired()
 	{
 		// TODO: implement
@@ -259,7 +296,7 @@ public class StockTransactions
 	}
 	
 	@Test	
-	@unitTests.Order(order=18)
+	@unitTests.Order(order=17)
 	public void goodUntilCancelledExecution()
 	{
 		// TODO: implement
@@ -267,7 +304,7 @@ public class StockTransactions
 	}
 	
 	@Test	
-	@unitTests.Order(order=19)
+	@unitTests.Order(order=18)
 	public void goodUntilCancelledExpired()
 	{
 		// TODO: implement
@@ -275,7 +312,7 @@ public class StockTransactions
 	}
 	
 	@Test	
-	@unitTests.Order(order=20)
+	@unitTests.Order(order=19)
 	public void fillOrKillFilled()
 	{
 		// TODO: implement
@@ -283,7 +320,7 @@ public class StockTransactions
 	}
 	
 	@Test	
-	@unitTests.Order(order=21)
+	@unitTests.Order(order=20)
 	public void fillOrKillKilled()
 	{
 		// TODO: implement
@@ -291,7 +328,7 @@ public class StockTransactions
 	}
 	
 	@Test	
-	@unitTests.Order(order=22)
+	@unitTests.Order(order=21)
 	public void immediateOrCancel()
 	{
 		// TODO: implement
@@ -299,7 +336,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=23)
+	@unitTests.Order(order=22)
 	public void displayUserPortfolio() throws Exception
 	{
 		// TODO: implement (user must own some stuff first)
@@ -307,7 +344,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=24)
+	@unitTests.Order(order=23)
 	public void showUserPendingOrdersWhenSomeExist() throws Exception
 	{
 		// TODO:  ensure that at least one order has been submitted that will remain in a pending state for a few seconds
@@ -317,7 +354,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=25)
+	@unitTests.Order(order=24)
 	public void cancelPendingOrder() throws Exception
 	{
 		List<Order> pendingOrders = vsp.getPendingOrders(userName);
@@ -333,7 +370,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=26)
+	@unitTests.Order(order=25)
 	public void sellStockMoreThanOwned()
 	{
 		// TODO: implement
@@ -341,7 +378,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=27)
+	@unitTests.Order(order=26)
 	public void sellStock()
 	{
 		// TODO: implement
@@ -349,7 +386,7 @@ public class StockTransactions
 	}
 		
 	@Test
-	@unitTests.Order(order=28)
+	@unitTests.Order(order=27)
 	public void sellStockMarketOrder()
 	{
 		// TODO: implement
@@ -357,7 +394,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=29)
+	@unitTests.Order(order=28)
 	public void sellStockLimitOrderLimitPriceMet()
 	{
 		// TODO: implement
@@ -365,7 +402,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=30)
+	@unitTests.Order(order=29)
 	public void sellStockLimitOrderLimitPriceNotMet()
 	{
 		// TODO: implement
@@ -373,7 +410,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=31)
+	@unitTests.Order(order=30)
 	public void sellStockStopLossOrderStopPriceMet()
 	{
 		// TODO: implement
@@ -381,7 +418,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=32)
+	@unitTests.Order(order=31)
 	public void sellStockStopLossOrderStopPriceNotMet()
 	{
 		// TODO: implement
@@ -389,7 +426,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=33)
+	@unitTests.Order(order=32)
 	public void sellStockStopLimitOrderStopPriceMet()
 	{
 		// TODO: implement
@@ -397,10 +434,20 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=34)
+	@unitTests.Order(order=33)
 	public void sellStockStopLimitOrderStopPriceNotMet()
 	{
 		// TODO: implement
 		Assert.fail("Not yet implemented");
+	}
+	
+	@Test
+	@unitTests.Order(order=34)
+	public void showUserTransactionHistoryWhenSomeExist()  throws Exception
+	{		
+		// TODO:  ensure there is at least one transaction before calling this unit test (or add some default ones to database)
+		List<StockTransaction> transactions = vsp.getTransactionHistory(userName);
+		Assert.assertNotNull("Unable to retrieve transaction history.", transactions);
+		Assert.assertTrue(transactions.size() > 0);
 	}
 }
