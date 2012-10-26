@@ -48,12 +48,12 @@ class TestStockInfoProvider implements IStockInfo
 	{
 		if (this.controlTradingHours)
 		{
-			return this.isWithinTradingHours;
+				return this.isWithinTradingHours;
 		}
-		
+	
 		return this.wrapped.isWithinTradingHours();
 	}
-
+	
 	public void setCurrentStockData(StockInfo currentStockData)
 	{
 		this.controlCurrentStockData = true;
@@ -65,12 +65,12 @@ class TestStockInfoProvider implements IStockInfo
 	{
 		if (this.controlCurrentStockData)
 		{
-			return this.currentStockData;
+				return this.currentStockData;
 		}
-		
+	
 		return this.wrapped.requestCurrentStockData(symbol);
 	}
-
+	
 	public void setCurrentStockDataList(List<StockInfo> currentStockDataList)
 	{
 		this.controlCurrentStockDataList = true;
@@ -82,12 +82,12 @@ class TestStockInfoProvider implements IStockInfo
 	{
 		if (this.controlCurrentStockDataList)
 		{
-			return this.currentStockDataList;
+				return this.currentStockDataList;
 		}
-		
+	
 		return this.wrapped.requestCurrentStockData(symbols);
 	}
-
+	
 	public void setHistoricalStockDataForDay(HistoricalStockInfo historicalStockInfoForDay)
 	{
 		this.controlHistoricalStockDataForDay = true;
@@ -101,10 +101,10 @@ class TestStockInfoProvider implements IStockInfo
 		{
 			return this.historicalStockInfoForDay;
 		}
-		
+	
 		return this.wrapped.requestHistoricalStockDataForDay(symbol, day);
 	}
-
+	
 	public void setHistoricalStockData(List<HistoricalStockInfo> historicalStockInfo)
 	{
 		this.controlHistoricalStockData = true;
@@ -118,10 +118,10 @@ class TestStockInfoProvider implements IStockInfo
 		{
 			return this.historicalStockInfo;
 		}
-		
+	
 		return this.wrapped.requestDailyHistoricalStockData(symbol, since);
 	}
-
+	
 	public void setDividendData(List<DividendInfo> dividendData)
 	{
 		this.controlDividendData = true;
@@ -135,7 +135,7 @@ class TestStockInfoProvider implements IStockInfo
 		{
 			return this.dividendData;
 		}
-		
+	
 		return this.wrapped.requestHistoricalDividendInfoSince(symbol, since);
 	}
 

@@ -137,13 +137,7 @@ public class StockTransactions
 	public void buyStockInsufficientFunds()
 	{
 		try
-		{
-			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
-			stockInfo.setTradingHours(true);
-			
-			VspServiceProvider vsp = new VspServiceProvider();
-			vsp.setStockInfo(stockInfo);
-			
+		{	
 			// throws
 			vsp.createOrder(userName, 
 				Integer.toString(OrderAction.BUY.getValue()), 
@@ -168,11 +162,7 @@ public class StockTransactions
 	{
 		try
 		{
-			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
-			stockInfo.setTradingHours(true);
-			
-			VspServiceProvider vsp = new VspServiceProvider();
-			vsp.setStockInfo(stockInfo);
+			StockInfoServiceProvider.ForceWithinHours = true;
 			
 			// throws
 			vsp.createOrder(userName, 
@@ -190,6 +180,10 @@ public class StockTransactions
 		{
 			Assert.assertTrue(ex.getLocalizedMessage().contains("insufficent funds"));
 		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
@@ -202,12 +196,7 @@ public class StockTransactions
 		Order order = null;
 		try
 		{
-			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
-			stockInfo.setTradingHours(true);
-			
-			VspServiceProvider vsp = new VspServiceProvider();
-			vsp.setStockInfo(stockInfo);
-			
+			StockInfoServiceProvider.ForceWithinHours = true;
 			order = vsp.createOrder(userName, 
 				Integer.toString(OrderAction.BUY.getValue()), 
 				"WMT", 
@@ -217,14 +206,23 @@ public class StockTransactions
 				"0.0",
 				"0.0"
 				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
 		}
 		catch (Exception ex)
 		{
 			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
 		}
-		
-		Assert.assertNotNull("Unable to create order.", order);
-		Assert.assertNotNull("Order ID is null.", order.getId());
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
@@ -237,12 +235,7 @@ public class StockTransactions
 		Order order = null;
 		try
 		{
-			TestStockInfoProvider stockInfo = new TestStockInfoProvider();
-			stockInfo.setTradingHours(true);
-			
-			VspServiceProvider vsp = new VspServiceProvider();
-			vsp.setStockInfo(stockInfo);
-			
+			StockInfoServiceProvider.ForceWithinHours = true;
 			order = vsp.createOrder(userName, 
 				Integer.toString(OrderAction.BUY.getValue()), 
 				"MSFT", 
@@ -252,14 +245,23 @@ public class StockTransactions
 				"0.0",
 				"0.0"
 				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
 		}
 		catch (Exception ex)
 		{
 			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
 		}
-		
-		Assert.assertNotNull("Unable to create order.", order);
-		Assert.assertNotNull("Order ID is null.", order.getId());
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 		
 	@Test
@@ -269,16 +271,76 @@ public class StockTransactions
 		// make sure we have enough money
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;			
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()),
+				"500.00", // current price is over 200
+				"0.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
 	@unitTests.Order(order=10)
-	public void buyLimitOrderStockLimitPriceNotMet()
+	public void buyLimitOrderStockLimitPriceNotMet() throws Exception
 	{
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.GOODUNTILCANCELED.getValue()),
+				"50.00", // current price is 2xx.xx
+				"0.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			// should not be completed because cannot be executed (limit price too high)
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
@@ -288,16 +350,82 @@ public class StockTransactions
 		// make sure we have enough money
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{		
+			VspServiceProvider vsp = new VspServiceProvider();
+			TestStockInfoProvider test = new TestStockInfoProvider();
+			StockInfo info = new StockInfo("AMZN", "Amazon", 200.00, 100.00, new Date(), 0.00, 100.00, 0.06, 50000, 106.00, 100.00, 106.05, 106.00, 0.00);
+			test.setCurrentStockData(info);
+			vsp.setStockInfo(test);
+			
+			StockInfoServiceProvider.ForceWithinHours = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.STOP.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()),
+				"0.00",
+				"107.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
 	@unitTests.Order(order=12)
-	public void buyStopOrderStockStopPriceNotMet()
+	public void buyStopOrderStockStopPriceNotMet() throws Exception
 	{
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.STOP.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()),
+				"0.00",
+				"1000.00" // current price is 2xx.xx
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			// should not be completed because cannot be executed (stop price too high)
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
@@ -305,18 +433,89 @@ public class StockTransactions
 	public void buyStopLimitOrderStockStopPriceMet() throws Exception
 	{
 		// make sure we have enough money
-		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{		
+			VspServiceProvider vsp = new VspServiceProvider();
+			TestStockInfoProvider test = new TestStockInfoProvider();
+			StockInfo info = new StockInfo("AMZN", "Amazon", 200.00, 100.00, new Date(), 0.00, 100.00, 0.06, 50000, 106.00, 100.00, 106.05, 106.00, 0.00);
+			test.setCurrentStockData(info);
+			vsp.setStockInfo(test);
+			
+			StockInfoServiceProvider.ForceWithinHours = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.STOPLIMIT.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()),
+				"900.00", // current price is 2xx.xx 
+				"106.50"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
 	@unitTests.Order(order=14)
-	public void buyStopLimitOrderStockStopPriceNotMet()
+	public void buyStopLimitOrderStockStopPriceNotMet() throws Exception
 	{
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		// make sure we have enough money
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		
+		Order order = null;
+		try
+		{		
+			VspServiceProvider vsp = new VspServiceProvider();
+			TestStockInfoProvider test = new TestStockInfoProvider();
+			StockInfo info = new StockInfo("AMZN", "Amazon", 200.00, 100.00, new Date(), 0.00, 100.00, 0.06, 50000, 106.00, 100.00, 106.05, 106.00, 0.00);
+			test.setCurrentStockData(info);
+			vsp.setStockInfo(test);
+			
+			StockInfoServiceProvider.ForceWithinHours = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.STOPLIMIT.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()),
+				"125.00", // current price is 2xx.xx 
+				"107.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
@@ -500,6 +699,6 @@ public class StockTransactions
 		// TODO:  ensure there is at least one transaction before calling this unit test (or add some default ones to database)
 		List<StockTransaction> transactions = vsp.getTransactionHistory(userName);
 		Assert.assertNotNull("Unable to retrieve transaction history.", transactions);
-		Assert.assertTrue(transactions.size() > 0);
+		Assert.assertTrue(transactions.size() > 8);
 	}
 }

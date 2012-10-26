@@ -40,18 +40,6 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 		// no implementation required
 	}
 	
-	// for unit testing
-	public void setStockInfo(IStockInfo stockInfo)
-	{
-		this.sisp = stockInfo;
-	}
-	
-	// for unit testing
-	public void setUserBalance(IUserBalance userBalance)
-	{
-		this.ub = userBalance;
-	}
-	
 	public void processDividends(String userName)
 		throws SQLException, SqlRequestException
 	{

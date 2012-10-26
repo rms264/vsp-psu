@@ -20,6 +20,8 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	private String historyBaseUrl = "http://ichart.yahoo.com";
 	private String currentBaseUrl = "http://finance.yahoo.com";
 	
+	public static boolean ForceWithinHours;
+	
 	public StockInfoServiceProvider()
 	{
 		// no implementation required
@@ -41,24 +43,31 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	{
 		//boolean withinTradingHours = true;
 		boolean withinTradingHours = false;
-		String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
-		// a, Ask
-		
-		List<String> responseLines = null;
-		try
+		if (!ForceWithinHours)
 		{
-			responseLines = getDataFromUrl(url);
-			if (responseLines.size() == 1)
+			String url = "http://finance.yahoo.com/d/quotes.csv?s=CIF&f=a";
+			// a, Ask
+			
+			List<String> responseLines = null;
+			try
 			{
-				if (!responseLines.get(0).contains("N/A"))
+				responseLines = getDataFromUrl(url);
+				if (responseLines.size() == 1)
 				{
-					withinTradingHours = true;
+					if (!responseLines.get(0).contains("N/A"))
+					{
+						withinTradingHours = true;
+					}
 				}
 			}
+			catch (Exception ex)
+			{
+				// ignore
+			}
 		}
-		catch (Exception ex)
+		else
 		{
-			// ignore
+			withinTradingHours = true;
 		}
 		
 		return withinTradingHours;
