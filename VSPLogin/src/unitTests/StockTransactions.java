@@ -706,22 +706,89 @@ public class StockTransactions
 	@unitTests.Order(order=19)
 	public void fillOrKillFilled() throws Exception
 	{
-		// make sure we have enough money (growing number of pending orders means we need more)
-		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
+		// make sure we have enough money (must buy at least 101 shares)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 10.0);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;	
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"101", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.FILLORKILL.getValue()),
+				"800.00", // current price is over 200
+				"0.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test	
 	@unitTests.Order(order=20)
 	public void fillOrKillKilled() throws Exception
 	{
-		// make sure we have enough money (growing number of pending orders means we need more)
-		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
+		// make sure we have enough money (must buy at least 101 shares)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 10.0);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;	
+			VspServiceProvider.SkipProcessing = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"101", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.FILLORKILL.getValue()),
+				"15.00", // current price is over 200
+				"0.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			StockInfoServiceProvider.ForceWithinHours = false;
+			VspServiceProvider.SkipProcessing = false;
+			vsp.processPendingOrders(userName);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.CANCELLED);
+			
+			StockTransaction transaction = Transactions.getTransactionForOrderId(order.getId());
+			Assert.assertNotNull(transaction);
+			Assert.assertTrue(transaction.getType() == TransactionType.CANCELLATION);
+			Assert.assertTrue(transaction.getNote().contains("Market closed"));
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+			VspServiceProvider.SkipProcessing = false;
+		}
 	}
 	
 	@Test	
@@ -758,7 +825,6 @@ public class StockTransactions
 	@unitTests.Order(order=24)
 	public void showUserPendingOrdersWhenSomeExist() throws Exception
 	{
-		// TODO:  ensure that at least one order has been submitted that will remain in a pending state for a few seconds
 		List<Order> orders = vsp.getPendingOrders(userName);
 		Assert.assertNotNull("Unable to retrieve pending orders.", orders);
 		Assert.assertTrue(orders.size() > 0);
@@ -772,12 +838,16 @@ public class StockTransactions
 		Assert.assertNotNull("Unable to retrieve pending orders.", pendingOrders);
 		Assert.assertTrue(pendingOrders.size() > 0);
 		
-		Order order = pendingOrders.get(0);
-		Assert.assertTrue(order.getState() == OrderState.PENDING);
-		vsp.cancelOrder(userName, order.getId());
-		
-		order = Orders.getOrderById(order.getId());
-		Assert.assertTrue(order.getState() == OrderState.CANCELLED);
+		// cancel all pending orders
+		for (int i = 0; i < pendingOrders.size(); ++i)
+		{
+			Order order = pendingOrders.get(i);
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			vsp.cancelOrder(userName, order.getId());
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertTrue(order.getState() == OrderState.CANCELLED);
+		}
 	}
 	
 	@Test
@@ -859,6 +929,6 @@ public class StockTransactions
 		// TODO:  ensure there is at least one transaction before calling this unit test (or add some default ones to database)
 		List<StockTransaction> transactions = vsp.getTransactionHistory(userName);
 		Assert.assertNotNull("Unable to retrieve transaction history.", transactions);
-		Assert.assertTrue(transactions.size() > 8);
+		Assert.assertTrue(transactions.size() > 10);
 	}
 }
