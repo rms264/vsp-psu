@@ -798,8 +798,36 @@ public class StockTransactions
 		// make sure we have enough money (growing number of pending orders means we need more)
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;	
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.IMMEDIATEORCANCEL.getValue()),
+				"750.00", // current price is over 200
+				"0.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test	
@@ -809,16 +837,52 @@ public class StockTransactions
 		// make sure we have enough money (growing number of pending orders means we need more)
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;	
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.IMMEDIATEORCANCEL.getValue()),
+				"15.00", // current price is over 200
+				"0.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.CANCELLED);
+			
+			StockTransaction transaction = Transactions.getTransactionForOrderId(order.getId());
+			Assert.assertNotNull(transaction);
+			Assert.assertTrue(transaction.getType() == TransactionType.CANCELLATION);
+			Assert.assertTrue(transaction.getNote().contains("Unable to fill immediately"));
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test
 	@unitTests.Order(order=23)
 	public void displayUserPortfolio() throws Exception
 	{
-		// TODO: implement (user must own some stuff first)
-		Assert.fail("Not yet implemented");
+		List<PortfolioData> portfolioEntries = vsp.getPortfolioEntries(userName);
+		Assert.assertNotNull(portfolioEntries);
+		
+		// purchased MSFT, WMT and AMZN so far...
+		Assert.assertTrue(portfolioEntries.size() == 3);
 	}
 	
 	@Test
