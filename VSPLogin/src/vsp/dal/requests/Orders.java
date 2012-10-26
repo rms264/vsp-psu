@@ -301,8 +301,10 @@ public class Orders
 		String id = rs.getString("order_id");
 		String userName = rs.getString("user_name");
 		Stock stock = Stocks.getStock(rs.getString("stock_symbol"));
-		Date date = rs.getDate("date_submitted");
-		Date lastEval = rs.getDate("date_submitted");
+		Date sqlSubDate = rs.getDate("date_submitted");
+		java.util.Date subDate = new java.util.Date(sqlSubDate.getYear(), sqlSubDate.getMonth(), sqlSubDate.getDate());
+		Date sqlLastEvalDate = rs.getDate("last_evaluated");
+		java.util.Date lastEvalDate = new java.util.Date(sqlLastEvalDate.getYear(), sqlLastEvalDate.getMonth(), sqlLastEvalDate.getDate());
 		OrderState state = OrderState.convert(rs.getInt("state"));
 		float quantity = rs.getFloat("quantity");
 		OrderAction action = OrderAction.convert(rs.getInt("action"));
@@ -311,7 +313,7 @@ public class Orders
 		double stopPrice = rs.getDouble("stop_price");
 		TimeInForce timeInForce = TimeInForce.convert(rs.getInt("time_in_force"));
 			
-		order = new Order(id, userName, stock, action, quantity, type, limitPrice, stopPrice, timeInForce, state, date, lastEval);
+		order = new Order(id, userName, stock, action, quantity, type, limitPrice, stopPrice, timeInForce, state, subDate, lastEvalDate);
 		
 		return order;
 	}
