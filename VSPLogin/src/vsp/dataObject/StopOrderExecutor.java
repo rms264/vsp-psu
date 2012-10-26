@@ -88,7 +88,7 @@ final class StopOrderExecutor extends OrderExecutor
 				
 				// stop price met --> try to execute
 				order.setStopPriceMet(true);
-				result = this.decoratedExecutor.Execute(order, balanceService, stockService);
+				result.copyFrom(this.decoratedExecutor.Execute(order, balanceService, stockService));
 			}
 			else // SELL
 			{
@@ -99,7 +99,7 @@ final class StopOrderExecutor extends OrderExecutor
 				
 				// stop price met --> try to execute
 				order.setStopPriceMet(true);
-				result = this.decoratedExecutor.Execute(order, balanceService, stockService);
+				result.copyFrom(this.decoratedExecutor.Execute(order, balanceService, stockService));
 			}
 		}
 		finally
