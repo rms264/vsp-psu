@@ -31,13 +31,10 @@ final class LimitOrderExecutor extends OrderExecutor
 		Date submitted = order.getDateSubmitted();
 		if (today.equals(submitted))
 		{
-			if (stockService.isWithinTradingHours())
+			StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
+			if (info != null)
 			{
-				StockInfo info = stockService.requestCurrentStockData(order.getStock().getStockSymbol());
-				if (info != null)
-				{
-					attemptTrade(result, balanceService, stockService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
-				}
+				attemptTrade(result, balanceService, stockService, today, info.getDayLow(), info.getDayHigh(), info.getVolume());
 			}
 		}
 		else // SELL
@@ -162,7 +159,7 @@ final class LimitOrderExecutor extends OrderExecutor
 				
 				if (order.getTimeInForce() == TimeInForce.GOODUNTILCANCELED)
 				{
-					long diffInDays = (today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+					long diffInDays = (date.getTime() - order.getDateSubmitted().getTime()) / (1000 * 60 * 60 * 24);
 					if (diffInDays > 120)
 					{
 						result.setCancelled(true);

@@ -117,7 +117,7 @@ final class StopOrderExecutor extends OrderExecutor
 				
 				if (order.getTimeInForce() == TimeInForce.GOODUNTILCANCELED)
 				{  // Cancel order
-					long diffInDays = (today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+					long diffInDays = (date.getTime() - order.getDateSubmitted().getTime()) / (1000 * 60 * 60 * 24);
 					if (diffInDays > 120)
 					{
 						result.setCancelled(true);

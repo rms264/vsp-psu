@@ -30,6 +30,8 @@ public class VspServiceProvider
 	private IStockInfo sisp = new StockInfoServiceProvider();
 	private VirtualTradingServiceProvider vtsp = new VirtualTradingServiceProvider();
 	
+	public static boolean SkipProcessing;
+	
 	public VspServiceProvider()
 	{
 		// no implementation required
@@ -249,7 +251,10 @@ public class VspServiceProvider
 		Orders.addOrder(newOrder);
 		
 		// attempt to process order(s) with VTSP
-		vtsp.processPendingOrders(userName);
+		if (!SkipProcessing)
+		{
+			vtsp.processPendingOrders(userName);
+		}
 		
 		return newOrder;
 	}

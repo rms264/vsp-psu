@@ -25,6 +25,13 @@ public class Orders
 		return insert(order);
 	}
 	
+	// for use in unit testing
+	public static void changeSubmittedAndEvaluatedDates(String userName, String orderId, Date date)
+			throws SQLException, SqlRequestException
+	{
+		updateSubmittedAndEvaluatedDates(userName, orderId, date);
+	}
+	
 	public static void changeOrderState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
@@ -63,6 +70,36 @@ public class Orders
 	
 	private Orders(){}
 	
+	private static void updateSubmittedAndEvaluatedDates(String userName, String orderId, Date date)
+			throws SQLException, SqlRequestException
+		{
+			Connection connection = null;
+			try
+			{
+				connection = DatasourceConnection.getConnection();
+
+				// update submitted date
+				String sqlStatement = "UPDATE vsp.Order SET date_submitted=?, last_evaluated=? WHERE user_name=? AND order_id=?";
+				PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+				pStmt.setDate(1, new java.sql.Date(date.getTime()));
+				pStmt.setDate(2, new java.sql.Date(date.getTime()));
+				pStmt.setString(3, userName);   
+				pStmt.setString(4, orderId);
+				int result = pStmt.executeUpdate();
+				if (result != 1)
+				{
+					throw (new SqlRequestException("Error:  Unable to update submitted and evaluated dates."));				
+				}
+			}
+			finally
+			{
+				if(connection != null)
+				{
+					connection.close();
+				}
+			}
+		}
+	
 	private static void updateState(String userName, String orderId, OrderState oldState, OrderState newState)
 		throws SQLException, SqlRequestException
 	{
@@ -83,10 +120,6 @@ public class Orders
 			{
 				throw (new SqlRequestException("Error:  Order already executed, is already cancelled or no longer exists."));				
 			}
-		}
-		catch (SQLException ex)
-		{
-			throw ex;
 		}
 		finally
 		{

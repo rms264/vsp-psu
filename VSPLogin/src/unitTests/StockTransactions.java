@@ -26,6 +26,7 @@ import vsp.utils.Enumeration.OrderAction;
 import vsp.utils.Enumeration.OrderState;
 import vsp.utils.Enumeration.OrderType;
 import vsp.utils.Enumeration.TimeInForce;
+import vsp.utils.Enumeration.TransactionType;
 
 @RunWith(OrderedRunner.class)
 public class StockTransactions
@@ -432,7 +433,7 @@ public class StockTransactions
 	@unitTests.Order(order=13)
 	public void buyStopLimitOrderStockStopPriceMet() throws Exception
 	{
-		// make sure we have enough money
+		// make sure we have enough money (growing number of pending orders means we need more)
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
 		Order order = null;
@@ -451,7 +452,7 @@ public class StockTransactions
 				"10", 
 				Integer.toString(OrderType.STOPLIMIT.getValue()),
 				Integer.toString(TimeInForce.DAY.getValue()),
-				"900.00", // current price is 2xx.xx 
+				"950.00", // current price is 2xx.xx 
 				"106.50"
 				);
 			
@@ -477,8 +478,8 @@ public class StockTransactions
 	@unitTests.Order(order=14)
 	public void buyStopLimitOrderStockStopPriceNotMet() throws Exception
 	{
-		// make sure we have enough money
-		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
 		Order order = null;
 		try
@@ -522,19 +523,91 @@ public class StockTransactions
 	@unitTests.Order(order=15)
 	public void dayOrderExecution() throws Exception
 	{
-		// make sure we have enough money
-		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"MSFT", 
+				"10", 
+				Integer.toString(OrderType.MARKET.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()), // only DAY is supported for a MARKET order
+				"0.0",
+				"0.0"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test	
 	@unitTests.Order(order=16)
-	public void dayOrderExpired()
+	public void dayOrderExpired() throws Exception
 	{
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
+		
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;
+			VspServiceProvider.SkipProcessing = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"MSFT", 
+				"10", 
+				Integer.toString(OrderType.MARKET.getValue()),
+				Integer.toString(TimeInForce.DAY.getValue()), // only DAY is supported for a MARKET order
+				"0.0",
+				"0.0"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			StockInfoServiceProvider.ForceWithinHours = false;
+			VspServiceProvider.SkipProcessing = false;
+			
+			Date todayLastYear = new Date();
+			todayLastYear.setYear(todayLastYear.getYear() - 1);
+			Orders.changeSubmittedAndEvaluatedDates(userName, order.getId(), todayLastYear);
+			vsp.processPendingOrders(userName);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.CANCELLED);
+			
+			StockTransaction transaction = Transactions.getTransactionForOrderId(order.getId());
+			Assert.assertNotNull(transaction);
+			Assert.assertTrue(transaction.getType() == TransactionType.CANCELLATION);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+			VspServiceProvider.SkipProcessing = false;
+		}
 	}
 	
 	@Test	
@@ -544,24 +617,97 @@ public class StockTransactions
 		// make sure we have enough money
 		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
 		
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;			
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"AMZN", 
+				"10", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.GOODUNTILCANCELED.getValue()),
+				"500.00", // current price is over 200
+				"0.00"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.COMPLETE);
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+		}
 	}
 	
 	@Test	
 	@unitTests.Order(order=18)
-	public void goodUntilCancelledExpired()
+	public void goodUntilCancelledExpired() throws Exception
 	{
-		// TODO: implement
-		Assert.fail("Not yet implemented");
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
+		
+		Order order = null;
+		try
+		{
+			StockInfoServiceProvider.ForceWithinHours = true;
+			VspServiceProvider.SkipProcessing = true;
+			order = vsp.createOrder(userName, 
+				Integer.toString(OrderAction.BUY.getValue()), 
+				"MSFT", 
+				"10", 
+				Integer.toString(OrderType.LIMIT.getValue()),
+				Integer.toString(TimeInForce.GOODUNTILCANCELED.getValue()),
+				"1.00",
+				"0.0"
+				);
+			
+			Assert.assertNotNull("Unable to create order.", order);
+			Assert.assertNotNull("Order ID is null.", order.getId());
+			Assert.assertTrue(order.getState() == OrderState.PENDING);
+			StockInfoServiceProvider.ForceWithinHours = false;
+			VspServiceProvider.SkipProcessing = false;
+			
+			Date todayLastYear = new Date();
+			todayLastYear.setYear(todayLastYear.getYear() - 1);
+			Orders.changeSubmittedAndEvaluatedDates(userName, order.getId(), todayLastYear);
+			vsp.processPendingOrders(userName);
+			
+			order = Orders.getOrderById(order.getId());
+			Assert.assertNotNull(order);
+			Assert.assertTrue(order.getState() == OrderState.CANCELLED);
+			
+			StockTransaction transaction = Transactions.getTransactionForOrderId(order.getId());
+			Assert.assertNotNull(transaction);
+			Assert.assertTrue(transaction.getType() == TransactionType.CANCELLATION);
+			Assert.assertTrue(transaction.getNote().contains("limit reached"));
+		}
+		catch (Exception ex)
+		{
+			Assert.fail("Unhandled exception: " + ex.getLocalizedMessage());
+		}
+		finally
+		{
+			StockInfoServiceProvider.ForceWithinHours = false;
+			VspServiceProvider.SkipProcessing = false;
+		}
 	}
 	
 	@Test	
 	@unitTests.Order(order=19)
 	public void fillOrKillFilled() throws Exception
 	{
-		// make sure we have enough money
-		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
@@ -569,33 +715,47 @@ public class StockTransactions
 	
 	@Test	
 	@unitTests.Order(order=20)
-	public void fillOrKillKilled()
+	public void fillOrKillKilled() throws Exception
 	{
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
+		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
 	
 	@Test	
 	@unitTests.Order(order=21)
-	public void immediateOrCancel() throws Exception
+	public void immediateOrCancelExecuted() throws Exception
 	{
-		// make sure we have enough money
-		Users.updateBalance(userName, Users.DEFAULT_BALANCE);
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
+		
+		// TODO: implement
+		Assert.fail("Not yet implemented");
+	}
+	
+	@Test	
+	@unitTests.Order(order=22)
+	public void immediateOrCancelCancelled() throws Exception
+	{
+		// make sure we have enough money (growing number of pending orders means we need more)
+		Users.updateBalance(userName, Users.DEFAULT_BALANCE * 2.0);
 		
 		// TODO: implement
 		Assert.fail("Not yet implemented");
 	}
 	
 	@Test
-	@unitTests.Order(order=22)
+	@unitTests.Order(order=23)
 	public void displayUserPortfolio() throws Exception
 	{
 		// TODO: implement (user must own some stuff first)
-		Assert.fail("May need to be executed manually");
+		Assert.fail("Not yet implemented");
 	}
 	
 	@Test
-	@unitTests.Order(order=23)
+	@unitTests.Order(order=24)
 	public void showUserPendingOrdersWhenSomeExist() throws Exception
 	{
 		// TODO:  ensure that at least one order has been submitted that will remain in a pending state for a few seconds
@@ -605,7 +765,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=24)
+	@unitTests.Order(order=25)
 	public void cancelPendingOrder() throws Exception
 	{
 		List<Order> pendingOrders = vsp.getPendingOrders(userName);
@@ -621,7 +781,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=25)
+	@unitTests.Order(order=26)
 	public void sellStockMoreThanOwned()
 	{
 		// TODO: implement
@@ -629,7 +789,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=26)
+	@unitTests.Order(order=27)
 	public void sellStock()
 	{
 		// TODO: implement
@@ -637,7 +797,7 @@ public class StockTransactions
 	}
 		
 	@Test
-	@unitTests.Order(order=27)
+	@unitTests.Order(order=28)
 	public void sellStockMarketOrder()
 	{
 		// TODO: implement
@@ -645,7 +805,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=28)
+	@unitTests.Order(order=29)
 	public void sellStockLimitOrderLimitPriceMet()
 	{
 		// TODO: implement
@@ -653,7 +813,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=29)
+	@unitTests.Order(order=30)
 	public void sellStockLimitOrderLimitPriceNotMet()
 	{
 		// TODO: implement
@@ -661,7 +821,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=30)
+	@unitTests.Order(order=31)
 	public void sellStockStopLossOrderStopPriceMet()
 	{
 		// TODO: implement
@@ -669,7 +829,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=31)
+	@unitTests.Order(order=32)
 	public void sellStockStopLossOrderStopPriceNotMet()
 	{
 		// TODO: implement
@@ -677,7 +837,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=32)
+	@unitTests.Order(order=33)
 	public void sellStockStopLimitOrderStopPriceMet()
 	{
 		// TODO: implement
@@ -685,7 +845,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=33)
+	@unitTests.Order(order=34)
 	public void sellStockStopLimitOrderStopPriceNotMet()
 	{
 		// TODO: implement
@@ -693,7 +853,7 @@ public class StockTransactions
 	}
 	
 	@Test
-	@unitTests.Order(order=34)
+	@unitTests.Order(order=35)
 	public void showUserTransactionHistoryWhenSomeExist()  throws Exception
 	{		
 		// TODO:  ensure there is at least one transaction before calling this unit test (or add some default ones to database)
