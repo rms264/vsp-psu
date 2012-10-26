@@ -574,9 +574,9 @@ public class StockTransactions
 				Integer.toString(OrderAction.BUY.getValue()), 
 				"MSFT", 
 				"10", 
-				Integer.toString(OrderType.MARKET.getValue()),
-				Integer.toString(TimeInForce.DAY.getValue()), // only DAY is supported for a MARKET order
-				"0.0",
+				Integer.toString(OrderType.LIMIT.getValue()), // MARKET does not expire
+				Integer.toString(TimeInForce.DAY.getValue()),
+				"1.50",
 				"0.0"
 				);
 			
