@@ -20,6 +20,7 @@ import vsp.dataObject.StockInfo;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
+import vsp.utils.VSPUtils;
 import vsp.utils.Validate;
 import vsp.utils.Enumeration.*;
 
@@ -265,6 +266,31 @@ public class VspServiceProvider
 		SQLException, SqlRequestException
 	{
 		Users.deleteTraderAccount(userName);
+	}
+	
+	public boolean updateUserPassword(String userName ,
+			String passwordUpdate1, String passwordUpdate2) throws SQLException, 
+			SqlRequestException, ValidationException
+	{
+	  return Users.updatePassword(userName, passwordUpdate1, passwordUpdate2);
+	}
+	
+	
+	public boolean checkUserSecurityQuestion(String userName, 
+	    String securityQuestionAnswer) throws SQLException
+	{
+	  return Users.checkAnswer(userName, securityQuestionAnswer);
+	}
+	public boolean checkUserPassword(String userName, 
+      String password) throws SQLException
+  {
+    return Users.checkPassword(userName, password);
+  }
+	
+	public SecurityQuestion getUserSecurityQuestion(String userName) 
+	    throws SQLException, ValidationException
+	{
+	  return Users.requestSecurityQuestion(userName);
 	}
 	
 	public AccountData getAccountInfo(String userName) 

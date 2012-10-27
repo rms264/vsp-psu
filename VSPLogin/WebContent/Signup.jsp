@@ -56,7 +56,7 @@
     	out.println("<table>");
     	out.println("<tr><td>Enter your User Name: </td><td><input type='text' name='username' size=46 /></td></tr>");
     	out.println("<tr><td>Enter your Email: </td><td><input type='text' name='email' size=46 /></td></tr>");
-    	out.println("<tr><td>Enter your Security Question: </td><td><select name='question' width=50>");
+    	out.println("<tr><td>Select your Security Question: </td><td><select name='question' width=50>");
     	
     	out.println("<option value='-1' selected>(Please select one:)</option>");
     	for(SecurityQuestion question : SecurityQuestion.values())
@@ -68,7 +68,7 @@
     	}
     	
     	out.println("</select></td></tr>");
-    	out.println("<tr><td>Select your Security Answer: &nbsp;</td><td><input type='text' name='answer' size=46 /></td></tr>");
+    	out.println("<tr><td>Enter your Security Answer: &nbsp;</td><td><input type='text' name='answer' size=46 /></td></tr>");
     	out.println("<tr><td>Enter your Password: </td><td><input type='password' name='password1' size=46 /></td></tr>");
     	out.println("<tr><td>Confirm your Password: </td><td><input type='password' name='password2' size=46 /></td></tr>");
     	out.println("<tr><td>&nbsp;</td><td><input type='submit' value='Signup'></td></tr>");

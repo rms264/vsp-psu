@@ -16,16 +16,21 @@
 <h2>Virtual Stock Portfolio (VSP) System</h2>
 
 <%
-	Object signupObj = session.getAttribute("signup");
-	if (signupObj != null)
-	{
-		session.removeAttribute("signup");
-		String signup = signupObj.toString();
-		if (!signup.isEmpty())
-		{
-			out.println("<p>Account created successfully!  Please login.");
-		}
-	}
+  if(session.getAttribute("passwordReset") != null)
+  {
+    out.println(session.getAttribute("passwordReset"));
+    session.removeAttribute("passwordReset");
+  }
+  Object signupObj = session.getAttribute("signup");
+  if (signupObj != null)
+  {
+    session.removeAttribute("signup");
+    String signup = signupObj.toString();
+    if (!signup.isEmpty())
+    {
+      out.println("<p>Account created successfully!  Please login.");
+    }
+  }
 %>
 
 <table>
@@ -33,6 +38,7 @@
 <tr><td>Enter your Password: </td><td><input type="password" name="j_password" /></td></tr>
 <tr><td>&nbsp;</td><td><input type="submit" value="Login">&nbsp;&nbsp;</td></tr>
 <tr><td><a href="Signup.jsp"><font size=2>Create Account</font></a></td><td>&nbsp;</td></tr>
+<tr><td><a href="EnterUserName.jsp"><font size=2>Forgot Password?</font></a></td><td>&nbsp;</td></tr>
 </table>
 </form>
 </body>

@@ -43,6 +43,7 @@
     
   <ul>
 <li><a href="Portfolio.jsp">Portfolio</a></li>
+<li><a href="UpdatePassword.jsp">Change Password</a></li>
 <li><a href="Logout.jsp">Logout</a></li>
 </ul>
   
