@@ -22,7 +22,7 @@ import vsp.utils.Enumeration.SecurityQuestion;
 public class Users
 {
 	private Users(){}
-	private static final double DEFAULT_BALANCE = 20000.0; // $20,000 USD
+	public static final double DEFAULT_BALANCE = 20000.0; // $20,000 USD
 	
 	public static boolean addTraderAccount(String userName, String email, 
 			String password1, String password2, String questionNum, 
