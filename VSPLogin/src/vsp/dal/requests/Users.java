@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.AccountData;
@@ -20,7 +21,8 @@ import vsp.utils.Enumeration.SecurityQuestion;
 
 public class Users
 {
-	public static final double DEFAULT_BALANCE = 20000.0; // $20,000 USD
+	private Users(){}
+	private static final double DEFAULT_BALANCE = 20000.0; // $20,000 USD
 	
 	public static boolean addTraderAccount(String userName, String email, 
 			String password1, String password2, String questionNum, 
@@ -48,10 +50,11 @@ public class Users
 		return submitEmailUpdate(userName, email);
 	}
 	
-	public static boolean updatePassword(String userName, String password1, String password2) throws 
+	public static boolean updatePassword(String userName, 
+	    String passwordUpdate1, String passwordUpdate2) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
-		return submitPasswordUpdate(userName, password1, password2);
+	   return submitPasswordUpdate(userName, passwordUpdate1, passwordUpdate2);
 	}
 	
 	public static void updateLastDividendCheck(String userName, Date lastDividendCheck) throws 
@@ -65,6 +68,7 @@ public class Users
 	{
 		return submitSecurityUpdate(userName, questionNum, answer);
 	}
+	
 	
 	/**
 	 * @param userName
@@ -93,6 +97,19 @@ public class Users
 	}
 	
 	/**
+   * @param userName
+   * @return This query returns the email addresses from the Users table 
+   *       associated with the user
+   * @throws SQLException
+   * @throws ValidationException
+   */
+  public static String queryUserEmailAddresses(String userName) throws 
+    SQLException
+  {
+    return submitUserEmailQuery(userName);
+  }
+	
+	/**
 	 * @return This query returns all users from the Users table 
 	 * 		   that have the Trader Role
 	 * @throws SQLException
@@ -113,7 +130,70 @@ public class Users
 		return submitAccoutDataQuery(userName);
 	}
 	
-	private Users(){}
+	public static SecurityQuestion requestSecurityQuestion(String userName) 
+	    throws SQLException, ValidationException
+	{
+	  try{
+	    Integer questionID = Integer.parseInt(submitSecurityQuestionQuery(userName));
+	    return SecurityQuestion.convert(questionID);
+	  }
+	  catch(NumberFormatException e){
+	    throw new ValidationException("Security Question for user: " + userName + " not found");
+	  }
+	}
+	
+	
+	public static boolean checkPassword(String user, String password) throws SQLException{
+    Connection connection = null;
+    boolean success = false;
+    String sqlStatement = "SELECT user_pass from User WHERE user_name=?";
+    try{
+      connection = DatasourceConnection.getConnection();
+      PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+      pStmt.setString(1, user);
+      ResultSet rs = pStmt.executeQuery();
+      if(rs.first()){
+        String hashPass = rs.getString("user_pass");
+        if(VSPUtils.hashString(password).equals(hashPass)){
+          success = true;
+        }
+      }
+    }
+    finally
+    {
+      if(connection != null)
+      {
+        connection.close();
+      }
+    }
+    return success;
+  }
+  
+  public static boolean checkAnswer(String user, String answer) throws SQLException{
+    Connection connection = null;
+    boolean success = false;
+    String sqlStatement = "SELECT security_answer from User WHERE user_name=?";
+    try{
+      connection = DatasourceConnection.getConnection();
+      PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+      pStmt.setString(1, user);
+      ResultSet rs = pStmt.executeQuery();
+      if(rs.first()){
+        String hashAnswer = rs.getString("security_answer");
+        if(VSPUtils.hashString(answer).equals(hashAnswer)){
+          success = true;
+        }
+      }
+    }
+    finally
+    {
+      if(connection != null)
+      {
+        connection.close();
+      }
+    }
+    return success;
+  }
 	
 	private static boolean submitBalanceUpdate(String userName, double balance) throws 
 		SQLException, SqlRequestException
@@ -364,6 +444,87 @@ public class Users
 					"Please enter a valid email address.");
 		}
 	}
+	
+	private static String submitUserEmailQuery(String user) throws SQLException 
+	{
+    String sqlStatement = "SELECT email FROM User WHERE user_name=?";
+    Connection connection = null;
+    String result = new String();
+    try
+    {
+      connection = DatasourceConnection.getConnection();
+      PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+      pStmt.setString(1, user);  
+      ResultSet rs = pStmt.executeQuery();
+      if(rs.first())
+      {
+        result = rs.getString("email");
+      }
+      
+      return result;
+    }
+    finally
+    {
+      if(connection != null)
+      {
+        connection.close();
+      }
+    }
+  }
+	
+	private static String submitSecurityQuestionQuery(String user) throws SQLException 
+  {
+    String sqlStatement = "SELECT security_question_id FROM User WHERE user_name=?";
+    Connection connection = null;
+    String result = new String();
+    try
+    {
+      connection = DatasourceConnection.getConnection();
+      PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+      pStmt.setString(1, user);  
+      ResultSet rs = pStmt.executeQuery();
+      if(rs.first())
+      {
+        result = rs.getString("security_question_id");
+      }
+      
+      return result;
+    }
+    finally
+    {
+      if(connection != null)
+      {
+        connection.close();
+      }
+    }
+  }
+	private static String submitSecurityAnswerQuery(String user) throws SQLException 
+  {
+    String sqlStatement = "SELECT security_answer FROM User WHERE user_name=?";
+    Connection connection = null;
+    String result = new String();
+    try
+    {
+      connection = DatasourceConnection.getConnection();
+      PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+      pStmt.setString(1, user);  
+      ResultSet rs = pStmt.executeQuery();
+      if(rs.first())
+      {
+        result = rs.getString("security_answer");
+      }
+      
+      return result;
+    }
+    finally
+    {
+      if(connection != null)
+      {
+        connection.close();
+      }
+    }
+  }
+	
 	
 	private static List<String> submitTradersQuery() throws SQLException{
 		List<String> results = new ArrayList<String>();
