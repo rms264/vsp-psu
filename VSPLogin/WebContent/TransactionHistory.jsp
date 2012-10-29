@@ -55,8 +55,9 @@
 			
 			out.println("<table border=1 cellpadding=4 cellspacing=0>");
 			out.println("<tr>");
-			out.println("<td align=center><b>Date/Time</b></td>");
+			out.println("<td align=center><b>Date</b></td>");
 			out.println("<td align=center><b>Type</b></td>");
+			out.println("<td align=center><b>Action</b></td>");
 			out.println("<td align=center><b>Symbol</b></td>");
 			out.println("<td align=center><b>Name</b></td>");
 			out.println("<td align=center><b>Quantity</b></td>");
@@ -79,6 +80,16 @@
 				out.println("<tr>");
 				out.println("<td>" + sd.format(transaction.getDateTime()) + "</td>");
 				out.println("<td>" + type.toString() + "</td>");
+				
+				if (type == TransactionType.DIVIDEND)
+				{
+					out.println("<td> -- </td>");
+				}
+				else
+				{
+					out.println("<td>" + order.getAction().toString() + "</td>");
+				}
+				
 				out.println("<td>" + transaction.getStock().getStockSymbol() + "</td>");
 				out.println("<td>" + transaction.getStock().getStockDescription() + "</td>");
 				
