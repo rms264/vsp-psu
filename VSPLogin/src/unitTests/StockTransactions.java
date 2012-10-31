@@ -82,9 +82,9 @@ public class StockTransactions
 	@unitTests.Order(order=2)
 	public void getStockSearchResults()
 	{
-		List<Stock> stocks = stockInfoSP.searchForStocks("AAPL");
+		List<Stock> stocks = stockInfoSP.searchForStocks("ama");
 		Assert.assertNotNull("Unable to retrieve search results.", stocks);
-		Assert.assertTrue(stocks.size() >= 1);
+		Assert.assertTrue(stocks.size() == 5);
 	}
 	
 	@Test
