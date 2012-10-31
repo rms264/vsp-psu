@@ -175,6 +175,7 @@
   
 <ul>
 <li><a href="Portfolio.jsp">Portfolio</a></li>
+<li><a href="StockSearch.jsp">Stock Search</a></li>
 <li><a href="Order.jsp">Order Stock</a></li>
 <li><a href="TransactionHistory.jsp">Transaction History</a></li>
 <li><a href="UserInfo.jsp">User Info</a></li>

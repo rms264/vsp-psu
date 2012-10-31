@@ -16,64 +16,64 @@
 <h2>Virtual Stock Portfolio (VSP) System</h2>
  
   <h3>Stock Search</h3>
-  <%
-  	Boolean showForm = true;
+  <% 
 	StockInfoServiceProvider sp = new StockInfoServiceProvider();
 	// If process is true, attempt to validate and process the form
     if ("true".equals(request.getParameter("process"))
-    		&& !request.getParameter("stock").isEmpty())
+    		&& !request.getParameter("searchTerm").isEmpty())
     {
     	try
     	{    		
-    		List<Stock> stockLists = sp.searchForStocks(request.getParameter("stock"));    		
+    		String searchTerm = request.getParameter("searchTerm");
     		
-    		out.println("<table border=1 cellpadding=4 cellspacing=0>");
+    		out.println("<p>Search results for <b>" + searchTerm + "</b>:");
     		
-    		out.println("<tr>");
-    		out.println("<td align=center><u>Symbol</u></td>");
-    		out.println("<td align=center><u>Description</u></td>");
-    		out.println("</tr>");
-    		
-    		for (Stock stock : stockLists)
-    		{    		   	
-    	    	out.println("<tr><td>" + stock.getStockSymbol() + "</td><td>" + stock.getStockDescription() + "</td></tr>");	
-    		}    		
-    		
-	    	out.println("</table>");
-    		
-   			showForm = false;
+    		List<Stock> stockLists = sp.searchForStocks(searchTerm);
+    		if (stockLists != null && stockLists.size() > 0)
+    		{
+	    		out.println("<table border=1 cellpadding=4 cellspacing=0>");
+	    		
+	    		out.println("<tr>");
+	    		out.println("<td align=center><b>Symbol</b></td>");
+	    		out.println("<td align=center><b>Description</b></td>");
+	    		out.println("<td align=center>&nbsp;</td>");
+	    		out.println("</tr>");
+	    		
+	    		for (Stock stock : stockLists)
+	    		{    		   	
+	    	    	out.println("<tr>");
+	    	    	out.println("<td>" + stock.getStockSymbol() + "</td>");
+	    	    	out.println("<td>" + stock.getStockDescription() + "</td>");
+	    	    	out.println("<td align=center><a href='Order.jsp?action=0&symbol=" + stock.getStockSymbol() + "'>Buy</a></td>");
+	    	    	out.println("</tr>");	
+	    		}
+	    		
+		    	out.println("</table>");
+    		}
+    		else
+    		{
+    			out.println("<p><b><i>There were no search results.</i></b>");
+    		}
     	}
     	catch(Exception ex)
     	{
     		out.println("<p><font color=red>" + ex.getLocalizedMessage() + "</font>");
     	}
+    	
+    	out.println("<br>");
     }
-	if (showForm)
-    {
-		out.println("<form name='actionForm' action='" + request.getRequestURI() + "' method='POST'>");
-    	out.println("<input type='hidden' name='process' value='true' />");
-    	out.println("<table>");
-    	
-    	String symbol = request.getParameter("symbol");
-    	if (symbol == null)
-    	{
-    		symbol = "";
-    	}
-    	
-    	String action = request.getParameter("action");
-    	if (action == null)
-    	{
-    		action = "";
-    	}
-    	    	   	    
-    	out.println("<tr><td>Stock Symbol: </td><td><input type='text' value='" + symbol + "' name='stock' /></td></tr>");
-    	out.println("<tr><td>&nbsp;</td><td><input type='submit' value='Search'></td></tr>");
-    	
-    	out.println("</table>");
-    	out.println("</form>");
-    }
+	
+  	// always show search form
+	out.println("<p><form name='actionForm' action='" + request.getRequestURI() + "' method='POST'>");
+ 	out.println("<input type='hidden' name='process' value='true' />");
+ 	out.println("<table>");   	    	   	    
+ 	out.println("<tr><td>Search for: </td><td><input type='text' name='searchTerm' /></td></tr>");
+ 	out.println("<tr><td>&nbsp;</td><td><input type='submit' value='Search'></td></tr>");
+ 	out.println("</table>");
+ 	out.println("</form>"); 
   %>
 <ul>
+<li><a href="Portfolio.jsp">Portfolio</a></li>
 <li><a href="Order.jsp">Order Stock</a></li>
 <li><a href="PendingOrders.jsp">Pending Orders</a></li>
 <li><a href="TransactionHistory.jsp">Transaction History</a></li>

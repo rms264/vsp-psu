@@ -219,6 +219,7 @@
 %>
  
 <ul>
+<li><a href="StockSearch.jsp">Stock Search</a></li>
 <li><a href="Order.jsp">Order Stock</a></li>
 <li><a href="PendingOrders.jsp">Pending Orders</a></li>
 <li><a href="TransactionHistory.jsp">Transaction History</a></li>

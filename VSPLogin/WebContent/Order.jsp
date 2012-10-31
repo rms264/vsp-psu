@@ -150,6 +150,7 @@
 
 <ul>
 <li><a href="Portfolio.jsp">Portfolio</a></li>
+<li><a href="StockSearch.jsp">Stock Search</a></li>
 <li><a href="PendingOrders.jsp">Pending Orders</a></li>
 <li><a href="TransactionHistory.jsp">Transaction History</a></li>
 <li><a href="UserInfo.jsp">User Info</a></li>
