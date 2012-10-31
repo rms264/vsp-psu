@@ -19,12 +19,17 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	// used for unit testing
 	private String historyBaseUrl = "http://ichart.yahoo.com";
 	private String currentBaseUrl = "http://finance.yahoo.com";
+	private Map<String,String> supportedExchanges;
 	
 	public static boolean ForceWithinHours;
 	
 	public StockInfoServiceProvider()
 	{
-		// no implementation required
+		supportedExchanges = new HashMap<String,String>();
+		supportedExchanges.put("NSX", null);
+		supportedExchanges.put("NASDAQ", null);
+		supportedExchanges.put("AMEX", null);
+		supportedExchanges.put("NYSE", null);
 	}
 	
 	// used for unit testing
@@ -41,7 +46,6 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	
 	public boolean isWithinTradingHours()
 	{
-		//boolean withinTradingHours = true;
 		boolean withinTradingHours = false;
 		if (!ForceWithinHours)
 		{
@@ -201,7 +205,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		
 		if (data != null && data.size() == 1)
 		{
-			results = parseStockSymbolsAndNames(data.get(0));
+			results = parseStockSymbolsAndNames(data.get(0), supportedExchanges);
 		}
 		
 		return results;
@@ -306,7 +310,7 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return this.requestDailyHistoricalStockData(symbol, since);
 	}
 	
-	private static List<Stock> parseStockSymbolsAndNames(String json)
+	private static List<Stock> parseStockSymbolsAndNames(String json, Map<String,String> supportedExchanges)
 	{
 		/*YAHOO.Finance.SymbolSuggest.ssCallback(
 		 * {
@@ -350,11 +354,11 @@ public final class StockInfoServiceProvider  implements IStockInfo
 				}
 				
 				// extract pairs per entry
-				boolean stock;
+				boolean stock, supportedExchange;
 				String name, symbol;
 				for (int i = 0; i < resultItems.length; ++i)
 				{
-					stock = false;
+					supportedExchange = stock = false;
 					name = null;
 					symbol = null;
 					
@@ -377,10 +381,15 @@ public final class StockInfoServiceProvider  implements IStockInfo
 							{
 								stock = true;
 							}
+							else if (pairs[j].startsWith("exchDisp:"))
+							{
+								String exchange =  pairs[j].replace("exchDisp:", "").trim();
+								supportedExchange = supportedExchanges.containsKey(exchange);
+							}
 						}
 						
 						// extract symbol & name into a Stock instance
-						if (stock && symbol != null && name != null)
+						if (supportedExchange && stock && symbol != null && name != null)
 						{
 							symbol = symbol.replace("symbol:", "").trim();
 							name = name.replace("name:", "").trim();
