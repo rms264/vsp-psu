@@ -83,10 +83,10 @@
 		out.println("<tr>");
 		out.println("<td>Cash</td>");
 		out.println("<td>Trading Reserves</td>");
-		out.println("<td align=center>" + df.format(data.getBalance()) + "</td>");
-		out.println("<td align=center>$1.00</td>");
-		out.println("<td align=center>$0.00</td>");
-		out.println("<td align=center>$" + df.format(data.getBalance()) + "</td>");
+		out.println("<td align=right>" + data.getBalance() + "</td>");
+		out.println("<td align=right>$1.00</td>");
+		out.println("<td align=right>$0.00</td>");
+		out.println("<td align=right>$" + df.format(data.getBalance()) + "</td>");
 		out.println("<td align=center> -- </td>");
 		out.println("<td align=center> -- </td>");
 		out.println("<td align=center> -- </td>");
@@ -121,7 +121,7 @@
 								
 				out.println("<td>" + symbol + "</td>");
 				out.println("<td>" + item.getStock().getStockDescription() + "</td>");
-				out.println("<td align=center>" + item.getQuantity() + "</td>");
+				out.println("<td align=right>" + item.getQuantity() + "</td>");
 				
 				// information based on latest stock data
 				if (stockInfoMap.containsKey(symbol))
@@ -129,29 +129,29 @@
 					latestInfo = stockInfoMap.get(symbol);
 					
 					// latest price
-					out.println("<td align=center>$" + df.format(latestInfo.getLastTradePrice()) + "</td>");
+					out.println("<td align=right>$" + df.format(latestInfo.getLastTradePrice()) + "</td>");
 					// change in price
-					out.println("<td align=center>" + VSPUtils.formatColor(latestInfo.getPriceChanceSinceOpen(), df) + "</td>");
+					out.println("<td align=right>" + VSPUtils.formatColor(latestInfo.getPriceChanceSinceOpen(), df) + "</td>");
 					// latest value
 					result = latestInfo.getLastTradePrice() * item.getQuantity();
 					totalValue += result;
-					out.println("<td align=center>$" + df.format(result) + "</td>");
+					out.println("<td align=right>$" + df.format(result) + "</td>");
 					
 					// change since close (value)
 					totalCloseValue += latestInfo.getClose() * item.getQuantity();
 					result = latestInfo.getChangeSinceClosePrice() * item.getQuantity();
 					totalChangeSinceClose += result;
-					out.println("<td align=center>" + VSPUtils.formatColor(result, df) + "</td>");
+					out.println("<td align=right>" + VSPUtils.formatColor(result, df) + "</td>");
 					// change since close (percent)
-					out.println("<td align=center>" + VSPUtils.formatColor(latestInfo.getChangeSinceClosePercent(), df, true) + "</td>");
+					out.println("<td align=right>" + VSPUtils.formatColor(latestInfo.getChangeSinceClosePercent(), df, true) + "</td>");
 					
 					// change since purchase (value)
 					result = (latestInfo.getLastTradePrice() * item.getQuantity()) - item.getCostBasis();
 					totalChangeSincePurchase += result;
-					out.println("<td align=center>" + VSPUtils.formatColor(result, df) + "</td>");
+					out.println("<td align=right>" + VSPUtils.formatColor(result, df) + "</td>");
 					// change since purchase (percent)
 					result = (result / item.getCostBasis()) * 100.0;
-					out.println("<td align=center>" + VSPUtils.formatColor(result, df, true) + "</td>");
+					out.println("<td align=right>" + VSPUtils.formatColor(result, df, true) + "</td>");
 				}
 				else
 				{ // data not available
@@ -165,10 +165,10 @@
 				}
 				
 				// cost basis
-				out.println("<td align=center>$" + df.format(item.getCostBasisPerShare()) + "</td>");
+				out.println("<td align=right>$" + df.format(item.getCostBasisPerShare()) + "</td>");
 				result = item.getCostBasis();
 				totalCostBasis += result;
-				out.println("<td align=center>$" + df.format(result) + "</td>");
+				out.println("<td align=right>$" + df.format(result) + "</td>");
 				
 				// sell link
 				out.println("<td align=center><a href='Order.jsp?action=1&symbol=" + symbol + "'>Sell</a></td>");
@@ -182,13 +182,13 @@
 			out.println("<tr>");
 			out.println("<td colspan=4 align=center>&nbsp;</td>");
 			out.println("<td colspan=1 align=center><b>Total:</b></td>");
-			out.println("<td colspan=1 align=center>$" + df.format(totalValue) + "</td>");
-			out.println("<td colspan=1 align=center>" + VSPUtils.formatColor(totalChangeSinceClose, df) + "</td>");
-			out.println("<td colspan=1 align=center>" + VSPUtils.formatColor(totalChangeSinceClosePercent, df, true) + "</td>");
-			out.println("<td colspan=1 align=center>" + VSPUtils.formatColor(totalChangeSincePurchase, df) + "</td>");
-			out.println("<td colspan=1 align=center>" + VSPUtils.formatColor(totalChangeSincePurchasePercent, df, true) + "</td>");
+			out.println("<td colspan=1 align=right>$" + df.format(totalValue) + "</td>");
+			out.println("<td colspan=1 align=right>" + VSPUtils.formatColor(totalChangeSinceClose, df) + "</td>");
+			out.println("<td colspan=1 align=right>" + VSPUtils.formatColor(totalChangeSinceClosePercent, df, true) + "</td>");
+			out.println("<td colspan=1 align=right>" + VSPUtils.formatColor(totalChangeSincePurchase, df) + "</td>");
+			out.println("<td colspan=1 align=right>" + VSPUtils.formatColor(totalChangeSincePurchasePercent, df, true) + "</td>");
 			out.println("<td colspan=1 align=center> -- </td>");
-			out.println("<td colspan=1 align=center>$" + df.format(totalCostBasis) + "</td>");
+			out.println("<td colspan=1 align=right>$" + df.format(totalCostBasis) + "</td>");
 			out.println("<td colspan=1 align=center> -- </td>");
 			out.println("</tr>");
 		}
@@ -197,7 +197,7 @@
 			out.println("<tr>");
 			out.println("<td colspan=4 align=center>&nbsp;</td>");
 			out.println("<td colspan=1 align=center><b>Total:</b></td>");
-			out.println("<td colspan=1 align=center>$" + df.format(totalValue) + "</td>");
+			out.println("<td colspan=1 align=right>$" + df.format(totalValue) + "</td>");
 			out.println("<td colspan=1 align=center> -- </td>");
 			out.println("<td colspan=1 align=center> -- </td>");
 			out.println("<td colspan=1 align=center> -- </td>");

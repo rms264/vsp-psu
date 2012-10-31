@@ -193,7 +193,14 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 					data.removeQuantity(result.getQuantity());
 				}
 				
-				PortfolioEntries.updateEntry(data);
+				if (data.getQuantity() <= 0)
+				{ // user no longer owns any of the stock
+					PortfolioEntries.deleteEntry(userName, data.getStock().getStockSymbol());
+				}
+				else
+				{
+					PortfolioEntries.updateEntry(data);
+				}
 			}
 		}
 		else if (result.getCancelled())

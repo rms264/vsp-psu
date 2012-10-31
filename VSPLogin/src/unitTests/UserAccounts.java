@@ -238,4 +238,88 @@ public class UserAccounts
 			Assert.fail();
 		}
 	}
+	
+	@Test
+	@Order(order=15)
+	public void changePasswordCorrectExisting()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=16)
+	public void changePasswordIncorrectExisting()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=17)
+	public void changePasswordNewOneFailsComplexityRequirements()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=18)
+	public void changeEmailAddressWithValidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=19)
+	public void changeEmailAddressInvalidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=20)
+	public void changeEmailInvalidEmailFormat()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=21)
+	public void changeSecurityQuestionAnswerWithValidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=22)
+	public void changeSecurityQuestionAnswerWithoutAnswer()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=23)
+	public void changeSecurityQuestionAnswerWithInvalidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=24)
+	public void recoverForgottenPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=25)
+	public void recoverForgottenPasswordWithInvalidSecurityQuestionAnswer()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=26)
+	public void recoverForgottenPasswordWithInvalidEmailAddress()
+	{
+		Assert.fail();
+	}
 }
