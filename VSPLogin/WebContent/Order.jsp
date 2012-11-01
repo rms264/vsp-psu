@@ -15,16 +15,124 @@
 <script>
 <!--
 
+	function prepareFormOnLoad()
+	{
+		loadStockInfo();
+		onOrderTypeChange();
+	}
+
 	function loadStockInfo()
 	{
 		var site = 'StockInfo.jsp?stockSymbol=' + document.actionForm.stock.value;
 		document.getElementById('stockInfoFrame').src = site;
 	}
+	
+	function onOrderTypeChange()
+	{
+		var selectedIndex = document.actionForm.type.selectedIndex;
+		var selectedValue = document.actionForm.type.options[selectedIndex].value;
+		
+		var selectedOrderTypeIndex = document.actionForm.timeInForce.selectedIndex;
+		var selectedOrderType = document.actionForm.timeInForce.options[selectedOrderTypeIndex].value;
+		
+		while (document.actionForm.timeInForce.options.length > 0)
+		{ // remove all time in force items
+			document.actionForm.timeInForce.remove(0);
+		}
+		
+		var day = new Option('Day', '0', true, true);
+		var good = new Option('Good Until Canceled', '1', false, false);
+		var fill = new Option('Fill or Kill', '2', false, false);
+		var immed = new Option('Immediate or Cancel', '3', false, false);
+		
+		if (selectedValue == '0') // MARKET
+		{
+			try
+			{ // Firefox
+				document.actionForm.timeInForce.add(day, null);
+			}
+			catch (e)
+			{ // IE
+				document.actionForm.timeInForce.add(day);
+			}
+			
+			document.getElementById('limitRow').style.display='none';
+			document.actionForm.limitPrice.value = '';
+			document.getElementById('stopRow').style.display='none';
+			document.actionForm.stopPrice.value = '';
+		}
+		else if (selectedValue == '1') // LIMIT
+		{
+			try
+			{ // Firefox
+				document.actionForm.timeInForce.add(day, null);
+				document.actionForm.timeInForce.add(good, null);
+				document.actionForm.timeInForce.add(fill, null);
+				document.actionForm.timeInForce.add(immed, null);
+			}
+			catch (e)
+			{ // IE
+				document.actionForm.timeInForce.add(day);
+				document.actionForm.timeInForce.add(good);
+				document.actionForm.timeInForce.add(fill);
+				document.actionForm.timeInForce.add(immed);
+			}
+			
+			document.getElementById('limitRow').style.display='inline';
+			document.getElementById('stopRow').style.display='none';
+			document.actionForm.stopPrice.value = '';
+		}
+		else if (selectedValue == '2') // STOP
+		{
+			try
+			{ // Firefox
+				document.actionForm.timeInForce.add(day, null);
+				document.actionForm.timeInForce.add(good, null);
+			}
+			catch (e)
+			{ // IE
+				document.actionForm.timeInForce.add(day);
+				document.actionForm.timeInForce.add(good);
+			}
+			
+			document.getElementById('limitRow').style.display='none';
+			document.actionForm.limitPrice.value = '';
+			document.getElementById('stopRow').style.display='inline';
+		}
+		else if (selectedValue == '3') // STOP LIMIT
+		{
+			try
+			{ // Firefox
+				document.actionForm.timeInForce.add(day, null);
+				document.actionForm.timeInForce.add(good, null);
+			}
+			catch (e)
+			{ // IE
+				document.actionForm.timeInForce.add(day);
+				document.actionForm.timeInForce.add(good);
+			}
+			
+			document.getElementById('limitRow').style.display='inline';
+			document.getElementById('stopRow').style.display='inline';
+		}
+		
+		for (var i = 0; i < document.actionForm.timeInForce.options.length; ++i)
+		{ // select what was already selected
+			var option = document.actionForm.timeInForce.options[i];
+			if (option.value == selectedOrderType)
+			{
+				document.actionForm.timeInForce.selectedIndex = i;
+				break;
+			}
+		}
+	}
+	
+	
 
 // -->
 </script>
 </head>
-<body onLoad='loadStockInfo()'>
+<body onLoad='prepareFormOnLoad()'>
  <h2>Virtual Stock Portfolio (VSP) System</h2>
  
  <h3>Order Stock</h3>
@@ -138,15 +246,15 @@
     	out.println("<tr><td>Stock Symbol: </td><td><input type='text' value='" + symbol + "' name='stock' onBlur='loadStockInfo()' /></td></tr>");
     	out.println("<tr><td>Quantity: </td><td><input type='text' name='quantity' /></td></tr>");
     	
-    	out.println("<tr><td>Order Type: </td><td><select name='type' width=50>");
-    	out.println("<option value='" + OrderType.MARKET.getValue() + "' selected>" + OrderType.MARKET.toString() + "</option>");
-    	out.println("<option value='" + OrderType.LIMIT.getValue() + "'>" + OrderType.LIMIT.toString() + "</option>");
-    	out.println("<option value='" + OrderType.STOP.getValue() + "'>" + OrderType.STOP.toString() + "</option>");
-    	out.println("<option value='" + OrderType.STOPLIMIT.getValue() + "'>" + OrderType.STOPLIMIT.toString() + "</option>");
+    	out.println("<tr><td>Order Type: </td><td><select name='type' width=50 onChange='onOrderTypeChange()'>");
+    	out.println("<option value='0' selected>Market</option>");
+    	out.println("<option value='1'>Limit</option>");
+    	out.println("<option value='2'>Stop</option>");
+    	out.println("<option value='3'>Stop Limit</option>");
     	out.println("</td></tr>");
     	
-    	out.println("<tr><td>Limit Price: </td><td><input type='text' name='limitPrice' /></td></tr>");
-    	out.println("<tr><td>Stop Price: </td><td><input type='text' name='stopPrice' /></td></tr>");
+    	out.println("<tr id='limitRow'><td><div id='limitLabel'>Limit Price: </div></td><td><input type='text' name='limitPrice' /></td></tr>");
+    	out.println("<tr id='stopRow'><td><div id='stopLabel'>Stop Price: </div></td><td><input type='text' name='stopPrice' /></td></tr>");
     	
     	out.println("<tr><td>Time in Force: </td><td><select name='timeInForce' width=50>");
     	out.println("<option value='" + TimeInForce.DAY.getValue() + "' selected>" + TimeInForce.DAY.toString() + "</option>");
