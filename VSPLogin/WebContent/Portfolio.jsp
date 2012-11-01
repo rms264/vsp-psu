@@ -43,7 +43,11 @@
 	    	// ignore
 	    }
 	    
-		DecimalFormat df = new DecimalFormat("0.00");
+	    DecimalFormat df = new DecimalFormat("###,###,##0.00");
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+		dfs.setGroupingSeparator(',');
+		df.setDecimalFormatSymbols(dfs);
+		
 		AccountData data = vsp.getAccountInfo(userName);
 	    
 		double result;
@@ -83,7 +87,7 @@
 		out.println("<tr>");
 		out.println("<td>Cash</td>");
 		out.println("<td>Trading Reserves</td>");
-		out.println("<td align=right>" + data.getBalance() + "</td>");
+		out.println("<td align=right>" + df.format(data.getBalance()) + "</td>");
 		out.println("<td align=right>$1.00</td>");
 		out.println("<td align=right>$0.00</td>");
 		out.println("<td align=right>$" + df.format(data.getBalance()) + "</td>");
@@ -121,7 +125,7 @@
 								
 				out.println("<td>" + symbol + "</td>");
 				out.println("<td>" + item.getStock().getStockDescription() + "</td>");
-				out.println("<td align=right>" + item.getQuantity() + "</td>");
+				out.println("<td align=right>" + df.format(item.getQuantity()) + "</td>");
 				
 				// information based on latest stock data
 				if (stockInfoMap.containsKey(symbol))

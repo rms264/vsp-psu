@@ -26,7 +26,7 @@
     		if (stockInfo != null)
     		{
     			infoLoaded = true;
-    			DecimalFormat df = new DecimalFormat("0.0000");
+    			DecimalFormat df = new DecimalFormat("###,###,##0.0000");
     			DecimalFormat volumeDf = new DecimalFormat();
     			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
     			dfs.setGroupingSeparator(',');
