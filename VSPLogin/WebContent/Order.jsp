@@ -12,12 +12,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>VSP - Order Stock</title>
+<script>
+<!--
+
+	function loadStockInfo()
+	{
+		var site = 'StockInfo.jsp?stockSymbol=' + document.actionForm.stock.value;
+		document.getElementById('stockInfoFrame').src = site;
+	}
+
+// -->
+</script>
 </head>
-<body>
+<body onLoad='loadStockInfo()'>
  <h2>Virtual Stock Portfolio (VSP) System</h2>
  
  <h3>Order Stock</h3>
 
+<table cellpadding=0 cellspacing=0 border=0 width=600>
+<tr><td valign=top>
 <%
 	Boolean showForm = true;
 	String userName = request.getRemoteUser();
@@ -122,7 +135,7 @@
   	
     	out.println("</select></td></tr>");
     	   	    	
-    	out.println("<tr><td>Stock Symbol: </td><td><input type='text' value='" + symbol + "' name='stock' /></td></tr>");
+    	out.println("<tr><td>Stock Symbol: </td><td><input type='text' value='" + symbol + "' name='stock' onBlur='loadStockInfo()' /></td></tr>");
     	out.println("<tr><td>Quantity: </td><td><input type='text' name='quantity' /></td></tr>");
     	
     	out.println("<tr><td>Order Type: </td><td><select name='type' width=50>");
@@ -147,6 +160,9 @@
     	out.println("</form>");
     }
 %>
+</td>
+<td valign=top><iframe id="stockInfoFrame" src="StockInfo.jsp" frameborder=0 width=275 height=220></iframe></td>
+</table>
 
 <ul>
 <li><a href="Portfolio.jsp">Portfolio</a></li>

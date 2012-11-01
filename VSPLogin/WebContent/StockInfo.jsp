@@ -32,7 +32,7 @@
     			dfs.setGroupingSeparator(',');
     			volumeDf.setDecimalFormatSymbols(dfs);
     			
-    			out.println("<font size=1 face=Arial><table border=1 cellpadding=4 cellspacing=0 width=240>");
+    			out.println("<font size=1 face=Arial><b>Real-Time Quote</b><br><table border=1 cellpadding=4 cellspacing=0 width=240>");
     			out.println("<tr>");
     			out.println("<td colspan=2><table width=240 cellpadding=0 cellspacing=0><tr><td><font size=4><b>" + stockInfo.getSymbol() + "</b></font><br><font size=2>" + stockInfo.getStock().getStockDescription() +"</font></td>");
     			out.println("<td align=right valign=top><font size=1 face=Arial><a href='" + request.getRequestURI() + "?stockSymbol=" + stockInfo.getSymbol() + "'>Refresh</a></font></td></tr></table></td>");
@@ -75,7 +75,7 @@
 	
 	if (!infoLoaded)
 	{
-	  	out.println("<i>Please enter a valid stock symbol.</i>");
+	  	out.println("<font size=1 face=Arial><b>Real-Time Quote</b><br><br><i>Please enter a stock symbol.</i></font>");
 	}
   %>
   
