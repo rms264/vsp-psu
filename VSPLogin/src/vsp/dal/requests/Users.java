@@ -628,34 +628,50 @@ public class Users
 			
 			if(!Validate.userNameExistsInDb(userName))
 			{
-				if(!Validate.emailExistsInDb(email))
+				if (Validate.validateUserName(userName))
 				{
-					if (Validate.validatePassword(userName, password1, password2) 
-							&& Validate.validateSecurityQuestion(question)
-							&& Validate.validateSecurityAnswer(answer))
+					if(!Validate.emailExistsInDb(email))
 					{
-						connection = DatasourceConnection.getConnection();
-						PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
-						pStmt.setString(1, userName);  
-						pStmt.setString(2, VSPUtils.hashString(password1));   
-						pStmt.setString(3, email);
-						pStmt.setDate(4, date);
-						pStmt.setInt(5, question.getValue());
-						pStmt.setString(6, VSPUtils.hashString(answer));
-						pStmt.setDouble(7, DEFAULT_BALANCE);
-						pStmt.setDate(8 , date);
-					
-						int result = pStmt.executeUpdate();
-						if (result == 1)
+						if(Validate.validateEmail(email))
 						{
-							success = true;
+							if (Validate.validatePassword(userName, password1, password2) 
+									&& Validate.validateSecurityQuestion(question)
+									&& Validate.validateSecurityAnswer(answer))
+							{
+								connection = DatasourceConnection.getConnection();
+								PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+								pStmt.setString(1, userName);  
+								pStmt.setString(2, VSPUtils.hashString(password1));   
+								pStmt.setString(3, email);
+								pStmt.setDate(4, date);
+								pStmt.setInt(5, question.getValue());
+								pStmt.setString(6, VSPUtils.hashString(answer));
+								pStmt.setDouble(7, DEFAULT_BALANCE);
+								pStmt.setDate(8 , date);
+							
+								int result = pStmt.executeUpdate();
+								if (result == 1)
+								{
+									success = true;
+								}
+							}
 						}
+						else
+						{
+							throw new ValidationException(
+									"Error:  Email address is invalid.");
+						}
+					}
+					else
+					{
+						throw new ValidationException(
+								"Error:  Email address is already in use.");
 					}
 				}
 				else
 				{
 					throw new ValidationException(
-							"Error:  Email address is already in use.");
+							"Error:  User name is invalid.");
 				}
 			}
 			else
