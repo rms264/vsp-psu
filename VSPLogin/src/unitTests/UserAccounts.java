@@ -14,6 +14,7 @@ public class UserAccounts
 	private final String userName = "unitTestUser";
 	private final String secondaryUserName = "unitTestUser2";
 	private final String password = "User1234";
+	private final String password2 = "UserUser1234";
 	private final String email = "unitTestUser@unitTestUser.com";
 	private final String secondaryEmail = "unitTestUser2@unitTestUser2.com";
 	private final String securityQuestion = "0"; // favorite color
@@ -35,7 +36,7 @@ public class UserAccounts
 	
 	@Test
 	@Order(order=2)
-	public void denyNewAccountWithDuplicateUserName()
+	public void denyNewAccountWithDuplicateUserName() throws Exception
 	{
 		try
 		{
@@ -44,7 +45,7 @@ public class UserAccounts
 		}
 		catch (Exception e)
 		{
-			Assert.assertTrue(e.toString().contains("in use"));
+			Assert.assertTrue(e.getLocalizedMessage().contains("in use"));
 		}
 	}
 	
@@ -89,7 +90,7 @@ public class UserAccounts
 		}
 		catch (Exception e)
 		{
-			Assert.assertTrue(e.toString().contains("in use"));
+			Assert.assertTrue(e.getLocalizedMessage().contains("in use"));
 		}
 	}
 	
@@ -227,6 +228,120 @@ public class UserAccounts
 	
 	@Test
 	@Order(order=14)
+	public void changePasswordCorrectExisting()
+	{
+		try
+		{
+			Assert.assertTrue(vsp.checkUserPassword(userName, password));
+			Assert.assertTrue(vsp.updateUserPassword(userName, password2, password2));
+			Assert.assertTrue(vsp.checkUserPassword(userName, password2));
+		}
+		catch (Exception e)
+		{
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	@Order(order=15)
+	public void changePasswordIncorrectExisting()
+	{
+		try
+		{
+			if(vsp.checkUserPassword(userName, password))
+			{
+				Assert.assertTrue(vsp.updateUserPassword(userName, password, password));
+			}
+			
+			// should be the same as one set in previous test
+			Assert.assertTrue(vsp.checkUserPassword(userName, password2));
+		}
+		catch (Exception e)
+		{
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	@Order(order=16)
+	public void changePasswordNewOneFailsComplexityRequirements()
+	{
+		try
+		{
+			vsp.updateUserPassword(userName, "test", "test");
+			Assert.fail();
+		}
+		catch (Exception e)
+		{
+			// expected
+		}
+	}
+	
+	@Test
+	@Order(order=17)
+	public void changeEmailAddressWithValidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=18)
+	public void changeEmailAddressInvalidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=19)
+	public void changeEmailInvalidEmailFormat()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=20)
+	public void changeSecurityQuestionAnswerWithValidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=21)
+	public void changeSecurityQuestionAnswerWithoutAnswer()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=22)
+	public void changeSecurityQuestionAnswerWithInvalidPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=23)
+	public void recoverForgottenPassword()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=24)
+	public void recoverForgottenPasswordWithInvalidSecurityQuestionAnswer()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=25)
+	public void recoverForgottenPasswordWithInvalidEmailAddress()
+	{
+		Assert.fail();
+	}
+	
+	@Test
+	@Order(order=26)
 	public void deleteAccount()
 	{
 		try
@@ -237,89 +352,5 @@ public class UserAccounts
 		{
 			Assert.fail();
 		}
-	}
-	
-	@Test
-	@Order(order=15)
-	public void changePasswordCorrectExisting()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=16)
-	public void changePasswordIncorrectExisting()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=17)
-	public void changePasswordNewOneFailsComplexityRequirements()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=18)
-	public void changeEmailAddressWithValidPassword()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=19)
-	public void changeEmailAddressInvalidPassword()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=20)
-	public void changeEmailInvalidEmailFormat()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=21)
-	public void changeSecurityQuestionAnswerWithValidPassword()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=22)
-	public void changeSecurityQuestionAnswerWithoutAnswer()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=23)
-	public void changeSecurityQuestionAnswerWithInvalidPassword()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=24)
-	public void recoverForgottenPassword()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=25)
-	public void recoverForgottenPasswordWithInvalidSecurityQuestionAnswer()
-	{
-		Assert.fail();
-	}
-	
-	@Test
-	@Order(order=26)
-	public void recoverForgottenPasswordWithInvalidEmailAddress()
-	{
-		Assert.fail();
 	}
 }
