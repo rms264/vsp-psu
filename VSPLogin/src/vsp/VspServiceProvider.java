@@ -302,11 +302,18 @@ public class VspServiceProvider
 	{
 	  return Users.checkAnswer(userName, securityQuestionAnswer);
 	}
+	
+	public boolean checkUserEmail(String userName, 
+		      String email) throws SQLException
+	{
+		return Users.checkEmail(userName, email);
+	}
+	
 	public boolean checkUserPassword(String userName, 
       String password) throws SQLException
-  {
-    return Users.checkPassword(userName, password);
-  }
+	{
+		return Users.checkPassword(userName, password);
+	}
 	
 	public SecurityQuestion getUserSecurityQuestion(String userName) 
 	    throws SQLException, ValidationException
