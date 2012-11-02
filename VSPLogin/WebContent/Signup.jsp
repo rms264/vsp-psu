@@ -34,14 +34,19 @@
     	{
     		VspServiceProvider vsp = new VspServiceProvider();
     		// throws on error
-    		vsp.createTraderAccount(request.getParameter("username"), request.getParameter("password1"), 
+    		if(vsp.createTraderAccount(request.getParameter("username"), request.getParameter("password1"), 
     				request.getParameter("password2"), request.getParameter("email"), request.getParameter("question"),
-    				request.getParameter("answer"));
-
-    		session.setAttribute("signup","true");
-    		response.sendRedirect("Portfolio.jsp");
-   			showForm = false;
-   			return;
+    				request.getParameter("answer")))
+    		{
+	    		session.setAttribute("signup","true");
+	    		response.sendRedirect("Portfolio.jsp");
+	   			showForm = false;
+	   			return;
+    		}
+    		else
+    		{
+    			out.println("<p><font color=red>Unable to create account.</font>");
+    		}
     	}
     	catch(Exception ex)
     	{
