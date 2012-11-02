@@ -168,6 +168,37 @@ public class Users
     }
     return success;
   }
+	
+	public static boolean checkEmail(String user, String email) throws SQLException
+	{
+		Connection connection = null;
+	    boolean success = false;
+	    String sqlStatement = "SELECT email from User WHERE user_name=?";
+	    try
+	    {
+	    	connection = DatasourceConnection.getConnection();
+	    	PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+	    	pStmt.setString(1, user);
+	    	ResultSet rs = pStmt.executeQuery();
+	    	if(rs.first())
+	    	{
+	    		String dbEmail = rs.getString("email");
+	    		if(email.equals(dbEmail))
+	    		{
+	    			success = true;
+	    		}
+	    	}
+	    }
+	    finally
+	    {
+	      if(connection != null)
+	      {
+	        connection.close();
+	      }
+	    }
+	    
+	    return success;
+	}
   
   public static boolean checkAnswer(String user, String answer) throws SQLException{
     Connection connection = null;
