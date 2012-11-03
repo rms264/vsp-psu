@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.AccountData;
-import vsp.dataObject.PortfolioData;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.utils.VSPUtils;
@@ -21,16 +21,30 @@ import vsp.utils.Enumeration.SecurityQuestion;
 
 public class Users
 {
+  private final static String ADD_USER = "INSERT into User values(?,?,?,?,?,?,?,?)";
 	private Users(){}
 	public static final double DEFAULT_BALANCE = 20000.0; // $20,000 USD
 	
-	public static boolean addTraderAccount(String userName, String email, 
-			String password1, String password2, String questionNum, 
-			String answer) throws ValidationException, SQLException, 
-			SqlRequestException
-	{
-		return insert(userName, email, password1, password2, questionNum, answer);
-	}
+//	public static boolean addTraderAccount(String userName, String email, 
+//			String password1, String password2, String questionNum, 
+//			String answer) throws ValidationException, SQLException, 
+//			SqlRequestException
+//	{
+//		return insert(userName, email, password1, password2, questionNum, answer);
+//	}
+	
+	public static boolean addTraderAccount(AccountData userAccount) throws ValidationException, SQLException, 
+      SqlRequestException
+  {
+    return insert(userAccount.getUserName(),
+                  userAccount.getEmail(), 
+                  userAccount.getPasswordHash(),
+                  userAccount.getSecurityQuestion().getValue(),
+                  userAccount.getSignup(),
+                  userAccount.getAnswerHash(),
+                  userAccount.getBalance(),
+                  userAccount.getLastDividendCheck());
+  }
 	
 	public static boolean deleteTraderAccount(String userName) throws 
 		SQLException, SqlRequestException
@@ -246,7 +260,7 @@ public class Users
 			}
 			else
 			{
-				throw new SqlRequestException("Error: Failed to update balance for user name: " + userName);
+				throw new SqlRequestException("Failed to update balance for user name: " + userName);
 			}
 		}
 		finally
@@ -280,7 +294,7 @@ public class Users
 			}
 			else
 			{
-				throw new SqlRequestException("Error: Failed to update email for user name: " + userName);
+				throw new SqlRequestException("Failed to update email for user name: " + userName);
 			}
 		}
 		finally
@@ -311,7 +325,7 @@ public class Users
 			int result = pStmt.executeUpdate();
 			if (result != 1)
 			{
-				throw new SqlRequestException("Error: Failed to update password for user name: " + userName);
+				throw new SqlRequestException("Failed to update password for user name: " + userName);
 			}
 		}
 		finally
@@ -345,7 +359,7 @@ public class Users
 				}
 				else
 				{
-					throw new SqlRequestException("Error: Failed to update password for user name: " + userName);
+					throw new SqlRequestException("Failed to update password for user name: " + userName);
 				}
 			}
 		}
@@ -386,7 +400,7 @@ public class Users
 				}
 				else
 				{
-					throw new SqlRequestException("Error: Failed to update security question/answer for user name: " + userName);
+					throw new SqlRequestException("Failed to update security question/answer for user name: " + userName);
 				}
 			}
 		}
@@ -433,8 +447,7 @@ public class Users
 		else
 		{
 			throw new ValidationException(
-					"Error:  Username is Invalid " +
-					"Please enter a valid Username.");
+					"Username is Invalid");
 		}
 	}
 	
@@ -470,9 +483,7 @@ public class Users
 		}
 		else
 		{
-			throw new ValidationException(
-					"Error:  The email address is invalid.  " + 
-					"Please enter a valid email address.");
+			throw new ValidationException("The email address is invalid.");
 		}
 	}
 	
@@ -612,43 +623,99 @@ public class Users
 		return data;
 	}
 	
+	private static boolean validateUserInfo(String userName, String email, 
+          String password1, String password2, String questionNum, 
+          String answer) throws SQLException, ValidationException
+  {
+	  boolean valid = false;
+	  try
+	  {
+  	  SecurityQuestion question = SecurityQuestion.DEFAULT;
+  	  question = SecurityQuestion.convert(Integer.parseInt(questionNum));
+  	  if(!Validate.userNameExistsInDb(userName))
+      {
+        if (Validate.validateUserName(userName))
+        {
+          if(!Validate.emailExistsInDb(email))
+          {
+            if(Validate.validateEmail(email))
+            {
+              // these throw if there's a problem (no need to check return value)
+              Validate.validatePassword(userName, password1, password2);
+              Validate.validateSecurityQuestion(question);
+              Validate.validateSecurityAnswer(answer);
+              
+              valid = true;
+              
+            }
+            else
+            {
+              throw new ValidationException(
+                  "Email address is invalid.");
+            }
+          }
+          else
+          {
+            throw new ValidationException(
+                "Email address is already in use.");
+          }
+        }
+        else
+        {
+          throw new ValidationException(
+              "User name is invalid.");
+        }
+      }
+      else
+      {
+        throw new ValidationException(
+            "User name is already in use.");
+      }
+    }
+    catch(NumberFormatException e)
+    {
+      throw new ValidationException(
+          "Please select a security question.");
+    }
+	  return valid;
+  }
+	
 	private static boolean insert(String userName, String email, 
-					String password1, String password2, String questionNum, 
-					String answer) throws SQLException, ValidationException
+					String password, int questionNum, Date signupDate,
+					String answer, double balance, Date divCheck) throws SQLException, ValidationException
 	{
 		Connection connection = null;
 		boolean success = false;
-		SecurityQuestion question = SecurityQuestion.DEFAULT;
 		try
 		{
-			String sqlStatement = "INSERT into User values(?,?,?,?,?,?,?,?)";
-			java.sql.Date date = new java.sql.Date(new Date().getTime());
-			question = SecurityQuestion.convert(
-					Integer.parseInt(questionNum));
 			
-			if(!Validate.userNameExistsInDb(userName))
-			{
-				if (Validate.validateUserName(userName))
-				{
-					if(!Validate.emailExistsInDb(email))
-					{
-						if(Validate.validateEmail(email))
-						{
-							// these throw if there's a problem (no need to check return value)
-							Validate.validatePassword(userName, password1, password2);
-							Validate.validateSecurityQuestion(question);
-							Validate.validateSecurityAnswer(answer);
+		  java.sql.Date sqlSignUpDate = new java.sql.Date(signupDate.getTime());
+		  java.sql.Date sqlDivCheckDate = new java.sql.Date(divCheck.getTime());
+//		
+//			
+//			if(!Validate.userNameExistsInDb(userName))
+//			{
+//				if (Validate.validateUserName(userName))
+//				{
+//					if(!Validate.emailExistsInDb(email))
+//					{
+//						if(Validate.validateEmail(email))
+//						{
+//							// these throw if there's a problem (no need to check return value)
+//							Validate.validatePassword(userName, password1, password2);
+//							Validate.validateSecurityQuestion(question);
+//							Validate.validateSecurityAnswer(answer);
 
 							connection = DatasourceConnection.getConnection();
-							PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+							PreparedStatement pStmt = connection.prepareStatement(ADD_USER);
 							pStmt.setString(1, userName);  
-							pStmt.setString(2, VSPUtils.hashString(password1));   
+							pStmt.setString(2, password);   
 							pStmt.setString(3, email);
-							pStmt.setDate(4, date);
-							pStmt.setInt(5, question.getValue());
-							pStmt.setString(6, VSPUtils.hashString(answer));
-							pStmt.setDouble(7, DEFAULT_BALANCE);
-							pStmt.setDate(8 , date);
+							pStmt.setDate(4, sqlSignUpDate);
+							pStmt.setInt(5, questionNum);
+							pStmt.setString(6, answer);
+							pStmt.setDouble(7, balance);
+							pStmt.setDate(8 , sqlDivCheckDate);
 						
 							int result = pStmt.executeUpdate();
 							if (result == 1)
@@ -656,35 +723,35 @@ public class Users
 								success = true;
 							}
 						}
-						else
-						{
-							throw new ValidationException(
-									"Error:  Email address is invalid.");
-						}
-					}
-					else
-					{
-						throw new ValidationException(
-								"Error:  Email address is already in use.");
-					}
-				}
-				else
-				{
-					throw new ValidationException(
-							"Error:  User name is invalid.");
-				}
-			}
-			else
-			{
-				throw new ValidationException(
-						"Error:  User name is already in use.");
-			}
-		}
-		catch(NumberFormatException e)
-		{
-			throw new ValidationException(
-					"Error:  Please select a security question.");
-		}
+//						else
+//						{
+//							throw new ValidationException(
+//									"Error:  Email address is invalid.");
+//						}
+//					}
+//					else
+//					{
+//						throw new ValidationException(
+//								"Error:  Email address is already in use.");
+//					}
+//				}
+//				else
+//				{
+//					throw new ValidationException(
+//							"Error:  User name is invalid.");
+//				}
+//			}
+//			else
+//			{
+//				throw new ValidationException(
+//						"Error:  User name is already in use.");
+//			}
+//		}
+//		catch(NumberFormatException e)
+//		{
+//			throw new ValidationException(
+//					"Error:  Please select a security question.");
+//		}
 		finally
 		{
 			if(connection != null)
@@ -713,7 +780,7 @@ public class Users
 			}
 			else
 			{
-				throw (new SqlRequestException("Error:  Unable to delete account."));
+				throw (new SqlRequestException("Failed to delete account."));
 			}
 		}
 		finally
@@ -734,15 +801,23 @@ public class Users
 		
 		String userName = rs.getString("user_name");
 		String email = rs.getString("email");
-		Date signup = rs.getDate("signup");
-		int securityQuestion = rs.getInt("security_question_id");
+		SecurityQuestion securityQuestion =  SecurityQuestion.convert(rs.getInt("security_question_id"));
 		double balance = rs.getDouble("current_balance");
+		String passwordHash = rs.getString("user_pass");
+		String answerHash = rs.getString("security_answer");
+		java.sql.Date sqlSignupDate = rs.getDate("signup");
+		java.sql.Date sqlDivDate = rs.getDate("last_dividend_check");
 		
-		java.sql.Date sqlDate = rs.getDate("last_dividend_check");
-		java.util.Date lastDividendCheck = new java.util.Date(sqlDate.getYear(), sqlDate.getMonth(), sqlDate.getDate());
-	
-		data =  new AccountData(userName, email, signup, 
-			SecurityQuestion.convert(securityQuestion), balance, lastDividendCheck);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(sqlSignupDate);
+		Date signup = cal.getTime();
+		
+		cal.setTime(sqlDivDate);
+		Date lastDividendCheck = cal.getTime();
+		
+		data = new AccountData(userName, email, passwordHash, answerHash, 
+		    signup, securityQuestion, balance, lastDividendCheck);
+		
 		
 		return data;
 	}

@@ -8,11 +8,11 @@ import vsp.dal.DatasourceConnection;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.utils.Validate;
-import vsp.utils.Enumeration.Role;
+import vsp.utils.Enumeration.RoleType;
 
 public class Roles {
 
-	public static boolean addNewUserRole(String userName, Role role) throws 
+	public static boolean addNewUserRole(String userName, RoleType role) throws 
 		SQLException, SqlRequestException, ValidationException
 	{
 		return insert(userName, role);
@@ -20,12 +20,12 @@ public class Roles {
 	
 	private Roles(){}
 	
-	private static boolean insert(String userName, Role role) throws SQLException, 
+	private static boolean insert(String userName, RoleType role) throws SQLException, 
 		SqlRequestException, ValidationException
 	{
 		boolean success = false;
 		Connection connection = null;
-		if(role == Role.DEFAULT)
+		if(role == RoleType.DEFAULT)
 		{
 			throw new ValidationException(
 					"Error:  Please select a valid Role to insert");

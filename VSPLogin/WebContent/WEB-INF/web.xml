@@ -54,15 +54,6 @@
 <security-constraint>
   <web-resource-collection>
     <web-resource-name>VSP System</web-resource-name>
-    <url-pattern>/Signup.jsp</url-pattern>
-    <http-method>GET</http-method>
-    <http-method>POST</http-method>
-  </web-resource-collection>
-</security-constraint>
-
-<security-constraint>
-  <web-resource-collection>
-    <web-resource-name>VSP System</web-resource-name>
     <url-pattern>/EnterUserName.jsp</url-pattern>
     <http-method>GET</http-method>
     <http-method>POST</http-method>
@@ -85,6 +76,12 @@
     <url-pattern>/index.jsp</url-pattern>
     <url-pattern>/images/*</url-pattern>
     <url-pattern>/css/*</url-pattern>
+    <url-pattern>/signup</url-pattern>
+    <url-pattern>/register</url-pattern>
+    <url-pattern>/enterUserName</url-pattern>
+    <url-pattern>/submitUserName</url-pattern>
+    <url-pattern>/submitSecurityAnswer</url-pattern>
+    <url-pattern>/submitResetPassword</url-pattern>
     <http-method>GET</http-method>
     <http-method>POST</http-method>
   </web-resource-collection>
@@ -94,7 +91,7 @@
   <auth-method>FORM</auth-method>
   <realm-name>VSP System</realm-name>
   <form-login-config>
-    <form-login-page>/LoginPage.jsp</form-login-page>
+    <form-login-page>/login</form-login-page>
     <form-error-page>/LoginFailed.jsp</form-error-page>
   </form-login-config>
 </login-config>

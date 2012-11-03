@@ -87,8 +87,7 @@ public class Validate
 		if (action == null || action.isEmpty())
 		{
 			throw (new ValidationException(
-					"Error:  Please enter an answer for your security " + 
-					"question."));
+					"Please enter an answer for your security question."));
 		}
 		
 		return true;
@@ -109,25 +108,29 @@ public class Validate
 		if (password1.isEmpty())
 		{
 			throw (new ValidationException(
-					"Error:  Blank passwords are prohibited."));
+					"Blank passwords are prohibited."));
 		}
 		
 		if (!password1.equals(password2))
 		{
 			throw (new ValidationException(
-					"Error:  Passwords do not match."));
+					"Passwords do not match."));
 		}
 		
-		if (password1.length() < 8 || password1.length() > 64)
+		if (password1.length() < 8)
 		{
 			throw (new ValidationException(
-					"Error:  The password must contain 8 to 64 characters."));
+					"The password must contain at least 8 characters."));
+		}
+		else if(password1.length() > 64){
+		  throw (new ValidationException(
+          "The password must contain at most 64 characters."));
 		}
 		
 		if (userName.equals(password1))
 		{
 			throw (new ValidationException(
-					"Error:  The password cannot match the user name."));
+					"The password cannot match the user name."));
 		}
 		
 		Pattern pattern = Pattern.compile(NUM_PATTERN);
@@ -135,7 +138,7 @@ public class Validate
 		if(!matcher.find())
 		{
 			throw (new ValidationException(
-					"Error:  The password must contain at least one numeric " + 
+					"The password must contain at least one numeric " + 
 					"digit."));
 		}
 		
@@ -144,8 +147,7 @@ public class Validate
 		if(!matcher.find())
 		{
 			throw (new ValidationException(
-					"Error:  The password must contain at least one " +
-					"uppercase character."));
+					"The password must contain at least one uppercase character."));
 		}
 		
 		pattern = Pattern.compile(LOWER_PATTERN);
@@ -153,8 +155,7 @@ public class Validate
 		if(!matcher.find())
 		{
 			throw (new ValidationException(
-					"Error:  The password must contain at least one lowercase "+
-					"character."));
+					"The password must contain at least one lowercase character."));
 		}
 		
 		return true;
@@ -172,13 +173,13 @@ public class Validate
 		catch (Exception ex)
 		{
 			throw (new ValidationException(
-						"Error:  Please enter a whole number for the Limit Rice."));
+						"Please enter a whole number for the Limit Rice."));
 		}
 		
 		if (price <= 0)
 		{
 			throw (new ValidationException(
-					"Error:  Please enter a positive Limit Price."));
+					"Please enter a positive Limit Price."));
 		}
 		
 		return price;
@@ -195,13 +196,13 @@ public class Validate
 		catch (Exception ex)
 		{
 			throw (new ValidationException(
-						"Error:  Please enter a whole number for the Stop Rice."));
+						"Please enter a whole number for the Stop Rice."));
 		}
 		
 		if (price <= 0)
 		{
 			throw (new ValidationException(
-					"Error:  Please enter a positive Stop Price."));
+					"Please enter a positive Stop Price."));
 		}
 		
 		return price;
@@ -218,13 +219,13 @@ public class Validate
 		catch (Exception ex)
 		{
 			throw (new ValidationException(
-					"Error:  Please enter a whole number for the quantity."));
+					"Please enter a whole number for the quantity."));
 		}
 		
 		if (quantityParsed <= 0)
 		{
 			throw (new ValidationException(
-					"Error:  Please provide a positive quantity."));
+					"Please provide a positive quantity."));
 		}
 		
 		return Float.parseFloat(quantity);
@@ -236,7 +237,7 @@ public class Validate
 		if (question == SecurityQuestion.DEFAULT)
 		{
 			throw (new ValidationException(
-					"Error:  Please select a security question."));
+					"Please select a security question."));
 		}
 		
 		return true;
@@ -248,7 +249,7 @@ public class Validate
 		if (answer == null || answer.isEmpty())
 		{
 			throw (new ValidationException(
-					"Error:  Please enter an answer for your security " + 
+					"Please enter an answer for your security " + 
 					"question."));
 		}
 		

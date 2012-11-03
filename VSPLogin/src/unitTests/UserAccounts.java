@@ -1,9 +1,16 @@
 package unitTests;
 
+import java.util.List;
+
 import org.junit.*;
 import org.junit.runner.*;
 
 import vsp.*;
+import vsp.dataObject.AccountData;
+import vsp.form.validator.FormValidator;
+import vsp.form.validator.FormValidatorFactory;
+import vsp.form.validator.RegistrationValidator;
+import vsp.servlet.form.RegisterForm;
 
 // These are ordered because "create account" will fail after the initial run unless "delete account" is run.
 // In addition, the checks for duplicate user names and email addresses also require the initial account. 
@@ -12,21 +19,38 @@ public class UserAccounts
 {
 	private final VspServiceProvider vsp = new VspServiceProvider();
 	private final String userName = "unitTestUser";
-	private final String secondaryUserName = "unitTestUser2";
-	private final String password = "User1234";
-	private final String password2 = "UserUser1234";
+	private final String password1 = "User1234";
 	private final String email = "unitTestUser@unitTestUser.com";
-	private final String secondaryEmail = "unitTestUser2@unitTestUser2.com";
-	private final String securityQuestion = "0"; // favorite color
+	private final String securityQuestion = "0"; //favorite color
 	private final String securityAnswer = "blue";
-
+	private final String secondaryUserName = "unitTestUser2";
+	private final String password2 = "UserUser1234";
+	private final String secondaryEmail = "unitTestUser2@unitTestUser2.com";
+	
+	
 	@Test
 	@Order(order=1)
 	public void createAccount()
 	{
+	  
+	  RegisterForm registerForm = new RegisterForm(userName, 
+        password1,
+        password1,
+        email,
+        securityQuestion,
+        securityAnswer);
+
 		try
 		{
-			vsp.createTraderAccount(userName, password, password, email, securityQuestion, securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+		  List<String> errors = validator.validate(registerForm);
+		  if(errors.isEmpty()){
+		    vsp.createTraderAccount(new AccountData(registerForm));
+		  }else{
+		    for(String error : errors){
+		      Assert.fail(error);
+		    }
+		  }
 		}
 		catch (Exception e)
 		{
@@ -38,12 +62,25 @@ public class UserAccounts
 	@Order(order=2)
 	public void denyNewAccountWithDuplicateUserName() throws Exception
 	{
-		try
-		{
-			vsp.createTraderAccount(userName, password, password, email, securityQuestion, securityAnswer);
-			Assert.fail();
-		}
-		catch (Exception e)
+	  
+	  RegisterForm registerForm = new RegisterForm(userName, 
+        password1,
+        password1,
+        email,
+        securityQuestion,
+        securityAnswer);
+
+	  try
+    {
+	    FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+          Assert.assertTrue(errors.contains("User name already in use"));
+      }
+    }catch(Exception e)
 		{
 			Assert.assertTrue(e.getLocalizedMessage().contains("in use"));
 		}
@@ -53,11 +90,23 @@ public class UserAccounts
 	@Order(order=3)
 	public void denyNewAccountWithBlankPassword()
 	{
-		try
-		{
-			vsp.createTraderAccount(secondaryUserName, "", "", secondaryEmail, securityQuestion, securityAnswer);
-			Assert.fail();
-		}
+	  
+	  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+        "",
+        "",
+        secondaryEmail,
+        securityQuestion,
+        securityAnswer);
+	  try{
+	    FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+         Assert.assertTrue(errors.contains("Password must not be empty."));
+      }
+	  }
 		catch (Exception e)
 		{
 			Assert.assertTrue(e.toString().contains("Blank"));
@@ -70,8 +119,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, password, password, password, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+	        password1,
+	        password1,
+	        password1,
+	        securityQuestion,
+	        securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("The email address is invalid."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -85,8 +146,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, password, password, email, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+          password1,
+          password1,
+          email,
+          securityQuestion,
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("Email Adress already in use."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -100,8 +173,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, "asdf", "asdf", secondaryEmail, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+		      "asdf",
+		      "asdf",
+		      secondaryEmail,
+          securityQuestion,
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("The password must contain at least 8 characters."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -115,11 +200,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, 
-					"asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf", 
-					"asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf", 
-					secondaryEmail, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+          "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",
+          "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",
+          secondaryEmail,
+          securityQuestion,
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("The password must contain at most 64 characters."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -133,11 +227,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, 
-					"asdfasd1", 
-					"asdfasd1", 
-					secondaryEmail, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+          "asdfasd1",
+          "asdfasd1",
+          secondaryEmail,
+          securityQuestion,
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("The password must contain at least one uppercase character."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -151,11 +254,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, 
-					"ASDFASD1", 
-					"ASDFASD1", 
-					secondaryEmail, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+          "ASDFASD1",
+          "ASDFASD1",
+          secondaryEmail,
+          securityQuestion,
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("The password must contain at least one lowercase character."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -169,11 +281,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, 
-					"ASDFASDF", 
-					"ASDFASDF", 
-					secondaryEmail, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+          "ASDFASDF",
+          "ASDFASDF",
+          secondaryEmail,
+          securityQuestion,
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("The password must contain at least one numeric digit."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -187,8 +308,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, secondaryUserName, secondaryUserName, secondaryEmail, securityQuestion, securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+          secondaryUserName,
+          secondaryUserName,
+          secondaryEmail,
+          securityQuestion,
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("The password cannot match the user name."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -202,8 +335,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, password, password, secondaryEmail, "-1", securityAnswer);
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+		      password1,
+		      password1,
+          secondaryEmail,
+          "-1",
+          securityAnswer);
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("Please select a security question."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -217,8 +362,20 @@ public class UserAccounts
 	{
 		try
 		{
-			vsp.createTraderAccount(secondaryUserName, password, password, secondaryEmail, securityQuestion, "");
-			Assert.fail();
+		  RegisterForm registerForm = new RegisterForm(secondaryUserName, 
+          password1,
+          password1,
+          secondaryEmail,
+          securityQuestion,
+          "");
+		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
+      List<String> errors = validator.validate(registerForm);
+      if(errors.isEmpty()){
+        vsp.createTraderAccount(new AccountData(registerForm));
+        Assert.fail();
+      }else{
+        Assert.assertTrue(errors.contains("Must answer security question."));
+      }
 		}
 		catch (Exception e)
 		{
@@ -232,7 +389,7 @@ public class UserAccounts
 	{
 		try
 		{
-			Assert.assertTrue(vsp.checkUserPassword(userName, password));
+			Assert.assertTrue(vsp.checkUserPassword(userName, password1));
 			Assert.assertTrue(vsp.updateUserPassword(userName, password2, password2));
 			Assert.assertTrue(vsp.checkUserPassword(userName, password2));
 		}
@@ -248,9 +405,9 @@ public class UserAccounts
 	{
 		try
 		{
-			if(vsp.checkUserPassword(userName, password))
+			if(vsp.checkUserPassword(userName, password1))
 			{
-				Assert.assertTrue(vsp.updateUserPassword(userName, password, password));
+				Assert.assertTrue(vsp.updateUserPassword(userName, password1, password1));
 			}
 			
 			// should be the same as one set in previous test

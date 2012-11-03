@@ -1,0 +1,81 @@
+package vsp.servlet;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import vsp.servlet.form.UpdatePasswordForm;
+import vsp.servlet.handler.LoginHandler;
+import vsp.servlet.handler.LogoutHandler;
+import vsp.servlet.handler.RegisterHandler;
+import vsp.servlet.handler.ServletHandler;
+import vsp.servlet.handler.SignupHandler;
+import vsp.servlet.handler.SubmitSecurityAnswerHandler;
+import vsp.servlet.handler.SubmitUserNameHandler;
+import vsp.servlet.handler.SubmitPasswordUpdateHandler;
+import vsp.servlet.handler.UserNameFormHandler;
+
+@WebServlet(name = "VspServlet", urlPatterns = {"/login", "/signup", "/register", "/enterUserName",
+    "/submitUserName", "/submitSecurityAnswer", "/submitResetPassword", "/logout"})
+public class VspServlet extends HttpServlet {
+
+  private static final long serialVersionUID = -2836553596862059698L;
+  private final Map<String, ServletHandler> handlers = new HashMap<String, ServletHandler>();
+
+  @Override
+  public void init() {
+    handlers.put("signup", new SignupHandler());
+    handlers.put("login", new LoginHandler());
+    handlers.put("register", new RegisterHandler());
+    handlers.put("enterUserName", new UserNameFormHandler());
+    handlers.put("submitUserName", new SubmitUserNameHandler());
+    handlers.put("submitSecurityAnswer", new SubmitSecurityAnswerHandler());
+    handlers.put("submitResetPassword", new SubmitPasswordUpdateHandler());
+    handlers.put("logout", new LogoutHandler());
+    
+  }
+  
+  @Override
+  public void doGet(HttpServletRequest request, 
+          HttpServletResponse response)
+          throws IOException, ServletException {
+    
+      process(request, response);
+  }
+
+  
+  @Override
+  public void doPost(HttpServletRequest request, 
+          HttpServletResponse response)
+          throws IOException, ServletException {
+      process(request, response);
+  }
+  
+  private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    String uri = request.getRequestURI();
+    /*
+     * uri is in this form: /contextName/resourceName, 
+     * for example: /app10a/product_input. 
+     * However, in the case of a default context, the 
+     * context name is empty, and uri has this form
+     * /resourceName, e.g.: /product_input
+     */
+    int lastIndex = uri.lastIndexOf("/");
+    String action = uri.substring(lastIndex + 1); 
+    
+    ServletHandler handler = handlers.get(action);
+    handler.process(request, response);
+    if(handler.getDispatchURL() != null){
+      RequestDispatcher rd = 
+          request.getRequestDispatcher(handler.getDispatchURL());
+      rd.forward(request, response);
+    }
+  }
+}

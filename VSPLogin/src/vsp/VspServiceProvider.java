@@ -270,17 +270,26 @@ public class VspServiceProvider
 		vtsp.processPendingOrders(userName);
 	}
 	
-	public boolean createTraderAccount(String userName, String password1, 
-			String password2, String email, String question, String answer) 
-			throws ValidationException, SQLException, SqlRequestException 
+	public boolean createTraderAccount(AccountData userAccount) throws SQLException, 
+	  SqlRequestException, ValidationException
 	{
-		if(Users.addTraderAccount(userName, email, password1, password2, question, answer))
-		{
-			return Roles.addNewUserRole(userName, Role.TRADER);
-		}
-		
-		return false;
+	  if(Users.addTraderAccount(userAccount)){
+	    return Roles.addNewUserRole(userAccount.getUserName(), RoleType.TRADER);
+	  }
+	  return false;
 	}
+	
+//	public boolean createTraderAccount(String userName, String password1, 
+//			String password2, String email, String question, String answer) 
+//			throws ValidationException, SQLException, SqlRequestException 
+//	{
+//		if(Users.addTraderAccount(userName, email, password1, password2, question, answer))
+//		{
+//			return Roles.addNewUserRole(userName, RoleType.TRADER);
+//		}
+//		
+//		return false;
+//	}
 	
 	public void deleteTraderAccount(String userName) 
 			throws ValidationException,

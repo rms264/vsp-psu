@@ -389,28 +389,28 @@ public class Enumeration
 	}
 	
 	
-	public enum Role
+	public enum RoleType
 	{
 		ADMIN("admin"), 
 		TRADER("trader"),
 		DEFAULT("UNKNOWN");
 		
 		private final String roleName;
-		private Role(String roleName)
+		private RoleType(String roleName)
 		{
 			this.roleName = roleName;
 		}
 		
-		public static Role get(String roleName)
+		public static RoleType get(String roleName)
 		{
-			Role role = Role.DEFAULT;
+			RoleType role = RoleType.DEFAULT;
 			if(roleName.toLowerCase().equals(ADMIN.toString()))
 			{
-				role = Role.ADMIN;
+				role = RoleType.ADMIN;
 			}
 			else if(roleName.toLowerCase().equals(TRADER.toString()))
 			{
-				role = Role.TRADER;
+				role = RoleType.TRADER;
 			} 
 			
 			return role;

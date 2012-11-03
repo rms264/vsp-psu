@@ -216,6 +216,7 @@
 	}
 	catch(Exception ex)
 	{
+	  ex.printStackTrace();
 		out.println("<p><b><i>Unable to retrieve Portfolio:</i></b><br><font color=red>" + ex.toString() + "</font>");
 		out.println("<p>&nbsp;</p>");
 		out.println("<p>&nbsp;</p>");
@@ -228,7 +229,7 @@
 <li><a href="PendingOrders.jsp">Pending Orders</a></li>
 <li><a href="TransactionHistory.jsp">Transaction History</a></li>
 <li><a href="UserInfo.jsp">User Info</a></li>
-<li><a href="Logout.jsp">Logout</a></li>
+<li><a href="logout">Logout</a></li>
 </ul>
 </body>
 </html>

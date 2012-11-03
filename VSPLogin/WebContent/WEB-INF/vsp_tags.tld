@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+    
+    <description>VSP Tag Descriptions</description>
+    <tlib-version>1.0</tlib-version>
+    <short-name>VSP Tags</short-name>
+    <tag>
+       <name>priceFormatter</name>
+        <tag-class>vsp.tags.PriceFormatterTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>price</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>color</name>
+            <required>false</required>
+        </attribute>
+    </tag> 
+    
+    <tag>
+       <name>percentFormatter</name>
+        <tag-class>vsp.tags.PercentFormatterTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>percent</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>color</name>
+            <required>false</required>
+        </attribute>
+    </tag> 
+    
+    <tag>
+       <name>decimalFormatter</name>
+        <tag-class>vsp.tags.DecimalFormatterTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag> 
+    
+    <tag>
+       <name>dateFormatter</name>
+        <tag-class>vsp.tags.DateFormatterTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>date</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag> 
+    
+    <tag>
+       <name>latestEstimatedValueFormatter</name>
+        <tag-class>vsp.tags.LatestEstimatedValueTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>order</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>stockInfo</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag> 
+</taglib>
+
