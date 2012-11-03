@@ -6,45 +6,44 @@
 <%@ page import="vsp.*"%>
 <%@ page import="vsp.dataObject.*"%>
 <%@ page import="java.text.*" %>
-
+<%@ taglib uri="/WEB-INF/vsp_tags.tld" prefix="vspTag"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-  <head>
-    <title>VSP - User Information</title>
-  </head>
-  <body>
+<head>
+<style type="text/css">@import url("css/main.css")</style>
+<title>VSP - User Info</title>
+<body>
+  <%@ include file="headers/LoggedInHeader.jsp" %>
   
-    <h2>Virtual Stock Portfolio (VSP) System</h2>
-
-<%
-	try
-	{
-		String userName = request.getRemoteUser();
-		VspServiceProvider vsp = new VspServiceProvider();
-		// throws on error
-		AccountData data = vsp.getAccountInfo(userName);
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-		
-		out.println("<table>");
-		out.println("<tr><td align=center colspan=2><b>User Info:</b></td></tr>");
-		out.println("<tr><td>Email Address: &nbsp;&nbsp;</td><td>" + data.getEmail() + "</td></tr>");
-		out.println("<tr><td>Sign-up Date: </td><td>" + sd.format(data.getSignup()) + "</td></tr>");
-		out.println("</table>");
-	}
-	catch(Exception ex)
-	{
-		out.println("<p><font color=red>" + ex.toString() + "</font>");
-		out.println("<table>");
-		out.println("<tr><td align=center colspan=2><b>User Info:</b></td></tr>");
-		out.println("<tr><td>Email Address: &nbsp;&nbsp;</td><td>[Unable to connect]</td></tr>");
-		out.println("<tr><td>Sign-up Date: </td><td>[Unable to connect]</td></tr>");
-		out.println("</table>");
-	}
-%>
+  <c:if test="${requestScope.errors != null}">
+    <p id="errors">
+      Error(s)!
+      <ul>
+      <c:forEach var="error" items="${requestScope.errors}">
+        <li>${error}</li>
+      </c:forEach>
+      </ul>
+    </p>
+  </c:if>
+    <div id="userInfo">
+      <table>
+        <tr>
+          <td colspan=2><h3><b>User Info:</b></h3></td>
+        </tr>
+        <tr>
+          <td>Email Address: &nbsp;&nbsp;</td>
+          <td>${userAccount.email }</td>
+        </tr>
+        <tr>
+          <td>Sign-up Date: </td>
+          <vspTag:dateFormatter date="${userAccount.signup }"/>
+        </tr>
+      </table>
+    </div>
     
-  <ul>
-<li><a href="Portfolio.jsp">Portfolio</a></li>
+<ul>
 <li><a href="UpdatePassword.jsp">Change Password</a></li>
-<li><a href="Logout.jsp">Logout</a></li>
+<li><a href="viewPortfolio">Return</a></li>
 </ul>
   
   </body>

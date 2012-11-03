@@ -82,6 +82,7 @@
     <url-pattern>/submitUserName</url-pattern>
     <url-pattern>/submitSecurityAnswer</url-pattern>
     <url-pattern>/submitResetPassword</url-pattern>
+    <url-pattern>/logout</url-pattern>
     <http-method>GET</http-method>
     <http-method>POST</http-method>
   </web-resource-collection>

@@ -10,19 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vsp.servlet.form.UpdatePasswordForm;
 import vsp.servlet.handler.LoginHandler;
 import vsp.servlet.handler.LogoutHandler;
+import vsp.servlet.handler.PortfolioHandler;
 import vsp.servlet.handler.RegisterHandler;
 import vsp.servlet.handler.ServletHandler;
 import vsp.servlet.handler.SignupHandler;
 import vsp.servlet.handler.SubmitSecurityAnswerHandler;
 import vsp.servlet.handler.SubmitUserNameHandler;
 import vsp.servlet.handler.SubmitPasswordUpdateHandler;
+import vsp.servlet.handler.UpdatePasswordHandler;
+import vsp.servlet.handler.UserInfoHander;
 import vsp.servlet.handler.UserNameFormHandler;
 
 @WebServlet(name = "VspServlet", urlPatterns = {"/login", "/signup", "/register", "/enterUserName",
-    "/submitUserName", "/submitSecurityAnswer", "/submitResetPassword", "/logout"})
+    "/submitUserName", "/submitSecurityAnswer", "/submitResetPassword", "/logout", "/viewPortfolio",
+    "/viewUserInfo", "/submitUpdatePassword", "/updatePassword"})
 public class VspServlet extends HttpServlet {
 
   private static final long serialVersionUID = -2836553596862059698L;
@@ -38,6 +41,10 @@ public class VspServlet extends HttpServlet {
     handlers.put("submitSecurityAnswer", new SubmitSecurityAnswerHandler());
     handlers.put("submitResetPassword", new SubmitPasswordUpdateHandler());
     handlers.put("logout", new LogoutHandler());
+    handlers.put("viewPortfolio", new PortfolioHandler());
+    handlers.put("viewUserInfo", new UserInfoHander());
+    handlers.put("submitUpdatePassword", new SubmitPasswordUpdateHandler());
+    handlers.put("updatePassword", new UpdatePasswordHandler());
     
   }
   

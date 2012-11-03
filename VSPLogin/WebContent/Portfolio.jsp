@@ -9,13 +9,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>VSP - Portfolio</title>
-</head>
+<style type="text/css">@import url("css/main.css")</style>
+<title>VSP - Signup for an Account</title>
 <body>
- <h2>Virtual Stock Portfolio (VSP) System</h2>
+  <%@ include file="headers/LoggedInHeader.jsp" %>
  
-  <h3>Portfolio</h3>
+  <p>Welcome, ${pageContext.request.remoteUser}</p>
  
 <%
 	try
@@ -57,6 +56,8 @@
 		double totalCostBasis = 0;
 		double totalCloseValue = 0;
 	    
+		out.println("<div id='portfolio'>");
+		out.println("<h3>Portfolio</h3>");
 		out.println("<table border=1 cellpadding=4 cellspacing=0>");
 		
 		out.println("<tr>");
@@ -213,6 +214,7 @@
 		}
 		
 		out.println("</table>");
+		out.println("</div>");		
 	}
 	catch(Exception ex)
 	{
@@ -228,8 +230,7 @@
 <li><a href="Order.jsp">Order Stock</a></li>
 <li><a href="PendingOrders.jsp">Pending Orders</a></li>
 <li><a href="TransactionHistory.jsp">Transaction History</a></li>
-<li><a href="UserInfo.jsp">User Info</a></li>
-<li><a href="logout">Logout</a></li>
+<li><a href="viewUserInfo">User Info</a></li>
 </ul>
 </body>
 </html>

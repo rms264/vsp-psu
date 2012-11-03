@@ -12,7 +12,7 @@
 
   
   <div id="enterAnswer">
-    <h2>Reset Password</h2>
+    <h3>Reset Password</h3>
     <form name='submitAnswer' action="submitSecurityAnswer" method='POST'>
     <input type='hidden' name='userName' value=${userAccount.userName } />
     <table>

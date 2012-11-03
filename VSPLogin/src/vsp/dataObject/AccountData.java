@@ -10,6 +10,7 @@ import vsp.utils.Enumeration.SecurityQuestion;
 
 public final class AccountData implements Serializable
 {
+ 
   private static final long serialVersionUID = 4552953540397428117L;
   private final String userName;
 	private final String email;
@@ -69,46 +70,13 @@ public final class AccountData implements Serializable
   public Date getLastDividendCheck() {
     return lastDividendCheck;
   }
-	
-//	public AccountData(String userName, String email, Date signup, 
-//			SecurityQuestion securityQuestion, double balance, 
-//			Date lastDividendCheck, String pass)
-//	{
-//		this.userName = userName;
-//		this.email = email;
-//		this.signup = signup;
-//		this.securityQuestion = securityQuestion;
-//		this.balance = balance;
-//		this.lastDividendCheck = lastDividendCheck;
-//	}
-	
-//	public double getBalance()
-//	{
-//		return this.balance;
-//	}
-//	
-//	public String getEmail()
-//	{
-//		return this.email;
-//	}
-//	
-//	public Date getLastDividendCheck()
-//	{
-//		return this.lastDividendCheck;
-//	}
-//	
-//	public Date getSignup()
-//	{
-//		return this.signup;
-//	}
-//	
-//	public SecurityQuestion getSecurityQuestion()
-//	{
-//		return this.securityQuestion;
-//	}
-//	
-//	public String getUserName()
-//	{
-//		return this.userName;
-//	}
+  
+  @Override
+  public String toString() {
+    return "AccountData [userName=" + userName + ", email=" + email
+        + ", passwordHash=" + passwordHash + ", answerHash=" + answerHash
+        + ", signup=" + signup + ", securityQuestion=" + securityQuestion
+        + ", balance=" + balance + ", lastDividendCheck=" + lastDividendCheck
+        + "]";
+  }
 }

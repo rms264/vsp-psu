@@ -26,21 +26,41 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
     passwordForm.setPassword(request.getParameter("password"));
     passwordForm.setVerifyPassword(request.getParameter("verifyPassword"));
     
+    
+    String uri = request.getRequestURI();
+    int lastIndex = uri.lastIndexOf("/");
+    String action = uri.substring(lastIndex + 1); 
+    
     FormValidator passwordValidator = FormValidatorFactory.getUpdatePasswordValidator();
     List<String> errors = passwordValidator.validate(passwordForm);
     if(errors.isEmpty()){
       try {
         vsp.updateUserPassword(passwordForm.getUserName(), passwordForm.getPassword(), passwordForm.getVerifyPassword());
         request.setAttribute("passwordUpdate", "Password has been successfully changed");
-        dispatchUrl = "login";
+        if(action.equals("submitResetPassword")){
+          dispatchUrl = "login";
+        }
+        else if(action.equals("submitUpdatePassword")){
+          dispatchUrl = "updatePassword";
+        }
       } catch (SQLException | SqlRequestException | ValidationException e) {
         errors.add(e.getMessage());
         request.setAttribute("errors", errors);
-        dispatchUrl="Error.jsp";
+        if(action.equals("submitResetPassword")){
+          dispatchUrl="Error.jsp";
+        }
+        else if(action.equals("submitUpdatePassword")){
+          dispatchUrl = "updatePassword";
+        }
       }
     }else{
       request.setAttribute("errors", errors);
-      dispatchUrl="Error.jsp";
+      if(action.equals("submitResetPassword")){
+        dispatchUrl="Error.jsp";
+      }
+      else if(action.equals("submitUpdatePassword")){
+        dispatchUrl = "updatePassword";
+      }
     }
   }
 

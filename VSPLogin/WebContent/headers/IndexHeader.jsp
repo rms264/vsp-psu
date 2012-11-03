@@ -4,6 +4,6 @@
     <td width="25%" height="30">
       <p align="left"><a href="signup"><img src="images/signup.png" alt=""></a></td>
     <td width="25%" height="30">
-      <p align="right" ><a href="Portfolio.jsp"><img src="images/login.png" alt=""></a></td>
+      <p align="right" ><a href="viewPortfolio"><img src="images/login.png" alt=""></a></td>
   </tr>
 </table>
