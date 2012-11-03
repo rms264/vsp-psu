@@ -1,0 +1,70 @@
+
+input {
+   font-family: sans-serif;                
+}
+
+#register, #errorBlock, #resetPassword, #updatePassword {
+  text-align: left;
+	border: 1px solid #dedede;
+	background: #efefef;
+	width: 550px;
+	padding: 20px;
+	margin: 50px auto;
+}
+#errors, li-error {
+	color: red;
+}
+
+#success, li-success{
+	color: green;
+}
+
+loss{
+	text-align: center;
+	color: red;
+}
+
+gain{
+	text-align: center;
+	color:green;
+}
+
+#welcome{
+	text-align: center
+	border: 1px solid #dedede;
+  background: #ffffff;
+  width: 700px;
+  padding: 20px;
+  margin: 50px auto;
+}
+
+#login, #enterUserName, #enterAnswer, #order{
+	text-align: left;
+  border: 1px solid #dedede;
+  background: #efefef;
+  width: 400px;
+  padding: 20px;
+  margin: 50px auto;
+}
+
+#pendingOrders, #transHistory{
+	text-align: center
+	border: 1px solid #dedede;
+	background: #fdf8e6;
+	width: 950px;
+	height: 100px auto;
+	padding: 20px;
+	margin: 50px auto;
+}
+
+#portfolio {
+  text-align: center
+  border: 1px solid #dedede;
+  background: #fdf8e6;
+  width: 850px ;
+  height: 100px auto;
+  padding: 20px;
+  margin: 50px auto;
+}
+
+
