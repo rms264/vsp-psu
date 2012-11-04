@@ -1,10 +1,12 @@
 package vsp.dataObject;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public final class StockInfo
+public final class StockInfo implements Serializable
 {
-	private final String symbol;
+  private static final long serialVersionUID = -207704694786742191L;
+  private final String symbol;
 	private final String description;
 	private final double dayHigh;
 	private final double dayLow;
@@ -39,90 +41,74 @@ public final class StockInfo
 		this.lastTradePrice = lastTradePrice;
 		this.close = close;
 	}
+
+  public String getSymbol() {
+    return symbol;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public double getDayHigh() {
+    return dayHigh;
+  }
+
+  public double getDayLow() {
+    return dayLow;
+  }
+
+  public Date getExdividendDate() {
+    return exdividendDate;
+  }
+
+  public double getExdividend() {
+    return exdividend;
+  }
+
+  public double getPriceChangeSinceOpen() {
+    return priceChangeSinceOpen;
+  }
+
+  public double getPercentChangeSinceOpen() {
+    return percentChangeSinceOpen;
+  }
+
+  public double getLastTradePrice() {
+    return lastTradePrice;
+  }
+
+  public int getVolume() {
+    return volume;
+  }
+
+  public double getBid() {
+    return bid;
+  }
+
+  public double getAsk() {
+    return ask;
+  }
+
+  public double getOpen() {
+    return open;
+  }
+
+  public double getClose() {
+    return close;
+  }
 	
-	public double getAsk()
-	{
-		return this.ask;
-	}
-	
-	public double getBid()
-	{
-		return this.bid;
-	}
-	
-	public double getChangeSinceClosePrice()
-	{
-		return (this.lastTradePrice - this.close);
-	}
-	
-	public double getChangeSinceClosePercent()
-	{
-		return (this.getChangeSinceClosePrice() / this.close) * 100.0;
-	}
-	
-	public double getClose()
-	{
-		return this.close;
-	}
-	
-	public double getDayHigh()
-	{
-		return this.dayHigh;
-	}
-	
-	public double getDayLow()
-	{
-		return this.dayLow;
-	}
-	
-	public String getDescription()
-	{
-		return this.description;
-	}
-	
-	public double getExdividend()
-	{
-		return this.exdividend;
-	}
-	
-	// null if stock doesn't offer dividends
-	public Date getExdividendDate()
-	{
-		return this.exdividendDate;
-	}
-	
-	public double getLastTradePrice()
-	{
-		return this.lastTradePrice;
-	}
-	
-	public double getOpen()
-	{
-		return this.open;
-	}
-	
-	public double getPercentChangeSinceOpen()
-	{
-		return this.percentChangeSinceOpen;
-	}
-	
-	public double getPriceChanceSinceOpen()
-	{
-		return this.priceChangeSinceOpen;
-	}
-	
-	public Stock getStock()
-	{
-		return new Stock(this.symbol, this.description);
-	}
-	
-	public String getSymbol()
-	{
-		return this.symbol;
-	}
-	
-	public int getVolume()
-	{
-		return this.volume;
-	}
+  public double getChangeSinceClosePrice()
+  {
+    return (this.lastTradePrice - this.close);
+  }
+  
+  public double getChangeSinceClosePercent()
+  {
+    return (this.getChangeSinceClosePrice() / this.close) * 100.0;
+  }
+  public Stock getStock()
+  {
+  return new Stock(this.symbol, this.description);
+  }
 }

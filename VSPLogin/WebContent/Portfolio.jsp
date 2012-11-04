@@ -136,7 +136,7 @@
 					// latest price
 					out.println("<td align=right>$" + df.format(latestInfo.getLastTradePrice()) + "</td>");
 					// change in price
-					out.println("<td align=right>" + VSPUtils.formatColor(latestInfo.getPriceChanceSinceOpen(), df) + "</td>");
+					out.println("<td align=right>" + VSPUtils.formatColor(latestInfo.getPriceChangeSinceOpen(), df) + "</td>");
 					// latest value
 					result = latestInfo.getLastTradePrice() * item.getQuantity();
 					totalValue += result;
@@ -226,10 +226,10 @@
 %>
  
 <ul>
-<li><a href="StockSearch.jsp">Stock Search</a></li>
-<li><a href="Order.jsp">Order Stock</a></li>
-<li><a href="PendingOrders.jsp">Pending Orders</a></li>
-<li><a href="TransactionHistory.jsp">Transaction History</a></li>
+<li><a href="stockSearch">Stock Search</a></li>
+<li><a href="order">Order Stock</a></li>
+<li><a href="pendingOrders">Pending Orders</a></li>
+<li><a href="transactionHistory">Transaction History</a></li>
 <li><a href="viewUserInfo">User Info</a></li>
 </ul>
 </body>

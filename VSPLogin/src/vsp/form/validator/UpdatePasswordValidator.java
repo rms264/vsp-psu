@@ -3,7 +3,6 @@ package vsp.form.validator;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import vsp.exception.ValidationException;
 import vsp.servlet.form.JspForm;

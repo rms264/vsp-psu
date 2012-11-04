@@ -5,18 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.PortfolioData;
 import vsp.dataObject.Stock;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
-import vsp.utils.VSPUtils;
 import vsp.utils.Validate;
-import vsp.utils.Enumeration.SecurityQuestion;
 
 public class PortfolioEntries {
 

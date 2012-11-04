@@ -2,10 +2,8 @@ package vsp.dataObject;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import vsp.utils.Enumeration.OrderAction;
-import vsp.utils.Enumeration.TimeInForce;
 
 final class MarketOrderExecutor extends OrderExecutor
 {

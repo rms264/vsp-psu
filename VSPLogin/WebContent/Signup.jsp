@@ -14,11 +14,11 @@
 <body>
   <%@ include file="headers/CancelHeader.jsp" %>
 <div id="register">
-  <c:if test="${requestScope.errors != null}">
+  <c:if test="${errors != null}">
         <p id="errors">
         Error(s)!
         <ul>
-        <c:forEach var="error" items="${requestScope.errors}">
+        <c:forEach var="error" items="${errors}">
             <li>${error}</li>
         </c:forEach>
         </ul>

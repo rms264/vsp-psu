@@ -47,6 +47,15 @@ gain{
   margin: 50px auto;
 }
 
+#order{
+  text-align: left;
+  border: 1px solid #dedede;
+  background: #efefef;
+  width: 550px;
+  padding: 20px;
+  margin: 50px auto;
+}
+
 #pendingOrders, #transHistory{
 	text-align: center
 	border: 1px solid #dedede;
@@ -62,6 +71,16 @@ gain{
   border: 1px solid #dedede;
   background: #fdf8e6;
   width: 850px ;
+  height: 100px auto;
+  padding: 20px;
+  margin: 50px auto;
+}
+
+#stockSearch {
+	text-align: center
+  border: 1px solid #dedede;
+  background: #fdf8e6;
+  width: 400px ;
   height: 100px auto;
   padding: 20px;
   margin: 50px auto;

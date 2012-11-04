@@ -1,9 +1,9 @@
 package vsp.dataObject;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.wsdl.Types;
 

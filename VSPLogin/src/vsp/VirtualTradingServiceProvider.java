@@ -1,12 +1,9 @@
 package vsp;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import vsp.dal.requests.Orders;
 import vsp.dal.requests.PortfolioEntries;
@@ -14,7 +11,6 @@ import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
 import vsp.dataObject.DividendInfo;
-import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.IStockInfo;
 import vsp.dataObject.IUserBalance;
 import vsp.dataObject.Order;
@@ -22,8 +18,6 @@ import vsp.dataObject.OrderExecutor;
 import vsp.dataObject.OrderExecutorFactory;
 import vsp.dataObject.OrderResult;
 import vsp.dataObject.PortfolioData;
-import vsp.dataObject.Stock;
-import vsp.dataObject.StockInfo;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
@@ -43,8 +37,8 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 	public void processDividends(String userName)
 		throws SQLException, SqlRequestException
 	{
-		Date today = new Date();
-		today = new Date(today.getYear(), today.getMonth(), today.getDate());
+	  Calendar cal = Calendar.getInstance();
+		Date today = cal.getTime();
 		
 		AccountData data = Users.requestAccountData(userName);
 		Date lastDividendCheck = data.getLastDividendCheck();
@@ -55,7 +49,7 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 			{				
 				for (PortfolioData stock : ownedStocks)
 				{
-					ProcessDividendForHolding(stock, data.getLastDividendCheck());
+					ProcessDividendForHolding(stock, lastDividendCheck);
 				}
 			}
 			

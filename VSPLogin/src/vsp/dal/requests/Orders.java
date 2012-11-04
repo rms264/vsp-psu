@@ -3,7 +3,6 @@ package vsp.dal.requests;
 import vsp.dal.DatasourceConnection;
 import vsp.dataObject.Order;
 import vsp.dataObject.Stock;
-import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.utils.Validate;
@@ -14,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -334,10 +334,14 @@ public class Orders
 		String id = rs.getString("order_id");
 		String userName = rs.getString("user_name");
 		Stock stock = Stocks.getStock(rs.getString("stock_symbol"));
-		Date sqlSubDate = rs.getDate("date_submitted");
-		java.util.Date subDate = new java.util.Date(sqlSubDate.getYear(), sqlSubDate.getMonth(), sqlSubDate.getDate());
-		Date sqlLastEvalDate = rs.getDate("last_evaluated");
-		java.util.Date lastEvalDate = new java.util.Date(sqlLastEvalDate.getYear(), sqlLastEvalDate.getMonth(), sqlLastEvalDate.getDate());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(rs.getDate("date_submitted"));	
+		java.util.Date subDate = cal.getTime();
+		
+		cal.setTime(rs.getDate("last_evaluated"));
+		java.util.Date lastEvalDate = cal.getTime();
+		
 		OrderState state = OrderState.convert(rs.getInt("state"));
 		float quantity = rs.getFloat("quantity");
 		OrderAction action = OrderAction.convert(rs.getInt("action"));

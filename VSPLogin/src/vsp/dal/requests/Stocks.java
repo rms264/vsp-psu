@@ -12,7 +12,6 @@ import vsp.dataObject.Stock;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.utils.Validate;
-import vsp.utils.Enumeration.RoleType;
 
 public class Stocks {
 	

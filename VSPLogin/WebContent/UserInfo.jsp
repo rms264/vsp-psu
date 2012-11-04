@@ -42,7 +42,7 @@
     </div>
     
 <ul>
-<li><a href="UpdatePassword.jsp">Change Password</a></li>
+<li><a href="updatePassword">Change Password</a></li>
 <li><a href="viewPortfolio">Return</a></li>
 </ul>
   

@@ -13,7 +13,6 @@ import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
 import vsp.form.validator.FormValidator;
 import vsp.form.validator.FormValidatorFactory;
-import vsp.form.validator.RegistrationValidator;
 import vsp.servlet.form.RegisterForm;
 
 

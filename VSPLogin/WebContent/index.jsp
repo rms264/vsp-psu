@@ -13,7 +13,7 @@
   <h1 align="center">Welcome to the Virtual Stock Portfolio</h1>
 </div>
 <div id=welcome>
-  <p>TODO: Write a Welcom Message</p>
+  <p>TODO: Write a Welcome Message</p>
 </div>
 
 </body>

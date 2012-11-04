@@ -17,6 +17,51 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag> 
+    <tag>
+       <name>refreshStockTag</name>
+        <tag-class>vsp.servlet.tag.RefreshStockTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>uri</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>stockSymbol</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag> 
+    <tag>
+       <name>decimalFormatTag</name>
+        <tag-class>vsp.servlet.tag.DecimalFormatTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>color</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>percent</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+    </tag> 
+    <tag>
+       <name>volumeFormatTag</name>
+        <tag-class>vsp.servlet.tag.VolumeFormatTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag> 
     
 </taglib>
 

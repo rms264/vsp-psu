@@ -15,16 +15,8 @@ public abstract class OrderExecutor
 	protected Date getDateOneDayInTheFuture(Date dateToMove)
 	{
 		Calendar currDtCal = Calendar.getInstance();
-	    currDtCal.set(Calendar.HOUR_OF_DAY, 0);
-	    currDtCal.set(Calendar.MINUTE, 0);
-	    currDtCal.set(Calendar.SECOND, 0);
-	    currDtCal.set(Calendar.MILLISECOND, 0);
-	    currDtCal.set(Calendar.MONTH, dateToMove.getMonth());
-	    currDtCal.set(Calendar.DAY_OF_MONTH, dateToMove.getDate());
-	    currDtCal.set(Calendar.YEAR, dateToMove.getYear() + 1900);
-	    
-	    currDtCal.add(Calendar.DAY_OF_YEAR, 1);
-	    
-	    return currDtCal.getTime();
+		currDtCal.setTime(dateToMove);
+		currDtCal.add(Calendar.DAY_OF_YEAR, 1);
+	  return currDtCal.getTime();
 	}
 }

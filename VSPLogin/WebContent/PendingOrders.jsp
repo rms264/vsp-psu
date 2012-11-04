@@ -13,12 +13,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style type="text/css">@import url("css/main.css")</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>VSP - Pending Orders</title>
 </head>
 <body>
- <h2>Virtual Stock Portfolio (VSP) System</h2>
- 
+ <%@ include file="headers/LoggedInHeader.jsp" %>
+ <div id="pendingOrders">
  <h3>Pending Orders</h3>
  
 <%
@@ -173,13 +174,13 @@
 	}
 %>
   
+ </div>
 <ul>
-<li><a href="Portfolio.jsp">Portfolio</a></li>
-<li><a href="StockSearch.jsp">Stock Search</a></li>
-<li><a href="Order.jsp">Order Stock</a></li>
-<li><a href="TransactionHistory.jsp">Transaction History</a></li>
-<li><a href="UserInfo.jsp">User Info</a></li>
-<li><a href="Logout.jsp">Logout</a></li>
+<li><a href="viewPortfolio">Portfolio</a></li>
+<li><a href="stockSearch">Stock Search</a></li>
+<li><a href="order">Order Stock</a></li>
+<li><a href="transactionHistory">Transaction History</a></li>
+<li><a href="viewUserInfo">User Info</a></li>
 </ul>
 </body>
 </html>

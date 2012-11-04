@@ -10,6 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style type="text/css">@import url("css/main.css")</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>VSP - Order Stock</title>
 <script>
@@ -23,7 +24,7 @@
 
 	function loadStockInfo()
 	{
-		var site = 'StockInfo.jsp?stockSymbol=' + document.actionForm.stock.value;
+		var site = 'viewStockInfo?stockSymbol=' + document.actionForm.stock.value;
 		document.getElementById('stockInfoFrame').src = site;
 	}
 	
@@ -133,8 +134,8 @@
 </script>
 </head>
 <body onLoad='prepareFormOnLoad()'>
- <h2>Virtual Stock Portfolio (VSP) System</h2>
- 
+<%@ include file="headers/LoggedInHeader.jsp" %>
+<div id="order">
  <h3>Order Stock</h3>
 
 <table cellpadding=0 cellspacing=0 border=0 width=600>
@@ -271,14 +272,13 @@
 </td>
 <td valign=top><iframe id="stockInfoFrame" src="StockInfo.jsp" frameborder=0 width=275 height=220></iframe></td>
 </table>
-
+</div> 
 <ul>
-<li><a href="Portfolio.jsp">Portfolio</a></li>
-<li><a href="StockSearch.jsp">Stock Search</a></li>
-<li><a href="PendingOrders.jsp">Pending Orders</a></li>
-<li><a href="TransactionHistory.jsp">Transaction History</a></li>
-<li><a href="UserInfo.jsp">User Info</a></li>
-<li><a href="Logout.jsp">Logout</a></li>
+<li><a href="viewPortfolio">Portfolio</a></li>
+<li><a href="stockSearch">Stock Search</a></li>
+<li><a href="pendingOrders">Pending Orders</a></li>
+<li><a href="transactionHistory">Transaction History</a></li>
+<li><a href="viewUserInfo">User Info</a></li>
 </ul>
 </body>
 </html>

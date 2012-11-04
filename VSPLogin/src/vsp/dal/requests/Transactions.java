@@ -4,17 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import vsp.dal.DatasourceConnection;
-import vsp.dataObject.*;
-import vsp.exception.*;
-import vsp.utils.VSPUtils;
-import vsp.utils.Validate;
-import vsp.utils.Enumeration.SecurityQuestion;
+import vsp.dataObject.Order;
+import vsp.dataObject.Stock;
+import vsp.dataObject.StockTransaction;
+import vsp.exception.SqlRequestException;
 import vsp.utils.Enumeration.TransactionType;
 
 public class Transactions
@@ -291,8 +290,11 @@ public class Transactions
 		String userName = rs.getString("user_name");
 		String id = rs.getString("transaction_id");
 		Stock stock = Stocks.getStock(rs.getString("stock_symbol"));
-		java.sql.Date sqlDate = rs.getDate("date");
-		java.util.Date date = new java.util.Date(sqlDate.getYear(), sqlDate.getMonth(), sqlDate.getDate());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(rs.getDate("date"));
+		java.util.Date date = cal.getTime();
+		
 		float quantity = rs.getFloat("quantity");
 		double pricePerShare = rs.getDouble("price_per_share");
 		double totalValue = rs.getDouble("total_value");

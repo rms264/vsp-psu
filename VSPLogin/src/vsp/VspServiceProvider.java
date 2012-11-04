@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import vsp.dal.requests.Orders;
 import vsp.dal.requests.PortfolioEntries;
@@ -21,9 +20,13 @@ import vsp.dataObject.StockInfo;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.exception.ValidationException;
-import vsp.utils.VSPUtils;
+import vsp.utils.Enumeration.OrderAction;
+import vsp.utils.Enumeration.OrderState;
+import vsp.utils.Enumeration.OrderType;
+import vsp.utils.Enumeration.RoleType;
+import vsp.utils.Enumeration.SecurityQuestion;
+import vsp.utils.Enumeration.TimeInForce;
 import vsp.utils.Validate;
-import vsp.utils.Enumeration.*;
 
 
 public class VspServiceProvider
