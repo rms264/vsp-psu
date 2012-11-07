@@ -59,7 +59,7 @@ gain{
 #pendingOrders, #transHistory{
 	text-align: center
 	border: 1px solid #dedede;
-	background: #fdf8e6;
+	background: #efefef;
 	width: 950px;
 	height: 100px auto;
 	padding: 20px;
@@ -69,8 +69,8 @@ gain{
 #portfolio {
   text-align: center
   border: 1px solid #dedede;
-  background: #fdf8e6;
-  width: 850px ;
+  background: #efefef;
+  width: 875px ;
   height: 100px auto;
   padding: 20px;
   margin: 50px auto;
@@ -79,7 +79,7 @@ gain{
 #stockSearch {
 	text-align: center
   border: 1px solid #dedede;
-  background: #fdf8e6;
+  background: #efefef;
   width: 400px ;
   height: 100px auto;
   padding: 20px;
