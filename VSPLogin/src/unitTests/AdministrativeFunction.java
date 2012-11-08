@@ -36,14 +36,14 @@ public class AdministrativeFunction
 	
 	@Test
 	@Order(order=2)
-	public void changeEmail()
+	public void changePasswordInvalid()
 	{
 		fail("Not yet implemented");		
 	}
 	
 	@Test
 	@Order(order=3)
-	public void changePassword()
+	public void changePasswordValid()
 	{
 		fail("Not yet implemented");		
 	}
