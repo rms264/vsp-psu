@@ -25,7 +25,7 @@ import vsp.servlet.handler.SubmitUserNameHandler;
 import vsp.servlet.handler.SubmitPasswordUpdateHandler;
 import vsp.servlet.handler.TransactionHistoryHandler;
 import vsp.servlet.handler.UpdatePasswordHandler;
-import vsp.servlet.handler.UserInfoHander;
+import vsp.servlet.handler.UserInfoHandler;
 import vsp.servlet.handler.UserNameFormHandler;
 
 @WebServlet(name = "VspServlet", urlPatterns = {"/login", "/signup", "/register", "/enterUserName",
@@ -48,7 +48,7 @@ public class VspServlet extends HttpServlet {
     handlers.put("submitResetPassword", new SubmitPasswordUpdateHandler());
     handlers.put("logout", new LogoutHandler());
     handlers.put("viewPortfolio", new PortfolioHandler());
-    handlers.put("viewUserInfo", new UserInfoHander());
+    handlers.put("viewUserInfo", new UserInfoHandler());
     handlers.put("submitUpdatePassword", new SubmitPasswordUpdateHandler());
     handlers.put("updatePassword", new UpdatePasswordHandler());
     handlers.put("viewStockInfo", new StockInfoHandler());

@@ -36,7 +36,17 @@ public class Transactions
 		return submitTransactionQuery(transactionId);
 	}
 	
-	public static List<StockTransaction> getTransactionsForUser(String userName) throws
+	public static List<StockTransaction> getTransactionsForUserandStockBetweenDates(
+	    String userName, String symbol, Date after, Date before) throws SQLException, SqlRequestException{
+	  return submitUserTransactionsQueryBetweenDates(userName, symbol, after, before);
+	}
+	
+	public static List<StockTransaction> getTransactionsForUserandStockBeforeDate(
+      String userName, String symbol, Date before) throws SQLException, SqlRequestException{
+    return submitUserTransactionsQueryBeforeDate(userName, symbol, before);
+  }
+	
+	public static List<StockTransaction> getAllTransactionsForUser(String userName) throws
 		SqlRequestException, SQLException
 	{
 		return submitUserTransactionsQuery(userName);
@@ -54,6 +64,17 @@ public class Transactions
 		return submitExecutedUserTransactionsQuery(userName, symbol, after);
 	}
 	
+	public static List<StockTransaction> getAllExecutedTransactionsForUserAndStock(String userName, String symbol)
+	    throws SqlRequestException, SQLException
+	  {
+	    return submitAllExecutedUserTransactionsQuery(userName, symbol);
+	  }
+	
+	
+	public static StockTransaction getInitialExecutedTransaction(String user, String symbol) throws SQLException, SqlRequestException{
+	  return submitInitialExecutedTransactionsQuery(user, symbol);
+	  
+	}
 	public static StockTransaction getTransactionForOrderId(String orderId) throws
 		SqlRequestException, SQLException
 	{
@@ -212,6 +233,80 @@ public class Transactions
 		return transactions;
 	}
 	
+	private static List<StockTransaction> submitUserTransactionsQueryBetweenDates(
+	    String userName, String symbol, Date after, Date before) throws
+	    SQLException, SqlRequestException
+{
+  Connection connection = null;
+  List<StockTransaction> transactions = new ArrayList<StockTransaction>();
+  try
+  {
+    // do not include cancellations
+    java.sql.Date afterDate = new java.sql.Date(after.getTime());
+    java.sql.Date beforeDate = new java.sql.Date(before.getTime());
+    String sqlStatement = "SELECT * FROM Transaction WHERE user_name=? AND stock_symbol=? AND date between ? and ? AND type=2 ORDER BY date DESC";
+    connection = DatasourceConnection.getConnection();
+    PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+    pStmt.setString(1, userName);
+    pStmt.setString(2, symbol);
+    pStmt.setDate(3, afterDate);
+    pStmt.setDate(4, beforeDate);
+    ResultSet rs = pStmt.executeQuery();
+    
+    StockTransaction transaction = null;
+    while (rs.next())
+    {
+      transaction = getTransactionFromResultSet(rs);
+      transactions.add(transaction);
+    }
+  }
+  finally
+  {
+    if(connection != null)
+    {
+      connection.close();
+    }
+  }
+  
+  return transactions;
+}
+	
+	private static List<StockTransaction> submitUserTransactionsQueryBeforeDate(
+      String userName, String symbol, Date before) throws
+      SQLException, SqlRequestException
+{
+  Connection connection = null;
+  List<StockTransaction> transactions = new ArrayList<StockTransaction>();
+  try
+  {
+    // do not include cancellations
+    java.sql.Date beforeDate = new java.sql.Date(before.getTime());
+    String sqlStatement = "SELECT * FROM Transaction WHERE user_name=? AND stock_symbol=? AND date <= ? AND type=2 ORDER BY date ASC";
+    connection = DatasourceConnection.getConnection();
+    PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+    pStmt.setString(1, userName);
+    pStmt.setString(2, symbol);
+    pStmt.setDate(3, beforeDate);
+    ResultSet rs = pStmt.executeQuery();
+    
+    StockTransaction transaction = null;
+    while (rs.next())
+    {
+      transaction = getTransactionFromResultSet(rs);
+      transactions.add(transaction);
+    }
+  }
+  finally
+  {
+    if(connection != null)
+    {
+      connection.close();
+    }
+  }
+  
+  return transactions;
+}
+	
 	private static List<StockTransaction> submitUserDividendsTransactionsQuery(String userName, String symbol, Date after) throws
 		SQLException, SqlRequestException
 	{
@@ -281,6 +376,69 @@ public class Transactions
 		
 		return transactions;
 	}
+	
+	private static List<StockTransaction> submitAllExecutedUserTransactionsQuery(String userName, String symbol) throws
+  SQLException, SqlRequestException
+{
+  Connection connection = null;
+  List<StockTransaction> transactions = new ArrayList<StockTransaction>();
+  try
+  {
+    // do not include cancellations
+    String sqlStatement = "SELECT * FROM Transaction WHERE user_name=? AND stock_symbol=? AND type=2 ORDER BY date DESC";
+    connection = DatasourceConnection.getConnection();
+    PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+    pStmt.setString(1, userName);
+    pStmt.setString(2, symbol);
+    ResultSet rs = pStmt.executeQuery();
+    
+    StockTransaction transaction = null;
+    while (rs.next())
+    {
+      transaction = getTransactionFromResultSet(rs);
+      transactions.add(transaction);
+    }
+  }
+  finally
+  {
+    if(connection != null)
+    {
+      connection.close();
+    }
+  }
+  
+  return transactions;
+}
+	private static StockTransaction submitInitialExecutedTransactionsQuery(String userName, String symbol) throws
+  SQLException, SqlRequestException
+{
+  Connection connection = null;
+  StockTransaction transaction = null; 
+  try
+  {
+    // do not include cancellations
+    String sqlStatement = "SELECT * FROM Transaction WHERE date=(SELECT MIN(date FROM Transaction where user_name=? and stock_symbol=? and type=2)";
+    connection = DatasourceConnection.getConnection();
+    PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
+    pStmt.setString(1, userName);
+    pStmt.setString(2, symbol);
+    ResultSet rs = pStmt.executeQuery();
+    
+    while (rs.first())
+    {
+      transaction = getTransactionFromResultSet(rs);
+    }
+  }
+  finally
+  {
+    if(connection != null)
+    {
+      connection.close();
+    }
+  }
+  
+  return transaction;
+}
 	
 	private static StockTransaction getTransactionFromResultSet(ResultSet rs) throws
 		SQLException, SqlRequestException

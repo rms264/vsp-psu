@@ -62,7 +62,7 @@ public class StockTransactions
 		Assert.assertTrue(orders.size() == 0);
 		
 		// ensure all transactions are gone
-		List<StockTransaction> transactions = Transactions.getTransactionsForUser(userName);
+		List<StockTransaction> transactions = Transactions.getAllTransactionsForUser(userName);
 		Assert.assertNotNull(transactions);
 		Assert.assertTrue(transactions.size() == 0);
 		

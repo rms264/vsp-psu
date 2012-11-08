@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import vsp.dataObject.AccountData;
 
-public class UserInfoHander extends BaseServletHandler implements
+public class UserInfoHandler extends BaseServletHandler implements
     ServletHandler {
 
   @Override

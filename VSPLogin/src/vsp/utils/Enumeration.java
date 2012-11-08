@@ -421,4 +421,9 @@ public class Enumeration
 			return roleName;
 		}
 	}
+	
+	public enum TimeType{
+	  DAY,WEEK,MONTH,YEAR;
+	  
+	}
 }

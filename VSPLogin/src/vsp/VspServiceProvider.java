@@ -376,6 +376,6 @@ public class VspServiceProvider
 	public List<StockTransaction> getTransactionHistory(String userName)
 			throws SQLException, SqlRequestException
 	{
-		return Transactions.getTransactionsForUser(userName);
+		return Transactions.getAllTransactionsForUser(userName);
 	}
 }

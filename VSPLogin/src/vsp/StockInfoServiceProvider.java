@@ -1,9 +1,20 @@
 package vsp;
 
-import java.io.*;
-import java.net.*;
-import java.text.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import vsp.dataObject.DividendInfo;
 import vsp.dataObject.HistoricalStockInfo;
@@ -77,16 +88,19 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return withinTradingHours;
 	}
 	
-	public List<DividendInfo> requestHistoricalDividendInfoSince(String symbol, Date since)
+	public List<DividendInfo> requestHistoricalDividendInfoSince(String symbol, 
+	    Date _since)
 	{
-		Date today = new Date();
+		Calendar today = Calendar.getInstance();
+		Calendar since = Calendar.getInstance();
+		since.setTime(_since);
 		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
-		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
-		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
-		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
-		historyUrl += "&d=" + Integer.toString(today.getMonth()); // month
-		historyUrl += "&e=" + Integer.toString(today.getDate()); // day
-		historyUrl += "&f=" + Integer.toString(today.getYear() + 1900); // year
+		historyUrl += "&a=" + Integer.toString(since.get(Calendar.MONTH)); // month
+		historyUrl += "&b=" + Integer.toString(since.get(Calendar.DATE)); // day
+		historyUrl += "&c=" + Integer.toString(since.get(Calendar.YEAR)); // year
+		historyUrl += "&d=" + Integer.toString(today.get(Calendar.MONTH)); // month
+		historyUrl += "&e=" + Integer.toString(today.get(Calendar.DATE)); // day
+		historyUrl += "&f=" + Integer.toString(today.get(Calendar.YEAR)); // year
 		historyUrl += "&g=v"; // dividend history 
 		
 		List<DividendInfo> results = new ArrayList<DividendInfo>();
@@ -119,13 +133,16 @@ public final class StockInfoServiceProvider  implements IStockInfo
 	
 	public HistoricalStockInfo requestHistoricalStockDataForDay(String symbol, Date day)
 	{
+	  Calendar date = Calendar.getInstance();
+	  date.setTime(day);
+	  
 		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
-		historyUrl += "&a=" + Integer.toString(day.getMonth()); // month
-		historyUrl += "&b=" + Integer.toString(day.getDate()); // day
-		historyUrl += "&c=" + Integer.toString(day.getYear() + 1900); // year
-		historyUrl += "&d=" + Integer.toString(day.getMonth()); // month
-		historyUrl += "&e=" + Integer.toString(day.getDate()); // day
-		historyUrl += "&f=" + Integer.toString(day.getYear() + 1900); // year
+		historyUrl += "&a=" + Integer.toString(date.get(Calendar.MONTH)); // month
+		historyUrl += "&b=" + Integer.toString(date.get(Calendar.DATE)); // day
+		historyUrl += "&c=" + Integer.toString(date.get(Calendar.YEAR)); // year
+		historyUrl += "&d=" + Integer.toString(date.get(Calendar.MONTH)); // month
+		historyUrl += "&e=" + Integer.toString(date.get(Calendar.DATE)); // day
+		historyUrl += "&f=" + Integer.toString(date.get(Calendar.YEAR)); // year
 		historyUrl += "&g=d"; // daily history 
 		
 		HistoricalStockInfo result = null;
@@ -148,16 +165,18 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return result;
 	}
 	
-	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date since)
+	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date _since)
 	{
-		Date today = new Date();
+	  Calendar today = Calendar.getInstance();
+	  Calendar since = Calendar.getInstance();
+	  since.setTime(_since);
 		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
-		historyUrl += "&a=" + Integer.toString(since.getMonth()); // month
-		historyUrl += "&b=" + Integer.toString(since.getDate()); // day
-		historyUrl += "&c=" + Integer.toString(since.getYear() + 1900); // year
-		historyUrl += "&d=" + Integer.toString(today.getMonth()); // month
-		historyUrl += "&e=" + Integer.toString(today.getDate()); // day
-		historyUrl += "&f=" + Integer.toString(today.getYear() + 1900); // year
+		historyUrl += "&a=" + Integer.toString(since.get(Calendar.MONTH)); // month
+		historyUrl += "&b=" + Integer.toString(since.get(Calendar.DATE)); // day
+		historyUrl += "&c=" + Integer.toString(since.get(Calendar.YEAR)); // year
+		historyUrl += "&d=" + Integer.toString(today.get(Calendar.MONTH)); // month
+		historyUrl += "&e=" + Integer.toString(today.get(Calendar.DATE)); // day
+		historyUrl += "&f=" + Integer.toString(today.get(Calendar.YEAR)); // year
 		historyUrl += "&g=d"; // daily history 
 		
 		List<HistoricalStockInfo> results = new ArrayList<HistoricalStockInfo>();
