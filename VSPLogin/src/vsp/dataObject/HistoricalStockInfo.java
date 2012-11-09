@@ -57,4 +57,11 @@ public final class HistoricalStockInfo
 	{
 		return this.volume;
 	}
+
+  @Override
+  public String toString() {
+    return "HistoricalStockInfo [date=" + date + ", dayLow=" + dayLow
+        + ", dayHigh=" + dayHigh + ", open=" + open + ", close=" + close
+        + ", adjustedClose=" + adjustedClose + ", volume=" + volume + "]";
+  }
 }

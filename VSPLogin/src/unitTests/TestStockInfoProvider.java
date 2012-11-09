@@ -139,4 +139,26 @@ class TestStockInfoProvider implements IStockInfo
 		return this.wrapped.requestHistoricalDividendInfoSince(symbol, since);
 	}
 
+  @Override
+  public List<HistoricalStockInfo> requestWeeklyHistoricalStockData(
+      String symbol, Date since) {
+    if (this.controlHistoricalStockData)
+    {
+      return this.historicalStockInfo;
+    }
+  
+    return this.wrapped.requestWeeklyHistoricalStockData(symbol, since);
+  }
+
+  @Override
+  public List<HistoricalStockInfo> requestMonthlyHistoricalStockData(
+      String symbol, Date since) {
+    if (this.controlHistoricalStockData)
+    {
+      return this.historicalStockInfo;
+    }
+  
+    return this.wrapped.requestMonthlyHistoricalStockData(symbol, since);
+  }
+
 }

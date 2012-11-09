@@ -417,14 +417,14 @@ public class Transactions
   try
   {
     // do not include cancellations
-    String sqlStatement = "SELECT * FROM Transaction WHERE date=(SELECT MIN(date FROM Transaction where user_name=? and stock_symbol=? and type=2)";
+    String sqlStatement = "SELECT * FROM Transaction WHERE date=(SELECT MIN(date) FROM Transaction where user_name=? and stock_symbol=? and type=2)";
     connection = DatasourceConnection.getConnection();
     PreparedStatement pStmt = connection.prepareStatement(sqlStatement);
     pStmt.setString(1, userName);
     pStmt.setString(2, symbol);
     ResultSet rs = pStmt.executeQuery();
     
-    while (rs.first())
+    if (rs.first())
     {
       transaction = getTransactionFromResultSet(rs);
     }
