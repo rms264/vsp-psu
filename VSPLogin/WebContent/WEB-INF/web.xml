@@ -24,6 +24,9 @@
   <auth-constraint>
     <role-name>trader</role-name>
   </auth-constraint>
+  <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  </user-data-constraint>
 </security-constraint>
 
 <security-constraint>
@@ -36,6 +39,9 @@
   <auth-constraint>
     <role-name>admin</role-name>
   </auth-constraint>
+  <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  </user-data-constraint>
 </security-constraint>
 
 <security-constraint>
@@ -49,6 +55,9 @@
      <role-name>admin</role-name>
      <role-name>trader</role-name>
   </auth-constraint>
+  <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  </user-data-constraint>
 </security-constraint>
 
 <security-constraint>
@@ -58,6 +67,9 @@
     <http-method>GET</http-method>
     <http-method>POST</http-method>
   </web-resource-collection>
+  <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  </user-data-constraint>
 </security-constraint>
 
 <security-constraint>
@@ -67,6 +79,21 @@
     <http-method>GET</http-method>
     <http-method>POST</http-method>
   </web-resource-collection>
+  <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  </user-data-constraint>
+</security-constraint>
+
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>VSP System</web-resource-name>
+    <url-pattern>/images/*</url-pattern>
+    <url-pattern>/css/*</url-pattern>
+    <http-method>GET</http-method>
+  </web-resource-collection>
+  <user-data-constraint>
+    <transport-guarantee>NONE</transport-guarantee>
+  </user-data-constraint>
 </security-constraint>
 
 <security-constraint>
@@ -74,8 +101,6 @@
     <web-resource-name>VSP System</web-resource-name>
     <url-pattern>/ResetUserPassword.jsp</url-pattern>
     <url-pattern>/index.jsp</url-pattern>
-    <url-pattern>/images/*</url-pattern>
-    <url-pattern>/css/*</url-pattern>
     <url-pattern>/signup</url-pattern>
     <url-pattern>/register</url-pattern>
     <url-pattern>/enterUserName</url-pattern>
@@ -86,6 +111,9 @@
     <http-method>GET</http-method>
     <http-method>POST</http-method>
   </web-resource-collection>
+  <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  </user-data-constraint>
 </security-constraint>
 
 <login-config>
