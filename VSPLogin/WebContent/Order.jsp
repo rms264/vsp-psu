@@ -135,6 +135,14 @@
 </head>
 <body onLoad='prepareFormOnLoad()'>
 <%@ include file="headers/LoggedInHeader.jsp" %>
+
+  <table width=100%>
+  <tr><td colspan=2>Welcome, ${pageContext.request.remoteUser}</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="viewPortfolio">Portfolio</a> | 
+  <a href="stockSearch">Stock Search</a> | <b>Order Stock</b> | <a href="pendingOrders">Pending Orders</a> | 
+  <a href="transactionHistory">Transaction History</a> | <a href="viewUserInfo">User Info</a></td></tr>
+  </table>
+
 <div id="order">
  <h3>Order Stock</h3>
 
@@ -273,12 +281,5 @@
 <td valign=top><iframe id="stockInfoFrame" src="StockInfo.jsp" frameborder=0 width=275 height=220></iframe></td>
 </table>
 </div> 
-<ul>
-<li><a href="viewPortfolio">Portfolio</a></li>
-<li><a href="stockSearch">Stock Search</a></li>
-<li><a href="pendingOrders">Pending Orders</a></li>
-<li><a href="transactionHistory">Transaction History</a></li>
-<li><a href="viewUserInfo">User Info</a></li>
-</ul>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">@import url("css/main.css")</style>
-<title>VSP Answer Security Question</title>
+<title>VSP - Answer Security Question</title>
 </head>
 <%@ include file="headers/CancelHeader.jsp" %>
 <body>

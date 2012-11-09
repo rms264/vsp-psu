@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">@import url("css/main.css")</style>
-<title>VSP Reset Password</title>
+<title>VSP - Reset Password</title>
 </head>
 <%@ include file="headers/CancelHeader.jsp" %>
 <body>

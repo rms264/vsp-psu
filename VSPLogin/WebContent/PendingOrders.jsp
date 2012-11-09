@@ -19,9 +19,17 @@
 </head>
 <body>
  <%@ include file="headers/LoggedInHeader.jsp" %>
+
+  <table width=100%>
+  <tr><td colspan=2>Welcome, ${pageContext.request.remoteUser}</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="viewPortfolio">Portfolio</a> | 
+  <a href="stockSearch">Stock Search</a> | <a href="order">Order Stock</a> | <b>Pending Orders</b> | 
+  <a href="transactionHistory">Transaction History</a> | <a href="viewUserInfo">User Info</a></td></tr>
+  </table>
+
  <div id="pendingOrders">
  <h3>Pending Orders</h3>
- 
+
 <%
 	try
 	{
@@ -175,12 +183,5 @@
 %>
   
  </div>
-<ul>
-<li><a href="viewPortfolio">Portfolio</a></li>
-<li><a href="stockSearch">Stock Search</a></li>
-<li><a href="order">Order Stock</a></li>
-<li><a href="transactionHistory">Transaction History</a></li>
-<li><a href="viewUserInfo">User Info</a></li>
-</ul>
 </body>
 </html>

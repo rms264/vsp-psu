@@ -6,10 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">@import url("css/main.css")</style>
-<title>VSP Reset Password</title>
+<title>VSP - Reset Password</title>
 </head>
-<%@ include file="headers/LoggedInHeader.jsp" %>
 <body>
+<%@ include file="headers/LoggedInHeader.jsp" %>
+
+    <table width=100%>
+  <tr><td colspan=2>Welcome, ${pageContext.request.remoteUser}</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="viewPortfolio">Portfolio</a> | 
+  <a href="stockSearch">Stock Search</a> | <a href="order">Order Stock</a> | 
+  <a href="pendingOrders">Pending Orders</a> | <a href="transactionHistory">Transaction History</a> | 
+  <b><a href="viewUserInfo">User Info</a></b></td></tr>
+  <tr><td colspan=2>&nbsp;</td></tr>
+  <tr><td>&nbsp;</td><td align=center><b>Change Password</b> | Change Email | Change Security Question</td></tr>
+  </table>
+
   <div id="resetPassword">
     <h3>Update Password</h3>
     <form name='actionForm' action='submitUpdatePassword' method='POST'>
@@ -48,11 +59,5 @@
     </table>
     </form>
   </div>
-
-
-<ul>
-<li><a href="viewUserInfo">Return</a></li>
-</ul>
-
 </body>
 </html>

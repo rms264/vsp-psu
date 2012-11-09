@@ -6,10 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">@import url("css/main.css")</style>
-<title>VSP Logout</title>
+<title>VSP - Logout</title>
 </head>
-<%@ include file="headers/LogoutHeader.jsp" %>
 <body background="images/background.png">
+<%@ include file="headers/LogoutHeader.jsp" %>
 
   <div id=login>
     <p>User: <i>${userName }</i> has been logged out.</p>

@@ -8,10 +8,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">@import url("css/main.css")</style>
-<title>VSP Stock Search</title>
+<title>VSP - Stock Search</title>
 </head>
 <body>
   <%@ include file="headers/LoggedInHeader.jsp" %>
+  
+    <table width=100%>
+  <tr><td colspan=2>Welcome, ${pageContext.request.remoteUser}</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="viewPortfolio">Portfolio</a> | 
+  <b>Stock Search</b> | <a href="order">Order Stock</a> | <a href="pendingOrders">Pending Orders</a> | 
+  <a href="transactionHistory">Transaction History</a> | <a href="viewUserInfo">User Info</a></td></tr>
+  </table>
+  
   <div id="stockSearch">
     <h3>Stock Search</h3> 
     <c:if test="${queryString != null}">
@@ -50,14 +58,6 @@
       </tr>
     </table>
     </form>
-  </div>
-<ul>
-<li><a href="viewPortfolio">Portfolio</a></li>
-<li><a href="order">Order Stock</a></li>
-<li><a href="pendingOrders">Pending Orders</a></li>
-<li><a href="transactionHistory">Transaction History</a></li>
-<li><a href="viewUserInfo">User Info</a></li>
-</ul>
-  
+  </div>  
 </body>
 </html>

@@ -17,6 +17,14 @@
 </head>
 <body>
 <%@ include file="headers/LoggedInHeader.jsp" %>
+
+  <table width=100%>
+  <tr><td colspan=2>Welcome, ${pageContext.request.remoteUser}</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="viewPortfolio">Portfolio</a> | 
+  <a href="stockSearch">Stock Search</a> | <a href="order">Order Stock</a> | 
+  <a href="pendingOrders">Pending Orders</a> | <b>Transaction History</b> | <a href="viewUserInfo">User Info</a></td></tr>
+  </table>
+
 <div id="transHistory">
  <h3>Transaction History</h3>
  
@@ -136,12 +144,5 @@
 	}
 %>
  </div>
-<ul>
-<li><a href="viewPortfolio">Portfolio</a></li>
-<li><a href="stockSearch">Stock Search</a></li>
-<li><a href="order">Order Stock</a></li>
-<li><a href="pendingOrders">Pending Orders</a></li>
-<li><a href="viewUserInfo">User Info</a></li>
-</ul>
 </body>
 </html>

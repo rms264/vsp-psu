@@ -10,11 +10,16 @@
 <html>
 <head>
 <style type="text/css">@import url("css/main.css")</style>
-<title>VSP - Signup for an Account</title>
+<title>VSP - Portfolio</title>
 <body>
   <%@ include file="headers/LoggedInHeader.jsp" %>
  
-  <p>Welcome, ${pageContext.request.remoteUser}</p>
+  <table width=100%>
+  <tr><td colspan=2>Welcome, ${pageContext.request.remoteUser}</td></tr>
+  <tr><td>&nbsp;</td><td align=center><b>Portfolio</b> | <a href="stockSearch">Stock Search</a> | 
+  <a href="order">Order Stock</a> | <a href="pendingOrders">Pending Orders</a> | 
+  <a href="transactionHistory">Transaction History</a> | <a href="viewUserInfo">User Info</a></td></tr>
+  </table>
  
 <%
 	try
@@ -224,13 +229,6 @@
 		out.println("<p>&nbsp;</p>");
 	}
 %>
- 
-<ul>
-<li><a href="stockSearch">Stock Search</a></li>
-<li><a href="order">Order Stock</a></li>
-<li><a href="pendingOrders">Pending Orders</a></li>
-<li><a href="transactionHistory">Transaction History</a></li>
-<li><a href="viewUserInfo">User Info</a></li>
-</ul>
+
 </body>
 </html>

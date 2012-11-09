@@ -15,6 +15,16 @@
 <body>
   <%@ include file="headers/LoggedInHeader.jsp" %>
   
+    <table width=100%>
+  <tr><td colspan=2>Welcome, ${pageContext.request.remoteUser}</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="viewPortfolio">Portfolio</a> | 
+  <a href="stockSearch">Stock Search</a> | <a href="order">Order Stock</a> | 
+  <a href="pendingOrders">Pending Orders</a> | <a href="transactionHistory">Transaction History</a> | 
+  <b>User Info</b></td></tr>
+  <tr><td colspan=2>&nbsp;</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="updatePassword">Change Password</a> | Change Email | Change Security Question</td></tr>
+  </table>
+  
   <c:if test="${requestScope.errors != null}">
     <p id="errors">
       Error(s)!
@@ -39,12 +49,6 @@
           <vspTag:dateFormatter date="${userAccount.signup }"/>
         </tr>
       </table>
-    </div>
-    
-<ul>
-<li><a href="updatePassword">Change Password</a></li>
-<li><a href="viewPortfolio">Return</a></li>
-</ul>
-  
+    </div>  
   </body>
 </html>

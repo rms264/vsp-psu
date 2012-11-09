@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">@import url("css/main.css")</style>
-<title>VSP Stock Info</title>
+<title>VSP - Stock Info</title>
 </head>
 <body>
     <c:if test="${stockInfo != null }">
