@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 import vsp.StockInfoServiceProvider;
+import vsp.dal.requests.Stocks;
 import vsp.dal.requests.Transactions;
+import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
 import vsp.dataObject.Stock;
 import vsp.dataObject.StockInfo;
@@ -15,6 +17,19 @@ public class CompoundAnualGrowthRate {
 
   private final AccountData userAccount;
   private final StockInfoServiceProvider stockService = new StockInfoServiceProvider();
+  
+  public static void main(String[] args){
+    try {
+      AccountData account = Users.requestAccountData("rob");
+      Stock stock = Stocks.getStock("GE");
+      CompoundAnualGrowthRate cagr = new CompoundAnualGrowthRate(account);
+      System.out.println("CAGR: " + cagr.calculate(stock));
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
   public CompoundAnualGrowthRate(AccountData user){
     userAccount = user;
   }
@@ -43,7 +58,7 @@ public class CompoundAnualGrowthRate {
       if(years <= 0){
         years = 1;
       }
-      return (Math.pow((endingValue/beginingValue), (1/years)) -1);
+      return (Math.pow((endingValue/beginingValue), (1.0/years)) -1);
       
       
     } catch (SQLException e) {

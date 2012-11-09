@@ -2,6 +2,7 @@ package vsp.statistics;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import vsp.StockInfoServiceProvider;
@@ -10,6 +11,7 @@ import vsp.dal.requests.Stocks;
 import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
+import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.PortfolioData;
 import vsp.dataObject.Stock;
 import vsp.dataObject.StockInfo;
@@ -25,12 +27,21 @@ public class ReturnOnInvestment {
     try {
       AccountData account = Users.requestAccountData("rob");
       ReturnOnInvestment roi = new ReturnOnInvestment(account);
-      Stock stock = Stocks.getStock("WMT");
+      Stock stock = Stocks.getStock("GE");
       System.out.println("ROI = " + roi.getReturnOnInvestment(stock));
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    
+    StockInfoServiceProvider stockService = new StockInfoServiceProvider();
+    Calendar cal = Calendar.getInstance();
+    cal.clear();
+    cal.set(2008, 9, 30);
+    HistoricalStockInfo stockInfo = stockService.requestHistoricalStockDataForDay("GE", cal.getTime());
+    
+    System.out.println(stockInfo.toString());
+    
     
   }
   

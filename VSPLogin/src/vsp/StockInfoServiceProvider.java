@@ -165,47 +165,62 @@ public final class StockInfoServiceProvider  implements IStockInfo
 		return result;
 	}
 	
-	public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date _since)
-	{
-	  Calendar today = Calendar.getInstance();
-	  Calendar since = Calendar.getInstance();
-	  since.setTime(_since);
-		String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
-		historyUrl += "&a=" + Integer.toString(since.get(Calendar.MONTH)); // month
-		historyUrl += "&b=" + Integer.toString(since.get(Calendar.DATE)); // day
-		historyUrl += "&c=" + Integer.toString(since.get(Calendar.YEAR)); // year
-		historyUrl += "&d=" + Integer.toString(today.get(Calendar.MONTH)); // month
-		historyUrl += "&e=" + Integer.toString(today.get(Calendar.DATE)); // day
-		historyUrl += "&f=" + Integer.toString(today.get(Calendar.YEAR)); // year
-		historyUrl += "&g=d"; // daily history 
-		
-		List<HistoricalStockInfo> results = new ArrayList<HistoricalStockInfo>();
-		List<String> data = null;
-		try
-		{
-			data = getDataFromUrl(historyUrl);
-		}
-		catch (Exception ex)
-		{
-			// ignore
-		}
-		
-		if (data != null && data.size() > 1)
-		{
-			HistoricalStockInfo stockInfo = null;
-			// ignore the first row as it's just the column headers
-			for (int i = 1; i < data.size(); ++i)
-			{
-				stockInfo = parseHistoricalStockInfo(data.get(i));
-				if (stockInfo != null)
-				{
-					results.add(stockInfo);
-				}
-			}
-		}
-		
-		return results;
-	}
+	public List<HistoricalStockInfo> requestMonthlyHistoricalStockData(String symbol, Date day)
+  {
+    return requestHistoricalStockData(symbol, day, "m");
+  }
+  
+  public List<HistoricalStockInfo> requestWeeklyHistoricalStockData(String symbol, Date day)
+  {
+    return requestHistoricalStockData(symbol, day, "w");
+  }
+  
+  public List<HistoricalStockInfo> requestDailyHistoricalStockData(String symbol, Date day)
+  {
+    return requestHistoricalStockData(symbol, day, "d");
+  }
+  
+  public List<HistoricalStockInfo> requestHistoricalStockData(String symbol, Date _since, String interval)
+  {
+    Calendar today = Calendar.getInstance();
+    Calendar since = Calendar.getInstance();
+    since.setTime(_since);
+    String historyUrl = historyBaseUrl + "/table.csv?s=" + symbol;
+    historyUrl += "&a=" + Integer.toString(since.get(Calendar.MONTH)); // month
+    historyUrl += "&b=" + Integer.toString(since.get(Calendar.DATE)); // day
+    historyUrl += "&c=" + Integer.toString(since.get(Calendar.YEAR)); // year
+    historyUrl += "&d=" + Integer.toString(today.get(Calendar.MONTH)); // month
+    historyUrl += "&e=" + Integer.toString(today.get(Calendar.DATE)); // day
+    historyUrl += "&f=" + Integer.toString(today.get(Calendar.YEAR)); // year
+    historyUrl += "&g=" + interval;  
+    
+    List<HistoricalStockInfo> results = new ArrayList<HistoricalStockInfo>();
+    List<String> data = null;
+    try
+    {
+      data = getDataFromUrl(historyUrl);
+    }
+    catch (Exception ex)
+    {
+      // ignore
+    }
+    
+    if (data != null && data.size() > 1)
+    {
+      HistoricalStockInfo stockInfo = null;
+      // ignore the first row as it's just the column headers
+      for (int i = 1; i < data.size(); ++i)
+      {
+        stockInfo = parseHistoricalStockInfo(data.get(i));
+        if (stockInfo != null)
+        {
+          results.add(stockInfo);
+        }
+      }
+    }
+    
+    return results;
+  }
 	
 	public List<Stock> searchForStocks(String search)
 	{

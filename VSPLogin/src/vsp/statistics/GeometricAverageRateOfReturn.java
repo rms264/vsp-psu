@@ -1,14 +1,19 @@
 package vsp.statistics;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import vsp.StockInfoServiceProvider;
+import vsp.dal.requests.Stocks;
 import vsp.dal.requests.Transactions;
+import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
 import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.Stock;
+import vsp.dataObject.StockInfo;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.utils.Enumeration.TimeType;
@@ -18,12 +23,29 @@ public class GeometricAverageRateOfReturn {
   private StockTransaction initialInvestment;
   private final StockInfoServiceProvider stockService = new StockInfoServiceProvider();
   
+  public static void main(String[] args){
+    try {
+      AccountData account = Users.requestAccountData("rob");
+      Stock stock = Stocks.getStock("GE");
+      GeometricAverageRateOfReturn gror = new GeometricAverageRateOfReturn(account);
+      System.out.println("GROR: " + gror.getAverageRateOfReturn(stock, TimeType.DAY));
+      System.out.println("GROR: " + gror.getAverageRateOfReturn(stock, TimeType.WEEK));
+      System.out.println("GROR: " + gror.getAverageRateOfReturn(stock, TimeType.MONTH));
+      System.out.println("GROR: " + gror.getAverageRateOfReturn(stock, TimeType.YEAR));
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
+  
   public GeometricAverageRateOfReturn(AccountData user) {
     userAccount = user;
   }
   
  
   public double getAverageRateOfReturn(Stock stock, TimeType calendarTimeType){
+    List<HistoricalStockInfo> stockData;
     try {
       initialInvestment = 
           Transactions.getInitialExecutedTransaction(
@@ -32,13 +54,25 @@ public class GeometricAverageRateOfReturn {
       
       switch (calendarTimeType){
       case DAY:{
-        return getDailyAverageRateOfReturn(stock);
+        stockData = stockService.requestDailyHistoricalStockData(
+                                  stock.getStockSymbol(), 
+                                  initialInvestment.getDateTime());
+        
+        return calculateGROR(stockData);
       }
       case WEEK:{
-        return getWeeklyAverageRateOfReturn(stock);
+        stockData = stockService.requestWeeklyHistoricalStockData(
+                                  stock.getStockSymbol(), 
+                                  initialInvestment.getDateTime());
+
+        return calculateGROR(stockData);
       }
       case MONTH:{
-        return getMonthlyAverageRateOfReturn(stock);
+        stockData = stockService.requestMonthlyHistoricalStockData(
+            stock.getStockSymbol(), 
+            initialInvestment.getDateTime());
+
+        return calculateGROR(stockData);
         
       }
       case YEAR:{
@@ -58,96 +92,32 @@ public class GeometricAverageRateOfReturn {
       
   }
   
-  private double getDailyAverageRateOfReturn(Stock stock){
-    
-    List<HistoricalStockInfo>stockInfo = 
-        stockService.requestDailyHistoricalStockData(
-            stock.getStockSymbol(), 
-            initialInvestment.getDateTime());
-    double price = stockInfo.get(stockInfo.size()-1).getClose();
+  private double calculateGROR(List<HistoricalStockInfo> data){
+    double price = data.get(data.size()-1).getClose();
     float quantity = initialInvestment.getQuantity();
     double productROR = calculateROR((price * quantity), initialInvestment.getValue());
-    for(int i = stockInfo.size()-2 ; i >=0 ; i--){
-      productROR *= (1+calculateROR(stockInfo.get(i).getClose()*quantity, 
-                                 stockInfo.get(i).getOpen()*quantity));
+    for(int i = data.size()-2 ; i >=0 ; i--){
+      productROR *= (1+calculateROR(data.get(i).getClose()*quantity, 
+          data.get(i).getOpen()*quantity));
     }
-    
-    return nRoot(stockInfo.size()-1, productROR);
-  }
-  
-  private double getWeeklyAverageRateOfReturn(Stock stock){
-    
-    HistoricalStockInfo stockInfo;
-    double capital = initialInvestment.getValue();
-    float quantity = initialInvestment.getQuantity();
-    double productROR = 1.0;
-    double returnValue = 0.0;
-    Calendar today = Calendar.getInstance();
-    Calendar date = Calendar.getInstance();
-    date.clear();
-    date.setTime(initialInvestment.getDateTime());
-    int period = 0;
-    while(date.before(today)){
-      stockInfo = stockService.requestHistoricalStockDataForDay(
-          stock.getStockSymbol(), date.getTime());
-      returnValue = stockInfo.getClose() * quantity;
-      productROR *= calculateROR(returnValue, capital);
-      capital = returnValue;
-      date.add(Calendar.WEEK_OF_MONTH, 1);
-      period++;
-    }
-    
-    return nRoot(period, productROR);
-  }
-  
- private double getMonthlyAverageRateOfReturn(Stock stock){
-    
-    HistoricalStockInfo stockInfo;
-    double capital = initialInvestment.getValue();
-    float quantity = initialInvestment.getQuantity();
-    double productROR = 1.0;
-    double returnValue = 0.0;
-    Calendar today = Calendar.getInstance();
-    Calendar date = Calendar.getInstance();
-    date.clear();
-    date.setTime(initialInvestment.getDateTime());
-    int period = 0;
-    while(date.before(today)){
-      stockInfo = stockService.requestHistoricalStockDataForDay(
-          stock.getStockSymbol(), date.getTime());
-      returnValue = stockInfo.getClose() * quantity;
-      productROR *= calculateROR(returnValue, capital);
-      capital = returnValue;
-      date.add(Calendar.MONTH, 1);
-      period++;
-    }
-    
-    return nRoot(period, productROR);
+    return (Math.pow(productROR, (1.0/(data.size()-1)))-1);
   }
  
  private double getYearlyAverageRateOfReturn(Stock stock){
    
    HistoricalStockInfo stockInfo;
-   double capital = initialInvestment.getValue();
-   float quantity = initialInvestment.getQuantity();
-   double productROR = 1.0;
-   double returnValue = 0.0;
+   LinkedList<HistoricalStockInfo> stockData = new LinkedList<HistoricalStockInfo>();
    Calendar today = Calendar.getInstance();
    Calendar date = Calendar.getInstance();
    date.clear();
    date.setTime(initialInvestment.getDateTime());
-   int period = 0;
    while(date.before(today)){
-     stockInfo = stockService.requestHistoricalStockDataForDay(
-         stock.getStockSymbol(), date.getTime());
-     returnValue = stockInfo.getClose() * quantity;
-     productROR *= calculateROR(returnValue, capital);
-     capital = returnValue;
+     stockInfo = getNextStockInfo(date, stock.getStockSymbol());
+     stockData.addFirst(stockInfo);
      date.add(Calendar.YEAR, 1);
-     period++;
    }
    
-   return nRoot(period, productROR);
+   return calculateGROR(stockData);
  }
   
   private double calculateROR(double returnVal, double capital){
@@ -155,22 +125,23 @@ public class GeometricAverageRateOfReturn {
     return (returnVal - capital)/capital;
   }
   
-  public static double nRoot(int n, double num)
-  {
-          double epsilon = 6;
-          //if you weren't sure, epsilon is the precision
-          int ctr = 0;
-          double root = 1;
-          if(n <= 0)
-                  return Double.longBitsToDouble(0x7ff8000000000000L);
-          //0x7ff8000000000000L is the Java constant for NaN (Not-a-Number)
-          if(num == 0) //this step is just to reduce the needed iterations
-                  return 0;
-          while((Math.abs(Math.pow(root, n) - num) > epsilon) && (ctr++ < 1000)) //checks if the number is good enough
-          {
-                  root = ((1.0/n)*(((n-1.0)*root)+(num/Math.pow(root, n-1.0))));
-         
-          }
-          return root;
+  
+  private HistoricalStockInfo getNextStockInfo(Calendar date, String symbol){
+    HistoricalStockInfo data = null;
+    Calendar requestDate = Calendar.getInstance();
+    requestDate.clear();
+    requestDate.setTime(date.getTime());
+    int attempts = 0;
+    while(data == null){
+      if(attempts > 15){
+        break;
+      }
+      data = stockService.requestHistoricalStockDataForDay(
+          symbol, requestDate.getTime());
+      
+      requestDate.add(Calendar.DATE, 1);
+      attempts++;
+    }
+    return data;
   }
 }
