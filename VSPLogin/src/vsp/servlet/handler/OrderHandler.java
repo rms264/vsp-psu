@@ -14,7 +14,7 @@ public class OrderHandler extends BaseServletHandler implements ServletHandler {
   public void process(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException 
   {
-    StockInfoServiceProvider.ForceWithinHours = true;
+//    StockInfoServiceProvider.ForceWithinHours = true;
     dispatchUrl = "Order.jsp";
   }
 
