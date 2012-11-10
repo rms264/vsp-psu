@@ -176,4 +176,14 @@ public final class Order
 	{
 		this.state = state;
 	}
+
+  @Override
+  public String toString() {
+    return "Order [id=" + id + ", userName=" + userName + ", stock=" + stock
+        + ", action=" + action + ", quantity=" + quantity + ", type=" + type
+        + ", limitPrice=" + limitPrice + ", stopPrice=" + stopPrice
+        + ", timeInForce=" + timeInForce + ", state=" + state
+        + ", dateSubmitted=" + dateSubmitted + ", lastEvaluated="
+        + lastEvaluated + ", stopPriceMet=" + stopPriceMet + "]";
+  }
 }

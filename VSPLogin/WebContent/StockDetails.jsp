@@ -17,7 +17,13 @@
 <body>
   <%@ include file="headers/LoggedInHeader.jsp" %>
 
-  <img src="getStockChart?symbol=${param.symbol }">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+  <tr>
+    <td align="center">
+      <img src="getStockChart?symbol=${param.symbol }">
+    </td>
+  </tr>
+  </table>
 
 <div id="transHistory">
 <h3>Transaction History</h3>

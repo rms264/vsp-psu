@@ -2,6 +2,7 @@ package vsp.statistics;
 
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
 
 import vsp.StockInfoServiceProvider;
 import vsp.dal.requests.Stocks;
@@ -12,6 +13,7 @@ import vsp.dataObject.Stock;
 import vsp.dataObject.StockInfo;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
+import vsp.utils.Enumeration.OrderAction;
 
 public class CompoundAnualGrowthRate {
 
@@ -37,17 +39,30 @@ public class CompoundAnualGrowthRate {
   public double calculate(Stock stock){
     double growthRate = 0.0;
     double endingValue;
-    double beginingValue;
     int years;
     Calendar today = Calendar.getInstance();
     try {
       StockTransaction initialTrans = Transactions.getInitialExecutedTransaction(
                                         userAccount.getUserName(), 
                                         stock.getStockSymbol());
+      List<StockTransaction> transactions = 
+          Transactions.getAllExecutedTransactionsForUserAndStock(
+                          userAccount.getUserName(), 
+                          stock.getStockSymbol());
+      double investment = 0.0;
+      for(int i = transactions.size()-1; i >= 0; i--){
+        StockTransaction trans = transactions.get(i);
+        if(trans.getOrder().getAction() == OrderAction.BUY){
+          investment += trans.getValue();
+        }
+        else if(trans.getOrder().getAction() == OrderAction.SELL){
+          investment -= trans.getValue();
+        }
+      }
+      
       
       StockInfo stockInfo = stockService.requestCurrentStockData(stock.getStockSymbol());
       
-      beginingValue = initialTrans.getValue();
       endingValue = initialTrans.getQuantity() * stockInfo.getClose();
       
       Calendar beginingDate = Calendar.getInstance();
@@ -58,7 +73,7 @@ public class CompoundAnualGrowthRate {
       if(years <= 0){
         years = 1;
       }
-      return (Math.pow((endingValue/beginingValue), (1.0/years)) -1);
+      return (Math.pow((endingValue/investment), (1.0/years)) -1);
       
       
     } catch (SQLException e) {

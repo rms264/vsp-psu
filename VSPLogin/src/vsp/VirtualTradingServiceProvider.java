@@ -88,7 +88,7 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 		}
 	}
 	
-	private float DetermineQuantityOwnedOnDate(Date dividendDate, List<StockTransaction> transactions, float quantityNow)
+	public float DetermineQuantityOwnedOnDate(Date date, List<StockTransaction> transactions, float quantityNow)
 	{
 		float quantity = quantityNow;
 		if (transactions != null && transactions.size() > 0)
@@ -97,7 +97,7 @@ public final class VirtualTradingServiceProvider implements IUserBalance
 			// work backward from current quantity to quantity on specified date
 			for (StockTransaction transaction : transactions)
 			{ // newest transactions are first in the list
-				if (transaction.getDateTime().after(dividendDate))
+				if (transaction.getDateTime().after(date))
 				{ // transaction that occurred after the dividend date
 					order = transaction.getOrder();
 					if (order.getAction() == OrderAction.BUY)
