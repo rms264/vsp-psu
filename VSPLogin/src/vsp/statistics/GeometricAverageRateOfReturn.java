@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import unitTests.StockVolatilitySISP;
 import vsp.StockInfoServiceProvider;
 import vsp.VirtualTradingServiceProvider;
 import vsp.dal.requests.PortfolioEntries;
@@ -13,6 +14,7 @@ import vsp.dal.requests.Transactions;
 import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
 import vsp.dataObject.HistoricalStockInfo;
+import vsp.dataObject.IStockInfo;
 import vsp.dataObject.PortfolioData;
 import vsp.dataObject.Stock;
 import vsp.dataObject.StockTransaction;
@@ -23,14 +25,14 @@ import vsp.utils.Enumeration.TimeType;
 public class GeometricAverageRateOfReturn {
   private AccountData userAccount;
   private StockTransaction initialInvestment;
-  private final StockInfoServiceProvider stockService = new StockInfoServiceProvider();
+  private IStockInfo stockService = new StockInfoServiceProvider();
   private final VirtualTradingServiceProvider tradingService = new VirtualTradingServiceProvider();
   private List<StockTransaction> stockTransactions;
   float currentQuantity = 0f;
   public static void main(String[] args){
     try {
       AccountData account = Users.requestAccountData("rob");
-      Stock stock = Stocks.getStock("BBY");
+      Stock stock = Stocks.getStock("SIRI");
       GeometricAverageRateOfReturn gror = new GeometricAverageRateOfReturn(account);
       System.out.println("GROR: " + gror.getAverageRateOfReturn(stock, TimeType.DAY));
       System.out.println("GROR: " + gror.getAverageRateOfReturn(stock, TimeType.WEEK));
@@ -42,53 +44,78 @@ public class GeometricAverageRateOfReturn {
     }
   }
   
+  public static GeometricAverageRateOfReturn createTestGROR(AccountData user){
+    IStockInfo testService = new StockVolatilitySISP();
+    GeometricAverageRateOfReturn test = new GeometricAverageRateOfReturn(user);
+    test.stockService = testService;
+    
+    
+    return test;
+  }
   
   public GeometricAverageRateOfReturn(AccountData user) {
     userAccount = user;
    
   }
   
- 
   public double getAverageRateOfReturn(Stock stock, TimeType calendarTimeType) throws SqlRequestException, SQLException{
-    List<HistoricalStockInfo> stockData;
     stockTransactions = 
         Transactions.getAllExecutedTransactionsForUserAndStock(
             userAccount.getUserName(), stock.getStockSymbol());
+    
+    initialInvestment = 
+        Transactions.getInitialExecutedTransaction(
+            userAccount.getUserName(), 
+            stock.getStockSymbol());
+    
+    
+    
+    PortfolioData portEntry = PortfolioEntries.getEntry(userAccount.getUserName(),
+        stock.getStockSymbol());
+    
+    return getAverageRateOfReturn(stock.getStockSymbol(), calendarTimeType, stockTransactions, 
+        initialInvestment, portEntry);
+  }
+  
+ 
+  public double getAverageRateOfReturn(String stockSymbol, TimeType calendarTimeType, 
+      List<StockTransaction> stockTrans, StockTransaction init, 
+      PortfolioData portEntry) throws SqlRequestException, SQLException
+  {
+    List<HistoricalStockInfo> stockData;
+    stockTransactions = stockTrans;
     try {
-      initialInvestment = 
-          Transactions.getInitialExecutedTransaction(
-              userAccount.getUserName(), 
-              stock.getStockSymbol());
+      initialInvestment = init; 
+          
       
-      PortfolioData portEntry = PortfolioEntries.getEntry(userAccount.getUserName(),
-                                                  stock.getStockSymbol());
+     
       currentQuantity = portEntry.getQuantity();
       
       switch (calendarTimeType){
       case DAY:{
         stockData = stockService.requestDailyHistoricalStockData(
-                                  stock.getStockSymbol(), 
+                                  stockSymbol, 
                                   initialInvestment.getDateTime());
         
-        return calculateGROR(stockData, stockTransactions, stock);
+        return calculateGROR(stockData, stockTransactions, stockSymbol);
       }
       case WEEK:{
         stockData = stockService.requestWeeklyHistoricalStockData(
-                                  stock.getStockSymbol(), 
+                                  stockSymbol, 
                                   initialInvestment.getDateTime());
 
-        return calculateGROR(stockData, stockTransactions, stock);
+        return calculateGROR(stockData, stockTransactions, stockSymbol);
       }
       case MONTH:{
         stockData = stockService.requestMonthlyHistoricalStockData(
-            stock.getStockSymbol(), 
+            stockSymbol, 
             initialInvestment.getDateTime());
 
-        return calculateGROR(stockData, stockTransactions, stock);
+        return calculateGROR(stockData, stockTransactions, stockSymbol);
         
       }
       case YEAR:{
-        return getYearlyAverageRateOfReturn(stockTransactions, stock);
+        return getYearlyAverageRateOfReturn(stockTransactions, stockSymbol);
       }
       }
       
@@ -105,20 +132,19 @@ public class GeometricAverageRateOfReturn {
   }
   
   private double calculateGROR(List<HistoricalStockInfo> data, 
-      List<StockTransaction> transactions, Stock stock) throws SQLException, SqlRequestException
+      List<StockTransaction> transactions, String stockSymbol) throws SQLException, SqlRequestException
   {
     HistoricalStockInfo prevData = null;
     HistoricalStockInfo curData = null;
-//    double productROR = calculateROR(
-//        (data.get(data.size()-1).getClose() * initialInvestment.getQuantity()), 
     double productROR = 1;
     int periods = 0;
-//    System.out.println("Initial Purchase: " + initialInvestment.getDateTime() + " Investment: " + initialInvestment.getValue());
     for(int i = data.size()-1 ; i >= 0; i--){
       curData = data.get(i);
       if(prevData == null){
         prevData = curData;
       }
+      
+//      System.out.println("Initial Date: " + initialInvestment.getDateTime());
       if(curData.getDate().before(initialInvestment.getDateTime()) || 
           curData.getDate().equals(initialInvestment.getDateTime()))
       {
@@ -147,7 +173,7 @@ public class GeometricAverageRateOfReturn {
       List<StockTransaction> transBetweenDates = 
           Transactions.getTransactionsForUserandStockBetweenDates(
               userAccount.getUserName(),
-              stock.getStockSymbol(),
+              stockSymbol,
               prevData.getDate(),
               curData.getDate());
       
@@ -177,7 +203,7 @@ public class GeometricAverageRateOfReturn {
 //      System.out.println("\tReturn on Investment: " + ror);
       
       productROR *= ( ror + 1);
-      
+//      System.out.println("---Product ROR: " + productROR);
       prevData = curData;
       periods++;
     }
@@ -188,7 +214,7 @@ public class GeometricAverageRateOfReturn {
   }
  
  private double getYearlyAverageRateOfReturn(
-     List<StockTransaction> stockTransactions, Stock stock) throws SQLException, SqlRequestException
+     List<StockTransaction> stockTransactions, String stockSymbol) throws SQLException, SqlRequestException
  {
    
    HistoricalStockInfo stockInfo;
@@ -198,12 +224,14 @@ public class GeometricAverageRateOfReturn {
    date.clear();
    date.setTime(initialInvestment.getDateTime());
    while(date.before(today)){
-     stockInfo = getNextStockInfo(date, stock.getStockSymbol());
-     stockData.addFirst(stockInfo);
+     stockInfo = getNextStockInfo(date, stockSymbol);
+     if(stockInfo != null){
+       stockData.addFirst(stockInfo);
+     }
      date.add(Calendar.YEAR, 1);
    }
    
-   return calculateGROR(stockData, stockTransactions, stock);
+   return calculateGROR(stockData, stockTransactions, stockSymbol);
  }
   
   private double calculateROR(double returnVal, double capital){

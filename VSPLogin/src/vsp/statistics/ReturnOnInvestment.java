@@ -38,7 +38,7 @@ public class ReturnOnInvestment {
     Calendar cal = Calendar.getInstance();
     cal.clear();
     cal.set(2008, 9, 30);
-    HistoricalStockInfo stockInfo = stockService.requestHistoricalStockDataForDay("GE", cal.getTime());
+    HistoricalStockInfo stockInfo = stockService.requestHistoricalStockDataForDay("SIRI", cal.getTime());
     
     System.out.println(stockInfo.toString());
     
