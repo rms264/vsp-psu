@@ -45,7 +45,7 @@ public class ReturnOnInvestment {
     
   }
   
-  ReturnOnInvestment(AccountData user)
+  public ReturnOnInvestment(AccountData user)
   {
     userAccount = user;
   }
