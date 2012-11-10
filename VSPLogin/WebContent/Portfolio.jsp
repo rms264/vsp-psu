@@ -62,8 +62,8 @@
 		double totalCloseValue = 0;
 	    
 		out.println("<div id='portfolio'>");
-		out.println("<h3>Portfolio</h3>");
-		out.println("<table border=1 cellpadding=4 cellspacing=0>");
+		out.println("<h3 align=center>Portfolio</h3>");
+		out.println("<table align=center border=1 cellpadding=4 cellspacing=0>");
 		
 		out.println("<tr>");
 		out.println("<td colspan=3 align=center>Stock Holding</td>");
@@ -71,6 +71,7 @@
 		out.println("<td colspan=2 align=center>Change Since Close</td>");
 		out.println("<td colspan=2 align=center>Change Since Purchase</td>");
 		out.println("<td colspan=2 align=center>Cost Basis</td>");
+		out.println("<td colspan=1 align=center>&nbsp;</td>");
 		out.println("<td colspan=1 align=center>&nbsp;</td>");
 		out.println("</tr>");
 		
@@ -88,6 +89,7 @@
 		out.println("<td align=center><u>Share</u></td>");
 		out.println("<td align=center><u>Total</u></td>");
 		out.println("<td align=center><u>Action</u></td>");
+		out.println("<td align=center><u>Details</u></td>");
 		out.println("</tr>");
 		
 		out.println("<tr>");
@@ -103,7 +105,8 @@
 		out.println("<td align=center> -- </td>");
 		out.println("<td align=center> -- </td>");
 		out.println("<td align=center> -- </td>");
-		out.println("<td align=center> -- </td>");
+		out.println("<td align=center>&nbsp</td>");
+		out.println("<td align=center>&nbsp</td>");
 		out.println("</tr>");
 		
 		// throws on error
@@ -181,7 +184,10 @@
 				out.println("<td align=right>$" + df.format(result) + "</td>");
 				
 				// sell link
-				out.println("<td align=center><a href='Order.jsp?action=1&symbol=" + symbol + "'>Sell</a></td>");
+				out.println("<td align=center><a href='order?action=1&symbol=" + symbol + "'>Sell</a></td>");
+				
+				//details link
+				out.println("<td align=center><a href='viewStockDetails?symbol=" + symbol + "'>Details</a></td>");
 				
 				out.println("</tr>");
 			}
@@ -199,7 +205,8 @@
 			out.println("<td colspan=1 align=right>" + VSPUtils.formatColor(totalChangeSincePurchasePercent, df, true) + "</td>");
 			out.println("<td colspan=1 align=center> -- </td>");
 			out.println("<td colspan=1 align=right>$" + df.format(totalCostBasis) + "</td>");
-			out.println("<td colspan=1 align=center> -- </td>");
+			out.println("<td colspan=1 align=center>&nbsp</td>");
+			out.println("<td colspan=1 align=center>&nbsp</td>");
 			out.println("</tr>");
 		}
 		else

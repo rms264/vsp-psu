@@ -18,6 +18,8 @@ import vsp.servlet.handler.PortfolioHandler;
 import vsp.servlet.handler.RegisterHandler;
 import vsp.servlet.handler.ServletHandler;
 import vsp.servlet.handler.SignupHandler;
+import vsp.servlet.handler.StockChartHandler;
+import vsp.servlet.handler.StockDetailsHandler;
 import vsp.servlet.handler.StockInfoHandler;
 import vsp.servlet.handler.StockSearchHandler;
 import vsp.servlet.handler.SubmitSecurityAnswerHandler;
@@ -31,7 +33,7 @@ import vsp.servlet.handler.UserNameFormHandler;
 @WebServlet(name = "VspServlet", urlPatterns = {"/login", "/signup", "/register", "/enterUserName",
     "/submitUserName", "/submitSecurityAnswer", "/submitResetPassword", "/logout", "/viewPortfolio",
     "/viewUserInfo", "/submitUpdatePassword", "/updatePassword", "/viewStockInfo", "/order",
-    "/transactionHistory", "/pendingOrders", "/stockSearch"})
+    "/transactionHistory", "/pendingOrders", "/stockSearch", "/viewStockDetails" ,"/getStockChart"})
 public class VspServlet extends HttpServlet {
 
   private static final long serialVersionUID = -2836553596862059698L;
@@ -56,6 +58,8 @@ public class VspServlet extends HttpServlet {
     handlers.put("transactionHistory", new TransactionHistoryHandler());
     handlers.put("pendingOrders", new PendingOrdersHandler());
     handlers.put("stockSearch", new StockSearchHandler());
+    handlers.put("viewStockDetails", new StockDetailsHandler());
+    handlers.put("getStockChart", new StockChartHandler());
     
   }
   
