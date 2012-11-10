@@ -72,7 +72,7 @@ public class ReturnOnInvestment {
       value = entry.getQuantity() * stockData.getLastTradePrice();
       
       
-      roi = (value - investment)/investment * 100; 
+      roi = (value - investment)/investment; 
     } catch (SqlRequestException | SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
