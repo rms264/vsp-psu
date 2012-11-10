@@ -36,7 +36,7 @@
             <tr>
               <td>${stock.stockSymbol }</td>
               <td>${stock.stockDescription }</td>
-              <td align=center><a href="order?action=0&symbol= ${stock.stockSymbol }">Buy</a></td>
+              <td align=center><a href="order?action=0&symbol=${stock.stockSymbol}">Buy</a></td>
             </tr>
           </c:forEach>
         </table>
