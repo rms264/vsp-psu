@@ -222,10 +222,10 @@
 		out.println("<tr>");
 		out.println("<td>" + symbol + "</td>");
 		out.println("<td>" + stock.getStockDescription() + "</td>");
-		out.println("<td align=right>" + VSPUtils.formatColor(vol_day, df, true) + "</td>");
-		out.println("<td align=right>" + VSPUtils.formatColor(vol_week, df, true) + "</td>");
-		out.println("<td align=right>" + VSPUtils.formatColor(vol_month, df, true) + "</td>");
-		out.println("<td align=right>" + VSPUtils.formatColor(vol_year, df, true) + "</td>");
+		out.println("<td align=right>" + df.format(vol_day) + "%" + "</td>");
+		out.println("<td align=right>" + df.format(vol_week) + "%" + "</td>");
+		out.println("<td align=right>" + df.format(vol_month) + "%" + "</td>");
+		out.println("<td align=right>" + df.format(vol_year) + "%" + "</td>");
 		out.println("</tr>");
 			
 		out.println("</table><br>");	
@@ -268,8 +268,8 @@
 		out.println("<tr>");
 		out.println("<td>" + symbol + "</td>");
 		out.println("<td>" + stock.getStockDescription() + "</td>");
-		out.println("<td align=right>" + VSPUtils.formatColor(cagr_value, df, true) + "</td>");
-		out.println("<td align=right>" + VSPUtils.formatColor(roi_value, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(cagr_value*100, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(roi_value*100, df, true) + "</td>");
 		out.println("</tr>");
 			
 		out.println("</table><br>");	
