@@ -250,10 +250,10 @@
 		Stock stock = Stocks.getStock(symbol);
 		
 		CompoundAnualGrowthRate cagr = new CompoundAnualGrowthRate(account);
-	    double cagr_value = cagr.calculate(stock);
+	    double cagr_value = cagr.calculate(symbol);
 	      
 	    ReturnOnInvestment roi = new ReturnOnInvestment(account);	    
-	    double roi_value = roi.getReturnOnInvestment(stock);
+	    double roi_value = roi.getReturnOnInvestment(symbol);
 
 	    DecimalFormat df = new DecimalFormat("0.0000");
 	    

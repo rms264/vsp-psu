@@ -1,8 +1,6 @@
 package unitTests;
 
 
-import static org.junit.Assert.fail;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +16,7 @@ import vsp.dataObject.Stock;
 import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.servlet.form.RegisterForm;
+import vsp.statistics.CompoundAnualGrowthRate;
 import vsp.statistics.GeometricAverageRateOfReturn;
 import vsp.statistics.ReturnOnInvestment;
 import vsp.statistics.StockVolatility;
@@ -108,10 +107,14 @@ public class NumericAnalysis {
     date.set(2010, Calendar.NOVEMBER, 10);
     
 
-    Assert.assertTrue(almostEqual(0.346888, testStockVolatility.getVolatility(date, TimeType.DAY), 1e-6));
-    Assert.assertTrue(almostEqual(0.354567, testStockVolatility.getVolatility(date, TimeType.WEEK), 1e-6));
-    Assert.assertTrue(almostEqual(0.374152, testStockVolatility.getVolatility(date, TimeType.MONTH), 1e-6));
-    Assert.assertTrue(almostEqual(0.115, testStockVolatility.getVolatility(date, TimeType.YEAR), 1e-6));
+    Assert.assertTrue(almostEqual(0.346888, 
+        testStockVolatility.getVolatility(date, TimeType.DAY), 1e-6));
+    Assert.assertTrue(almostEqual(0.354567, 
+        testStockVolatility.getVolatility(date, TimeType.WEEK), 1e-6));
+    Assert.assertTrue(almostEqual(0.374152, 
+        testStockVolatility.getVolatility(date, TimeType.MONTH), 1e-6));
+    Assert.assertTrue(almostEqual(0.115, 
+        testStockVolatility.getVolatility(date, TimeType.YEAR), 1e-6));
     
 	}
 	
@@ -128,10 +131,14 @@ public class NumericAnalysis {
 	@Test
 	@Order(order=4)
 	public void calculateCAGR() {
-		fail("Not yet implemented");
+	  CompoundAnualGrowthRate testCagr = CompoundAnualGrowthRate.createTestCAGR(
+	      new AccountData(registerForm));
+	  
+	  Assert.assertTrue(almostEqual(.329741, testCagr.calculate("SIRI", 
+	      initialInvestment, stockTrans), 1e-6));
 	}
 	
-	public static boolean almostEqual(double a, double b, double eps){
+	private static boolean almostEqual(double a, double b, double eps){
     return Math.abs(a-b)<eps;
-}
+	}
 }
