@@ -74,4 +74,10 @@ public final class PortfolioData
 			this.quantity = 0;
 		}
 	}
+  @Override
+  public String toString() {
+    return "PortfolioData [stock=" + stock + ", costBasisPerShare="
+        + costBasisPerShare + ", quantity=" + quantity + ", userName="
+        + userName + "]";
+  }
 }

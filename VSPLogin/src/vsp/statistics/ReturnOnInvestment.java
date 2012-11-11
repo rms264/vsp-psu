@@ -38,7 +38,7 @@ public class ReturnOnInvestment {
     Calendar cal = Calendar.getInstance();
     cal.clear();
     cal.set(2008, 9, 30);
-    HistoricalStockInfo stockInfo = stockService.requestHistoricalStockDataForDay("GE", cal.getTime());
+    HistoricalStockInfo stockInfo = stockService.requestHistoricalStockDataForDay("SIRI", cal.getTime());
     
     System.out.println(stockInfo.toString());
     
@@ -72,7 +72,7 @@ public class ReturnOnInvestment {
       value = entry.getQuantity() * stockData.getLastTradePrice();
       
       
-      roi = (value - investment)/investment * 100; 
+      roi = (value - investment)/investment; 
     } catch (SqlRequestException | SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

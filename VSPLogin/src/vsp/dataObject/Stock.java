@@ -25,5 +25,10 @@ public class Stock
 	public String getStockDescription() {
 		return stockDescription;
 	}
+  @Override
+  public String toString() {
+    return "Stock [stockSymbol=" + stockSymbol + ", stockDescription="
+        + stockDescription + "]";
+  }
 	
 }

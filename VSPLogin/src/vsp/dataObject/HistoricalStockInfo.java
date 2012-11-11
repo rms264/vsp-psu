@@ -4,14 +4,17 @@ import java.util.Date;
 
 public final class HistoricalStockInfo
 {
-	private final Date date;
-	private final double dayLow;
-	private final double dayHigh;
-	private final double open;
-	private final double close;
-	private final double adjustedClose;
-	private final int volume;
+	private Date date;
+	private double dayLow;
+	private double dayHigh;
+	private double open;
+	private double close;
+	private double adjustedClose;
+	private int volume;
 
+	public HistoricalStockInfo(){
+	  
+	}
 	public HistoricalStockInfo(Date date, double open, double dayLow, double dayHigh, double close, int volume, double adjustedClose)
 	{
 		this.date = date;
@@ -63,5 +66,31 @@ public final class HistoricalStockInfo
     return "HistoricalStockInfo [date=" + date + ", dayLow=" + dayLow
         + ", dayHigh=" + dayHigh + ", open=" + open + ", close=" + close
         + ", adjustedClose=" + adjustedClose + ", volume=" + volume + "]";
+  }
+  
+  public String toWriter() {
+    return date + "," + dayLow + "," + dayHigh + "," + open + "," + close
+        + "," + adjustedClose + "," + volume;
+  }
+  public void setDate(Date date) {
+    this.date = date;
+  }
+  public void setDayLow(double dayLow) {
+    this.dayLow = dayLow;
+  }
+  public void setDayHigh(double dayHigh) {
+    this.dayHigh = dayHigh;
+  }
+  public void setOpen(double open) {
+    this.open = open;
+  }
+  public void setClose(double close) {
+    this.close = close;
+  }
+  public void setAdjustedClose(double adjustedClose) {
+    this.adjustedClose = adjustedClose;
+  }
+  public void setVolume(int volume) {
+    this.volume = volume;
   }
 }

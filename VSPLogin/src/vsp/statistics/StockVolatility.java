@@ -4,23 +4,36 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import unitTests.StockVolatilitySISP;
 import vsp.StockInfoServiceProvider;
 import vsp.dataObject.HistoricalStockInfo;
+import vsp.dataObject.IStockInfo;
 import vsp.utils.Enumeration.TimeType;
 
 public class StockVolatility {
   
   private final String stockSymbol;
-  private final StockInfoServiceProvider stockService = new StockInfoServiceProvider();
+  private IStockInfo stockService = new StockInfoServiceProvider();
   
   public static void main(String[] args){
-    StockVolatility stockVol = new StockVolatility("WMT");
+    StockVolatility stockVol = new StockVolatility("SIRI");
     Calendar date = Calendar.getInstance();
-    date.add(Calendar.YEAR, -1);
-    System.out.println("Wal-mart Volatility: " + stockVol.getVolatility(date,TimeType.DAY) + " percent");
-    System.out.println("Wal-mart Volatility: " + stockVol.getVolatility(date,TimeType.WEEK) + " percent");
-    System.out.println("Wal-mart Volatility: " + stockVol.getVolatility(date,TimeType.MONTH) + " percent");
-    System.out.println("Wal-mart Volatility: " + stockVol.getVolatility(date,TimeType.YEAR) + " percent");
+    date.clear();
+    date.set(2010, Calendar.NOVEMBER, 10);
+    
+    System.out.println("Sirus Volatility: " + stockVol.getVolatility(date,TimeType.DAY) + " percent");
+    System.out.println("Sirus Volatility: " + stockVol.getVolatility(date,TimeType.WEEK) + " percent");
+    System.out.println("Sirus Volatility: " + stockVol.getVolatility(date,TimeType.MONTH) + " percent");
+    System.out.println("Sirus Volatility: " + stockVol.getVolatility(date,TimeType.YEAR) + " percent");
+  }
+  
+  public static StockVolatility createTestStockVolatility(){
+    IStockInfo testService = new StockVolatilitySISP();
+    StockVolatility test = new StockVolatility("WMT");
+    test.stockService = testService;
+    
+    
+    return test;
   }
   
   public StockVolatility(String stock){
@@ -34,7 +47,6 @@ public class StockVolatility {
       stockData = stockService.requestDailyHistoricalStockData(
                                   stockSymbol, 
                                   since.getTime());
-        
         return calculate(stockData);
       }
       case WEEK:{
@@ -53,6 +65,7 @@ public class StockVolatility {
         
       }
       case YEAR:{
+        
         return getYearlyVolatility(since);
       }
     }
@@ -83,11 +96,17 @@ public class StockVolatility {
     LinkedList<HistoricalStockInfo> stockData = new LinkedList<HistoricalStockInfo>();
     Calendar today = Calendar.getInstance();
     Calendar date = Calendar.getInstance();
+    today.clear(Calendar.HOUR);
+    today.clear(Calendar.MINUTE);
+    today.clear(Calendar.SECOND);
+    today.clear(Calendar.MILLISECOND);
     date.clear();
     date.setTime(since.getTime());
-    while(date.before(today)){
+    while(date.before(today) && !date.equals(today)){
       stockInfo = getNextStockInfo(date);
-      stockData.addFirst(stockInfo);
+      if(stockInfo != null)
+        stockData.addFirst(stockInfo);
+      
       date.add(Calendar.YEAR, 1);
     }
     

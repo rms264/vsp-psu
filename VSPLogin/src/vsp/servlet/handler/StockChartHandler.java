@@ -43,7 +43,7 @@ public class StockChartHandler extends BaseServletHandler implements
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         response.setContentType("image/png");
   
-        ChartUtilities.writeChartAsPNG(out, chart, 500, 270);
+        ChartUtilities.writeChartAsPNG(out, chart, 800, 370);
       }
       
     } catch (SQLException | SqlRequestException e) {

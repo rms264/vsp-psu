@@ -176,4 +176,13 @@ public final class StockTransaction
 		statement.setString(9, this.getUserName());
 		statement.setString(10, this.getNote());
 	}
+
+  @Override
+  public String toString() {
+    return "StockTransaction [type=" + type + ", userName=" + userName
+        + ", id=" + id + ", stock=" + stock + ", dateTime=" + dateTime
+        + ", value=" + value + ", pricePerShare=" + pricePerShare
+        + ", quantity=" + quantity + ", order=" + order + ", note=" + note
+        + "]";
+  }
 }
