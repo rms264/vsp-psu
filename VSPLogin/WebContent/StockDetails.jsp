@@ -4,6 +4,7 @@
 <%@ page import="vsp.dal.requests.*"%>
 <%@ page import="vsp.statistics.*"%>
 <%@ page import="vsp.dataObject.*"%>
+<%@ page import="vsp.utils.*"%>
 <%@ page import="vsp.utils.Enumeration.*"%>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
@@ -136,7 +137,9 @@
 	    double gror_month = gror.getAverageRateOfReturn(stock, TimeType.MONTH);
 	    double gror_year = gror.getAverageRateOfReturn(stock, TimeType.YEAR);
 	      			   	   	    	
-		out.println("<table border=1 cellpadding=4 cellspacing=0>");
+	    DecimalFormat df = new DecimalFormat("0.0000");		
+		
+	    out.println("<table border=1 cellpadding=4 cellspacing=0>");
 		
 		out.println("<tr>");
 		out.println("<td colspan=2 align=center><b>Stock</b></td>");
@@ -155,10 +158,10 @@
 		out.println("<tr>");
 		out.println("<td>" + symbol + "</td>");
 		out.println("<td>" + stock.getStockDescription() + "</td>");
-		out.println("<td align=center>" + gror_day + "</td>");
-		out.println("<td align=center>" + gror_week + "</td>");
-		out.println("<td align=center>" + gror_month + "</td>");
-		out.println("<td align=center>" + gror_year + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(gror_day*100, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(gror_week*100, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(gror_month*100, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(gror_year*100, df, true) + "</td>");
 		out.println("</tr>");
 			
 		out.println("</table><br>");	
@@ -192,6 +195,8 @@
 		double vol_month = stockVol.getVolatility(since,TimeType.MONTH);
 		double vol_year = stockVol.getVolatility(since,TimeType.YEAR);
 		    		  			   	   	    
+		DecimalFormat df = new DecimalFormat("0.0000");	
+		
 		out.println("<table border=1 cellpadding=4 cellspacing=0>");
 		
 		out.println("<tr>");
@@ -202,19 +207,19 @@
 		out.println("<tr>");
 		out.println("<td align=center><b>Symbol</b></td>");
 		out.println("<td align=center><b>Name</b></td>");
-		out.println("<td align=center><b>Day (%)</b></td>");
-		out.println("<td align=center><b>Week (%)</b></td>");
-		out.println("<td align=center><b>Month (%)</b></td>");
-		out.println("<td align=center><b>Year (%)</b></td>");
+		out.println("<td align=center><b>Day</b></td>");
+		out.println("<td align=center><b>Week</b></td>");
+		out.println("<td align=center><b>Month</b></td>");
+		out.println("<td align=center><b>Year</b></td>");
 		out.println("</tr>");
 			
 		out.println("<tr>");
 		out.println("<td>" + symbol + "</td>");
 		out.println("<td>" + stock.getStockDescription() + "</td>");
-		out.println("<td align=center>" + vol_day + "</td>");
-		out.println("<td align=center>" + vol_week + "</td>");
-		out.println("<td align=center>" + vol_month + "</td>");
-		out.println("<td align=center>" + vol_year + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(vol_day, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(vol_week, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(vol_month, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(vol_year, df, true) + "</td>");
 		out.println("</tr>");
 			
 		out.println("</table><br>");	
@@ -243,7 +248,9 @@
 	      
 	    ReturnOnInvestment roi = new ReturnOnInvestment(account);	    
 	    double roi_value = roi.getReturnOnInvestment(stock);
-			   	   	    		
+
+	    DecimalFormat df = new DecimalFormat("0.0000");
+	    
 		out.println("<table border=1 cellpadding=4 cellspacing=0>");
 		out.println("<tr>");
 		out.println("<td align=center><b>Symbol</b></td>");
@@ -255,8 +262,8 @@
 		out.println("<tr>");
 		out.println("<td>" + symbol + "</td>");
 		out.println("<td>" + stock.getStockDescription() + "</td>");
-		out.println("<td align=center>" + cagr_value + "</td>");
-		out.println("<td align=center>" + roi_value + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(cagr_value, df, true) + "</td>");
+		out.println("<td align=right>" + VSPUtils.formatColor(roi_value, df, true) + "</td>");
 		out.println("</tr>");
 			
 		out.println("</table><br>");	
