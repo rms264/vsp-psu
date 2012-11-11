@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import unitTests.StockVolatilitySISP;
+import unitTests.StockStatisticsTestSISP;
 import vsp.StockInfoServiceProvider;
 import vsp.VirtualTradingServiceProvider;
 import vsp.dal.requests.PortfolioEntries;
@@ -45,7 +45,7 @@ public class GeometricAverageRateOfReturn {
   }
   
   public static GeometricAverageRateOfReturn createTestGROR(AccountData user){
-    IStockInfo testService = new StockVolatilitySISP();
+    IStockInfo testService = new StockStatisticsTestSISP();
     GeometricAverageRateOfReturn test = new GeometricAverageRateOfReturn(user);
     test.stockService = testService;
     
@@ -86,9 +86,6 @@ public class GeometricAverageRateOfReturn {
     stockTransactions = stockTrans;
     try {
       initialInvestment = init; 
-          
-      
-     
       currentQuantity = portEntry.getQuantity();
       
       switch (calendarTimeType){

@@ -18,13 +18,13 @@ import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.IStockInfo;
 import vsp.dataObject.StockInfo;
 
-public class StockVolatilitySISP implements IStockInfo {
+public class StockStatisticsTestSISP implements IStockInfo {
   int count = 0;
   private Calendar cal = Calendar.getInstance();
   private SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
   Map<Date,HistoricalStockInfo> dayMap = new HashMap<Date, HistoricalStockInfo>();
   
-  public StockVolatilitySISP() {
+  public StockStatisticsTestSISP() {
     
     Calendar cal = Calendar.getInstance();
     cal.clear();
@@ -45,8 +45,9 @@ public class StockVolatilitySISP implements IStockInfo {
 
   @Override
   public StockInfo requestCurrentStockData(String symbol) {
-    // TODO Auto-generated method stub
-    return null;
+    StockInfo data = new StockInfo("SIRI", "Sirius XM Radio I", 2.78, 2.69, 
+        null, 0.0, .08, 3.0, 64404304, 2.76, 2.77, 2.78, 2.75, 2.67);
+    return data;
   }
 
   @Override
@@ -60,14 +61,6 @@ public class StockVolatilitySISP implements IStockInfo {
       Date day) {
     
     return dayMap.get(day);
-//    HistoricalStockInfo data = new HistoricalStockInfo();
-//    if(count%2 == 0)
-//      data.setAdjustedClose(1.69);
-//    else{
-//      data.setAdjustedClose(1.46);
-//    }
-//    count++;
-//    return data;
   }
 
   @Override

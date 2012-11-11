@@ -111,4 +111,16 @@ public final class StockInfo implements Serializable
   {
   return new Stock(this.symbol, this.description);
   }
+
+  @Override
+  public String toString() {
+    return "StockInfo [symbol=" + symbol + ", description=" + description
+        + ", dayHigh=" + dayHigh + ", dayLow=" + dayLow + ", exdividendDate="
+        + exdividendDate + ", exdividend=" + exdividend
+        + ", priceChangeSinceOpen=" + priceChangeSinceOpen
+        + ", percentChangeSinceOpen=" + percentChangeSinceOpen
+        + ", lastTradePrice=" + lastTradePrice + ", volume=" + volume
+        + ", bid=" + bid + ", ask=" + ask + ", open=" + open + ", close="
+        + close + "]";
+  }
 }

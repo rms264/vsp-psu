@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import unitTests.StockVolatilitySISP;
+import unitTests.StockStatisticsTestSISP;
 import vsp.StockInfoServiceProvider;
 import vsp.dataObject.HistoricalStockInfo;
 import vsp.dataObject.IStockInfo;
@@ -28,7 +28,7 @@ public class StockVolatility {
   }
   
   public static StockVolatility createTestStockVolatility(){
-    IStockInfo testService = new StockVolatilitySISP();
+    IStockInfo testService = new StockStatisticsTestSISP();
     StockVolatility test = new StockVolatility("WMT");
     test.stockService = testService;
     

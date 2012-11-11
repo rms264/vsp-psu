@@ -19,6 +19,7 @@ import vsp.dataObject.StockTransaction;
 import vsp.exception.SqlRequestException;
 import vsp.servlet.form.RegisterForm;
 import vsp.statistics.GeometricAverageRateOfReturn;
+import vsp.statistics.ReturnOnInvestment;
 import vsp.statistics.StockVolatility;
 import vsp.utils.Enumeration.OrderAction;
 import vsp.utils.Enumeration.OrderState;
@@ -33,58 +34,63 @@ public class NumericAnalysis {
   private final String email = "unitTestUser@unitTestUser.com";
   private final String securityQuestion = "0"; //favorite color
   private final String securityAnswer = "blue";
-  RegisterForm registerForm = new RegisterForm(userName, 
+  private RegisterForm registerForm = new RegisterForm(userName, 
       password1,
       password1,
       email,
       securityQuestion,
       securityAnswer);
 
+  private Stock testStock = new Stock("SIRI", "Sirius XM Radio I");
+  private List<StockTransaction> stockTrans = new ArrayList<StockTransaction>();
+  private StockTransaction initialInvestment;
+  private PortfolioData portEntry;
+  
+  public NumericAnalysis(){
+    
+    
+    Calendar today = Calendar.getInstance();
+    Calendar past = Calendar.getInstance();
+    today.clear();
+    today.set(2012, Calendar.NOVEMBER, 10);
+   
+    past.clear();
+    past.set(Calendar.YEAR, today.get(Calendar.YEAR));
+    past.set(Calendar.MONTH, today.get(Calendar.MONTH));
+    past.set(Calendar.DATE, today.get(Calendar.DATE));
+    
+    past.add(Calendar.YEAR, -2);
+    
+    initialInvestment = StockTransaction.CreateExecution(
+        "test", "asdfasdfasdf",
+        new vsp.dataObject.Order("asdfasdfasdf", "test", testStock,
+            OrderAction.BUY, 500, OrderType.MARKET, 0.0, 0.0, TimeInForce.DAY, 
+            OrderState.COMPLETE, past.getTime(), today.getTime()), past.getTime(),
+            755.0, 1.77, 500);
+    
+    stockTrans.add(initialInvestment);
+    
+    portEntry = new PortfolioData(testStock, 2.67, 500, "test");
+    
+  }
+  
 	@Test
 	@Order(order=1)
-	public void analyzeUserProfile() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	@Order(order=2)
 	public void calculateROR() {
 	  GeometricAverageRateOfReturn returnRate = 
 	      GeometricAverageRateOfReturn.createTestGROR(
 	          new AccountData(registerForm));
 	  
-	  Calendar today = Calendar.getInstance();
-	  Calendar past = Calendar.getInstance();
-	 
-	  past.clear();
-	  past.set(Calendar.YEAR, today.get(Calendar.YEAR));
-	  past.set(Calendar.MONTH, today.get(Calendar.MONTH));
-	  past.set(Calendar.DATE, today.get(Calendar.DATE));
-	  
-    past.add(Calendar.YEAR, -2);
-    Stock testStock = new Stock("SIRI", "Sirius XM Radio I");
-
-	  List<StockTransaction> stockTrans = new ArrayList<StockTransaction>();
-    
-	  StockTransaction trans = StockTransaction.CreateExecution(
-	      "test", "asdfasdfasdf",
-	      new vsp.dataObject.Order("asdfasdfasdf", "test", testStock,
-	          OrderAction.BUY, 500, OrderType.MARKET, 0.0, 0.0, TimeInForce.DAY, 
-	          OrderState.COMPLETE, past.getTime(), today.getTime()), past.getTime(),
-	          885, 1.77, 500);
-	  
-	  stockTrans.add(trans);
-	  PortfolioData portEntry = new PortfolioData(testStock, 2.67, 500, "test");
 	  try {
 
 	  Assert.assertTrue(almostEqual(0.001259, returnRate.getAverageRateOfReturn("SIRI", 
-        TimeType.DAY, stockTrans, trans, portEntry), 1e-6));
+        TimeType.DAY, stockTrans, initialInvestment, portEntry), 1e-6));
     Assert.assertTrue(almostEqual(0.006375, returnRate.getAverageRateOfReturn("SIRI", 
-        TimeType.WEEK, stockTrans, trans, portEntry), 1e-6));
+        TimeType.WEEK, stockTrans, initialInvestment, portEntry), 1e-6));
     Assert.assertTrue(almostEqual(0.029458, returnRate.getAverageRateOfReturn("SIRI", 
-        TimeType.MONTH, stockTrans, trans, portEntry), 1e-6));
+        TimeType.MONTH, stockTrans, initialInvestment, portEntry), 1e-6));
     Assert.assertTrue(almostEqual(0.157534, returnRate.getAverageRateOfReturn("SIRI", 
-        TimeType.YEAR, stockTrans, trans, portEntry), 1e-6));
+        TimeType.YEAR, stockTrans, initialInvestment, portEntry), 1e-6));
     
     } catch (SqlRequestException | SQLException e) {
       Assert.fail("Failed to calculate the Geometric Average Rate Of Return");
@@ -93,7 +99,7 @@ public class NumericAnalysis {
 	}
 	
 	@Test
-	@Order(order=3)
+	@Order(order=2)
 	public void calculateVolatility() {
 	  StockVolatility testStockVolatility = StockVolatility.createTestStockVolatility();
 	      
@@ -110,13 +116,17 @@ public class NumericAnalysis {
 	}
 	
 	@Test
-	@Order(order=4)
+	@Order(order=3)
 	public void calculateROI() {
-		fail("Not yet implemented");
+	  ReturnOnInvestment testRoi = ReturnOnInvestment.createTestROI(
+	      new AccountData(registerForm));
+	  
+	  Assert.assertTrue(almostEqual(0.768211, testRoi.getReturnOnInvestment(
+	      "SIRI", stockTrans, portEntry), 1e-6));
 	}
 	
 	@Test
-	@Order(order=5)
+	@Order(order=4)
 	public void calculateCAGR() {
 		fail("Not yet implemented");
 	}
