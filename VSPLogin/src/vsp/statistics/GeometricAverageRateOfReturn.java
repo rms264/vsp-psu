@@ -177,21 +177,24 @@ public class GeometricAverageRateOfReturn {
       //value at begining 
       investment = beginingQuantity * prevData.getClose();
       
+      returnVal = endingQuantity * curData.getClose();
       //adjust value if user bought or sold stock
       for(int j = transBetweenDates.size()-1; j >= 0; j--){
         StockTransaction trans = transBetweenDates.get(j);
         if(trans.getDateTime().equals(initialInvestment.getDateTime()))
           continue;
         if(trans.getOrder().getAction() == OrderAction.BUY){
+//          System.out.println("\tTrans Date: " + trans.getDateTime());
           investment += trans.getValue();
         }
         else if(trans.getOrder().getAction() == OrderAction.SELL){
-          investment -= trans.getValue();
+//          System.out.println("\tTrans Date: " + trans.getDateTime());
+          returnVal += trans.getValue();
         }
-//        System.out.println("\tTransaction: " + trans.toString());
+//        System.out.println("\tInvestment: " + investment);
       }
       
-      returnVal = endingQuantity * curData.getClose();
+      
       
 //      System.out.println("\tCapital: " + investment);
 //      System.out.println("\tReturn: " + returnVal);
@@ -206,6 +209,7 @@ public class GeometricAverageRateOfReturn {
     }
 //    System.out.println("Product ROR: " + productROR);
 //    System.out.println("Periods: " + periods);
+//    
     
     return (Math.pow(productROR, (1.0/periods))-1);
   }
@@ -255,4 +259,23 @@ public class GeometricAverageRateOfReturn {
     }
     return data;
   }
+//  public static double nRoot(int n, double num, double epsilon)
+//  {
+//          //if you weren't sure, epsilon is the precision
+//          int ctr = 0;
+//          double root = 1;
+//          if(n <= 0)
+//                  return Double.longBitsToDouble(0x7ff8000000000000L);
+//          //0x7ff8000000000000L is the Java constant for NaN (Not-a-Number)
+//          if(num == 0) //this step is just to reduce the needed iterations
+//                  return 0;
+//          while((Math.abs(Math.pow(root, n) - num) > epsilon) && (ctr++ < 1000)) //checks if the number is good enough
+//          {
+//                  root = ((1.0/n)*(((n-1.0)*root)+(num/Math.pow(root, n-1.0))));
+//         
+//          }
+//          return root;
+//  }
+
+//just a reminder: this method doesn't allow for n being anything besides a positive (non 0) int
 }

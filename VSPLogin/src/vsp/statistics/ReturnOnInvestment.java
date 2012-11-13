@@ -81,21 +81,18 @@ public class ReturnOnInvestment {
     double investment = 0;
     double value = 0;
     double roi = 0; //percentage;
+    StockInfo stockData = stockService.requestCurrentStockData(stockSymbol);
+    value = entry.getQuantity() * stockData.getClose();
+    
     for(StockTransaction trans : transactions){
       if(trans.getOrder().getAction() == OrderAction.BUY){
         investment += trans.getValue();
       }else if(trans.getOrder().getAction() == OrderAction.SELL){
-        investment -= trans.getValue();
+        value += trans.getValue();
       }
     }
     
-      
-      StockInfo stockData = stockService.requestCurrentStockData(stockSymbol);
-      
-      value = entry.getQuantity() * stockData.getClose();
-      
-      roi = (value - investment)/investment; 
-    
+    roi = (value - investment)/investment; 
     
     return roi;
   }
