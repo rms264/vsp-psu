@@ -28,7 +28,11 @@ import vsp.exception.SqlRequestException;
 public class StockChartHandler extends BaseServletHandler implements
     ServletHandler 
 {
-  private String year;
+  private String year;  
+  private Calendar threeMonthsAgo = Calendar.getInstance();
+  public StockChartHandler(){
+    threeMonthsAgo.add(Calendar.MONTH, -3);
+  }
   @Override
   public void process(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException 
@@ -60,6 +64,7 @@ public class StockChartHandler extends BaseServletHandler implements
   {
     TimeSeriesCollection dataset = null;
     Calendar since = Calendar.getInstance();
+    
     if(year != null && !year.isEmpty()){
       since.add(Calendar.YEAR, -2);
     }else{
@@ -68,6 +73,9 @@ public class StockChartHandler extends BaseServletHandler implements
       if(trans !=null){
         since.clear();
         since.setTime(trans.getDateTime());
+        if(!since.before(threeMonthsAgo)){
+          since.setTime(threeMonthsAgo.getTime());
+        }
       }
       else{
         since.add(Calendar.YEAR, -2);
@@ -89,7 +97,10 @@ public class StockChartHandler extends BaseServletHandler implements
     );
     dataset = new TimeSeriesCollection();
     dataset.addSeries(stockPerformance);
-    dataset.addSeries(mav);
+    
+    if(since.before(threeMonthsAgo)){
+      dataset.addSeries(mav);
+    }
     return dataset;
   }
   private JFreeChart createChart(final XYDataset dataset) {
