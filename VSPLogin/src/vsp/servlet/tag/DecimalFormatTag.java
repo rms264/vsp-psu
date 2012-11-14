@@ -31,9 +31,12 @@ public class DecimalFormatTag extends SimpleTagSupport {
   public void doTag() throws IOException, JspException {
     JspContext jspContext = getJspContext();
     JspWriter out = jspContext.getOut();
-    if(color){
+    if(color && percent){
       out.print("<td align=right>" + VSPUtils.formatColor(value, df, percent) +"</td>");
-    }else{
+    }else if(!color && percent){
+      out.print("<td align=right>" + VSPUtils.format(value, df, percent) +"</td>");
+    }
+    else{
       out.print("<td align=right>" + df.format(value) +"</td>");
     }
   }

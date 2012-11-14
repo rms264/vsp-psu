@@ -3,6 +3,7 @@ package vsp.servlet.handler;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -27,11 +28,13 @@ import vsp.exception.SqlRequestException;
 public class StockChartHandler extends BaseServletHandler implements
     ServletHandler 
 {
+  private String year;
   @Override
   public void process(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException 
   {
     String stockSymbol = request.getParameter("symbol");
+    year = request.getParameter("year");
     String userName = request.getRemoteUser();
     OutputStream out = response.getOutputStream();
     try {
@@ -56,26 +59,37 @@ public class StockChartHandler extends BaseServletHandler implements
       throws SQLException, SqlRequestException 
   {
     TimeSeriesCollection dataset = null;
-    StockTransaction trans = 
-        Transactions.getInitialExecutedTransaction(userName, stockSymbol);
-    if(trans != null){
-      List<HistoricalStockInfo> stockData = 
-          stockService.requestDailyHistoricalStockData(stockSymbol, 
-                                                       trans.getDateTime());
-      
-      TimeSeries stockPerformance = new TimeSeries(stockSymbol + " Performance");
-      
-      for(HistoricalStockInfo data : stockData){
-        stockPerformance.add(new Day(data.getDate()), data.getAdjustedClose());
+    Calendar since = Calendar.getInstance();
+    if(year != null && !year.isEmpty()){
+      since.add(Calendar.YEAR, -2);
+    }else{
+      StockTransaction trans = 
+          Transactions.getInitialExecutedTransaction(userName, stockSymbol);
+      if(trans !=null){
+        since.clear();
+        since.setTime(trans.getDateTime());
       }
-      
-      final TimeSeries mav = MovingAverage.createMovingAverage(
-          stockPerformance, "30 day moving average", 30, 30
-      );
-      dataset = new TimeSeriesCollection();
-      dataset.addSeries(stockPerformance);
-      dataset.addSeries(mav);
+      else{
+        since.add(Calendar.YEAR, -2);
+      }
     }
+    
+    
+    List<HistoricalStockInfo> stockData = 
+        stockService.requestDailyHistoricalStockData(stockSymbol, since.getTime());
+    
+    TimeSeries stockPerformance = new TimeSeries(stockSymbol + " Performance");
+    
+    for(HistoricalStockInfo data : stockData){
+      stockPerformance.add(new Day(data.getDate()), data.getAdjustedClose());
+    }
+    
+    final TimeSeries mav = MovingAverage.createMovingAverage(
+        stockPerformance, "30 day moving average", 30, 30
+    );
+    dataset = new TimeSeriesCollection();
+    dataset.addSeries(stockPerformance);
+    dataset.addSeries(mav);
     return dataset;
   }
   private JFreeChart createChart(final XYDataset dataset) {

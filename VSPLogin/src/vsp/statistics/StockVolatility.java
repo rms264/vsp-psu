@@ -25,6 +25,13 @@ public class StockVolatility {
     System.out.println("Sirus Volatility: " + stockVol.getVolatility(date,TimeType.WEEK) + " percent");
     System.out.println("Sirus Volatility: " + stockVol.getVolatility(date,TimeType.MONTH) + " percent");
     System.out.println("Sirus Volatility: " + stockVol.getVolatility(date,TimeType.YEAR) + " percent");
+    
+    
+    Calendar day = Calendar.getInstance();
+    day.clear();
+    day.set(2010, Calendar.FEBRUARY, 16);
+    IStockInfo stockService = new StockInfoServiceProvider();
+    System.out.println(stockService.requestHistoricalStockDataForDay("SIRI", day.getTime()));
   }
   
   public static StockVolatility createTestStockVolatility(){

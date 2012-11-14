@@ -66,6 +66,20 @@ public class VSPUtils {
 		
 		return valueString;
 	}
+	public static String format(double value, DecimalFormat format, boolean percent)
+  {
+    String valueString = format.format(value);
+    if (!percent)
+    {
+      valueString = "$" + valueString;
+    }
+    else
+    {
+      valueString += "%";
+    }
+    
+    return valueString;
+  }
 	
 	public static String generatePassword(String userName){
 	  int len = 8;

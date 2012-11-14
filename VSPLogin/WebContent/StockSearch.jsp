@@ -31,12 +31,14 @@
             <td align=center><b>Symbol</b></td>
             <td align=center><b>Description</b></td>
             <td align=center>&nbsp;</td>
+            <td align=center>&nbsp;</td>
           </tr>
           <c:forEach var="stock" items="${stockList}">
             <tr>
               <td>${stock.stockSymbol }</td>
               <td>${stock.stockDescription }</td>
               <td align=center><a href="order?action=0&symbol=${stock.stockSymbol}">Buy</a></td>
+              <td align=center><a href="viewStockDetails?symbol=${stock.stockSymbol}">Details</a></td>
             </tr>
           </c:forEach>
         </table>

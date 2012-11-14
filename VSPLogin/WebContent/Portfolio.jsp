@@ -21,6 +21,7 @@
   <a href="transactionHistory">Transaction History</a> | <a href="viewUserInfo">User Info</a></td></tr>
   </table>
  
+ 
 <%
 	try
 	{
@@ -187,7 +188,7 @@
 				out.println("<td align=center><a href='order?action=1&symbol=" + symbol + "'>Sell</a></td>");
 				
 				//details link
-				out.println("<td align=center><a href='viewStockDetails?symbol=" + symbol + "'>Details</a></td>");
+				out.println("<td align=center><a href='viewStockDetails?perf=1&symbol=" + symbol + "'>Details</a></td>");
 				
 				out.println("</tr>");
 			}
