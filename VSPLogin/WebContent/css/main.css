@@ -47,7 +47,7 @@ gain{
   margin: 50px auto;
 }
 
-#order{
+#order, #admin{
   text-align: left;
   border: 1px solid #dedede;
   background: #efefef;

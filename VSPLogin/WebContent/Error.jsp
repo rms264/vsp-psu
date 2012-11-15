@@ -16,7 +16,7 @@
       <ul>
         <c:forEach var="error" items="${errors}">
           <li class="li-error">${error}</li>
-          </c:forEach>
+        </c:forEach>
       </ul>
       </p>
    </c:if>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import vsp.servlet.handler.AdminHandler;
 import vsp.servlet.handler.LoginHandler;
 import vsp.servlet.handler.LogoutHandler;
 import vsp.servlet.handler.OrderHandler;
@@ -33,7 +34,7 @@ import vsp.servlet.handler.UserNameFormHandler;
 @WebServlet(name = "VspServlet", urlPatterns = {"/login", "/signup", "/register", "/enterUserName",
     "/submitUserName", "/submitSecurityAnswer", "/submitResetPassword", "/logout", "/viewPortfolio",
     "/viewUserInfo", "/submitUpdatePassword", "/updatePassword", "/viewStockInfo", "/order",
-    "/transactionHistory", "/pendingOrders", "/stockSearch", "/viewStockDetails" ,"/getStockChart"})
+    "/transactionHistory", "/pendingOrders", "/stockSearch", "/viewStockDetails" ,"/getStockChart", "/admin"})
 public class VspServlet extends HttpServlet {
 
   private static final long serialVersionUID = -2836553596862059698L;
@@ -60,6 +61,7 @@ public class VspServlet extends HttpServlet {
     handlers.put("stockSearch", new StockSearchHandler());
     handlers.put("viewStockDetails", new StockDetailsHandler());
     handlers.put("getStockChart", new StockChartHandler());
+    handlers.put("admin", new AdminHandler());
     
   }
   

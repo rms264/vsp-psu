@@ -18,6 +18,7 @@
   <web-resource-collection>
     <web-resource-name>VSP System</web-resource-name>
     <url-pattern>/*</url-pattern>
+    <url-pattern>/viewPortfolio</url-pattern>
     <http-method>GET</http-method>
     <http-method>POST</http-method>
   </web-resource-collection>
@@ -33,6 +34,7 @@
   <web-resource-collection>
     <web-resource-name>VSP System</web-resource-name>
     <url-pattern>/admin/*</url-pattern>
+    <url-pattern>/viewPortfolio</url-pattern>
     <http-method>GET</http-method>
     <http-method>POST</http-method>
   </web-resource-collection>
