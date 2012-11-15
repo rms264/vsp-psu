@@ -13,7 +13,6 @@
   <div id="resetPassword">
     <h3>Reset Password</h3>
     <form name='actionForm' action='submitResetPassword' method='POST'>
-    <input type='hidden' name='userName' value="${userAccount.userName}"/>
     <table>
       <tr>
         <td>Enter New Password: </td><td>

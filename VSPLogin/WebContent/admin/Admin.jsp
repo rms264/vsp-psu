@@ -14,7 +14,7 @@
   <%@ include file="../headers/AdminHeader.jsp" %>
 
   <div id="admin">
-  <h3>Account Administration</h2>
+  <h3>Account Administration</h3>
     <c:if test="${deleteSuccess != null}">
     <p id="success">
       ${deleteSuccess }

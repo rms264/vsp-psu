@@ -28,7 +28,7 @@ public class SubmitSecurityAnswerHandler extends BaseServletHandler implements
     List<String> errors = validator.validate(answerForm);
     try {
       if(errors.isEmpty()){
-        AccountData userAccount = Users.requestAccountData(request.getParameter("userName"));
+        AccountData userAccount = Users.requestAccountData((String) request.getSession().getAttribute("userName"));
         if(userAccount.getAnswerHash().equals(VSPUtils.hashString(answerForm.getAnswer()))){
           //the answer is correct
           request.setAttribute("correctAnswer", "true");
@@ -48,6 +48,7 @@ public class SubmitSecurityAnswerHandler extends BaseServletHandler implements
       errors.add("Failed to check security answer. " + e.getMessage());
       request.setAttribute("errors", errors);
       dispatchUrl = "Error.jsp";
+      request.getSession().removeAttribute("userName");
     }
   }
 }

@@ -29,9 +29,9 @@ public class SubmitUserNameHandler extends BaseServletHandler implements
       //no errors found in the form
       try {
         AccountData userAccount = Users.requestAccountData(formData.getUserName());
-        request.setAttribute("userAccount", userAccount);
         String question = userAccount.getSecurityQuestion().toString();
         request.setAttribute("question", question);
+        request.getSession().setAttribute("userName", userAccount.getUserName());
         dispatchUrl="EnterSecurityQuestion.jsp";
       } catch (SQLException e) {
         errors.add("Failed to retrieve user: " + formData.getUserName() +". " + e.getMessage());
@@ -41,6 +41,7 @@ public class SubmitUserNameHandler extends BaseServletHandler implements
     }else{
       request.setAttribute("errors", errors);
       dispatchUrl="Error.jsp";
+      request.getSession().removeAttribute("userName");
     }
   }
 

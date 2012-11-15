@@ -24,7 +24,6 @@
   <div id="resetPassword">
     <h3>Update Password</h3>
     <form name='actionForm' action='submitUpdatePassword' method='POST'>
-    <input type='hidden' name='userName' value="${pageContext.request.remoteUser}"/>
     <c:if test="${passwordUpdate != null}">
       <p id="success">
         ${passwordUpdate }

@@ -14,7 +14,6 @@
   <div id="enterAnswer">
     <h3>Reset Password</h3>
     <form name='submitAnswer' action="submitSecurityAnswer" method='POST'>
-    <input type='hidden' name='userName' value=${userAccount.userName } />
     <table>
       <p><font color=black >${question }</font></p>
       <tr>
