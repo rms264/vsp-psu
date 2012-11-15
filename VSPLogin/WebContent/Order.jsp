@@ -24,7 +24,9 @@
 
 	function loadStockInfo()
 	{
-		var site = 'viewStockInfo?stockSymbol=' + document.actionForm.stock.value;
+		var symbol = document.actionForm.stock.value.toUpperCase();
+		document.actionForm.stock.value = symbol;
+		var site = 'viewStockInfo?stockSymbol=' + symbol;
 		document.getElementById('stockInfoFrame').src = site;
 	}
 	
