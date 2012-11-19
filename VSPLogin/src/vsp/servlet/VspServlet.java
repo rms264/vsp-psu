@@ -23,18 +23,23 @@ import vsp.servlet.handler.StockChartHandler;
 import vsp.servlet.handler.StockDetailsHandler;
 import vsp.servlet.handler.StockInfoHandler;
 import vsp.servlet.handler.StockSearchHandler;
+import vsp.servlet.handler.SubmitEmailUpdateHandler;
 import vsp.servlet.handler.SubmitSecurityAnswerHandler;
+import vsp.servlet.handler.SubmitSecurityQuestionUpdateHandler;
 import vsp.servlet.handler.SubmitUserNameHandler;
 import vsp.servlet.handler.SubmitPasswordUpdateHandler;
 import vsp.servlet.handler.TransactionHistoryHandler;
+import vsp.servlet.handler.UpdateEmailHandler;
 import vsp.servlet.handler.UpdatePasswordHandler;
+import vsp.servlet.handler.UpdateSecurityQuestionHandler;
 import vsp.servlet.handler.UserInfoHandler;
 import vsp.servlet.handler.UserNameFormHandler;
 
 @WebServlet(name = "VspServlet", urlPatterns = {"/login", "/signup", "/register", "/enterUserName",
     "/submitUserName", "/submitSecurityAnswer", "/submitResetPassword", "/logout", "/viewPortfolio",
-    "/viewUserInfo", "/submitUpdatePassword", "/updatePassword", "/viewStockInfo", "/order",
-    "/transactionHistory", "/pendingOrders", "/stockSearch", "/viewStockDetails" ,"/getStockChart", "/admin"})
+    "/viewUserInfo", "/submitUpdatePassword", "/submitUpdateEmail", "/submitUpdateSecurityQuestion", 
+    "/updatePassword", "/updateEmail", "/updateSecurityQuestion", "/order", "/transactionHistory", 
+    "/pendingOrders", "/stockSearch", "/viewStockDetails" ,"/getStockChart", "/admin"})
 public class VspServlet extends HttpServlet {
 
   private static final long serialVersionUID = -2836553596862059698L;
@@ -53,7 +58,11 @@ public class VspServlet extends HttpServlet {
     handlers.put("viewPortfolio", new PortfolioHandler());
     handlers.put("viewUserInfo", new UserInfoHandler());
     handlers.put("submitUpdatePassword", new SubmitPasswordUpdateHandler());
+    handlers.put("submitUpdateEmail", new SubmitEmailUpdateHandler());
+    handlers.put("submitUpdateSecurityQuestion", new SubmitSecurityQuestionUpdateHandler());    
     handlers.put("updatePassword", new UpdatePasswordHandler());
+    handlers.put("updateEmail", new UpdateEmailHandler());
+    handlers.put("updateSecurityQuestion", new UpdateSecurityQuestionHandler());
     handlers.put("viewStockInfo", new StockInfoHandler());
     handlers.put("order", new OrderHandler());
     handlers.put("transactionHistory", new TransactionHistoryHandler());
@@ -61,8 +70,7 @@ public class VspServlet extends HttpServlet {
     handlers.put("stockSearch", new StockSearchHandler());
     handlers.put("viewStockDetails", new StockDetailsHandler());
     handlers.put("getStockChart", new StockChartHandler());
-    handlers.put("admin", new AdminHandler());
-    
+    handlers.put("admin", new AdminHandler());    
   }
   
   @Override

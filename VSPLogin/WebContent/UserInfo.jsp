@@ -22,7 +22,9 @@
   <a href="pendingOrders">Pending Orders</a> | <a href="transactionHistory">Transaction History</a> | 
   <b>User Info</b></td></tr>
   <tr><td colspan=2>&nbsp;</td></tr>
-  <tr><td>&nbsp;</td><td align=center><a href="updatePassword">Change Password</a> | Change Email | Change Security Question</td></tr>
+  <tr><td>&nbsp;</td><td align=center><a href="updatePassword">Change Password</a> | 
+  			                          <a href="updateEmail">Change Email</a> | 
+  			                          <a href="updateSecurityQuestion">Change Security Question</a></td></tr>
   </table>
   
   <c:if test="${requestScope.errors != null}">

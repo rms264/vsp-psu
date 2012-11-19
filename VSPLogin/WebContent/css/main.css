@@ -3,7 +3,7 @@ input {
    font-family: sans-serif;                
 }
 
-#register, #errorBlock, #resetPassword, #updatePassword {
+#register, #errorBlock, #resetPassword, #updatePassword, #updateEmail, #updateSecurityQuestion {
   text-align: left;
 	border: 1px solid #dedede;
 	background: #efefef;

@@ -308,6 +308,20 @@ public class VspServiceProvider
 	  return Users.updatePassword(userName, passwordUpdate1, passwordUpdate2);
 	}
 	
+	public boolean updateUserEmail(String userName ,
+								   String email) throws SQLException, 
+								   SqlRequestException, ValidationException
+	{
+	  return Users.updateEmail(userName, email);
+	}
+	
+	public boolean updateUserSecurityQuestion(String userName, 
+								  			  String questionNum, 
+								  			  String answer) throws 
+								  			  SQLException, SqlRequestException, ValidationException
+	{
+		return Users.updateSecurity(userName, questionNum, answer);
+	}
 	
 	public boolean checkUserSecurityQuestion(String userName, 
 	    String securityQuestionAnswer) throws SQLException
