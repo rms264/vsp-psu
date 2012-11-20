@@ -47,10 +47,14 @@ public class UserAccounts
 		{
 		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
 		  List<String> errors = validator.validate(registerForm);
-		  if(errors.isEmpty()){
+		  if(errors.isEmpty())
+		  {
 		    vsp.createTraderAccount(new AccountData(registerForm));
-		  }else{
-		    for(String error : errors){
+		  }
+		  else
+		  {
+		    for(String error : errors)
+		    {
 		      Assert.fail(error);
 		    }
 		  }
@@ -372,13 +376,16 @@ public class UserAccounts
           securityQuestion,
           "");
 		  FormValidator validator = FormValidatorFactory.getRegistrationValidator();
-      List<String> errors = validator.validate(registerForm);
-      if(errors.isEmpty()){
-        vsp.createTraderAccount(new AccountData(registerForm));
-        Assert.fail();
-      }else{
-        Assert.assertTrue(errors.contains("Must answer security question."));
-      }
+	      List<String> errors = validator.validate(registerForm);
+	      if(errors.isEmpty())
+	      {
+	        vsp.createTraderAccount(new AccountData(registerForm));
+	        Assert.fail();
+	      }
+	      else
+	      {
+	        Assert.assertTrue(errors.contains("Must answer security question."));
+	      }
 		}
 		catch (Exception e)
 		{
@@ -398,6 +405,7 @@ public class UserAccounts
 		}
 		catch (Exception e)
 		{
+			// implementation should not throw
 			Assert.fail();
 		}
 	}
@@ -418,6 +426,7 @@ public class UserAccounts
 		}
 		catch (Exception e)
 		{
+			// implementation should not throw
 			Assert.fail();
 		}
 	}
@@ -429,6 +438,7 @@ public class UserAccounts
 		try
 		{
 			vsp.updateUserPassword(userName, "test", "test");
+			// previous call should throw
 			Assert.fail();
 		}
 		catch (Exception e)
@@ -441,14 +451,18 @@ public class UserAccounts
 	@Order(order=17)
 	public void changeEmailAddressWithValidPassword()
 	{
-		try{			
-			if(vsp.checkUserPassword(userName, password2)){
+		try
+		{			
+			if(vsp.checkUserPassword(userName, password2))
+			{
 				vsp.updateUserEmail(userName, secondaryEmail);
-			}						
+			}
+			
 			Assert.assertTrue(vsp.checkUserEmail(userName, secondaryEmail));
 		}
 		catch (Exception e)
 		{
+			// should not throw
 			Assert.fail();
 		}		
 	}
@@ -457,18 +471,18 @@ public class UserAccounts
 	@Order(order=18)
 	public void changeEmailAddressInvalidPassword()
 	{
-		try{			
-			if(vsp.checkUserPassword(userName, password1)){
-				vsp.updateUserEmail(userName, secondaryEmail);
-				Assert.assertTrue(vsp.checkUserEmail(userName, secondaryEmail));
+		try
+		{			
+			if(vsp.checkUserPassword(userName, password1))
+			{
+				// password should be invalid
 				Assert.fail();
-			}
-			else
-				Assert.assertTrue(true);			
+			}			
 		}
 		catch (Exception e)
 		{
-			Assert.assertTrue(true);
+			// implementation should not throw
+			Assert.fail();
 		}
 	}
 	
@@ -476,18 +490,19 @@ public class UserAccounts
 	@Order(order=19)
 	public void changeEmailInvalidEmailFormat()
 	{
-		try{			
+		try
+		{			
 			String incorrect_email = "incorrect@email";
-			if(Validate.validateEmail(incorrect_email)){
-				vsp.updateUserEmail(userName, incorrect_email);				
+			if(Validate.validateEmail(incorrect_email))
+			{	
+				// email format is invalid
 				Assert.fail();
 			}
-			else
-				Assert.assertTrue(true);			
 		}
 		catch (Exception e)
 		{
-			Assert.assertTrue(true);
+			// implementation should not throw
+			Assert.fail();
 		}
 	}
 	
@@ -495,15 +510,21 @@ public class UserAccounts
 	@Order(order=20)
 	public void changeSecurityQuestionAnswerWithValidPassword()
 	{
-		try{			
-			if(vsp.checkUserPassword(userName, password2)){
+		try
+		{			
+			if(vsp.checkUserPassword(userName, password2))
+			{
 				Assert.assertTrue(vsp.updateUserSecurityQuestion(userName, "1", "Tiger"));
 			}
 			else
+			{
+				// password should be valid
 				Assert.fail();
+			}
 		}
 		catch (Exception e)
 		{
+			// implementation should not throw
 			Assert.fail();
 		}
 	}
@@ -512,17 +533,23 @@ public class UserAccounts
 	@Order(order=21)
 	public void changeSecurityQuestionAnswerWithoutAnswer()
 	{
-		try{	
+		try
+		{	
 			String answer = "";
-			if(Validate.validateSecurityAnswer(answer)){
-				Assert.assertTrue(vsp.updateUserSecurityQuestion(userName, "1", answer));
+			if(Validate.validateSecurityAnswer(answer))
+			{
+				// security answer should not be valid
 				Assert.fail();
 			}
 			else
-				Assert.assertTrue(true);
+			{
+				// validate method should throw
+				Assert.fail();
+			}
 		}
 		catch (Exception e)
 		{
+			// validate method should throw
 			Assert.assertTrue(e.toString().contains("Please enter an answer for your security"));
 		}
 	}
@@ -531,17 +558,18 @@ public class UserAccounts
 	@Order(order=22)
 	public void changeSecurityQuestionAnswerWithInvalidPassword()
 	{
-		try{			
-			if(vsp.checkUserPassword(userName, password1)){
-				Assert.assertTrue(vsp.updateUserSecurityQuestion(userName, "0", "blue"));
+		try
+		{			
+			if(vsp.checkUserPassword(userName, password1))
+			{
+				// password should not be valid
 				Assert.fail();
-			}
-			else
-				Assert.assertTrue(true);			
+			}			
 		}
 		catch (Exception e)
 		{
-			Assert.assertTrue(true);
+			// password check method does not throw
+			Assert.fail();
 		}		
 	}
 	
