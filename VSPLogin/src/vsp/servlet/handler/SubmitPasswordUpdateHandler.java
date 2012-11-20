@@ -27,9 +27,11 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
       int lastIndex = uri.lastIndexOf("/");
       String action = uri.substring(lastIndex + 1); 
       
-      String userName = request.getRemoteUser();
+      String userName = (String)request.getSession().getAttribute("password_user");      
       if(userName == null || userName.isEmpty()){
-        userName = (String) request.getSession().getAttribute("userName");
+    	userName = request.getRemoteUser();
+    	if(userName == null || userName.isEmpty())
+    		userName = (String) request.getSession().getAttribute("userName");
       }
       if(userName != null && !userName.isEmpty())
       {
@@ -43,12 +45,18 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
           try {
             vsp.updateUserPassword(passwordForm.getUserName(), passwordForm.getPassword(), passwordForm.getVerifyPassword());
             request.setAttribute("passwordUpdate", "Password has been successfully changed");
-            if(action.equals("submitResetPassword")){
-              dispatchUrl = "login";
+            if(request.isUserInRole("admin")){
+            	List<String> traders;
+            	traders = vsp.getTraders();
+                if (traders.size() > 0){
+                  request.setAttribute("traders", traders);
+                }
+            	dispatchUrl = "/admin/Admin.jsp";
             }
-            else if(action.equals("submitUpdatePassword")){
-              dispatchUrl = "updatePassword";
-            }
+            else if(action.equals("submitResetPassword"))
+              dispatchUrl = "login";            
+            else if(action.equals("submitUpdatePassword"))
+              dispatchUrl = "updatePassword";            
           } catch (SQLException | SqlRequestException | ValidationException e) {
             errors.add(e.getMessage());
             request.setAttribute("errors", errors);
@@ -61,7 +69,10 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
           }
         }else{
           request.setAttribute("errors", errors);
-          if(action.equals("submitResetPassword")){
+          if(request.isUserInRole("admin")){          
+            dispatchUrl="ResetUserPassword.jsp";
+          }          
+          else if(action.equals("submitResetPassword")){
             dispatchUrl="Error.jsp";
           }
           else if(action.equals("submitUpdatePassword")){
