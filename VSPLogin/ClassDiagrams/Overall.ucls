@@ -2,7 +2,7 @@
   generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="vsp.StockInfoServiceProvider" project="VSPLogin" 
     file="/VSPLogin/src/vsp/StockInfoServiceProvider.java" binary="false">    
-    <position height="36" width="169" x="1308" y="265"/>    
+    <position height="36" width="169" x="818" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -10,7 +10,7 @@
   </class>  
   <class id="2" corner="BOTTOM_RIGHT" language="java" name="vsp.VirtualTradingServiceProvider" project="VSPLogin" 
     file="/VSPLogin/src/vsp/VirtualTradingServiceProvider.java" binary="false">    
-    <position height="36" width="194" x="1580" y="265"/>    
+    <position height="36" width="194" x="1090" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -18,7 +18,7 @@
   </class>  
   <class id="3" corner="BOTTOM_RIGHT" language="java" name="vsp.VspServiceProvider" project="VSPLogin" 
     file="/VSPLogin/src/vsp/VspServiceProvider.java" binary="false">    
-    <position height="36" width="137" x="3231" y="189"/>    
+    <position height="36" width="137" x="2741" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -26,7 +26,7 @@
   </class>  
   <class id="4" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.requests.Orders" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/requests/Orders.java" binary="false">    
-    <position height="36" width="78" x="2125" y="341"/>    
+    <position height="36" width="78" x="1635" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -34,7 +34,7 @@
   </class>  
   <class id="5" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.requests.PortfolioEntries" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/requests/PortfolioEntries.java" binary="false">    
-    <position height="36" width="112" x="2591" y="265"/>    
+    <position height="36" width="112" x="2101" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -42,7 +42,7 @@
   </class>  
   <class id="6" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.requests.Roles" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/requests/Roles.java" binary="false">    
-    <position height="36" width="78" x="3271" y="265"/>    
+    <position height="36" width="78" x="2781" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -50,7 +50,7 @@
   </class>  
   <class id="7" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.requests.Stocks" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/requests/Stocks.java" binary="false">    
-    <position height="36" width="78" x="2432" y="417"/>    
+    <position height="36" width="78" x="1942" y="403"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -58,7 +58,7 @@
   </class>  
   <class id="8" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.requests.Transactions" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/requests/Transactions.java" binary="false">    
-    <position height="36" width="98" x="2147" y="265"/>    
+    <position height="36" width="98" x="1657" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -66,7 +66,7 @@
   </class>  
   <class id="9" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.requests.Users" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/requests/Users.java" binary="false">    
-    <position height="36" width="78" x="2867" y="417"/>    
+    <position height="36" width="78" x="2377" y="403"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -74,7 +74,7 @@
   </class>  
   <class id="10" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.DatasourceConnection" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/DatasourceConnection.java" binary="false">    
-    <position height="36" width="154" x="2294" y="493"/>    
+    <position height="36" width="154" x="1804" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -82,7 +82,7 @@
   </class>  
   <class id="11" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.DatasourceListener" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dal/DatasourceListener.java" binary="false">    
-    <position height="36" width="137" x="1721" y="417"/>    
+    <position height="36" width="137" x="1231" y="403"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -90,7 +90,7 @@
   </class>  
   <class id="12" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.AccountData" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/AccountData.java" binary="false">    
-    <position height="36" width="97" x="3050" y="493"/>    
+    <position height="36" width="97" x="2560" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -98,7 +98,7 @@
   </class>  
   <class id="13" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.HistoricalStockInfo" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/HistoricalStockInfo.java" binary="false">    
-    <position height="36" width="132" x="1213" y="341"/>    
+    <position height="36" width="132" x="723" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -106,7 +106,7 @@
   </class>  
   <class id="14" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.PortfolioData" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/PortfolioData.java" binary="false">    
-    <position height="36" width="98" x="2369" y="341"/>    
+    <position height="36" width="98" x="1879" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -114,7 +114,7 @@
   </class>  
   <class id="15" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.Stock" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/Stock.java" binary="false">    
-    <position height="36" width="72" x="2182" y="493"/>    
+    <position height="36" width="72" x="1692" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -122,7 +122,7 @@
   </class>  
   <class id="16" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.StockInfo" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/StockInfo.java" binary="false">    
-    <position height="36" width="78" x="3069" y="341"/>    
+    <position height="36" width="78" x="2579" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -130,7 +130,7 @@
   </class>  
   <class id="17" corner="BOTTOM_RIGHT" language="java" name="vsp.exception.SqlRequestException" project="VSPLogin" 
     file="/VSPLogin/src/vsp/exception/SqlRequestException.java" binary="false">    
-    <position height="36" width="145" x="2488" y="493"/>    
+    <position height="36" width="145" x="1998" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -138,7 +138,7 @@
   </class>  
   <class id="18" corner="BOTTOM_RIGHT" language="java" name="vsp.exception.ValidationException" project="VSPLogin" 
     file="/VSPLogin/src/vsp/exception/ValidationException.java" binary="false">    
-    <position height="36" width="135" x="3424" y="493"/>    
+    <position height="36" width="135" x="2934" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -146,7 +146,7 @@
   </class>  
   <class id="19" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.LimitOrderExecutor" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/LimitOrderExecutor.java" binary="false">    
-    <position height="36" width="136" x="867" y="189"/>    
+    <position height="36" width="136" x="377" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -154,7 +154,7 @@
   </class>  
   <class id="20" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.MarketOrderExecutor" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/MarketOrderExecutor.java" binary="false">    
-    <position height="36" width="148" x="679" y="189"/>    
+    <position height="36" width="148" x="189" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -162,7 +162,7 @@
   </class>  
   <class id="21" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.Order" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/Order.java" binary="false">    
-    <position height="36" width="72" x="940" y="417"/>    
+    <position height="36" width="72" x="450" y="403"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -170,7 +170,7 @@
   </class>  
   <class id="22" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.OrderExecutor" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/OrderExecutor.java" binary="false">    
-    <position height="36" width="108" x="550" y="113"/>    
+    <position height="36" width="108" x="60" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -178,7 +178,7 @@
   </class>  
   <class id="23" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.OrderExecutorFactory" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/OrderExecutorFactory.java" binary="false">    
-    <position height="36" width="150" x="679" y="37"/>    
+    <position height="36" width="150" x="189" y="23"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -186,7 +186,7 @@
   </class>  
   <class id="24" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.OrderResult" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/OrderResult.java" binary="false">    
-    <position height="36" width="93" x="814" y="265"/>    
+    <position height="36" width="93" x="324" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -194,7 +194,7 @@
   </class>  
   <class id="25" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.StopOrderExecutor" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/StopOrderExecutor.java" binary="false">    
-    <position height="36" width="134" x="505" y="189"/>    
+    <position height="36" width="134" x="15" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -202,7 +202,7 @@
   </class>  
   <class id="26" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.StockTransaction" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/StockTransaction.java" binary="false">    
-    <position height="36" width="124" x="1961" y="341"/>    
+    <position height="36" width="124" x="1471" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -210,7 +210,7 @@
   </class>  
   <class id="27" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Validate" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Validate.java" binary="false">    
-    <position height="36" width="69" x="3292" y="341"/>    
+    <position height="36" width="69" x="2802" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -218,7 +218,7 @@
   </class>  
   <enumeration id="28" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.SecurityQuestion" 
     project="VSPLogin" file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="122" x="2867" y="569"/>    
+    <position height="36" width="122" x="2377" y="555"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -226,7 +226,7 @@
   </enumeration>  
   <enumeration id="29" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.TransactionType" 
     project="VSPLogin" file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="117" x="1587" y="341"/>    
+    <position height="36" width="117" x="1097" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -234,7 +234,7 @@
   </enumeration>  
   <enumeration id="30" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.OrderAction" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="93" x="1900" y="493"/>    
+    <position height="36" width="93" x="1410" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -242,7 +242,7 @@
   </enumeration>  
   <enumeration id="31" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.OrderType" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="83" x="1067" y="493"/>    
+    <position height="36" width="83" x="577" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -250,7 +250,7 @@
   </enumeration>  
   <enumeration id="32" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.OrderState" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="87" x="940" y="493"/>    
+    <position height="36" width="87" x="450" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -258,7 +258,7 @@
   </enumeration>  
   <enumeration id="33" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.TimeInForce" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="94" x="806" y="493"/>    
+    <position height="36" width="94" x="316" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -266,7 +266,7 @@
   </enumeration>  
   <class id="34" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="96" x="636" y="265"/>    
+    <position height="36" width="96" x="146" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -274,7 +274,7 @@
   </class>  
   <class id="35" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.VSPUtils" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/VSPUtils.java" binary="false">    
-    <position height="36" width="73" x="2937" y="493"/>    
+    <position height="36" width="73" x="2447" y="479"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -282,7 +282,7 @@
   </class>  
   <interface id="36" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.IUserBalance" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/IUserBalance.java" binary="false">    
-    <position height="36" width="100" x="1073" y="341"/>    
+    <position height="36" width="100" x="583" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -290,7 +290,7 @@
   </interface>  
   <interface id="37" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.IStockInfo" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/IStockInfo.java" binary="false">    
-    <position height="36" width="81" x="1187" y="265"/>    
+    <position height="36" width="81" x="697" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -298,7 +298,7 @@
   </interface>  
   <class id="38" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.DividendInfo" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/DividendInfo.java" binary="false">    
-    <position height="36" width="93" x="1744" y="341"/>    
+    <position height="36" width="93" x="1254" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -306,7 +306,7 @@
   </class>  
   <enumeration id="39" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.TimeType" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="78" x="1385" y="341"/>    
+    <position height="36" width="78" x="895" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -314,7 +314,7 @@
   </enumeration>  
   <enumeration id="40" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.RoleType" project="VSPLogin" 
     file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
-    <position height="36" width="75" x="3443" y="341"/>    
+    <position height="36" width="75" x="2953" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -322,7 +322,7 @@
   </enumeration>  
   <class id="41" corner="BOTTOM_RIGHT" language="java" name="vsp.statistics.StockVolatility" project="VSPLogin" 
     file="/VSPLogin/src/vsp/statistics/StockVolatility.java" binary="false">    
-    <position height="36" width="104" x="1280" y="189"/>    
+    <position height="36" width="104" x="790" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -330,7 +330,7 @@
   </class>  
   <class id="42" corner="BOTTOM_RIGHT" language="java" name="vsp.statistics.GeometricAverageRateOfReturn" 
     project="VSPLogin" file="/VSPLogin/src/vsp/statistics/GeometricAverageRateOfReturn.java" binary="false">    
-    <position height="36" width="207" x="2025" y="189"/>    
+    <position height="36" width="207" x="1535" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -338,7 +338,7 @@
   </class>  
   <class id="43" corner="BOTTOM_RIGHT" language="java" name="vsp.statistics.ReturnOnInvestment" project="VSPLogin" 
     file="/VSPLogin/src/vsp/statistics/ReturnOnInvestment.java" binary="false">    
-    <position height="36" width="141" x="2530" y="189"/>    
+    <position height="36" width="141" x="2040" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -346,7 +346,7 @@
   </class>  
   <class id="44" corner="BOTTOM_RIGHT" language="java" name="vsp.statistics.CompoundAnualGrowthRate" project="VSPLogin" 
     file="/VSPLogin/src/vsp/statistics/CompoundAnualGrowthRate.java" binary="false">    
-    <position height="36" width="184" x="2293" y="189"/>    
+    <position height="36" width="184" x="1803" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -354,7 +354,7 @@
   </class>  
   <class id="45" corner="BOTTOM_RIGHT" language="java" name="vsp.exception.FormatException" project="VSPLogin" 
     file="/VSPLogin/src/vsp/exception/FormatException.java" binary="false">    
-    <position height="36" width="120" x="519" y="37"/>    
+    <position height="36" width="120" x="868" y="22"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -362,7 +362,7 @@
   </class>  
   <class id="46" corner="BOTTOM_RIGHT" language="java" name="vsp.form.validator.UpdatePasswordValidator" 
     project="VSPLogin" file="/VSPLogin/src/vsp/form/validator/UpdatePasswordValidator.java" binary="false">    
-    <position height="36" width="172" x="4265" y="265"/>    
+    <position height="36" width="172" x="3775" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -370,7 +370,7 @@
   </class>  
   <class id="47" corner="BOTTOM_RIGHT" language="java" name="vsp.form.validator.SecurityAnswerValidator" 
     project="VSPLogin" file="/VSPLogin/src/vsp/form/validator/SecurityAnswerValidator.java" binary="false">    
-    <position height="36" width="165" x="3772" y="265"/>    
+    <position height="36" width="165" x="3282" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -378,7 +378,7 @@
   </class>  
   <class id="48" corner="BOTTOM_RIGHT" language="java" name="vsp.form.validator.RegistrationValidator" 
     project="VSPLogin" file="/VSPLogin/src/vsp/form/validator/RegistrationValidator.java" binary="false">    
-    <position height="36" width="143" x="3977" y="265"/>    
+    <position height="36" width="143" x="3487" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -386,7 +386,7 @@
   </class>  
   <interface id="49" corner="BOTTOM_RIGHT" language="java" name="vsp.form.validator.FormValidator" project="VSPLogin" 
     file="/VSPLogin/src/vsp/form/validator/FormValidator.java" binary="false">    
-    <position height="36" width="103" x="4141" y="341"/>    
+    <position height="36" width="103" x="3651" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -394,7 +394,7 @@
   </interface>  
   <class id="50" corner="BOTTOM_RIGHT" language="java" name="vsp.form.validator.FormValidatorFactory" project="VSPLogin" 
     file="/VSPLogin/src/vsp/form/validator/FormValidatorFactory.java" binary="false">    
-    <position height="36" width="145" x="4017" y="189"/>    
+    <position height="36" width="145" x="3527" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -402,7 +402,7 @@
   </class>  
   <class id="51" corner="BOTTOM_RIGHT" language="java" name="vsp.form.validator.UserNameValidator" project="VSPLogin" 
     file="/VSPLogin/src/vsp/form/validator/UserNameValidator.java" binary="false">    
-    <position height="36" width="134" x="3577" y="265"/>    
+    <position height="36" width="134" x="3087" y="251"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -410,7 +410,7 @@
   </class>  
   <class id="52" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.VspServlet" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/VspServlet.java" binary="false">    
-    <position height="36" width="86" x="2364" y="37"/>    
+    <position height="36" width="86" x="1874" y="23"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -418,7 +418,7 @@
   </class>  
   <class id="53" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.form.UpdatePasswordForm" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/form/UpdatePasswordForm.java" binary="false">    
-    <position height="36" width="151" x="4347" y="341"/>    
+    <position height="36" width="151" x="3857" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -426,7 +426,7 @@
   </class>  
   <class id="54" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.form.RegisterForm" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/form/RegisterForm.java" binary="false">    
-    <position height="36" width="101" x="3979" y="569"/>    
+    <position height="36" width="101" x="3489" y="555"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -434,7 +434,7 @@
   </class>  
   <interface id="55" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.form.JspForm" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/form/JspForm.java" binary="false">    
-    <position height="36" width="79" x="3979" y="645"/>    
+    <position height="36" width="79" x="3489" y="631"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -442,7 +442,7 @@
   </interface>  
   <class id="56" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.form.SecurityAnswerForm" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/form/SecurityAnswerForm.java" binary="false">    
-    <position height="36" width="144" x="3774" y="341"/>    
+    <position height="36" width="144" x="3284" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -450,7 +450,7 @@
   </class>  
   <class id="57" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.form.UserNameForm" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/form/UserNameForm.java" binary="false">    
-    <position height="36" width="113" x="3600" y="341"/>    
+    <position height="36" width="113" x="3110" y="327"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -458,7 +458,7 @@
   </class>  
   <interface id="58" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.ServletHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/ServletHandler.java" binary="false">    
-    <position height="36" width="108" x="1856" y="189"/>    
+    <position height="36" width="108" x="1366" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -466,7 +466,7 @@
   </interface>  
   <class id="59" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UserInfoHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/UserInfoHandler.java" binary="false">    
-    <position height="36" width="116" x="3347" y="113"/>    
+    <position height="36" width="116" x="2857" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -474,7 +474,7 @@
   </class>  
   <class id="60" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.RegisterHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/RegisterHandler.java" binary="false">    
-    <position height="36" width="116" x="3971" y="113"/>    
+    <position height="36" width="116" x="3481" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -482,7 +482,7 @@
   </class>  
   <class id="61" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SignupHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/SignupHandler.java" binary="false">    
-    <position height="36" width="107" x="2002" y="113"/>    
+    <position height="36" width="107" x="1512" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -490,7 +490,7 @@
   </class>  
   <class id="62" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UserNameFormHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/UserNameFormHandler.java" binary="false">    
-    <position height="36" width="157" x="2364" y="113"/>    
+    <position height="36" width="157" x="1874" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -498,7 +498,7 @@
   </class>  
   <class id="63" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.TransactionHistoryHandler" 
     project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/TransactionHistoryHandler.java" binary="false">    
-    <position height="36" width="175" x="2149" y="113"/>    
+    <position height="36" width="175" x="1659" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -506,7 +506,7 @@
   </class>  
   <class id="64" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.LoginHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/LoginHandler.java" binary="false">    
-    <position height="36" width="99" x="2708" y="113"/>    
+    <position height="36" width="99" x="2218" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -514,7 +514,7 @@
   </class>  
   <class id="65" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UpdatePasswordHandler" 
     project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/UpdatePasswordHandler.java" binary="false">    
-    <position height="36" width="166" x="1796" y="113"/>    
+    <position height="36" width="166" x="1306" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -522,7 +522,7 @@
   </class>  
   <class id="66" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitUserNameHandler" 
     project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitUserNameHandler.java" binary="false">    
-    <position height="36" width="168" x="3503" y="113"/>    
+    <position height="36" width="168" x="3013" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -530,7 +530,7 @@
   </class>  
   <class id="67" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitSecurityAnswerHandler" 
     project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitSecurityAnswerHandler.java" binary="false">    
-    <position height="36" width="199" x="3732" y="113"/>    
+    <position height="36" width="199" x="3242" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -538,7 +538,7 @@
   </class>  
   <class id="68" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockInfoHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/StockInfoHandler.java" binary="false">    
-    <position height="36" width="122" x="3041" y="113"/>    
+    <position height="36" width="122" x="2551" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -546,7 +546,7 @@
   </class>  
   <class id="69" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.PortfolioHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/PortfolioHandler.java" binary="false">    
-    <position height="36" width="116" x="1640" y="113"/>    
+    <position height="36" width="116" x="1150" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -554,7 +554,7 @@
   </class>  
   <class id="70" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitPasswordUpdateHandler" 
     project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitPasswordUpdateHandler.java" binary="false">    
-    <position height="36" width="206" x="4127" y="113"/>    
+    <position height="36" width="206" x="3637" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -562,7 +562,7 @@
   </class>  
   <class id="71" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.OrderHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/OrderHandler.java" binary="false">    
-    <position height="36" width="101" x="1306" y="113"/>    
+    <position height="36" width="101" x="816" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -570,7 +570,7 @@
   </class>  
   <class id="72" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.PendingOrdersHandler" 
     project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/PendingOrdersHandler.java" binary="false">    
-    <position height="36" width="154" x="2847" y="113"/>    
+    <position height="36" width="154" x="2357" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -578,7 +578,7 @@
   </class>  
   <class id="73" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockDetailsHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/StockDetailsHandler.java" binary="false">    
-    <position height="36" width="140" x="1105" y="113"/>    
+    <position height="36" width="140" x="615" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -586,7 +586,7 @@
   </class>  
   <class id="74" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.BaseServletHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/BaseServletHandler.java" binary="false">    
-    <position height="36" width="137" x="2561" y="37"/>    
+    <position height="36" width="137" x="2071" y="23"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -594,7 +594,7 @@
   </class>  
   <class id="75" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockChartHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/StockChartHandler.java" binary="false">    
-    <position height="36" width="132" x="1447" y="113"/>    
+    <position height="36" width="132" x="957" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -602,7 +602,7 @@
   </class>  
   <class id="76" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockSearchHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/StockSearchHandler.java" binary="false">    
-    <position height="36" width="142" x="923" y="113"/>    
+    <position height="36" width="142" x="433" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -610,7 +610,7 @@
   </class>  
   <class id="77" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.LogoutHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/LogoutHandler.java" binary="false">    
-    <position height="36" width="107" x="2561" y="113"/>    
+    <position height="36" width="107" x="2071" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -618,7 +618,7 @@
   </class>  
   <class id="78" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.DecimalFormatTag" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/tag/DecimalFormatTag.java" binary="false">    
-    <position height="36" width="130" x="2550" y="417"/>    
+    <position height="36" width="130" x="2060" y="403"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -626,7 +626,7 @@
   </class>  
   <class id="79" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.DateFormatTag" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/tag/DateFormatTag.java" binary="false">    
-    <position height="36" width="110" x="369" y="37"/>    
+    <position height="36" width="110" x="718" y="22"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -634,7 +634,7 @@
   </class>  
   <class id="80" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.RefreshStockTag" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/tag/RefreshStockTag.java" binary="false">    
-    <position height="36" width="122" x="41" y="37"/>    
+    <position height="36" width="122" x="390" y="22"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -642,7 +642,7 @@
   </class>  
   <class id="81" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.VolumeFormatTag" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/tag/VolumeFormatTag.java" binary="false">    
-    <position height="36" width="126" x="203" y="37"/>    
+    <position height="36" width="126" x="552" y="22"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -650,7 +650,7 @@
   </class>  
   <class id="82" corner="BOTTOM_RIGHT" language="java" name="vsp.dataObject.VolatilityInfo" project="VSPLogin" 
     file="/VSPLogin/src/vsp/dataObject/VolatilityInfo.java" binary="false">    
-    <position height="36" width="92" x="1127" y="189"/>    
+    <position height="36" width="92" x="637" y="175"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
@@ -658,1466 +658,1466 @@
   </class>  
   <class id="83" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.AdminHandler" project="VSPLogin" 
     file="/VSPLogin/src/vsp/servlet/handler/AdminHandler.java" binary="false">    
-    <position height="36" width="104" x="3203" y="113"/>    
+    <position height="36" width="104" x="2713" y="99"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
   <dependency id="84">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="70"/>  
-  </dependency>  
-  <dependency id="85">    
-    <bendpoint x="2786" y="265"/>    
-    <bendpoint x="2849" y="341"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="86">    
-    <bendpoint x="2317" y="265"/>    
-    <bendpoint x="2254" y="341"/>    
-    <bendpoint x="2170" y="417"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="30"/>  
-  </dependency>  
-  <dependency id="87">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="38"/>  
-  </dependency>  
-  <realization id="88">    
     <end type="SOURCE" refId="46"/>    
-    <end type="TARGET" refId="49"/>  
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <realization id="85">    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="58"/>  
   </realization>  
-  <association id="89">    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="90" name="stockService"/>      
-      <multiplicity id="91" minimum="0" maximum="1"/>    
+  <association id="86">    
+    <bendpoint x="2422" y="251"/>    
+    <bendpoint x="2485" y="327"/>    
+    <bendpoint x="2485" y="403"/>    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="87" name="userAccount"/>      
+      <multiplicity id="88" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <bendpoint x="1480" y="251"/>    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="90" name="stockTransactions"/>      
+      <multiplicity id="91" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <dependency id="92">    
-    <bendpoint x="4488" y="189"/>    
-    <bendpoint x="4488" y="265"/>    
-    <end type="SOURCE" refId="70"/>    
-    <end type="TARGET" refId="53"/>  
-  </dependency>  
-  <generalization id="93">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <dependency id="94">    
-    <bendpoint x="1249" y="189"/>    
-    <bendpoint x="1114" y="265"/>    
-    <end type="SOURCE" refId="75"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="95">    
-    <bendpoint x="3504" y="265"/>    
-    <bendpoint x="3569" y="341"/>    
-    <bendpoint x="3569" y="417"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <dependency id="96">    
-    <bendpoint x="3986" y="189"/>    
-    <bendpoint x="4150" y="265"/>    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="49"/>  
-  </dependency>  
-  <dependency id="97">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <dependency id="98">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <nesting id="99">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="39"/>  
-  </nesting>  
-  <dependency id="100">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <generalization id="101">    
-    <end type="SOURCE" refId="75"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="102">    
     <end type="SOURCE" refId="43"/>    
     <end type="TARGET" refId="8"/>  
   </dependency>  
-  <realization id="103">    
-    <end type="SOURCE" refId="75"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="104">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <association id="105">    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="106" name="stockService"/>      
-      <multiplicity id="107" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="108">    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
-  <dependency id="109">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="63"/>  
-  </dependency>  
-  <dependency id="110">    
-    <bendpoint x="2518" y="265"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="14"/>  
-  </dependency>  
-  <dependency id="111">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <generalization id="112">    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="113">    
-    <bendpoint x="453" y="189"/>    
-    <bendpoint x="762" y="265"/>    
-    <bendpoint x="762" y="341"/>    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="114">    
-    <bendpoint x="1075" y="189"/>    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="37"/>  
-  </dependency>  
-  <dependency id="115">    
-    <bendpoint x="3990" y="341"/>    
-    <bendpoint x="3990" y="417"/>    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <realization id="116">    
-    <end type="SOURCE" refId="62"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="117">    
-    <bendpoint x="2149" y="417"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="15"/>  
-  </dependency>  
-  <dependency id="118">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="71"/>  
-  </dependency>  
-  <dependency id="119">    
-    <bendpoint x="474" y="189"/>    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="120">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="83"/>  
-  </dependency>  
-  <dependency id="121">    
-    <bendpoint x="2539" y="265"/>    
-    <bendpoint x="2518" y="341"/>    
-    <bendpoint x="2338" y="417"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="15"/>  
-  </dependency>  
-  <association id="122">    
-    <end type="SOURCE" refId="43" navigable="false">      
-      <attribute id="123" name="stockService"/>      
-      <multiplicity id="124" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="125">    
-    <bendpoint x="4011" y="341"/>    
-    <bendpoint x="4011" y="417"/>    
-    <bendpoint x="4011" y="493"/>    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="54"/>  
-  </dependency>  
-  <dependency id="126">    
-    <bendpoint x="1993" y="417"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="31"/>  
-  </dependency>  
-  <association id="127">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="128" name="decoratedExecutor"/>      
-      <multiplicity id="129" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="130">    
-    <bendpoint x="1528" y="265"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="39"/>  
-  </dependency>  
-  <dependency id="131">    
-    <end type="SOURCE" refId="41"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <generalization id="132">    
-    <end type="SOURCE" refId="68"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="133">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="134">    
-    <end type="SOURCE" refId="47"/>    
-    <end type="TARGET" refId="56"/>  
-  </dependency>  
-  <generalization id="135">    
-    <end type="SOURCE" refId="72"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="136">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="35"/>  
-  </dependency>  
-  <dependency id="137">    
-    <bendpoint x="958" y="265"/>    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="36"/>  
-  </dependency>  
-  <realization id="138">    
-    <bendpoint x="3927" y="417"/>    
-    <bendpoint x="3927" y="493"/>    
-    <bendpoint x="3927" y="569"/>    
-    <end type="SOURCE" refId="56"/>    
-    <end type="TARGET" refId="55"/>  
-  </realization>  
-  <dependency id="139">    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
-  <association id="140">    
-    <bendpoint x="1994" y="189"/>    
-    <end type="SOURCE" refId="68" navigable="false">      
-      <attribute id="141" name="serviceProvider"/>      
-      <multiplicity id="142" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="143">    
-    <bendpoint x="2095" y="265"/>    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="26"/>  
-  </dependency>  
-  <dependency id="144">    
-    <bendpoint x="1888" y="417"/>    
-    <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <dependency id="145">    
-    <bendpoint x="2744" y="341"/>    
-    <bendpoint x="2752" y="417"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <dependency id="146">    
-    <bendpoint x="2476" y="265"/>    
-    <bendpoint x="2497" y="341"/>    
-    <bendpoint x="2401" y="417"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <realization id="147">    
-    <end type="SOURCE" refId="47"/>    
-    <end type="TARGET" refId="49"/>  
-  </realization>  
-  <nesting id="148">    
-    <bendpoint x="657" y="341"/>    
-    <bendpoint x="657" y="417"/>    
-    <bendpoint x="657" y="493"/>    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="28"/>  
-  </nesting>  
-  <association id="149">    
-    <end type="SOURCE" refId="50" navigable="false">      
-      <attribute id="150" name="answerValidator"/>      
-      <multiplicity id="151" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="47" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="152">    
-    <bendpoint x="4253" y="417"/>    
-    <bendpoint x="4253" y="493"/>    
-    <bendpoint x="4253" y="569"/>    
-    <end type="SOURCE" refId="49"/>    
-    <end type="TARGET" refId="55"/>  
-  </dependency>  
-  <dependency id="153">    
-    <bendpoint x="3219" y="341"/>    
-    <bendpoint x="3217" y="417"/>    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <dependency id="154">    
-    <end type="SOURCE" refId="51"/>    
-    <end type="TARGET" refId="57"/>  
-  </dependency>  
-  <generalization id="155">    
-    <end type="SOURCE" refId="69"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="156">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="69"/>  
-  </dependency>  
-  <association id="157">    
-    <end type="SOURCE" refId="50" navigable="false">      
-      <attribute id="158" name="userNameValidator"/>      
-      <multiplicity id="159" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="51" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="160">    
-    <bendpoint x="720" y="341"/>    
-    <bendpoint x="720" y="417"/>    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="31"/>  
-  </nesting>  
-  <realization id="161">    
-    <end type="SOURCE" refId="76"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="162">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="67"/>  
-  </dependency>  
-  <dependency id="163">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="38"/>  
-  </dependency>  
-  <dependency id="164">    
-    <bendpoint x="2933" y="341"/>    
-    <bendpoint x="3259" y="417"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <dependency id="165">    
-    <bendpoint x="1033" y="189"/>    
-    <bendpoint x="1063" y="265"/>    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="36"/>  
-  </dependency>  
-  <dependency id="166">    
-    <bendpoint x="2710" y="417"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <association id="167">    
-    <end type="SOURCE" refId="44" navigable="false">      
-      <attribute id="168" name="stockService"/>      
-      <multiplicity id="169" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="170">    
-    <bendpoint x="2602" y="341"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <realization id="171">    
-    <end type="SOURCE" refId="71"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="172">    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <generalization id="173">    
-    <end type="SOURCE" refId="62"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="174">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="15"/>  
-  </dependency>  
-  <dependency id="175">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="62"/>  
-  </dependency>  
-  <dependency id="176">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="54"/>  
-  </dependency>  
-  <dependency id="177">    
-    <bendpoint x="1909" y="265"/>    
-    <bendpoint x="1556" y="341"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="178">    
-    <bendpoint x="3198" y="189"/>    
-    <bendpoint x="3198" y="265"/>    
-    <bendpoint x="3198" y="341"/>    
-    <bendpoint x="3196" y="417"/>    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="12"/>  
-  </dependency>  
-  <dependency id="179">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="65"/>  
-  </dependency>  
-  <dependency id="180">    
-    <bendpoint x="1549" y="265"/>    
-    <bendpoint x="1493" y="341"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <association id="181">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="182" name="state"/>      
-      <multiplicity id="183" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="184">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="76"/>  
-  </dependency>  
-  <dependency id="185">    
-    <bendpoint x="3301" y="417"/>    
-    <bendpoint x="3301" y="493"/>    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="28"/>  
-  </dependency>  
-  <dependency id="186">    
-    <bendpoint x="2581" y="341"/>    
-    <bendpoint x="2380" y="417"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="15"/>  
-  </dependency>  
-  <dependency id="187">    
-    <bendpoint x="1825" y="265"/>    
-    <bendpoint x="1535" y="341"/>    
-    <bendpoint x="1535" y="417"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="30"/>  
-  </dependency>  
-  <dependency id="188">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="72"/>  
-  </dependency>  
-  <dependency id="189">    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="50"/>  
-  </dependency>  
-  <association id="190">    
-    <bendpoint x="2733" y="265"/>    
-    <bendpoint x="2765" y="341"/>    
-    <bendpoint x="2794" y="417"/>    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="191" name="userAccount"/>      
-      <multiplicity id="192" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="193">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="27"/>  
-  </dependency>  
-  <dependency id="194">    
-    <bendpoint x="1435" y="189"/>    
-    <end type="SOURCE" refId="71"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="195">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="60"/>  
-  </dependency>  
-  <dependency id="196">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <dependency id="197">    
-    <bendpoint x="2876" y="493"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="28"/>  
-  </dependency>  
-  <dependency id="198">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <dependency id="199">    
-    <bendpoint x="4274" y="341"/>    
-    <bendpoint x="4274" y="417"/>    
-    <end type="SOURCE" refId="46"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <generalization id="200">    
-    <end type="SOURCE" refId="73"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <generalization id="201">    
-    <end type="SOURCE" refId="71"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <association id="202">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="203" name="securityQuestion"/>      
-      <multiplicity id="204" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="205">    
-    <bendpoint x="4110" y="341"/>    
-    <bendpoint x="4110" y="417"/>    
-    <bendpoint x="4110" y="493"/>    
-    <bendpoint x="4110" y="569"/>    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="55"/>  
-  </dependency>  
-  <dependency id="206">    
-    <bendpoint x="2317" y="341"/>    
-    <bendpoint x="2359" y="417"/>    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <dependency id="207">    
-    <bendpoint x="2116" y="265"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="26"/>  
-  </dependency>  
-  <dependency id="208">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="77"/>  
-  </dependency>  
-  <dependency id="209">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="16"/>  
-  </dependency>  
-  <association id="210">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="211" name="timeInForce"/>      
-      <multiplicity id="212" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="213">    
-    <bendpoint x="1609" y="113"/>    
-    <end type="SOURCE" refId="52" navigable="false">      
-      <attribute id="214" name="handlers"/>      
-      <multiplicity id="215" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="58" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="216">    
-    <bendpoint x="1000" y="265"/>    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="36"/>  
-  </dependency>  
-  <dependency id="217">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <association id="218">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="219" name="action"/>      
-      <multiplicity id="220" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="221">    
-    <bendpoint x="2754" y="265"/>    
-    <bendpoint x="2723" y="341"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="222">    
-    <bendpoint x="2212" y="417"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <generalization id="223">    
-    <end type="SOURCE" refId="63"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="224">    
-    <end type="SOURCE" refId="60"/>    
-    <end type="TARGET" refId="50"/>  
-  </dependency>  
-  <dependency id="225">    
-    <bendpoint x="3741" y="189"/>    
-    <bendpoint x="3741" y="265"/>    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="56"/>  
-  </dependency>  
-  <dependency id="226">    
-    <bendpoint x="1456" y="189"/>    
-    <end type="SOURCE" refId="75"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="227">    
-    <bendpoint x="2275" y="417"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <realization id="228">    
-    <bendpoint x="3722" y="417"/>    
-    <bendpoint x="3722" y="493"/>    
-    <bendpoint x="3722" y="569"/>    
-    <end type="SOURCE" refId="57"/>    
-    <end type="TARGET" refId="55"/>  
-  </realization>  
-  <dependency id="229">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="75"/>  
-  </dependency>  
-  <realization id="230">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="49"/>  
-  </realization>  
-  <dependency id="231">    
-    <bendpoint x="937" y="265"/>    
-    <bendpoint x="937" y="341"/>    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <association id="232">    
-    <bendpoint x="2912" y="265"/>    
-    <bendpoint x="2975" y="341"/>    
-    <bendpoint x="2975" y="417"/>    
-    <end type="SOURCE" refId="43" navigable="false">      
-      <attribute id="233" name="userAccount"/>      
-      <multiplicity id="234" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="235">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="40"/>  
-  </dependency>  
-  <association id="236">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="237" name="type"/>      
-      <multiplicity id="238" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="31" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="239">    
-    <end type="SOURCE" refId="61"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="240">    
-    <end type="SOURCE" refId="83"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="241">    
-    <bendpoint x="4171" y="265"/>    
-    <end type="SOURCE" refId="50"/>    
-    <end type="TARGET" refId="49"/>  
-  </dependency>  
-  <dependency id="242">    
-    <bendpoint x="2891" y="265"/>    
-    <bendpoint x="2891" y="341"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="243">    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="244">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="6"/>  
-  </dependency>  
-  <dependency id="245">    
-    <bendpoint x="1972" y="417"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="32"/>  
-  </dependency>  
-  <dependency id="246">    
-    <end type="SOURCE" refId="51"/>    
-    <end type="TARGET" refId="27"/>  
-  </dependency>  
-  <association id="247">    
-    <bendpoint x="2040" y="417"/>    
-    <end type="SOURCE" refId="26" navigable="false">      
-      <attribute id="248" name="stock"/>      
-      <multiplicity id="249" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="250">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="37"/>  
-  </dependency>  
-  <dependency id="251">    
-    <end type="SOURCE" refId="70"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="252">    
-    <bendpoint x="3969" y="341"/>    
-    <bendpoint x="3969" y="417"/>    
-    <bendpoint x="3906" y="493"/>    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="28"/>  
-  </dependency>  
-  <generalization id="253">    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="254">    
-    <bendpoint x="783" y="265"/>    
-    <bendpoint x="783" y="341"/>    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="255">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="61"/>  
-  </dependency>  
-  <dependency id="256">    
-    <bendpoint x="2338" y="341"/>    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="257">    
-    <bendpoint x="3412" y="341"/>    
-    <bendpoint x="3454" y="417"/>    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <dependency id="258">    
-    <bendpoint x="3398" y="189"/>    
-    <bendpoint x="3379" y="265"/>    
-    <bendpoint x="3261" y="341"/>    
-    <bendpoint x="3280" y="417"/>    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="12"/>  
-  </dependency>  
-  <dependency id="259">    
-    <bendpoint x="2233" y="341"/>    
-    <bendpoint x="2191" y="417"/>    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="15"/>  
-  </dependency>  
-  <realization id="260">    
-    <end type="SOURCE" refId="64"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="261">    
-    <bendpoint x="2975" y="189"/>    
-    <bendpoint x="2933" y="265"/>    
-    <bendpoint x="2912" y="341"/>    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="262">    
-    <bendpoint x="4234" y="189"/>    
-    <bendpoint x="4467" y="265"/>    
-    <bendpoint x="4316" y="341"/>    
-    <bendpoint x="4316" y="417"/>    
-    <bendpoint x="4232" y="493"/>    
-    <end type="SOURCE" refId="60"/>    
-    <end type="TARGET" refId="54"/>  
-  </dependency>  
-  <dependency id="263">    
-    <bendpoint x="3017" y="265"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="16"/>  
-  </dependency>  
-  <realization id="264">    
-    <end type="SOURCE" refId="73"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="265">    
-    <end type="SOURCE" refId="46"/>    
-    <end type="TARGET" refId="53"/>  
-  </dependency>  
-  <realization id="266">    
-    <bendpoint x="4337" y="417"/>    
-    <bendpoint x="4337" y="493"/>    
-    <bendpoint x="4337" y="569"/>    
-    <end type="SOURCE" refId="53"/>    
-    <end type="TARGET" refId="55"/>  
-  </realization>  
-  <dependency id="267">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="27"/>  
-  </dependency>  
-  <nesting id="268">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="29"/>  
-  </nesting>  
-  <realization id="269">    
+  <realization id="93">    
     <end type="SOURCE" refId="77"/>    
     <end type="TARGET" refId="58"/>  
   </realization>  
-  <dependency id="270">    
-    <bendpoint x="2975" y="265"/>    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="16"/>  
-  </dependency>  
-  <dependency id="271">    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="272">    
-    <bendpoint x="2497" y="265"/>    
-    <bendpoint x="2539" y="341"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="273">    
-    <bendpoint x="2870" y="189"/>    
-    <bendpoint x="2870" y="265"/>    
-    <bendpoint x="2807" y="341"/>    
-    <bendpoint x="2773" y="417"/>    
-    <bendpoint x="2773" y="493"/>    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="28"/>  
-  </dependency>  
-  <nesting id="274">    
-    <bendpoint x="699" y="341"/>    
-    <bendpoint x="699" y="417"/>    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="32"/>  
-  </nesting>  
-  <dependency id="275">    
-    <bendpoint x="2296" y="341"/>    
-    <bendpoint x="2296" y="417"/>    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <dependency id="276">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="22"/>  
-  </dependency>  
-  <dependency id="277">    
-    <bendpoint x="2849" y="265"/>    
-    <bendpoint x="2870" y="341"/>    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <realization id="278">    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="279">    
-    <end type="SOURCE" refId="46"/>    
-    <end type="TARGET" refId="27"/>  
-  </dependency>  
-  <dependency id="280">    
-    <bendpoint x="1867" y="265"/>    
-    <bendpoint x="1867" y="341"/>    
-    <bendpoint x="1951" y="417"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="15"/>  
-  </dependency>  
-  <realization id="281">    
-    <end type="SOURCE" refId="60"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="282">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="59"/>  
-  </dependency>  
-  <realization id="283">    
-    <end type="SOURCE" refId="69"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <generalization id="284">    
-    <end type="SOURCE" refId="60"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="285">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="14"/>  
-  </dependency>  
-  <dependency id="286">    
-    <bendpoint x="3948" y="341"/>    
-    <bendpoint x="3948" y="417"/>    
-    <bendpoint x="3948" y="493"/>    
-    <bendpoint x="3948" y="569"/>    
-    <end type="SOURCE" refId="47"/>    
-    <end type="TARGET" refId="55"/>  
-  </dependency>  
-  <realization id="287">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="36"/>  
-  </realization>  
-  <association id="288">    
-    <bendpoint x="1949" y="265"/>    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="289" name="initialInvestment"/>      
-      <multiplicity id="290" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="291">    
-    <bendpoint x="1970" y="265"/>    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="292" name="stockTransactions"/>      
-      <multiplicity id="293" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="294">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="38"/>  
-  </dependency>  
-  <dependency id="295">    
-    <bendpoint x="1156" y="265"/>    
-    <end type="SOURCE" refId="41"/>    
-    <end type="TARGET" refId="39"/>  
-  </dependency>  
-  <dependency id="296">    
-    <bendpoint x="2560" y="265"/>    
-    <bendpoint x="2560" y="341"/>    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <nesting id="297">    
-    <bendpoint x="678" y="341"/>    
-    <bendpoint x="678" y="417"/>    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="33"/>  
-  </nesting>  
-  <generalization id="298">    
-    <end type="SOURCE" refId="61"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="299">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <dependency id="300">    
-    <end type="SOURCE" refId="78"/>    
-    <end type="TARGET" refId="35"/>  
-  </dependency>  
-  <association id="301">    
-    <bendpoint x="2807" y="265"/>    
-    <bendpoint x="2828" y="341"/>    
-    <bendpoint x="2836" y="417"/>    
+  <association id="94">    
+    <bendpoint x="2317" y="251"/>    
+    <bendpoint x="2338" y="327"/>    
+    <bendpoint x="2346" y="403"/>    
     <end type="SOURCE" refId="44" navigable="false">      
-      <attribute id="302" name="userAccount"/>      
-      <multiplicity id="303" minimum="0" maximum="1"/>    
+      <attribute id="95" name="userAccount"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="304">    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="305">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="68"/>  
-  </dependency>  
-  <dependency id="306">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <dependency id="307">    
-    <bendpoint x="2828" y="265"/>    
-    <bendpoint x="2786" y="341"/>    
-    <bendpoint x="2815" y="417"/>    
+  <dependency id="97">    
+    <bendpoint x="2338" y="251"/>    
+    <bendpoint x="2296" y="327"/>    
+    <bendpoint x="2325" y="403"/>    
     <end type="SOURCE" refId="43"/>    
     <end type="TARGET" refId="17"/>  
   </dependency>  
-  <dependency id="308">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="4"/>  
+  <generalization id="98">    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="99">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="13"/>  
   </dependency>  
-  <dependency id="309">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="27"/>  
+  <association id="100">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="101" name="stockService"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
+    <bendpoint x="1459" y="251"/>    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="104" name="initialInvestment"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="106">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="68"/>  
   </dependency>  
-  <realization id="310">    
-    <end type="SOURCE" refId="68"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="311">    
-    <bendpoint x="1930" y="417"/>    
+  <dependency id="107">    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="50"/>  
+  </dependency>  
+  <dependency id="108">    
+    <bendpoint x="1440" y="403"/>    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="33"/>  
   </dependency>  
-  <dependency id="312">    
-    <bendpoint x="2061" y="417"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="30"/>  
-  </dependency>  
-  <realization id="313">    
-    <end type="SOURCE" refId="54"/>    
+  <dependency id="109">    
+    <bendpoint x="3458" y="327"/>    
+    <bendpoint x="3458" y="403"/>    
+    <bendpoint x="3458" y="479"/>    
+    <bendpoint x="3458" y="555"/>    
+    <end type="SOURCE" refId="47"/>    
     <end type="TARGET" refId="55"/>  
-  </realization>  
-  <dependency id="314">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="29"/>  
   </dependency>  
-  <dependency id="315">    
-    <bendpoint x="979" y="265"/>    
-    <bendpoint x="979" y="341"/>    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="21"/>  
+  <dependency id="110">    
+    <bendpoint x="2993" y="175"/>    
+    <bendpoint x="3056" y="251"/>    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="57"/>  
   </dependency>  
-  <dependency id="316">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="64"/>  
+  <dependency id="111">    
+    <bendpoint x="198" y="99"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="20"/>  
   </dependency>  
-  <dependency id="317">    
-    <bendpoint x="2275" y="265"/>    
-    <bendpoint x="2275" y="341"/>    
-    <bendpoint x="2233" y="417"/>    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="15"/>  
+  <dependency id="112">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="27"/>  
   </dependency>  
-  <dependency id="318">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="24"/>  
-  </dependency>  
-  <association id="319">    
-    <bendpoint x="1275" y="113"/>    
-    <bendpoint x="1414" y="189"/>    
-    <end type="SOURCE" refId="74" navigable="false">      
-      <attribute id="320" name="stockService"/>      
-      <multiplicity id="321" minimum="0" maximum="1"/>    
+  <association id="113">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="114" name="stockService"/>      
+      <multiplicity id="115" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="37" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="322">    
+  <generalization id="116">    
+    <end type="SOURCE" refId="71"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="117">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="38"/>  
+  </dependency>  
+  <association id="118">    
     <end type="SOURCE" refId="50" navigable="false">      
-      <attribute id="323" name="regValidator"/>      
-      <multiplicity id="324" minimum="0" maximum="1"/>    
+      <attribute id="119" name="regValidator"/>      
+      <multiplicity id="120" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="48" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="325">    
-    <bendpoint x="3240" y="265"/>    
-    <bendpoint x="3240" y="341"/>    
-    <bendpoint x="3238" y="417"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="12"/>  
-  </dependency>  
-  <generalization id="326">    
-    <end type="SOURCE" refId="77"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="327">    
-    <bendpoint x="1804" y="189"/>    
-    <bendpoint x="1804" y="265"/>    
-    <end type="SOURCE" refId="75"/>    
-    <end type="TARGET" refId="26"/>  
-  </dependency>  
-  <realization id="328">    
+  <dependency id="121">    
     <end type="SOURCE" refId="70"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <association id="329">    
-    <bendpoint x="1096" y="189"/>    
-    <end type="SOURCE" refId="76" navigable="false">      
-      <attribute id="330" name="service"/>      
-      <multiplicity id="331" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="332">    
-    <end type="SOURCE" refId="63"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <generalization id="333">    
-    <end type="SOURCE" refId="70"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="334">    
-    <end type="SOURCE" refId="60"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="TARGET" refId="50"/>  
   </dependency>  
-  <dependency id="335">    
-    <bendpoint x="3525" y="189"/>    
-    <bendpoint x="3525" y="265"/>    
-    <bendpoint x="3548" y="341"/>    
-    <bendpoint x="3412" y="417"/>    
-    <end type="SOURCE" refId="60"/>    
-    <end type="TARGET" refId="12"/>  
+  <dependency id="122">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
-  <dependency id="336">    
-    <bendpoint x="1054" y="189"/>    
-    <bendpoint x="1042" y="265"/>    
-    <bendpoint x="1042" y="341"/>    
-    <bendpoint x="1042" y="417"/>    
-    <end type="SOURCE" refId="76"/>    
-    <end type="TARGET" refId="15"/>  
+  <dependency id="123">    
+    <end type="SOURCE" refId="73"/>    
+    <end type="TARGET" refId="82"/>  
   </dependency>  
-  <dependency id="337">    
-    <bendpoint x="3038" y="417"/>    
+  <dependency id="124">    
     <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="15"/>  
+    <end type="TARGET" refId="7"/>  
   </dependency>  
-  <realization id="338">    
-    <end type="SOURCE" refId="65"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="339">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="66"/>  
+  <dependency id="125">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="8"/>  
   </dependency>  
-  <generalization id="340">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <dependency id="341">    
-    <bendpoint x="3504" y="189"/>    
-    <bendpoint x="3447" y="265"/>    
-    <bendpoint x="3391" y="341"/>    
-    <bendpoint x="3391" y="417"/>    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="35"/>  
-  </dependency>  
-  <association id="342">    
-    <bendpoint x="3701" y="113"/>    
+  <association id="126">    
+    <bendpoint x="3211" y="99"/>    
     <end type="SOURCE" refId="74" navigable="false">      
-      <attribute id="343" name="vsp"/>      
-      <multiplicity id="344" minimum="0" maximum="1"/>    
+      <attribute id="127" name="vsp"/>      
+      <multiplicity id="128" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="345">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="346" name="stock"/>      
-      <multiplicity id="347" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="348">    
-    <end type="SOURCE" refId="59"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <generalization id="349">    
-    <end type="SOURCE" refId="76"/>    
+  <generalization id="129">    
+    <end type="SOURCE" refId="75"/>    
     <end type="TARGET" refId="74"/>  
   </generalization>  
-  <dependency id="350">    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="351">    
-    <bendpoint x="3177" y="341"/>    
-    <bendpoint x="2996" y="417"/>    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <dependency id="352">    
-    <bendpoint x="1846" y="265"/>    
-    <bendpoint x="1514" y="341"/>    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <realization id="353">    
-    <end type="SOURCE" refId="51"/>    
-    <end type="TARGET" refId="49"/>  
-  </realization>  
-  <realization id="354">    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="355">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="356">    
-    <bendpoint x="688" y="113"/>    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="20"/>  
-  </dependency>  
-  <association id="357">    
-    <bendpoint x="2317" y="417"/>    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="358" name="stock"/>      
-      <multiplicity id="359" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="360">    
-    <bendpoint x="4213" y="189"/>    
-    <bendpoint x="4213" y="265"/>    
-    <end type="SOURCE" refId="60"/>    
-    <end type="TARGET" refId="49"/>  
-  </dependency>  
-  <nesting id="361">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="40"/>  
-  </nesting>  
-  <dependency id="362">    
-    <bendpoint x="519" y="113"/>    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="25"/>  
-  </dependency>  
-  <dependency id="363">    
-    <bendpoint x="4192" y="189"/>    
-    <bendpoint x="4192" y="265"/>    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="49"/>  
-  </dependency>  
-  <dependency id="364">    
-    <bendpoint x="782" y="113"/>    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="19"/>  
-  </dependency>  
-  <dependency id="365">    
-    <bendpoint x="4255" y="189"/>    
-    <bendpoint x="4234" y="265"/>    
+  <realization id="130">    
     <end type="SOURCE" refId="70"/>    
-    <end type="TARGET" refId="49"/>  
-  </dependency>  
-  <dependency id="366">    
-    <bendpoint x="1021" y="265"/>    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="36"/>  
-  </dependency>  
-  <generalization id="367">    
-    <end type="SOURCE" refId="64"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="368">    
-    <end type="SOURCE" refId="52"/>    
-    <end type="TARGET" refId="73"/>  
-  </dependency>  
-  <dependency id="369">    
-    <bendpoint x="3038" y="265"/>    
-    <bendpoint x="2996" y="341"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="370">    
-    <bendpoint x="1825" y="189"/>    
-    <bendpoint x="1888" y="265"/>    
-    <bendpoint x="1930" y="341"/>    
-    <bendpoint x="2254" y="417"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="131">    
+    <bendpoint x="1335" y="175"/>    
+    <bendpoint x="1398" y="251"/>    
+    <bendpoint x="1440" y="327"/>    
+    <bendpoint x="1764" y="403"/>    
     <end type="SOURCE" refId="75"/>    
     <end type="TARGET" refId="17"/>  
   </dependency>  
-  <association id="371">    
-    <bendpoint x="886" y="341"/>    
+  <dependency id="132">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="66"/>  
+  </dependency>  
+  <dependency id="133">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="76"/>  
+  </dependency>  
+  <dependency id="134">    
+    <bendpoint x="2908" y="175"/>    
+    <bendpoint x="2889" y="251"/>    
+    <bendpoint x="2771" y="327"/>    
+    <bendpoint x="2790" y="403"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="135">    
+    <bendpoint x="2485" y="251"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <generalization id="136">    
+    <end type="SOURCE" refId="83"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="137">    
+    <bendpoint x="3765" y="175"/>    
+    <bendpoint x="3744" y="251"/>    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <association id="138">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="139" name="timeInForce"/>      
+      <multiplicity id="140" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="141">    
+    <bendpoint x="3784" y="327"/>    
+    <bendpoint x="3784" y="403"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="142">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="49"/>  
+  </realization>  
+  <realization id="143">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="49"/>  
+  </realization>  
+  <dependency id="144">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="72"/>  
+  </dependency>  
+  <dependency id="145">    
+    <bendpoint x="1785" y="251"/>    
+    <bendpoint x="1785" y="327"/>    
+    <bendpoint x="1743" y="403"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="146">    
+    <bendpoint x="1785" y="403"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="147">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="148">    
+    <bendpoint x="2401" y="251"/>    
+    <bendpoint x="2401" y="327"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <association id="149">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="150" name="userNameValidator"/>      
+      <multiplicity id="151" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="51" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="152">    
+    <bendpoint x="3998" y="175"/>    
+    <bendpoint x="3998" y="251"/>    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="153">    
+    <bendpoint x="1659" y="403"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <nesting id="154">    
+    <bendpoint x="167" y="327"/>    
+    <bendpoint x="167" y="403"/>    
+    <bendpoint x="167" y="479"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="28"/>  
+  </nesting>  
+  <dependency id="155">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="156">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="60"/>  
+  </dependency>  
+  <dependency id="157">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="158">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="159">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="70"/>  
+  </dependency>  
+  <dependency id="160">    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="161">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="162">    
+    <bendpoint x="2112" y="327"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="163">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="164">    
+    <bendpoint x="3014" y="175"/>    
+    <bendpoint x="2957" y="251"/>    
+    <bendpoint x="2901" y="327"/>    
+    <bendpoint x="2901" y="403"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="165">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <association id="166">    
+    <bendpoint x="396" y="327"/>    
     <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="372" name="order"/>      
-      <multiplicity id="373" minimum="0" maximum="1"/>    
+      <attribute id="167" name="order"/>      
+      <multiplicity id="168" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="374">    
-    <end type="SOURCE" refId="72"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="375">    
-    <bendpoint x="3433" y="417"/>    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <realization id="376">    
-    <end type="SOURCE" refId="83"/>    
-    <end type="TARGET" refId="58"/>  
-  </realization>  
-  <dependency id="377">    
-    <bendpoint x="2996" y="189"/>    
-    <bendpoint x="2996" y="265"/>    
-    <bendpoint x="3038" y="341"/>    
-    <bendpoint x="3059" y="417"/>    
-    <end type="SOURCE" refId="59"/>    
-    <end type="TARGET" refId="12"/>  
-  </dependency>  
-  <dependency id="378">    
-    <end type="SOURCE" refId="73"/>    
-    <end type="TARGET" refId="82"/>  
-  </dependency>  
-  <nesting id="379">    
-    <bendpoint x="741" y="341"/>    
-    <bendpoint x="741" y="417"/>    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="30"/>  
-  </nesting>  
-  <dependency id="380">    
-    <bendpoint x="2702" y="341"/>    
-    <bendpoint x="2731" y="417"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <generalization id="381">    
-    <end type="SOURCE" refId="83"/>    
+  <generalization id="169">    
+    <end type="SOURCE" refId="77"/>    
     <end type="TARGET" refId="74"/>  
   </generalization>  
-  <dependency id="382">    
-    <bendpoint x="3017" y="189"/>    
-    <bendpoint x="2954" y="265"/>    
-    <bendpoint x="2954" y="341"/>    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="9"/>  
+  <realization id="170">    
+    <end type="SOURCE" refId="69"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="171">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="38"/>  
   </dependency>  
-  <dependency id="383">    
-    <end type="SOURCE" refId="67"/>    
-    <end type="TARGET" refId="50"/>  
-  </dependency>  
-  <dependency id="384">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="37"/>  
-  </dependency>  
-  <dependency id="385">    
-    <bendpoint x="1507" y="265"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="386">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <association id="387">    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="388" name="tradingService"/>      
-      <multiplicity id="389" minimum="0" maximum="1"/>    
+  <association id="172">    
+    <bendpoint x="1550" y="403"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="173" name="stock"/>      
+      <multiplicity id="174" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="390">    
-    <end type="SOURCE" refId="59"/>    
-    <end type="TARGET" refId="3"/>  
+  <dependency id="175">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="64"/>  
   </dependency>  
-  <generalization id="391">    
-    <end type="SOURCE" refId="65"/>    
-    <end type="TARGET" refId="74"/>  
-  </generalization>  
-  <dependency id="392">    
-    <bendpoint x="3059" y="265"/>    
-    <bendpoint x="3017" y="341"/>    
-    <bendpoint x="3017" y="417"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <dependency id="393">    
-    <bendpoint x="2296" y="265"/>    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="14"/>  
-  </dependency>  
-  <dependency id="394">    
-    <bendpoint x="1135" y="265"/>    
-    <end type="SOURCE" refId="41"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="395">    
-    <bendpoint x="1888" y="341"/>    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="396">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="397">    
-    <bendpoint x="3400" y="265"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="40"/>  
-  </dependency>  
-  <dependency id="398">    
-    <bendpoint x="2954" y="189"/>    
-    <bendpoint x="3080" y="265"/>    
-    <end type="SOURCE" refId="68"/>    
-    <end type="TARGET" refId="16"/>  
-  </dependency>  
-  <dependency id="399">    
+  <dependency id="176">    
     <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="177">    
+    <bendpoint x="292" y="99"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <realization id="178">    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="49"/>  
+  </realization>  
+  <dependency id="179">    
+    <bendpoint x="2506" y="175"/>    
+    <bendpoint x="2506" y="251"/>    
+    <bendpoint x="2548" y="327"/>    
+    <bendpoint x="2569" y="403"/>    
+    <end type="SOURCE" refId="59"/>    
     <end type="TARGET" refId="12"/>  
   </dependency>  
-  <generalization id="400">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <dependency id="401">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="37"/>  
+  <association id="180">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="181" name="type"/>      
+      <multiplicity id="182" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="183">    
+    <bendpoint x="1314" y="175"/>    
+    <bendpoint x="1314" y="251"/>    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="26"/>  
   </dependency>  
-  <association id="402">    
+  <association id="184">    
     <end type="SOURCE" refId="50" navigable="false">      
-      <attribute id="403" name="passwordValidator"/>      
-      <multiplicity id="404" minimum="0" maximum="1"/>    
+      <attribute id="185" name="passwordValidator"/>      
+      <multiplicity id="186" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="46" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="405">    
-    <end type="SOURCE" refId="59"/>    
+  <dependency id="187">    
+    <bendpoint x="2750" y="251"/>    
+    <bendpoint x="2750" y="327"/>    
+    <bendpoint x="2748" y="403"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="188">    
+    <bendpoint x="2254" y="327"/>    
+    <bendpoint x="2262" y="403"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="189">    
+    <bendpoint x="3014" y="251"/>    
+    <bendpoint x="3079" y="327"/>    
+    <bendpoint x="3079" y="403"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="190">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <generalization id="191">    
+    <end type="SOURCE" refId="68"/>    
     <end type="TARGET" refId="74"/>  
   </generalization>  
-  <dependency id="406">    
-    <bendpoint x="3743" y="341"/>    
-    <bendpoint x="3743" y="417"/>    
-    <bendpoint x="3743" y="493"/>    
-    <bendpoint x="3743" y="569"/>    
-    <end type="SOURCE" refId="51"/>    
+  <dependency id="192">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="193">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="62"/>  
+  </dependency>  
+  <association id="194">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="195" name="decoratedExecutor"/>      
+      <multiplicity id="196" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="197">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="198">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="67"/>  
+  </dependency>  
+  <dependency id="199">    
+    <bendpoint x="2443" y="327"/>    
+    <bendpoint x="2769" y="403"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="200">    
+    <bendpoint x="2485" y="175"/>    
+    <bendpoint x="2443" y="251"/>    
+    <bendpoint x="2422" y="327"/>    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="201">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="202">    
+    <bendpoint x="447" y="251"/>    
+    <bendpoint x="447" y="327"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="203">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="204" name="securityQuestion"/>      
+      <multiplicity id="205" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="206">    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="207">    
+    <bendpoint x="2212" y="327"/>    
+    <bendpoint x="2241" y="403"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <generalization id="208">    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <association id="209">    
+    <bendpoint x="606" y="175"/>    
+    <end type="SOURCE" refId="76" navigable="false">      
+      <attribute id="210" name="service"/>      
+      <multiplicity id="211" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="212">    
+    <bendpoint x="3620" y="327"/>    
+    <bendpoint x="3620" y="403"/>    
+    <bendpoint x="3620" y="479"/>    
+    <bendpoint x="3620" y="555"/>    
+    <end type="SOURCE" refId="48"/>    
     <end type="TARGET" refId="55"/>  
   </dependency>  
-  <dependency id="407">    
-    <bendpoint x="1991" y="265"/>    
-    <bendpoint x="1909" y="341"/>    
-    <bendpoint x="1909" y="417"/>    
+  <dependency id="213">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="214">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="215">    
+    <bendpoint x="1501" y="251"/>    
+    <bendpoint x="1419" y="327"/>    
+    <bendpoint x="1419" y="403"/>    
     <end type="SOURCE" refId="44"/>    
     <end type="TARGET" refId="30"/>  
   </dependency>  
-  <dependency id="408">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="26"/>  
+  <dependency id="216">    
+    <bendpoint x="2264" y="251"/>    
+    <bendpoint x="2233" y="327"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="7"/>  
   </dependency>  
-  <dependency id="409">    
-    <bendpoint x="3483" y="189"/>    
-    <bendpoint x="3546" y="265"/>    
-    <end type="SOURCE" refId="66"/>    
-    <end type="TARGET" refId="57"/>  
+  <dependency id="217">    
+    <bendpoint x="1482" y="403"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="32"/>  
   </dependency>  
-  <dependency id="410">    
-    <end type="SOURCE" refId="70"/>    
+  <realization id="218">    
+    <end type="SOURCE" refId="72"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="219">    
+    <bendpoint x="645" y="251"/>    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="220">    
+    <bendpoint x="3521" y="327"/>    
+    <bendpoint x="3521" y="403"/>    
+    <bendpoint x="3521" y="479"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="54"/>  
+  </dependency>  
+  <dependency id="221">    
+    <bendpoint x="1377" y="251"/>    
+    <bendpoint x="1377" y="327"/>    
+    <bendpoint x="1461" y="403"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="222">    
+    <bendpoint x="2386" y="479"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="223">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <realization id="224">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="225">    
+    <bendpoint x="2359" y="251"/>    
+    <bendpoint x="2380" y="327"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <generalization id="226">    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="227">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="228">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="229" name="state"/>      
+      <multiplicity id="230" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="231">    
+    <bendpoint x="3763" y="403"/>    
+    <bendpoint x="3763" y="479"/>    
+    <bendpoint x="3763" y="555"/>    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <dependency id="232">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="75"/>  
+  </dependency>  
+  <realization id="233">    
+    <end type="SOURCE" refId="76"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="234">    
+    <bendpoint x="2220" y="403"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="235">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="73"/>  
+  </dependency>  
+  <realization id="236">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="237">    
+    <bendpoint x="-16" y="175"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="238">    
+    <end type="SOURCE" refId="60"/>    
     <end type="TARGET" refId="50"/>  
   </dependency>  
-  <dependency id="411">    
-    <bendpoint x="2262" y="189"/>    
+  <realization id="239">    
+    <bendpoint x="3232" y="403"/>    
+    <bendpoint x="3232" y="479"/>    
+    <bendpoint x="3232" y="555"/>    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="55"/>  
+  </realization>  
+  <realization id="240">    
+    <bendpoint x="3847" y="403"/>    
+    <bendpoint x="3847" y="479"/>    
+    <bendpoint x="3847" y="555"/>    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="55"/>  
+  </realization>  
+  <dependency id="241">    
+    <bendpoint x="1503" y="403"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="242">    
+    <bendpoint x="1806" y="251"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="243">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <association id="244">    
+    <bendpoint x="785" y="99"/>    
+    <bendpoint x="924" y="175"/>    
+    <end type="SOURCE" refId="74" navigable="false">      
+      <attribute id="245" name="stockService"/>      
+      <multiplicity id="246" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="247">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
+  <dependency id="248">    
+    <bendpoint x="1827" y="327"/>    
+    <bendpoint x="1869" y="403"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="249">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="250">    
+    <bendpoint x="1806" y="327"/>    
+    <bendpoint x="1806" y="403"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <realization id="251">    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="252">    
+    <bendpoint x="489" y="251"/>    
+    <bendpoint x="489" y="327"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="253">    
+    <bendpoint x="2569" y="251"/>    
+    <bendpoint x="2527" y="327"/>    
+    <bendpoint x="2527" y="403"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="254">    
+    <bendpoint x="3702" y="175"/>    
+    <bendpoint x="3702" y="251"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="255">    
+    <bendpoint x="2910" y="251"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <nesting id="256">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="39"/>  
+  </nesting>  
+  <dependency id="257">    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="50"/>  
+  </dependency>  
+  <dependency id="258">    
+    <bendpoint x="2527" y="251"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="259">    
+    <bendpoint x="2380" y="175"/>    
+    <bendpoint x="2380" y="251"/>    
+    <bendpoint x="2317" y="327"/>    
+    <bendpoint x="2283" y="403"/>    
+    <bendpoint x="2283" y="479"/>    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="260">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="261">    
+    <bendpoint x="3251" y="175"/>    
+    <bendpoint x="3251" y="251"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <realization id="262">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="263">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="264">    
+    <bendpoint x="2070" y="251"/>    
+    <bendpoint x="2070" y="327"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="265">    
+    <bendpoint x="2527" y="175"/>    
+    <bendpoint x="2464" y="251"/>    
+    <bendpoint x="2464" y="327"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="266">    
+    <bendpoint x="2943" y="403"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="267">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="65"/>  
+  </dependency>  
+  <dependency id="268">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <generalization id="269">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
+  <association id="270">    
+    <bendpoint x="1119" y="99"/>    
+    <end type="SOURCE" refId="52" navigable="false">      
+      <attribute id="271" name="handlers"/>      
+      <multiplicity id="272" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="58" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="273">    
+    <bendpoint x="2922" y="327"/>    
+    <bendpoint x="2964" y="403"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="274">    
+    <bendpoint x="293" y="251"/>    
+    <bendpoint x="293" y="327"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <realization id="275">    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="276">    
+    <bendpoint x="3723" y="175"/>    
+    <bendpoint x="3723" y="251"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="277">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="278">    
+    <bendpoint x="2548" y="403"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="279">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="280">    
+    <bendpoint x="945" y="175"/>    
+    <end type="SOURCE" refId="71"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="281">    
+    <bendpoint x="2049" y="251"/>    
+    <bendpoint x="2028" y="327"/>    
+    <bendpoint x="1848" y="403"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="282">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <realization id="283">    
+    <end type="SOURCE" refId="71"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <association id="284">    
+    <bendpoint x="1827" y="403"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="285" name="stock"/>      
+      <multiplicity id="286" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="287">    
+    <bendpoint x="2729" y="327"/>    
+    <bendpoint x="2727" y="403"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="288">    
+    <bendpoint x="564" y="175"/>    
+    <bendpoint x="552" y="251"/>    
+    <bendpoint x="552" y="327"/>    
+    <bendpoint x="552" y="403"/>    
+    <end type="SOURCE" refId="76"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <generalization id="289">    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="290">    
+    <bendpoint x="1356" y="251"/>    
+    <bendpoint x="1024" y="327"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <nesting id="291">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="29"/>  
+  </nesting>  
+  <association id="292">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="293" name="stockService"/>      
+      <multiplicity id="294" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="295">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="63"/>  
+  </dependency>  
+  <nesting id="296">    
+    <bendpoint x="209" y="327"/>    
+    <bendpoint x="209" y="403"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="32"/>  
+  </nesting>  
+  <dependency id="297">    
+    <bendpoint x="1419" y="251"/>    
+    <bendpoint x="1066" y="327"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="298">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="77"/>  
+  </dependency>  
+  <dependency id="299">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="83"/>  
+  </dependency>  
+  <dependency id="300">    
+    <bendpoint x="29" y="99"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="301">    
+    <bendpoint x="2708" y="175"/>    
+    <bendpoint x="2708" y="251"/>    
+    <bendpoint x="2708" y="327"/>    
+    <bendpoint x="2706" y="403"/>    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="302">    
+    <bendpoint x="2091" y="327"/>    
+    <bendpoint x="1890" y="403"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="303">    
+    <bendpoint x="468" y="251"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <nesting id="304">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="40"/>  
+  </nesting>  
+  <association id="305">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="306" name="stock"/>      
+      <multiplicity id="307" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="308">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="309">    
+    <bendpoint x="2028" y="251"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="310">    
+    <bendpoint x="-37" y="175"/>    
+    <bendpoint x="272" y="251"/>    
+    <bendpoint x="272" y="327"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="311">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="312">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="54"/>  
+  </dependency>  
+  <realization id="313">    
+    <bendpoint x="3437" y="403"/>    
+    <bendpoint x="3437" y="479"/>    
+    <bendpoint x="3437" y="555"/>    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="55"/>  
+  </realization>  
+  <generalization id="314">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
+  <dependency id="315">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="316">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <generalization id="317">    
+    <end type="SOURCE" refId="76"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <generalization id="318">    
+    <end type="SOURCE" refId="73"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="319">    
+    <bendpoint x="1722" y="403"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="320">    
+    <bendpoint x="1605" y="251"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="321">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="322">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="323">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <realization id="324">    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="325">    
+    <end type="SOURCE" refId="78"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <nesting id="326">    
+    <bendpoint x="188" y="327"/>    
+    <bendpoint x="188" y="403"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="33"/>  
+  </nesting>  
+  <dependency id="327">    
+    <bendpoint x="2548" y="251"/>    
+    <bendpoint x="2506" y="327"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <association id="328">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="329" name="stockService"/>      
+      <multiplicity id="330" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="331">    
+    <bendpoint x="1772" y="175"/>    
     <end type="SOURCE" refId="75"/>    
     <end type="TARGET" refId="8"/>  
   </dependency>  
+  <dependency id="332">    
+    <bendpoint x="1398" y="327"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="333">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="334" name="answerValidator"/>      
+      <multiplicity id="335" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="47" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="336">    
+    <bendpoint x="3253" y="327"/>    
+    <bendpoint x="3253" y="403"/>    
+    <bendpoint x="3253" y="479"/>    
+    <bendpoint x="3253" y="555"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <dependency id="337">    
+    <bendpoint x="3035" y="175"/>    
+    <bendpoint x="3035" y="251"/>    
+    <bendpoint x="3058" y="327"/>    
+    <bendpoint x="2922" y="403"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <realization id="338">    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="339">    
+    <bendpoint x="2464" y="175"/>    
+    <bendpoint x="2590" y="251"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <realization id="340">    
+    <end type="SOURCE" refId="73"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="341">    
+    <end type="SOURCE" refId="83"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="342">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="69"/>  
+  </dependency>  
+  <dependency id="343">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="344">    
+    <bendpoint x="3681" y="251"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="345">    
+    <bendpoint x="2811" y="403"/>    
+    <bendpoint x="2811" y="479"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <realization id="346">    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="347">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="348">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="38"/>  
+  </dependency>  
+  <nesting id="349">    
+    <bendpoint x="230" y="327"/>    
+    <bendpoint x="230" y="403"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="31"/>  
+  </nesting>  
+  <dependency id="350">    
+    <bendpoint x="1038" y="251"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="39"/>  
+  </dependency>  
+  <generalization id="351">    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="352">    
+    <bendpoint x="585" y="175"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="353">    
+    <bendpoint x="666" y="251"/>    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="39"/>  
+  </dependency>  
+  <dependency id="354">    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <association id="355">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="356" name="action"/>      
+      <multiplicity id="357" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="358">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="359">    
+    <bendpoint x="543" y="175"/>    
+    <bendpoint x="573" y="251"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="360">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="59"/>  
+  </dependency>  
+  <dependency id="361">    
+    <bendpoint x="3744" y="175"/>    
+    <bendpoint x="3977" y="251"/>    
+    <bendpoint x="3826" y="327"/>    
+    <bendpoint x="3826" y="403"/>    
+    <bendpoint x="3742" y="479"/>    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="54"/>  
+  </dependency>  
+  <dependency id="362">    
+    <bendpoint x="1059" y="251"/>    
+    <bendpoint x="1003" y="327"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <realization id="363">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="36"/>  
+  </realization>  
+  <association id="364">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="365" name="tradingService"/>      
+      <multiplicity id="366" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="367">    
+    <bendpoint x="2007" y="251"/>    
+    <bendpoint x="2049" y="327"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <realization id="368">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="49"/>  
+  </realization>  
+  <dependency id="369">    
+    <bendpoint x="1017" y="251"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="370">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="71"/>  
+  </dependency>  
+  <dependency id="371">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="372">    
+    <bendpoint x="1504" y="175"/>    
+    <end type="SOURCE" refId="68" navigable="false">      
+      <attribute id="373" name="serviceProvider"/>      
+      <multiplicity id="374" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="375">    
+    <bendpoint x="966" y="175"/>    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="376">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="377">    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="378">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="379">    
+    <bendpoint x="1398" y="403"/>    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="380">    
+    <bendpoint x="2243" y="251"/>    
+    <bendpoint x="2275" y="327"/>    
+    <bendpoint x="2304" y="403"/>    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="381" name="userAccount"/>      
+      <multiplicity id="382" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="383">    
+    <bendpoint x="2687" y="327"/>    
+    <bendpoint x="2506" y="403"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="384">    
+    <bendpoint x="531" y="251"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="385">    
+    <bendpoint x="510" y="251"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <generalization id="386">    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="387">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="388">    
+    <bendpoint x="1848" y="327"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="389">    
+    <bendpoint x="3479" y="327"/>    
+    <bendpoint x="3479" y="403"/>    
+    <bendpoint x="3416" y="479"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="390">    
+    <bendpoint x="3496" y="175"/>    
+    <bendpoint x="3660" y="251"/>    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="49"/>  
+  </dependency>  
+  <dependency id="391">    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="392">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <realization id="393">    
+    <end type="SOURCE" refId="83"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="394">    
+    <bendpoint x="1571" y="403"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="395">    
+    <bendpoint x="759" y="175"/>    
+    <bendpoint x="624" y="251"/>    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <realization id="396">    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="55"/>  
+  </realization>  
+  <generalization id="397">    
+    <end type="SOURCE" refId="72"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="398">    
+    <bendpoint x="1986" y="251"/>    
+    <bendpoint x="2007" y="327"/>    
+    <bendpoint x="1911" y="403"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="399">    
+    <bendpoint x="1743" y="327"/>    
+    <bendpoint x="1701" y="403"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <nesting id="400">    
+    <bendpoint x="251" y="327"/>    
+    <bendpoint x="251" y="403"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="30"/>  
+  </nesting>  
+  <generalization id="401">    
+    <end type="SOURCE" refId="69"/>    
+    <end type="TARGET" refId="74"/>  
+  </generalization>  
+  <dependency id="402">    
+    <bendpoint x="2296" y="251"/>    
+    <bendpoint x="2359" y="327"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="403">    
+    <bendpoint x="1827" y="251"/>    
+    <bendpoint x="1764" y="327"/>    
+    <bendpoint x="1680" y="403"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="404">    
+    <bendpoint x="1626" y="251"/>    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="405">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="406">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="407">    
+    <bendpoint x="1335" y="251"/>    
+    <bendpoint x="1045" y="327"/>    
+    <bendpoint x="1045" y="403"/>    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="408">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="409">    
+    <bendpoint x="3500" y="327"/>    
+    <bendpoint x="3500" y="403"/>    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="410">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="411">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
   <dependency id="412">    
-    <bendpoint x="4295" y="341"/>    
-    <bendpoint x="4295" y="417"/>    
-    <bendpoint x="4295" y="493"/>    
-    <bendpoint x="4295" y="569"/>    
+    <bendpoint x="3805" y="327"/>    
+    <bendpoint x="3805" y="403"/>    
+    <bendpoint x="3805" y="479"/>    
+    <bendpoint x="3805" y="555"/>    
     <end type="SOURCE" refId="46"/>    
     <end type="TARGET" refId="55"/>  
   </dependency>  
