@@ -1,0 +1,393 @@
+<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UserInfoHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/UserInfoHandler.java" binary="false">    
+    <position height="36" width="116" x="41" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.AdminHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/AdminHandler.java" binary="false">    
+    <position height="36" width="104" x="376" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UpdateEmailHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/UpdateEmailHandler.java" binary="false">    
+    <position height="36" width="139" x="197" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UserNameFormHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/UserNameFormHandler.java" binary="false">    
+    <position height="36" width="157" x="739" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitEmailUpdateHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitEmailUpdateHandler.java" binary="false">    
+    <position height="36" width="179" x="520" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.TransactionHistoryHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/TransactionHistoryHandler.java" binary="false">    
+    <position height="36" width="175" x="1182" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UpdateSecurityQuestionHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/UpdateSecurityQuestionHandler.java" binary="false">    
+    <position height="36" width="206" x="936" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockInfoHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/StockInfoHandler.java" binary="false">    
+    <position height="36" width="122" x="1605" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitUserNameHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitUserNameHandler.java" binary="false">    
+    <position height="36" width="168" x="1397" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.OrderHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/OrderHandler.java" binary="false">    
+    <position height="36" width="101" x="1767" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockDetailsHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/StockDetailsHandler.java" binary="false">    
+    <position height="36" width="140" x="1908" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockChartHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/StockChartHandler.java" binary="false">    
+    <position height="36" width="132" x="2088" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="13" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.ServletHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/ServletHandler.java" binary="false">    
+    <position height="36" width="108" x="2088" y="189"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SignupHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/SignupHandler.java" binary="false">    
+    <position height="36" width="107" x="2260" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.RegisterHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/RegisterHandler.java" binary="false">    
+    <position height="36" width="116" x="2407" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.LoginHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/LoginHandler.java" binary="false">    
+    <position height="36" width="99" x="2563" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitSecurityAnswerHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitSecurityAnswerHandler.java" binary="false">    
+    <position height="36" width="199" x="2702" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.UpdatePasswordHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/UpdatePasswordHandler.java" binary="false">    
+    <position height="36" width="166" x="2941" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitSecurityQuestionUpdateHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitSecurityQuestionUpdateHandler.java" binary="false">    
+    <position height="36" width="246" x="3147" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.PortfolioHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/PortfolioHandler.java" binary="false">    
+    <position height="36" width="116" x="3433" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.SubmitPasswordUpdateHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/SubmitPasswordUpdateHandler.java" binary="false">    
+    <position height="36" width="206" x="3589" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.PendingOrdersHandler" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/servlet/handler/PendingOrdersHandler.java" binary="false">    
+    <position height="36" width="154" x="3835" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="23" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.BaseServletHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/BaseServletHandler.java" binary="false">    
+    <position height="36" width="137" x="2088" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.StockSearchHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/StockSearchHandler.java" binary="false">    
+    <position height="36" width="142" x="4029" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.handler.LogoutHandler" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/handler/LogoutHandler.java" binary="false">    
+    <position height="36" width="107" x="4211" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="27">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="28">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="33">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="34">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="36">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="38">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="39">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="40">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="41">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="42">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="44">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="46">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="49">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="50">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="51">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="53">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="54">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="55">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="56">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="57">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="58">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="59">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="60">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="61">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="62">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="63">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="64">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="65">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="66">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="67">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="68">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="69">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="70">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="71">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -1,0 +1,41 @@
+<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="vsp.VspServiceProvider" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/VspServiceProvider.java" binary="false">    
+    <position height="36" width="137" x="41" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="vsp.VirtualTradingServiceProvider" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/VirtualTradingServiceProvider.java" binary="false">    
+    <position height="36" width="194" x="41" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="vsp.StockInfoServiceProvider" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/StockInfoServiceProvider.java" binary="false">    
+    <position height="36" width="169" x="218" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <association id="4">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="5" name="vtsp"/>      
+      <multiplicity id="6" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

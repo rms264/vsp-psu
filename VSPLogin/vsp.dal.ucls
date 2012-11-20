@@ -1,0 +1,25 @@
+<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.DatasourceConnection" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/dal/DatasourceConnection.java" binary="false">    
+    <position height="36" width="154" x="41" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="vsp.dal.DatasourceListener" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/dal/DatasourceListener.java" binary="false">    
+    <position height="36" width="137" x="235" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

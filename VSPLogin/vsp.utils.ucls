@@ -1,0 +1,129 @@
+<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.VSPUtils" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/VSPUtils.java" binary="false">    
+    <position height="36" width="73" x="133" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <enumeration id="2" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.SecurityQuestion" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="122" x="41" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="3" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.TransactionType" 
+    project="VSPLogin" file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="117" x="203" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="4" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.TimeType" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="78" x="360" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="5" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.OrderAction" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="93" x="478" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Validate" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Validate.java" binary="false">    
+    <position height="36" width="69" x="337" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <enumeration id="7" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.OrderType" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="83" x="611" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="8" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.OrderState" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="87" x="734" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="9" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.TimeInForce" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="94" x="861" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="96" x="536" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <enumeration id="11" corner="BOTTOM_RIGHT" language="java" name="vsp.utils.Enumeration.RoleType" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/utils/Enumeration.java" binary="false">    
+    <position height="36" width="75" x="995" y="113"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <nesting id="12">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <nesting id="13">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="2"/>  
+  </nesting>  
+  <nesting id="14">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <nesting id="15">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <nesting id="16">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <nesting id="17">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <nesting id="18">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <nesting id="19">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
