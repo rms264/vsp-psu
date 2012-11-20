@@ -2,6 +2,8 @@ package unitTests;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.junit.*;
 import org.junit.runner.*;
 
@@ -11,6 +13,7 @@ import vsp.form.validator.FormValidator;
 import vsp.form.validator.FormValidatorFactory;
 import vsp.form.validator.RegistrationValidator;
 import vsp.servlet.form.RegisterForm;
+import vsp.utils.Validate;
 
 // These are ordered because "create account" will fail after the initial run unless "delete account" is run.
 // In addition, the checks for duplicate user names and email addresses also require the initial account. 
@@ -438,42 +441,108 @@ public class UserAccounts
 	@Order(order=17)
 	public void changeEmailAddressWithValidPassword()
 	{
-		Assert.fail();
+		try{			
+			if(vsp.checkUserPassword(userName, password2)){
+				vsp.updateUserEmail(userName, secondaryEmail);
+			}						
+			Assert.assertTrue(vsp.checkUserEmail(userName, secondaryEmail));
+		}
+		catch (Exception e)
+		{
+			Assert.fail();
+		}		
 	}
 	
 	@Test
 	@Order(order=18)
 	public void changeEmailAddressInvalidPassword()
 	{
-		Assert.fail();
+		try{			
+			if(vsp.checkUserPassword(userName, password1)){
+				vsp.updateUserEmail(userName, secondaryEmail);
+				Assert.assertTrue(vsp.checkUserEmail(userName, secondaryEmail));
+				Assert.fail();
+			}
+			else
+				Assert.assertTrue(true);			
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(true);
+		}
 	}
 	
 	@Test
 	@Order(order=19)
 	public void changeEmailInvalidEmailFormat()
 	{
-		Assert.fail();
+		try{			
+			String incorrect_email = "incorrect@email";
+			if(Validate.validateEmail(incorrect_email)){
+				vsp.updateUserEmail(userName, incorrect_email);				
+				Assert.fail();
+			}
+			else
+				Assert.assertTrue(true);			
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(true);
+		}
 	}
 	
 	@Test
 	@Order(order=20)
 	public void changeSecurityQuestionAnswerWithValidPassword()
 	{
-		Assert.fail();
+		try{			
+			if(vsp.checkUserPassword(userName, password2)){
+				Assert.assertTrue(vsp.updateUserSecurityQuestion(userName, "1", "Tiger"));
+			}
+			else
+				Assert.fail();
+		}
+		catch (Exception e)
+		{
+			Assert.fail();
+		}
 	}
 	
 	@Test
 	@Order(order=21)
 	public void changeSecurityQuestionAnswerWithoutAnswer()
 	{
-		Assert.fail();
+		try{	
+			String answer = "";
+			if(Validate.validateSecurityAnswer(answer)){
+				Assert.assertTrue(vsp.updateUserSecurityQuestion(userName, "1", answer));
+				Assert.fail();
+			}
+			else
+				Assert.assertTrue(true);
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(e.toString().contains("Please enter an answer for your security"));
+		}
 	}
 	
 	@Test
 	@Order(order=22)
 	public void changeSecurityQuestionAnswerWithInvalidPassword()
 	{
-		Assert.fail();
+		try{			
+			if(vsp.checkUserPassword(userName, password1)){
+				Assert.assertTrue(vsp.updateUserSecurityQuestion(userName, "0", "blue"));
+				Assert.fail();
+			}
+			else
+				Assert.assertTrue(true);			
+		}
+		catch (Exception e)
+		{
+			Assert.assertTrue(true);
+		}		
 	}
 	
 	@Test

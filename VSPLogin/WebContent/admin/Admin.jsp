@@ -20,6 +20,11 @@
       ${deleteSuccess }
     </p>
   </c:if>
+  <c:if test="${passwordUpdate != null}">
+      <p id="success">
+        ${passwordUpdate }
+      </p>
+    </c:if>
    <c:choose>
     <c:when test="${traders != null}">
       <table border=1 cellpadding=4 cellspacing=0 width=500 align=center>
@@ -29,7 +34,7 @@
       <c:forEach var="trader" items="${traders}">
         <tr>
           <td width=225>${trader}</td>
-          <td><font size=2>Set Password</font></td>
+          <td colspan=2 align=right><font size=2>&nbsp;&nbsp;<a href="admin?password=${trader}">Set Password</a></font></td>
           <td colspan=2 align=right><font size=2>&nbsp;&nbsp;<a href="admin?delete=${trader}">Delete</a></font></td>
         </tr>
       </c:forEach>

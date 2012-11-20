@@ -14,15 +14,14 @@ public class AdminHandler extends BaseServletHandler implements ServletHandler {
       throws ServletException, IOException 
       
   {
-    String delete = request.getParameter("delete");
-    if (delete != null && !delete.isEmpty())
+    String delete_user = request.getParameter("delete");    
+    if (delete_user != null && !delete_user.isEmpty())
     {
       try
       {
-        String deleteAccount = request.getParameter("delete");
         // throws on error
-        vsp.deleteTraderAccount(delete);
-        request.setAttribute("deleteSuccess", "User: " + deleteAccount + " Deleted");
+        vsp.deleteTraderAccount(delete_user);
+        request.setAttribute("deleteSuccess", "User: " + delete_user + " Deleted");
         List<String> traders = vsp.getTraders();
         if (traders.size() > 0)
           request.setAttribute("traders", traders);
@@ -34,6 +33,13 @@ public class AdminHandler extends BaseServletHandler implements ServletHandler {
         request.setAttribute("errors", errors);
         dispatchUrl="Error.jsp";
       }
+    }
+    else{
+    	String password_user = request.getParameter("password");
+    	if(password_user != null && !password_user.isEmpty()){
+    		request.getSession().setAttribute("password_user", password_user);
+    		dispatchUrl="ResetUserPassword.jsp";
+    	}
     }
   }
 }
