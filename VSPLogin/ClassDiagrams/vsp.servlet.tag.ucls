@@ -1,0 +1,41 @@
+<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.DecimalFormatTag" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/tag/DecimalFormatTag.java" binary="false">    
+    <position height="36" width="130" x="41" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.DateFormatTag" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/tag/DateFormatTag.java" binary="false">    
+    <position height="36" width="110" x="211" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.RefreshStockTag" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/tag/RefreshStockTag.java" binary="false">    
+    <position height="36" width="122" x="361" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="vsp.servlet.tag.VolumeFormatTag" project="VSPLogin" 
+    file="/VSPLogin/src/vsp/servlet/tag/VolumeFormatTag.java" binary="false">    
+    <position height="36" width="126" x="523" y="37"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
