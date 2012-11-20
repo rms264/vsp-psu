@@ -547,21 +547,21 @@ public class UserAccounts
 	
 	@Test
 	@Order(order=23)
-	public void recoverForgottenPassword()
+	public void resetForgottenPassword()
 	{
 		Assert.fail();
 	}
 	
 	@Test
 	@Order(order=24)
-	public void recoverForgottenPasswordWithInvalidSecurityQuestionAnswer()
+	public void resetForgottenPasswordWithInvalidSecurityQuestionAnswer()
 	{
 		Assert.fail();
 	}
 	
 	@Test
 	@Order(order=25)
-	public void recoverForgottenPasswordWithInvalidEmailAddress()
+	public void resetForgottenPasswordWithInvalidEmailAddress()
 	{
 		Assert.fail();
 	}
