@@ -8,10 +8,10 @@ import org.junit.*;
 import org.junit.runner.*;
 
 import vsp.*;
+import vsp.dal.requests.Users;
 import vsp.dataObject.AccountData;
 import vsp.form.validator.FormValidator;
 import vsp.form.validator.FormValidatorFactory;
-import vsp.form.validator.RegistrationValidator;
 import vsp.servlet.form.RegisterForm;
 import vsp.utils.Validate;
 
@@ -577,21 +577,62 @@ public class UserAccounts
 	@Order(order=23)
 	public void resetForgottenPassword()
 	{
-		Assert.fail();
+		try
+		{
+			Users.requestAccountData(userName);
+			Assert.assertTrue(vsp.checkUserSecurityQuestion(userName, "Tiger"));
+			Assert.assertTrue(vsp.updateUserPassword(userName, password1, password1));
+			Assert.assertTrue(vsp.checkUserPassword(userName, password1));
+		}
+		catch (Exception e)
+		{
+			// implementation should not throw
+			Assert.fail();
+		}		
 	}
 	
 	@Test
 	@Order(order=24)
 	public void resetForgottenPasswordWithInvalidSecurityQuestionAnswer()
 	{
-		Assert.fail();
+		try
+		{
+			Users.requestAccountData(userName);
+			if(vsp.checkUserSecurityQuestion(userName, "Lion")){
+				Assert.assertTrue(vsp.updateUserPassword(userName, password2, password2));
+				Assert.assertTrue(vsp.checkUserPassword(userName, password2));
+				// Security Answer should not be valid
+				Assert.fail();
+			}
+			
+		}
+		catch (Exception e)
+		{
+			// implementation should not throw
+			Assert.fail();
+		}
 	}
 	
 	@Test
 	@Order(order=25)
 	public void resetForgottenPasswordWithInvalidEmailAddress()
 	{
-		Assert.fail();
+		try
+		{
+			Users.requestAccountData(userName);			
+			if(vsp.checkUserEmail(userName, email)){
+				Assert.assertTrue(vsp.updateUserPassword(userName, password2, password2));
+				Assert.assertTrue(vsp.checkUserPassword(userName, password2));
+				// Email should not be valid. Email is set to secondaryEmail 
+				Assert.fail();
+			}
+			
+		}
+		catch (Exception e)
+		{
+			// implementation should not throw
+			Assert.fail();
+		}
 	}
 	
 	@Test
