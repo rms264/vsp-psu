@@ -22,6 +22,7 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
       throws ServletException, IOException 
   {
     try{
+      errors.clear();
       UpdatePasswordForm passwordForm = new UpdatePasswordForm();
       String uri = request.getRequestURI();
       int lastIndex = uri.lastIndexOf("/");
@@ -35,6 +36,17 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
       }
       if(userName != null && !userName.isEmpty())
       {
+    	  
+    	if(action.equals("submitUpdatePassword")){
+    		if(!vsp.checkUserPassword(userName, 
+    								request.getParameter("current_password")))
+    		{
+    			 errors.add("User Password is invalid");
+    			 dispatchUrl = "updatePassword";
+    			 request.setAttribute("errors", errors);
+    			 return;
+    		}
+    	}
         passwordForm.setUserName(userName);
         passwordForm.setPassword(request.getParameter("password"));
         passwordForm.setVerifyPassword(request.getParameter("verifyPassword"));
@@ -88,7 +100,11 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
           dispatchUrl = "updatePassword";
         }
       }
-    }
+    } catch (SQLException e) {
+		errors.add("Error verifying user password: " + e.getMessage());
+		dispatchUrl="Error.jsp";
+		request.setAttribute("errors", errors);
+	}
     finally{
       request.getSession().removeAttribute("userName");
     }
