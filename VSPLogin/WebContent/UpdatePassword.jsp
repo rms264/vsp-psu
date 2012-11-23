@@ -42,7 +42,7 @@
     </c:if>
     <table>
       <tr>
-        <td>Enter Old Password: </td>
+        <td>Enter Current Password: </td>
           <td><input type='password' name='current_password' size=46 /></td>
         </tr>
       <tr>

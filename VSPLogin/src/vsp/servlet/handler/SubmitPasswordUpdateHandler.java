@@ -41,7 +41,7 @@ public class SubmitPasswordUpdateHandler extends BaseServletHandler implements
     		if(!vsp.checkUserPassword(userName, 
     								request.getParameter("current_password")))
     		{
-    			 errors.add("User Password is invalid");
+    			 errors.add("Current User Password is invalid");
     			 dispatchUrl = "updatePassword";
     			 request.setAttribute("errors", errors);
     			 return;
