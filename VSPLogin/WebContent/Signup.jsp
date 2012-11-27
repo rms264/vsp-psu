@@ -12,7 +12,7 @@
 <style type="text/css">@import url("css/main.css")</style>
 <title>VSP - Signup for an Account</title>
 <body>
-  <%@ include file="headers/CancelHeader.jsp" %>
+  <%@ include file="headers/SignUpHeader.jsp" %>
 <div id="register">
   <c:if test="${errors != null}">
         <p id="errors">
@@ -22,6 +22,11 @@
             <li>${error}</li>
         </c:forEach>
         </ul>
+  </c:if>
+  <c:if test="${loginSuccessMessage != null}">
+    <p id="success">
+      ${loginSuccessMessage }
+    </p>
   </c:if>
     <form name='signupForm' action='register' method='POST'>
     <table>

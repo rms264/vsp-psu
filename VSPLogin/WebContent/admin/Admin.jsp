@@ -30,6 +30,7 @@
       <table border=1 cellpadding=4 cellspacing=0 width=500 align=center>
       <tr>
         <td colspan=4 align=center><b>Trader Accounts:</b></td>
+        <td colspan=1 align=center>&nbsp;</td>
       </tr>
       <c:forEach var="trader" items="${traders}">
         <tr>

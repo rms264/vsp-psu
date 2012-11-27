@@ -40,7 +40,7 @@ public class RegisterHandler extends BaseServletHandler implements ServletHandle
           String loginMessage = "User Account Successfully Created!";
           request.setAttribute("user", userAccount);
           request.setAttribute("loginSuccessMessage", loginMessage);
-          dispatchUrl = "/Portfolio.jsp";
+          dispatchUrl = "/Signup.jsp";
         } catch (SQLException | SqlRequestException | ValidationException e) {
           errors.add("Failed to create new account for: " + 
               userAccount.getUserName() + " ." + e.getMessage());
