@@ -38,7 +38,7 @@ import vsp.servlet.handler.UserNameFormHandler;
 @WebServlet(name = "VspServlet", urlPatterns = {"/login", "/signup", "/register", "/enterUserName",
     "/submitUserName", "/submitSecurityAnswer", "/submitResetPassword", "/logout", "/viewPortfolio",
     "/viewUserInfo", "/submitUpdatePassword", "/submitUpdateEmail", "/submitUpdateSecurityQuestion", 
-    "/updatePassword", "/updateEmail", "/updateSecurityQuestion", "/order", "/transactionHistory", 
+    "/updatePassword", "/updateEmail", "/updateSecurityQuestion", "/viewStockInfo", "/order", "/transactionHistory", 
     "/pendingOrders", "/stockSearch", "/viewStockDetails" ,"/getStockChart", "/admin"})
 public class VspServlet extends HttpServlet {
 
