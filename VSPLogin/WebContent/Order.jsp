@@ -81,7 +81,7 @@
 				document.actionForm.timeInForce.add(immed);
 			}
 			
-			document.getElementById('limitRow').style.display='inline';
+			document.getElementById('limitRow').style.display='table-row';
 			document.getElementById('stopRow').style.display='none';
 			document.actionForm.stopPrice.value = '';
 		}
@@ -89,34 +89,34 @@
 		{
 			try
 			{ // Firefox
-				document.actionForm.timeInForce.add(day, null);
-				document.actionForm.timeInForce.add(good, null);
+				document.order.actionForm.timeInForce.add(day, null);
+				document.order.actionForm.timeInForce.add(good, null);
 			}
 			catch (e)
 			{ // IE
-				document.actionForm.timeInForce.add(day);
-				document.actionForm.timeInForce.add(good);
+				document.order.actionForm.timeInForce.add(day);
+				document.order.actionForm.timeInForce.add(good);
 			}
 			
 			document.getElementById('limitRow').style.display='none';
 			document.actionForm.limitPrice.value = '';
-			document.getElementById('stopRow').style.display='inline';
+			document.getElementById('stopRow').style.display='table-row';
 		}
 		else if (selectedValue == '3') // STOP LIMIT
 		{
 			try
 			{ // Firefox
-				document.actionForm.timeInForce.add(day, null);
-				document.actionForm.timeInForce.add(good, null);
+				document.order.actionForm.timeInForce.add(day, null);
+				document.order.actionForm.timeInForce.add(good, null);
 			}
 			catch (e)
 			{ // IE
-				document.actionForm.timeInForce.add(day);
-				document.actionForm.timeInForce.add(good);
+				document.order.actionForm.timeInForce.add(day);
+				document.order.actionForm.timeInForce.add(good);
 			}
 			
-			document.getElementById('limitRow').style.display='inline';
-			document.getElementById('stopRow').style.display='inline';
+			document.getElementById('limitRow').style.display='table-row';
+			document.getElementById('stopRow').style.display='table-row';
 		}
 		
 		for (var i = 0; i < document.actionForm.timeInForce.options.length; ++i)
@@ -262,7 +262,7 @@
     	out.println("<option value='1'>Limit</option>");
     	out.println("<option value='2'>Stop</option>");
     	out.println("<option value='3'>Stop Limit</option>");
-    	out.println("</td></tr>");
+    	out.println("</select></td></tr>");
     	
     	out.println("<tr id='limitRow'><td><div id='limitLabel'>Limit Price: </div></td><td><input type='text' name='limitPrice' /></td></tr>");
     	out.println("<tr id='stopRow'><td><div id='stopLabel'>Stop Price: </div></td><td><input type='text' name='stopPrice' /></td></tr>");
@@ -272,7 +272,7 @@
     	out.println("<option value='" + TimeInForce.GOODUNTILCANCELED.getValue() + "'>" + TimeInForce.GOODUNTILCANCELED.toString() + "</option>");
     	out.println("<option value='" + TimeInForce.FILLORKILL.getValue() + "'>" + TimeInForce.FILLORKILL.toString() + "</option>");
     	out.println("<option value='" + TimeInForce.IMMEDIATEORCANCEL.getValue() + "'>" + TimeInForce.IMMEDIATEORCANCEL.toString() + "</option>");
-    	out.println("</td></tr>");
+    	out.println("</select></td></tr>");
     	out.println("<tr><td>&nbsp;</td><td><input type='submit' value='Submit'></td></tr>");
     	
     	out.println("</table>");
